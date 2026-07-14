@@ -534,11 +534,33 @@
     { key: 'monthly', name: 'Monthly Membership', old: null,   now: '$49',  save: null,      perday: '$1.63', badge: null },
     { key: 'yearly',  name: 'Yearly Membership',  old: '$588', now: '$199', save: '66% OFF', perday: '$0.55', badge: { text: 'Best Value', hot: true } }
   ];
-  /* Mindvalley checkout — same base URL for both plans; plan param preselects the cycle */
-  var CHECKOUT_URLS = {
-    monthly: 'https://secure.mindvalley.com/v5/checkout?plan=monthly&utm_source=quiz&utm_medium=manifesting-blocks&utm_campaign=pathway',
-    yearly:  'https://secure.mindvalley.com/v5/checkout?plan=yearly&utm_source=quiz&utm_medium=manifesting-blocks&utm_campaign=pathway'
-  };
+  /* Mindvalley checkout — same base URL for both plans; plan param preselects the cycle.
+     Attribution: every checkout click is stamped utm_source=quiz so sales are traceable
+     to this funnel, with tier in utm_content and the user's #1 block in utm_term.
+     Inbound ad params (gclid/fbclid + original utm_*) are forwarded so the
+     ad → quiz → sale chain survives end-to-end. */
+  var CHECKOUT_BASE = 'https://secure.mindvalley.com/v5/checkout';
+  function buildCheckoutUrl(tier, topBlockName) {
+    var params = [
+      'plan=' + tier,
+      'utm_source=quiz',
+      'utm_medium=manifesting-blocks-quiz',
+      'utm_campaign=manifesting-pathway',
+      'utm_content=' + tier,
+      'utm_term=' + encodeURIComponent(topBlockName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''))
+    ];
+    // Forward ad click IDs verbatim (Google / Meta attribution)
+    ['gclid', 'fbclid', 'gbraid', 'wbraid', 'ttclid'].forEach(function(k) {
+      var v = getQueryParam(k);
+      if (v) params.push(k + '=' + encodeURIComponent(v));
+    });
+    // Preserve the original ad campaign UTMs under src_* (checkout UTMs stay quiz-owned)
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(k) {
+      var v = getQueryParam(k);
+      if (v) params.push('src_' + k + '=' + encodeURIComponent(v));
+    });
+    return CHECKOUT_BASE + '?' + params.join('&');
+  }
 
   /* =====================================================================
      STATE
@@ -882,7 +904,7 @@
 
     var cta = el('<button type="button" class="btn-primary">Get my Manifesting Pathway plan →</button>');
     cta.addEventListener('click', function() {
-      window.open(CHECKOUT_URLS[selectedTier] + '&block=' + encodeURIComponent(topBlock.name), '_blank', 'noopener');
+      window.open(buildCheckoutUrl(selectedTier, topBlock.name), '_blank', 'noopener');
     });
     root.appendChild(cta);
 
@@ -897,7 +919,7 @@
 
     var cta2 = el('<button type="button" class="btn-primary">Start my 12-week plan →</button>');
     cta2.addEventListener('click', function() {
-      window.open(CHECKOUT_URLS[selectedTier] + '&block=' + encodeURIComponent(topBlock.name), '_blank', 'noopener');
+      window.open(buildCheckoutUrl(selectedTier, topBlock.name), '_blank', 'noopener');
     });
     root.appendChild(cta2);
 
