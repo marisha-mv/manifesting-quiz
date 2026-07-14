@@ -534,7 +534,11 @@
     { key: 'monthly', name: 'Monthly Membership', old: null,   now: '$49',  save: null,      perday: '$1.63', badge: null },
     { key: 'yearly',  name: 'Yearly Membership',  old: '$588', now: '$199', save: '66% OFF', perday: '$0.55', badge: { text: 'Best Value', hot: true } }
   ];
-  var PATHWAY_URL = 'https://www.mindvalley.com/membership?utm_source=quiz&utm_medium=manifesting-blocks&utm_campaign=pathway';
+  /* Mindvalley checkout — same base URL for both plans; plan param preselects the cycle */
+  var CHECKOUT_URLS = {
+    monthly: 'https://secure.mindvalley.com/v5/checkout?plan=monthly&utm_source=quiz&utm_medium=manifesting-blocks&utm_campaign=pathway',
+    yearly:  'https://secure.mindvalley.com/v5/checkout?plan=yearly&utm_source=quiz&utm_medium=manifesting-blocks&utm_campaign=pathway'
+  };
 
   /* =====================================================================
      STATE
@@ -878,7 +882,7 @@
 
     var cta = el('<button type="button" class="btn-primary">Get my Manifesting Pathway plan →</button>');
     cta.addEventListener('click', function() {
-      window.open(PATHWAY_URL + '&plan=' + selectedTier + '&block=' + encodeURIComponent(topBlock.name), '_blank', 'noopener');
+      window.open(CHECKOUT_URLS[selectedTier] + '&block=' + encodeURIComponent(topBlock.name), '_blank', 'noopener');
     });
     root.appendChild(cta);
 
@@ -893,7 +897,7 @@
 
     var cta2 = el('<button type="button" class="btn-primary">Start my 12-week plan →</button>');
     cta2.addEventListener('click', function() {
-      window.open(PATHWAY_URL + '&plan=' + selectedTier + '&block=' + encodeURIComponent(topBlock.name), '_blank', 'noopener');
+      window.open(CHECKOUT_URLS[selectedTier] + '&block=' + encodeURIComponent(topBlock.name), '_blank', 'noopener');
     });
     root.appendChild(cta2);
 
