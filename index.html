@@ -529,20 +529,25 @@
           why: 'It expands your energetic capacity to hold bigger — so when the quantum leap arrives, your nervous system says yes instead of flinching.' }
   };
 
-  /* ── Order menu tiers ── */
+  /* ── Order menu tiers — live funnel pricing from mindvalley.com/manifesting/sales ── */
   var tiers = [
-    { key: 'monthly', name: 'Monthly Membership', old: null,   now: '$49',  save: null,      perday: '$1.63', badge: null },
-    { key: 'yearly',  name: 'Yearly Membership',  old: '$588', now: '$199', save: '66% OFF', perday: '$0.55', badge: { text: 'Best Value', hot: true } }
+    { key: 'monthly', name: 'Monthly',  old: '$99',  now: '$49',  save: '50% OFF',  permo: '$49',    note: 'Pay monthly, cancel anytime.', badge: null },
+    { key: 'yearly',  name: 'Yearly',   old: '$299', now: '$199', save: '$100 OFF', permo: '$16.60', note: 'Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
   ];
-  /* Mindvalley checkout — same base URL for both plans; plan param preselects the cycle.
+  /* Mindvalley checkout — the live funnel checkout links from the order menu on
+     mindvalley.com/manifesting/sales. The $100 discount is already applied on these
+     links server-side (yearly: $299 → $199), so what the timer promises is what
+     checkout shows.
      Attribution: every checkout click is stamped utm_source=quiz so sales are traceable
      to this funnel, with tier in utm_content and the user's #1 block in utm_term.
      Inbound ad params (gclid/fbclid + original utm_*) are forwarded so the
      ad → quiz → sale chain survives end-to-end. */
-  var CHECKOUT_BASE = 'https://secure.mindvalley.com/v5/checkout';
+  var CHECKOUT_LINKS = {
+    monthly: 'https://secure.mindvalley.com/v3/checkout_link/D7I02BYFN69URS4OQTEH',
+    yearly:  'https://secure.mindvalley.com/v3/checkout_link/CV3QEN40K6BLW52ZDAOU'
+  };
   function buildCheckoutUrl(tier, topBlockName) {
     var params = [
-      'plan=' + tier,
       'utm_source=quiz',
       'utm_medium=manifesting-blocks-quiz',
       'utm_campaign=manifesting-pathway',
@@ -559,7 +564,7 @@
       var v = getQueryParam(k);
       if (v) params.push('src_' + k + '=' + encodeURIComponent(v));
     });
-    return CHECKOUT_BASE + '?' + params.join('&');
+    return CHECKOUT_LINKS[tier] + '?' + params.join('&');
   }
 
   /* =====================================================================
@@ -867,8 +872,8 @@
     });
     root.appendChild(el('<p class="q-sub" style="margin-top:0.75rem; margin-bottom:1.75rem; font-size:0.8125rem;">All four quests — plus the full Mindvalley library — are included in your Manifesting Pathway membership.</p>'));
 
-    // Countdown reservation bar
-    root.appendChild(el('<div class="timer-bar">⏳ Your results-based discount is reserved for <b id="timerVal">10:00</b></div>'));
+    // Countdown bar — mirrors the live funnel's 15-minute $100-discount window
+    root.appendChild(el('<div class="timer-bar" id="timerBar">⏳ <b id="timerVal">14:59</b>&nbsp;remaining for this $100 discount</div>'));
 
     // Tier cards — highest-value tier pre-selected (MadMuscles anchoring pattern)
     var tiersWrap = el('<div class="tiers"></div>');
@@ -882,8 +887,9 @@
         '<div class="tier-main">' +
           '<div class="tier-name">' + t.name + '</div>' +
           '<div class="tier-prices">' + oldPrice + '<span class="tier-new">' + t.now + '</span>' + save + '</div>' +
+          (t.note ? '<div style="font-size:0.71875rem; color:var(--mv-text-faint); margin-top:0.2rem;">' + t.note + '</div>' : '') +
         '</div>' +
-        '<div class="tier-perday"><div class="amt">' + t.perday + '</div><div class="per">per day</div></div>' +
+        '<div class="tier-perday"><div class="amt">' + t.permo + '</div><div class="per">per month</div></div>' +
         '</div>');
       card.addEventListener('click', function() {
         selectedTier = t.key;
@@ -899,7 +905,7 @@
     // Answer the "my curriculum is 12 weeks — why buy a year?" objection
     root.appendChild(el('<div class="info-stat-card" style="max-width:none; text-align:left; margin-bottom:1.25rem;">' +
       '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your curriculum dissolves your top 3 blocks in 12 weeks — but you have ' +
-      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and costs less than 5 months at the monthly price.</div>' +
+      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and at $199 with the $100 discount, it costs about 4 months at the monthly price. The other 8 months are free.</div>' +
       '</div>'));
 
     var cta = el('<button type="button" class="btn-primary">Get my Manifesting Pathway plan →</button>');
@@ -1053,18 +1059,38 @@
     return m ? decodeURIComponent(m[1]) : null;
   }
 
-  /* ── Discount reservation countdown ── */
+  /* ── $100-discount countdown — real window, persisted in localStorage (same
+        pattern as the funnel's order-menu timer). Survives refresh and back-nav;
+        the discount itself is applied server-side on the checkout links, so the
+        page never promises something checkout doesn't show. ── */
   var timerIv = null;
+  var TIMER_KEY = 'mv_manifesting_quiz_discount_expiry';
+  var TIMER_WINDOW_MS = 15 * 60 * 1000;
   function startTimer() {
-    var secs = 600;
+    var now = Date.now();
+    var expiry = null;
+    try { expiry = parseInt(localStorage.getItem(TIMER_KEY), 10) || null; } catch (e) {}
+    // First visit — or a stale window from a previous day — starts a fresh 15 minutes
+    if (!expiry || expiry < now - 24 * 3600 * 1000) {
+      expiry = now + TIMER_WINDOW_MS;
+      try { localStorage.setItem(TIMER_KEY, String(expiry)); } catch (e) {}
+    }
     if (timerIv) clearInterval(timerIv);
-    timerIv = setInterval(function() {
-      secs = Math.max(0, secs - 1);
-      var m = Math.floor(secs / 60), s = secs % 60;
+    function tick() {
       var elx = document.getElementById('timerVal');
-      if (elx) elx.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
-      if (secs === 0) clearInterval(timerIv);
-    }, 1000);
+      var bar = document.getElementById('timerBar');
+      if (!elx || !bar) return;
+      var secs = Math.max(0, Math.floor((expiry - Date.now()) / 1000));
+      if (secs === 0) {
+        bar.innerHTML = '✅ Your $100 discount is still being held — complete checkout to lock it in.';
+        clearInterval(timerIv);
+        return;
+      }
+      var m = Math.floor(secs / 60), s = secs % 60;
+      elx.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+    }
+    tick();
+    timerIv = setInterval(tick, 1000);
   }
 
   // Boot
