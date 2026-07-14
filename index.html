@@ -230,15 +230,19 @@
     .stories-stack { display: flex; flex-direction: column; gap: 0.75rem; margin: 0 0 1.75rem 0; text-align: left; }
     .story-card { background: #fff; border: 1px solid var(--mv-border); border-radius: 1rem; padding: 1.125rem 1.25rem; }
     .story-text { font-size: 0.9375rem; line-height: 1.5; color: var(--mv-text); font-weight: 500; margin: 0; }
-    .story-meta { display: flex; align-items: center; gap: 0.625rem; margin-top: 0.75rem; }
+    .story-meta { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.875rem; }
     .story-avatar {
-      width: 2.25rem; height: 2.25rem; border-radius: 50%; flex-shrink: 0;
+      width: 3rem; height: 3rem; border-radius: 50%; flex-shrink: 0;
       background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
-      color: white; font-weight: 700; font-size: 0.8125rem;
+      color: white; font-weight: 700; font-size: 0.9375rem;
       display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(122, 18, 212, 0.18);
     }
-    .story-name { font-size: 0.8125rem; font-weight: 600; color: var(--mv-text); }
+    .story-name { font-size: 0.875rem; font-weight: 600; color: var(--mv-text); }
     .story-sub { font-size: 0.75rem; color: var(--mv-text-faint); }
+    .story-stars { color: #f59e0b; font-size: 0.8125rem; letter-spacing: 0.1em; margin-bottom: 0.45rem; }
+    .story-verified { display: flex; align-items: center; gap: 0.3rem; font-size: 0.6875rem; color: #059669; font-weight: 600; margin-top: 0.15rem; }
+    .story-verified svg { flex-shrink: 0; }
     .story-quest { display: inline-block; margin-top: 0.625rem; font-size: 0.6875rem; font-weight: 700; color: var(--mv-purple); background: var(--mv-purple-100); padding: 0.2rem 0.5rem; border-radius: 0.375rem; }
     .story-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
 
@@ -369,6 +373,8 @@
   function storyCard(st) {
     var card = document.createElement('div');
     card.className = 'story-card';
+    var stars = document.createElement('div'); stars.className = 'story-stars'; stars.textContent = '★★★★★';
+    card.appendChild(stars);
     var p = document.createElement('p'); p.className = 'story-text'; p.textContent = st.text;
     card.appendChild(p);
     var meta = document.createElement('div'); meta.className = 'story-meta';
@@ -384,7 +390,9 @@
     var info = document.createElement('div');
     var nm = document.createElement('div'); nm.className = 'story-name'; nm.textContent = st.name;
     var sb = document.createElement('div'); sb.className = 'story-sub'; sb.textContent = st.sub;
-    info.appendChild(nm); info.appendChild(sb);
+    var vf = document.createElement('div'); vf.className = 'story-verified';
+    vf.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="#059669"><path d="M12 2l2.4 2.4 3.4-.5 1 3.3 3.2 1.4-1.2 3.4 1.2 3.4-3.2 1.4-1 3.3-3.4-.5L12 22l-2.4-2.4-3.4.5-1-3.3L2 15.4l1.2-3.4L2 8.6l3.2-1.4 1-3.3 3.4.5L12 2zm-1.2 13.6l6-6-1.4-1.4-4.6 4.6-2.2-2.2-1.4 1.4 3.6 3.6z"/></svg>Verified Mindvalley student';
+    info.appendChild(nm); info.appendChild(sb); info.appendChild(vf);
     meta.appendChild(av); meta.appendChild(info);
     card.appendChild(meta);
     var q = document.createElement('span'); q.className = 'story-quest'; q.textContent = st.quest;
@@ -469,19 +477,31 @@
   var questAssets = {
     'The Silva Ultramind System': {
       cover: 'https://assets.mindvalley.com/api/v1/assets/10b1de3f-44d4-4dd5-84d7-dc2456a79da4.jpeg',
-      authorPhoto: 'https://a.storyblok.com/f/60579/1536x2300/bddf3ec3ac/04-author-vishen.webp/m/240x240/smart'
+      authorPhoto: 'https://a.storyblok.com/f/60579/1536x2300/bddf3ec3ac/04-author-vishen.webp/m/240x240/smart',
+      proof: { name: 'Steve Hall', sub: 'Founder, Beealigned Coaching · Geelong, Australia', quest: 'The Silva Ultramind System',
+        photo: MVSTORY + '14889/stevehall_911_hires--2-.jpg',
+        text: 'Used the Three Scenes technique — habits changed naturally, and breakthrough business inspirations followed.' }
     },
     'Duality': {
       cover: 'https://assets.mindvalley.com/api/v1/assets/f74c2478-7131-4f5a-8dad-79a812f2b1c3.jpg',
-      authorPhoto: 'https://a.storyblok.com/f/60579/700x760/4314cdd654/du_sp_author-m.jpg/m/240x240/smart'
+      authorPhoto: 'https://a.storyblok.com/f/60579/700x760/4314cdd654/du_sp_author-m.jpg/m/240x240/smart',
+      proof: { name: 'Mfon Etukeren', sub: 'Tax Lawyer · Houston, US', quest: 'Duality',
+        photo: MVSTORY + '7016/20191008-_swm9471.jpg',
+        text: '"The energy blocks began to clear and income rose by 50%."' }
     },
     'The Art of Manifesting': {
       cover: 'https://a.storyblok.com/f/60579/1920x1080/4e415b623e/tam_questcover_en.jpg/m/960x540',
-      authorPhoto: 'https://a.storyblok.com/f/60579/2864x1611/505079877a/regan-hillyer2.webp/m/240x240/smart'
+      authorPhoto: 'https://a.storyblok.com/f/60579/2864x1611/505079877a/regan-hillyer2.webp/m/240x240/smart',
+      proof: { name: 'Pınar İbrahimhakkıoğlu', sub: 'Associate Certified Coach · Istanbul, Turkey', quest: 'The Art of Manifesting',
+        photo: MVSTORY + '30147/Vesikal%C4%B1k-p%C4%B1nar.JPG',
+        text: 'Her "first intention actualized on the exact date that I manifested for."' }
     },
     'Feng Shui for Life': {
       cover: 'https://assets.mindvalley.com/api/v1/assets/ab864489-c1ee-470e-b8ce-37be73d7a095.jpg',
-      authorPhoto: 'https://storage.googleapis.com/mv-prod-blog-en-assets/2023/09/f6b28624-marie-diamond-768x768.webp'
+      authorPhoto: 'https://storage.googleapis.com/mv-prod-blog-en-assets/2023/09/f6b28624-marie-diamond-768x768.webp',
+      proof: { name: 'Stephanie Thoma', sub: 'Life & Executive Coach · San Francisco, US', quest: 'Feng Shui for Life',
+        photo: MVSTORY + '25780/2021-Stephanie-Michelle-28.jpeg',
+        text: 'Repositioned her desk toward her success direction — a prospective client reached out within days.' }
     }
   };
 
@@ -799,7 +819,7 @@
     phases.forEach(function(p, i) {
       var blockNames = p.blocks.map(function(b) { return '<b>' + b.name + '</b> (' + b.score + '/15)'; }).join(' and ');
       var assets = questAssets[p.quest] || {};
-      root.appendChild(el('<div class="curr-card">' +
+      var currCard = el('<div class="curr-card">' +
         (assets.cover ? '<img class="curr-cover" src="' + assets.cover + '" alt="' + p.quest + ' quest cover" loading="lazy" />' : '') +
         '<div class="curr-body">' +
           '<div class="curr-week">Phase ' + (i + 1) + ' · ' + weekLabels[i] + '</div>' +
@@ -810,7 +830,14 @@
           '</div>' +
           '<div class="curr-why">Why: you scored highest on ' + blockNames + '. ' + p.why + '</div>' +
         '</div>' +
-        '</div>'));
+        '</div>');
+      if (assets.proof) {
+        var proofCard = storyCard(assets.proof);
+        proofCard.style.margin = '0 1.25rem 1.25rem 1.25rem';
+        proofCard.style.background = 'var(--mv-purple-50)';
+        currCard.appendChild(proofCard);
+      }
+      root.appendChild(currCard);
     });
     root.appendChild(el('<p class="q-sub" style="margin-top:0.75rem; margin-bottom:1.75rem; font-size:0.8125rem;">All four quests — plus the full Mindvalley library — are included in your Manifesting Pathway membership.</p>'));
 
@@ -859,7 +886,7 @@
 
     // What students manifested — real results wall (stories.mindvalley.com)
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem; margin-top:2.25rem;">What students on these quests manifested</h3>'));
-    root.appendChild(el('<p class="q-sub">Real stories from Mindvalley\'s verified student stories engine.</p>'));
+    root.appendChild(el('<p class="q-sub">Real people, real photos, real results — from 25,000+ verified stories at stories.mindvalley.com.</p>'));
     var wall = el('<div class="stories-stack"></div>');
     manifestWall.forEach(function(st) { wall.appendChild(storyCard(st)); });
     root.appendChild(wall);
