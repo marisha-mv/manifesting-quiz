@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manifesting Blocks Quiz — Mindvalley</title>
+  <meta name="description" content="A personalized assessment to identify your top 3 manifesting blocks — then get your personalized Manifesting Pathway plan." />
+  <meta name="theme-color" content="#7a12d4" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="What's Blocking Your Manifestation? — Free Personalized Quiz" />
+  <meta property="og:description" content="Take this quiz to uncover your top 3 manifesting blocks — and get a personalized plan to dissolve them." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Mindvalley plain tokens (inlined from mindvalley-core.css) ===== */
+    :root {
+      --font-brand: "Google Sans Flex", Verdana, sans-serif;
+      --mv-purple: #7a12d4;
+      --mv-purple-light: #9333ea;
+      --mv-purple-50: #f9f7fc;
+      --mv-purple-100: #e0cfff;
+      --mv-border: #e8e0f0;
+      --mv-text: #0f131a;
+      --mv-text-muted: #4b5563;
+      --mv-text-subtle: #6b7280;
+      --mv-text-faint: #9ca3af;
+      --mv-bg: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; color: var(--mv-text); font-size: 16px; text-rendering: optimizeLegibility; }
+    body { margin: 0; padding: 0; font-family: var(--font-brand); font-weight: 400; background: var(--mv-bg); }
+    p { margin: 0 0 1.25rem; }
+    p:last-child { margin-bottom: 0; }
+    button { font-family: var(--font-brand); }
+
+    /* ===== Funnel shell (MadMuscles-style single centered column) ===== */
+    .shell { max-width: 30rem; margin: 0 auto; padding: 0 1.25rem 4rem 1.25rem; }
+
+    /* Top bar: back · logo · step count, thin progress under */
+    .topbar {
+      position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px); border-bottom: 1px solid #f3f4f6;
+    }
+    .topbar-inner {
+      max-width: 30rem; margin: 0 auto; padding: 0.875rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+    }
+    .back-btn {
+      width: 2.25rem; height: 2.25rem; border: none; background: transparent; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--mv-text-muted);
+      transition: background 0.15s ease; visibility: hidden;
+    }
+    .back-btn.show { visibility: visible; }
+    .back-btn:hover { background: var(--mv-purple-50); color: var(--mv-purple); }
+    .logo { font-weight: 700; letter-spacing: 0.14em; font-size: 0.8125rem; color: var(--mv-text); text-transform: uppercase; }
+    .logo b { color: var(--mv-purple); }
+    .step-count { font-size: 0.8125rem; font-weight: 600; color: var(--mv-text-faint); min-width: 3.25rem; text-align: right; }
+    .progress-track { height: 0.25rem; background: #f3f4f6; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--mv-purple), var(--mv-purple-light)); transition: width 0.3s ease; }
+
+    /* ===== Screens ===== */
+    .screen { display: none; padding-top: 2rem; }
+    .screen.active { display: block; animation: fadeInUp 0.35s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
+
+    .q-eyebrow { font-weight: 600; font-size: 0.75rem; line-height: 1.25rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mv-purple); text-align: center; margin-bottom: 0.625rem; }
+    .q-title { font-weight: 600; font-size: 1.5rem; line-height: 1.9rem; text-align: center; margin: 0 0 0.625rem 0; letter-spacing: 0.01em; }
+    .q-sub { font-size: 0.9375rem; line-height: 1.45rem; color: var(--mv-text-muted); text-align: center; margin: 0 auto 1.75rem auto; max-width: 24rem; }
+
+    /* Option menu — vertical stack of tappable cards */
+    .opts { display: flex; flex-direction: column; gap: 0.625rem; }
+    .opt {
+      display: flex; align-items: center; gap: 0.875rem; width: 100%;
+      padding: 1rem 1.125rem; background: #fff; border: 1.5px solid var(--mv-border); border-radius: 1rem;
+      font-size: 1rem; font-weight: 500; color: var(--mv-text); cursor: pointer; text-align: left;
+      transition: border-color 0.12s ease, background 0.12s ease, transform 0.08s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .opt:hover { border-color: var(--mv-purple-100); background: var(--mv-purple-50); }
+    .opt:active { transform: scale(0.985); }
+    .opt.selected { border-color: var(--mv-purple); background: var(--mv-purple-50); box-shadow: 0 2px 10px rgba(122, 18, 212, 0.12); }
+    .opt .emoji { font-size: 1.375rem; width: 1.75rem; text-align: center; flex-shrink: 0; }
+    .opt .opt-label { flex: 1; line-height: 1.35; }
+    .opt .tick {
+      width: 1.375rem; height: 1.375rem; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: white; transition: all 0.12s ease;
+    }
+    .opt.selected .tick { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); border-color: var(--mv-purple); }
+    .opt.selected .tick::after { content: '✓'; }
+
+    /* Interstitial / info screens */
+    .info-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 auto 1.25rem auto;
+      background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+      color: white; padding: 0.5rem 1.25rem; border-radius: 2rem; font-weight: 600; font-size: 0.9375rem;
+    }
+    .info-center { text-align: center; }
+    .info-body { font-size: 1rem; line-height: 1.55rem; color: var(--mv-text-muted); max-width: 24rem; margin: 0 auto 2rem auto; text-align: center; }
+    .info-stat-card {
+      background: var(--mv-purple-50); border: 1px solid var(--mv-border); border-radius: 1rem;
+      padding: 1.25rem 1.5rem; margin: 0 auto 2rem auto; max-width: 24rem; text-align: center;
+    }
+    .info-stat-card .big { font-size: 1.75rem; font-weight: 700; color: var(--mv-purple); line-height: 1.2; }
+    .info-stat-card .small { font-size: 0.875rem; color: var(--mv-text-muted); margin-top: 0.25rem; }
+
+    .btn-primary {
+      display: inline-block; width: 100%; padding: 1.05rem 1.5rem; border: none; border-radius: 0.75rem;
+      background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+      color: white; font-size: 1.0625rem; font-weight: 700; cursor: pointer; letter-spacing: 0.01em;
+      transition: transform 0.1s ease, box-shadow 0.15s ease; box-shadow: 0 6px 16px rgba(122, 18, 212, 0.28);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(122, 18, 212, 0.38); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Loader screen */
+    .loader-pct { font-size: 3.25rem; font-weight: 700; color: var(--mv-purple); text-align: center; margin-bottom: 0.25rem; }
+    .loader-track { height: 0.5rem; background: #f3f4f6; border-radius: 1rem; overflow: hidden; margin: 1rem 0 2rem 0; }
+    .loader-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--mv-purple), var(--mv-purple-light)); border-radius: 1rem; transition: width 0.2s linear; }
+    .loader-steps { display: flex; flex-direction: column; gap: 0.75rem; max-width: 22rem; margin: 0 auto; }
+    .loader-step { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9375rem; color: var(--mv-text-faint); transition: color 0.2s ease; }
+    .loader-step .dot {
+      width: 1.25rem; height: 1.25rem; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.6875rem; color: white; transition: all 0.2s ease;
+    }
+    .loader-step.done { color: var(--mv-text); }
+    .loader-step.done .dot { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); border-color: var(--mv-purple); }
+    .loader-step.done .dot::after { content: '✓'; }
+
+    /* Email gate */
+    .gate-card {
+      background: white; border: 2px solid var(--mv-purple); border-radius: 1rem; padding: 2rem 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .gate-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--mv-purple), var(--mv-purple-light), #c084fc, var(--mv-purple-light), var(--mv-purple));
+    }
+    .form-field { margin-bottom: 1rem; }
+    .form-field label { display: block; font-size: 0.8125rem; font-weight: 600; color: #374151; margin-bottom: 0.375rem; }
+    .form-field input[type="text"],
+    .form-field input[type="email"] {
+      width: 100%; padding: 0.875rem 1rem; border: 1.5px solid #d1d5db; border-radius: 0.625rem;
+      font-family: var(--font-brand); font-size: 1rem; transition: border-color 0.15s ease; -webkit-appearance: none;
+    }
+    .form-field input:focus { outline: none; border-color: var(--mv-purple); box-shadow: 0 0 0 3px rgba(122, 18, 212, 0.1); }
+    .form-field input.error { border-color: #dc2626; }
+    .form-error { color: #dc2626; font-size: 0.8125rem; margin-top: 0.375rem; display: none; }
+    .form-error.visible { display: block; }
+    .consent-row { display: flex; align-items: flex-start; gap: 0.5rem; margin: 1rem 0 1.5rem 0; font-size: 0.8125rem; color: var(--mv-text-subtle); line-height: 1.4; }
+    .consent-row input[type="checkbox"] { margin-top: 0.15rem; flex-shrink: 0; accent-color: var(--mv-purple); }
+    .gate-privacy { text-align: center; font-size: 0.75rem; color: var(--mv-text-faint); margin-top: 1rem; }
+
+    /* Results */
+    .top-block-row { display: flex; align-items: flex-start; gap: 0.875rem; padding: 1.125rem 0; border-bottom: 1px solid #f3f4f6; }
+    .top-block-row:last-child { border-bottom: none; }
+    .rank-num {
+      width: 2.25rem; height: 2.25rem; border-radius: 50%;
+      background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+      color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9375rem; flex-shrink: 0;
+    }
+    .top-block-info { flex: 1; min-width: 0; }
+    .top-block-name { font-weight: 600; color: var(--mv-text); font-size: 1rem; }
+    .top-block-cat { font-size: 0.6875rem; color: var(--mv-text-faint); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.125rem; }
+    .top-block-desc { font-size: 0.875rem; color: var(--mv-text-muted); margin-top: 0.4rem; line-height: 1.5; }
+    .top-block-score { font-size: 1.25rem; font-weight: 700; color: var(--mv-purple); white-space: nowrap; }
+    .top-block-max { font-size: 0.6875rem; color: var(--mv-text-faint); font-weight: 400; }
+
+    .all-scores { margin-top: 1.75rem; }
+    .score-bar-row { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.45rem; }
+    .score-bar-label { width: 8.5rem; font-size: 0.75rem; color: #374151; text-align: right; flex-shrink: 0; }
+    .score-bar-track { flex: 1; height: 1.25rem; background: #f3f4f6; border-radius: 0.75rem; overflow: hidden; }
+    .score-bar-fill { height: 100%; background: linear-gradient(90deg, var(--mv-purple-100), var(--mv-purple)); border-radius: 0.75rem; transition: width 0.6s ease; }
+    .score-bar-fill.top3 { background: linear-gradient(90deg, var(--mv-purple), var(--mv-purple-light)); }
+    .score-bar-val { width: 1.75rem; font-size: 0.8125rem; font-weight: 600; color: #374151; flex-shrink: 0; }
+
+    /* ===== Order menu (MadMuscles plan-selection design) ===== */
+    .chart-card { background: white; border: 1px solid var(--mv-border); border-radius: 1rem; padding: 1.5rem 1.25rem 1rem 1.25rem; margin-bottom: 1.75rem; }
+    .chart-title { font-size: 0.8125rem; font-weight: 600; color: var(--mv-text-muted); text-align: center; margin-bottom: 0.75rem; }
+    .chart-title b { color: var(--mv-purple); }
+    .chart-labels { display: flex; justify-content: space-between; font-size: 0.6875rem; color: var(--mv-text-faint); padding: 0.375rem 0.25rem 0 0.25rem; }
+
+    .timer-bar {
+      display: flex; align-items: center; justify-content: center; gap: 0.625rem;
+      background: var(--mv-purple-50); border: 1px solid var(--mv-border); border-radius: 0.75rem;
+      padding: 0.75rem 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--mv-text-muted);
+    }
+    .timer-bar b { color: var(--mv-purple); font-variant-numeric: tabular-nums; font-size: 1.0625rem; }
+
+    .tiers { display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 1.25rem; }
+    .tier {
+      position: relative; display: flex; align-items: center; gap: 0.875rem;
+      background: #fff; border: 2px solid var(--mv-border); border-radius: 1rem; padding: 1.125rem 1rem;
+      cursor: pointer; transition: border-color 0.12s ease, background 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tier.selected { border-color: var(--mv-purple); background: var(--mv-purple-50); box-shadow: 0 4px 14px rgba(122, 18, 212, 0.14); }
+    .tier-badge {
+      position: absolute; top: -0.75rem; left: 1rem; padding: 0.25rem 0.75rem; border-radius: 1rem;
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      background: #f3f4f6; color: var(--mv-text-subtle);
+    }
+    .tier-badge.hot { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); color: white; }
+    .tier-radio {
+      width: 1.375rem; height: 1.375rem; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.6875rem; color: white; transition: all 0.12s ease;
+    }
+    .tier.selected .tier-radio { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); border-color: var(--mv-purple); }
+    .tier.selected .tier-radio::after { content: '✓'; }
+    .tier-main { flex: 1; min-width: 0; }
+    .tier-name { font-weight: 700; font-size: 1rem; }
+    .tier-prices { display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.25rem; }
+    .tier-old { font-size: 0.8125rem; color: var(--mv-text-faint); text-decoration: line-through; }
+    .tier-new { font-size: 0.9375rem; font-weight: 600; color: var(--mv-text); }
+    .tier-save { font-size: 0.6875rem; font-weight: 700; color: var(--mv-purple); background: var(--mv-purple-100); border-radius: 0.375rem; padding: 0.125rem 0.4rem; }
+    .tier-perday { text-align: center; padding-left: 0.875rem; border-left: 1px solid var(--mv-border); min-width: 4.75rem; }
+    .tier-perday .amt { font-size: 1.375rem; font-weight: 700; color: var(--mv-text); line-height: 1.1; }
+    .tier.selected .tier-perday .amt { color: var(--mv-purple); }
+    .tier-perday .per { font-size: 0.6875rem; color: var(--mv-text-faint); }
+
+    .plan-smallprint { font-size: 0.75rem; color: var(--mv-text-faint); line-height: 1.5; text-align: center; margin-top: 1rem; }
+    .guarantee-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--mv-text-muted); margin-top: 1rem; text-align: center; }
+
+    /* ===== Student story cards (real testimonials from stories.mindvalley.com) ===== */
+    .stories-stack { display: flex; flex-direction: column; gap: 0.75rem; margin: 0 0 1.75rem 0; text-align: left; }
+    .story-card { background: #fff; border: 1px solid var(--mv-border); border-radius: 1rem; padding: 1.125rem 1.25rem; }
+    .story-text { font-size: 0.9375rem; line-height: 1.5; color: var(--mv-text); font-weight: 500; margin: 0; }
+    .story-meta { display: flex; align-items: center; gap: 0.625rem; margin-top: 0.75rem; }
+    .story-avatar {
+      width: 2.25rem; height: 2.25rem; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+      color: white; font-weight: 700; font-size: 0.8125rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .story-name { font-size: 0.8125rem; font-weight: 600; color: var(--mv-text); }
+    .story-sub { font-size: 0.75rem; color: var(--mv-text-faint); }
+    .story-quest { display: inline-block; margin-top: 0.625rem; font-size: 0.6875rem; font-weight: 700; color: var(--mv-purple); background: var(--mv-purple-100); padding: 0.2rem 0.5rem; border-radius: 0.375rem; }
+    .story-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+
+    /* ===== Personalized curriculum cards (quest cover + author photo) ===== */
+    .curr-card { background: #fff; border: 1px solid var(--mv-border); border-radius: 1rem; margin-bottom: 0.875rem; text-align: left; overflow: hidden; }
+    .curr-cover { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: var(--mv-purple-50); }
+    .curr-body { padding: 1rem 1.25rem 1.25rem 1.25rem; }
+    .curr-week { font-size: 0.6875rem; font-weight: 700; color: var(--mv-purple); letter-spacing: 0.08em; text-transform: uppercase; }
+    .curr-quest { font-weight: 700; font-size: 1.0625rem; margin-top: 0.2rem; }
+    .curr-author-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+    .curr-author-img { width: 1.875rem; height: 1.875rem; border-radius: 50%; object-fit: cover; display: block; border: 1.5px solid var(--mv-purple-100); }
+    .curr-teacher { font-size: 0.78125rem; color: var(--mv-text-subtle); font-weight: 500; }
+    .curr-why { font-size: 0.84375rem; color: var(--mv-text-muted); margin-top: 0.625rem; line-height: 1.55; }
+    .curr-why b { color: var(--mv-purple); }
+
+    @media (max-width: 380px) {
+      .q-title { font-size: 1.3125rem; line-height: 1.7rem; }
+      .score-bar-label { width: 6.5rem; }
+      .tier-perday { min-width: 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <button class="back-btn" id="backBtn" aria-label="Go back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="logo">Mind<b>valley</b></div>
+      <div class="step-count" id="stepCount"></div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="shell" id="shell"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* =====================================================================
+     DATA — identical statements, blocks & scoring to Quiz Option A
+     ===================================================================== */
+
+  var GOALS = {
+    wealth:  { emoji: '💰', label: 'Wealth & Abundance',    noun: 'wealth and abundance' },
+    love:    { emoji: '❤️', label: 'Love & Relationships',  noun: 'deeper love and connection' },
+    health:  { emoji: '🌿', label: 'Health & Vitality',     noun: 'vibrant health and energy' },
+    purpose: { emoji: '🔥', label: 'Purpose & Career',      noun: 'your true purpose and career' }
+  };
+
+  var blocks = [
+    { id: 1, name: 'The Upper Limit Problem', cat: 'The Car · Inner Identity', qs: [1,2,3],
+      desc: 'You carry an internal ceiling on how much success, love, or abundance feels "allowed." When you approach it, self-doubt quietly pulls you back.' },
+    { id: 2, name: 'Emotional Incongruence', cat: 'The Car · Inner Identity', qs: [4,5,6],
+      desc: 'Part of you doesn\'t feel deserving of what you\'re calling in — so when good arrives, guilt or sabotage shows up to restore the old baseline.' },
+    { id: 3, name: 'Fear of Success', cat: 'The Car · Inner Identity', qs: [7,8,9],
+      desc: 'Success feels threatening to your freedom, identity, or relationships. You pull back right before the breakthrough without realizing why.' },
+    { id: 4, name: 'Hustle Mode', cat: 'The Fuel · Energetic Alignment', qs: [10,11,12],
+      desc: 'You\'re manifesting from pressure instead of flow. The grind feels productive, but it blocks the effortless attraction that real manifesting runs on.' },
+    { id: 5, name: 'Wrong Environment', cat: 'The Fuel · Energetic Alignment', qs: [13,14,15],
+      desc: 'Your physical space, media diet, or inner circle are draining your manifesting energy faster than you can generate it.' },
+    { id: 6, name: 'Bullshit Rules (Brules)', cat: 'The GPS · Subconscious Programming', qs: [16,17,18],
+      desc: 'Inherited beliefs about money, success, or worth are running the show from underneath. Until they\'re rewritten, your goals meet invisible resistance.' },
+    { id: 7, name: 'Visualization from Lack', cat: 'The GPS · Subconscious Programming', qs: [19,20,21],
+      desc: 'You\'re picturing the gap, not the arrival. Yearning signals "I don\'t have it" to the universe — and the universe mirrors that back.' },
+    { id: 8, name: 'Time Lag Frustration', cat: 'The GPS · Subconscious Programming', qs: [22,23,24],
+      desc: 'Impatience is collapsing your manifestations right before they land. The "why isn\'t it here yet?" energy is itself what\'s delaying them.' },
+    { id: 9, name: 'Surrender Block', cat: 'The Driver · Manifesting Integration', qs: [25,26,27],
+      desc: 'You\'re gripping the how and the when. But manifesting needs trust — when you over-control, you close the channels life uses to deliver.' },
+    { id: 10, name: 'Quantum Leap Syndrome', cat: 'The Driver · Manifesting Integration', qs: [28,29,30],
+      desc: 'When big wins arrive, you flinch. You\'re manifesting well but your nervous system can\'t yet hold the version of you that receives it.' }
+  ];
+
+  var statements = [
+    'When I think about my biggest goal, I feel a wave of doubt that I have what it takes to get there.',
+    'I often feel I need more education, training, or experience before I can pursue what I really want.',
+    'When an exciting opportunity comes along, my first reaction is nervousness and "what if" worries rather than joy.',
+    'When something good happens to me, a part of me feels I don\'t truly deserve it.',
+    'Every time something great starts happening in my life, something bad seems to follow soon after.',
+    'I feel guilty when I receive money, compliments, or gifts — like I haven\'t earned them.',
+    'I worry that achieving my goal will require sacrificing my freedom, relationships, or lifestyle.',
+    'I\'m afraid that if I succeed, I won\'t be able to sustain it and everything will collapse.',
+    'I sometimes get close to a major goal and then pull back or sabotage myself before reaching it.',
+    'I feel anxious or guilty when I\'m not actively working toward my goals.',
+    'I believe that if I stop pushing hard, everything I\'ve built will fall apart.',
+    'My work regularly feels like grinding and pressure rather than inspired, natural action.',
+    'The people closest to me don\'t support or understand my dreams and goals.',
+    'My home or workspace feels heavy, draining, or uninspiring to me.',
+    'I spend significant time consuming negative media or around people who gossip and complain.',
+    'I carry beliefs from my upbringing about money, success, or love that I know aren\'t serving me.',
+    'Part of me believes that being wealthy, visible, or highly successful is unsafe or morally wrong.',
+    'I catch myself repeating family sayings like "money doesn\'t grow on trees" or "people like us don\'t do that."',
+    'When I visualize my goals, I feel the painful gap between where I am and where I want to be.',
+    'Looking at my vision board or thinking about my dreams makes me feel sad or frustrated rather than inspired.',
+    'I find myself thinking "I want it so badly" with a feeling of longing or yearning.',
+    'I feel frustrated that my manifesting practices haven\'t produced visible results yet.',
+    'I frequently catch myself thinking "this should have happened by now" or "I\'m running out of time."',
+    'I\'ve considered giving up on manifesting because results aren\'t coming fast enough.',
+    'I need to control exactly how and when my goals will manifest — I can\'t let go of the process.',
+    'When things don\'t go according to my plan, I feel anxious rather than curious about where life is leading me.',
+    'I find it very hard to trust that the universe is orchestrating things in my favor behind the scenes.',
+    'When success arrives faster or bigger than I expected, I feel overwhelmed or panicked rather than excited.',
+    'I\'ve turned down or sabotaged good opportunities because they felt "too good to be true."',
+    'When I get what I\'ve been asking for, I feel like a fraud — as if I\'ll be found out any moment.'
+  ];
+
+  var scaleOpts = [
+    { v: 1, emoji: '🙅', label: 'Strongly disagree' },
+    { v: 2, emoji: '🤔', label: 'Disagree' },
+    { v: 3, emoji: '😐', label: 'Neutral' },
+    { v: 4, emoji: '😟', label: 'Agree' },
+    { v: 5, emoji: '💯', label: 'Strongly agree — this is me' }
+  ];
+
+  /* =====================================================================
+     REAL STUDENT STORIES — sourced from stories.mindvalley.com (canonical
+     testimonial engine — never fabricate). Quests limited to:
+     Silva Ultramind · Duality · The Art of Manifesting · Feng Shui for Life
+     ===================================================================== */
+
+  function initials(name) {
+    return name.split(' ').filter(Boolean).map(function(w) { return w[0]; }).join('').replace(/[^A-Za-zÀ-ž]/g, '').slice(0, 2).toUpperCase();
+  }
+
+  function storyCard(st) {
+    var card = document.createElement('div');
+    card.className = 'story-card';
+    var p = document.createElement('p'); p.className = 'story-text'; p.textContent = st.text;
+    card.appendChild(p);
+    var meta = document.createElement('div'); meta.className = 'story-meta';
+    var av = document.createElement('div'); av.className = 'story-avatar';
+    if (st.photo) {
+      var img = document.createElement('img');
+      img.src = st.photo; img.alt = st.name; img.loading = 'lazy';
+      img.onerror = function() { av.removeChild(img); av.textContent = initials(st.name); };
+      av.appendChild(img);
+    } else {
+      av.textContent = initials(st.name);
+    }
+    var info = document.createElement('div');
+    var nm = document.createElement('div'); nm.className = 'story-name'; nm.textContent = st.name;
+    var sb = document.createElement('div'); sb.className = 'story-sub'; sb.textContent = st.sub;
+    info.appendChild(nm); info.appendChild(sb);
+    meta.appendChild(av); meta.appendChild(info);
+    card.appendChild(meta);
+    var q = document.createElement('span'); q.className = 'story-quest'; q.textContent = st.quest;
+    card.appendChild(q);
+    return card;
+  }
+
+  /* Real student photos served via Mindvalley's own Cloudinary account (400×400 face crops) */
+  var MVSTORY = 'https://res.cloudinary.com/mindvalley/image/fetch/f_auto,q_auto,w_400,h_400,c_fill/https://storage.googleapis.com/mv-stories/';
+
+  /* Section-matched stories — keyed by category firstQ, matched to that level's blocks */
+  var sectionStories = {
+    1: { heading: 'Students who cleared these Inner Identity blocks', stories: [
+      { name: 'Anthon Fynn-Williams', sub: 'Digital Analyst, Vodafone · London, UK', quest: 'The Silva Ultramind System',
+        photo: MVSTORY + '15659/whatsapp-image-2020-09-04-at-00.26.55.jpeg',
+        text: 'Developed "a much deeper sense of self-love, self-belief & self-confidence" — and a whole new outlook on life.' },
+      { name: 'Maribel Ariza', sub: 'Psychologist · Málaga, Spain', quest: 'The Silva Ultramind System',
+        photo: MVSTORY + '7903/ed792aca-f373-45a2-ae05-58678c5d94cf.jpeg',
+        text: 'Went from complaining and worrying to believing in her own power to shape reality — and recovered her self-confidence.' },
+      { name: 'Deanna C', sub: 'Dating & Relationship Coach · United States', quest: 'Duality',
+        photo: MVSTORY + '4359/0937ccd025d64ad14acd27a112e49dab.jpg',
+        text: '"I had such a release. I didn\'t even know I had that block."' }
+    ]},
+    10: { heading: 'Students who fixed their energy — and watched results follow', stories: [
+      { name: 'Mfon Etukeren', sub: 'Tax Lawyer · Houston, US', quest: 'Duality',
+        photo: MVSTORY + '7016/20191008-_swm9471.jpg',
+        text: '"The energy blocks began to clear and income rose by 50%."' },
+      { name: 'Pete Basaraba', sub: 'Business Owner · Nelson, Canada', quest: 'Duality',
+        photo: MVSTORY + '35093/MossBoss.jpeg',
+        text: '"In my business new opportunities keep flowing in naturally now."' },
+      { name: 'Stephanie Thoma', sub: 'Life & Executive Coach · San Francisco, US', quest: 'Feng Shui for Life',
+        photo: MVSTORY + '25780/2021-Stephanie-Michelle-28.jpeg',
+        text: 'Repositioned her desk toward her success direction — a prospective client reached out within days.' }
+    ]},
+    16: { heading: 'Students who reprogrammed the subconscious patterns you just answered about', stories: [
+      { name: 'Steve Hall', sub: 'Founder, Beealigned Coaching · Geelong, Australia', quest: 'The Silva Ultramind System',
+        photo: MVSTORY + '14889/stevehall_911_hires--2-.jpg',
+        text: 'Used the Three Scenes technique — habits changed naturally, and breakthrough business inspirations followed.' },
+      { name: 'Julia Andina', sub: 'Adult Education Teacher · Liepaja, Latvia', quest: 'The Silva Ultramind System',
+        photo: MVSTORY + '27707/photo_2023-05-05_16-09-11.jpg',
+        text: 'Used the Three Scenes technique to "get rid of my sugar addiction" — and her sleep improved within days.' },
+      { name: 'Jennifer Waters', sub: 'Wellbeing Coach · Nottingham, UK', quest: 'The Silva Ultramind System',
+        photo: MVSTORY + '13275/02_jenny-waters_16-07-15_cropped.jpg',
+        text: 'Her stalled house move and stuck work situations resolved after applying the mental-video technique.' }
+    ]},
+    25: { heading: 'Students who learned to receive — and what arrived', stories: [
+      { name: 'Pınar İbrahimhakkıoğlu', sub: 'Associate Certified Coach · Istanbul, Turkey', quest: 'The Art of Manifesting',
+        photo: MVSTORY + '30147/Vesikal%C4%B1k-p%C4%B1nar.JPG',
+        text: 'Her "first intention actualized on the exact date that I manifested for."' },
+      { name: 'Frederic', sub: 'Financial Counselor · Zurich, Switzerland', quest: 'The Art of Manifesting',
+        photo: MVSTORY + '33790/e8cfd26e-0be6-404b-b3d3-5d6d600a002e.jpeg',
+        text: 'Bought the family house before he\'d even finished the quest.' },
+      { name: 'Brie', sub: 'Coach · Oranjestad, Aruba', quest: 'The Art of Manifesting',
+        photo: MVSTORY + '31612/Brie%20-%20Headshot.jpg',
+        text: '"Client flowed in like the ocean tide" — 10 days after setting the goal.' }
+    ]}
+  };
+
+  /* Plan-page wall: concrete manifested results */
+  var manifestWall = [
+    { name: 'Julie Faust Pippin', sub: 'Life Coach · San Luis Obispo, US', quest: 'The Art of Manifesting',
+      photo: MVSTORY + '29871/Screenshot%202023-10-04%20at%206.40.34%20PM.jpg',
+      text: 'Manifested over $70,000.' },
+    { name: 'Anthoinette Okafor', sub: 'Bank Branch Manager · Uyo, Nigeria', quest: 'The Art of Manifesting',
+      photo: MVSTORY + '30954/IMG_20230920_082004_292.jpg',
+      text: '"Three times my monthly earning in a single month."' },
+    { name: 'Mi Kwan Lock', sub: 'Actress · Paris, France', quest: 'The Art of Manifesting',
+      photo: MVSTORY + '30914/292061355_10167367010190377_8958025044561042316_n.jpg',
+      text: 'Saw her quest manifestation land on day 7 — then booked three straight weeks of shoots.' },
+    { name: 'Henry Pi & Bella Wang', sub: 'Transformation Coaches · Taipei, Taiwan', quest: 'Feng Shui for Life',
+      photo: MVSTORY + '32564/1.png',
+      text: 'After 9 years of trying, conceived their first child after rebalancing their home.' },
+    { name: 'Chang', sub: 'Medical Equipment MNC · Germany', quest: 'Feng Shui for Life',
+      photo: MVSTORY + '10400/e40b16f8477960ca06e10c07b2b20754.png',
+      text: 'Career changes within 1–2 weeks for him and his wife — and her meditation and yoga business surged.' },
+    { name: 'Nikki Phao', sub: 'Investor · Bangkok, Thailand', quest: 'The Silva Ultramind System',
+      photo: MVSTORY + '7985/img_7464.jpg',
+      text: 'An unexpected person entered her life with a partnership opportunity.' }
+  ];
+
+  /* Official quest covers + author photos (Mindvalley CDN / Storyblok, verified) */
+  var questAssets = {
+    'The Silva Ultramind System': {
+      cover: 'https://assets.mindvalley.com/api/v1/assets/10b1de3f-44d4-4dd5-84d7-dc2456a79da4.jpeg',
+      authorPhoto: 'https://a.storyblok.com/f/60579/1536x2300/bddf3ec3ac/04-author-vishen.webp/m/240x240/smart'
+    },
+    'Duality': {
+      cover: 'https://assets.mindvalley.com/api/v1/assets/f74c2478-7131-4f5a-8dad-79a812f2b1c3.jpg',
+      authorPhoto: 'https://a.storyblok.com/f/60579/700x760/4314cdd654/du_sp_author-m.jpg/m/240x240/smart'
+    },
+    'The Art of Manifesting': {
+      cover: 'https://a.storyblok.com/f/60579/1920x1080/4e415b623e/tam_questcover_en.jpg/m/960x540',
+      authorPhoto: 'https://a.storyblok.com/f/60579/2864x1611/505079877a/regan-hillyer2.webp/m/240x240/smart'
+    },
+    'Feng Shui for Life': {
+      cover: 'https://assets.mindvalley.com/api/v1/assets/ab864489-c1ee-470e-b8ce-37be73d7a095.jpg',
+      authorPhoto: 'https://storage.googleapis.com/mv-prod-blog-en-assets/2023/09/f6b28624-marie-diamond-768x768.webp'
+    }
+  };
+
+  /* Block → quest curriculum map (restricted to the 4 approved quests) */
+  var questMap = {
+    1:  { quest: 'The Silva Ultramind System', teacher: 'Vishen Lakhiani',
+          why: 'It trains you at the alpha level — where the ceiling actually lives — using the Three Scenes technique to install a bigger "allowed" instead of arguing with self-doubt.' },
+    2:  { quest: 'Duality', teacher: 'Jeffrey Allen',
+          why: 'It works directly on the energy of receiving — clearing the guilt-and-sabotage pattern at the level it runs, so good things get to stay.' },
+    3:  { quest: 'The Art of Manifesting', teacher: 'Regan Hillyer',
+          why: 'It rebuilds your identity around having it all safely — so success stops feeling like it will cost you your freedom or relationships.' },
+    4:  { quest: 'Duality', teacher: 'Jeffrey Allen',
+          why: 'It teaches you to run on energy instead of force — swapping grind for the inspired, natural action manifesting actually responds to.' },
+    5:  { quest: 'Feng Shui for Life', teacher: 'Marie Diamond',
+          why: 'It turns your home and workspace into an asset instead of a drain — students report opportunity shifts within days of repositioning their space.' },
+    6:  { quest: 'The Silva Ultramind System', teacher: 'Vishen Lakhiani',
+          why: 'It reprograms the subconscious at the alpha level — where inherited rules about money, success, and worth were installed in the first place.' },
+    7:  { quest: 'The Silva Ultramind System', teacher: 'Vishen Lakhiani',
+          why: 'It replaces gap-gazing with the Three Scenes technique — visualizing from the end result, so your mind rehearses arrival instead of absence.' },
+    8:  { quest: 'The Art of Manifesting', teacher: 'Regan Hillyer',
+          why: 'It rebuilds your relationship with timing — students like Pınar in Istanbul manifested their first intention on the exact date they set.' },
+    9:  { quest: 'The Art of Manifesting', teacher: 'Regan Hillyer',
+          why: 'It trains the energetics of letting go — releasing the how and the when, so life can deliver through channels you can\'t plan.' },
+    10: { quest: 'Duality', teacher: 'Jeffrey Allen',
+          why: 'It expands your energetic capacity to hold bigger — so when the quantum leap arrives, your nervous system says yes instead of flinching.' }
+  };
+
+  /* ── Order menu tiers ── */
+  var tiers = [
+    { key: 'monthly', name: 'Monthly Membership', old: null,   now: '$49',  save: null,      perday: '$1.63', badge: null },
+    { key: 'yearly',  name: 'Yearly Membership',  old: '$588', now: '$199', save: '66% OFF', perday: '$0.55', badge: { text: 'Best Value', hot: true } }
+  ];
+  var PATHWAY_URL = 'https://www.mindvalley.com/membership?utm_source=quiz&utm_medium=manifesting-blocks&utm_campaign=pathway';
+
+  /* =====================================================================
+     STATE
+     ===================================================================== */
+  var answers = {};          // qNum (1-30) -> 1..5
+  var intake = { goal: null, age: null, experience: null };
+  var firstName = '';
+  var selectedTier = 'yearly';  // MadMuscles pattern: pre-select the highest-value tier
+  var screens = [];
+  var current = 0;
+  var history = [];
+  var ANSWERABLE = 33;       // 3 intake + 30 statements
+
+  /* =====================================================================
+     SCREEN DEFINITIONS
+     ===================================================================== */
+
+  function el(html) {
+    var d = document.createElement('div');
+    d.innerHTML = html.trim();
+    return d.firstChild;
+  }
+
+  function optionMenu(opts, onPick) {
+    var wrap = document.createElement('div');
+    wrap.className = 'opts';
+    opts.forEach(function(o) {
+      var b = el('<button type="button" class="opt"><span class="emoji">' + o.emoji + '</span><span class="opt-label">' + o.label + '</span><span class="tick"></span></button>');
+      b.addEventListener('click', function() {
+        wrap.querySelectorAll('.opt').forEach(function(x) { x.classList.remove('selected'); });
+        b.classList.add('selected');
+        setTimeout(function() { onPick(o); }, 260); // MadMuscles-style auto-advance
+      });
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+
+  // ── Intake screens (identity-mirror branch first, MadMuscles gender-select analog) ──
+  screens.push({ id: 'goal', answerable: true, build: function(root) {
+    root.appendChild(el('<div class="q-eyebrow">Free Personalized Assessment</div>'));
+    root.appendChild(el('<h1 class="q-title">What\'s Blocking Your Manifestation?</h1>'));
+    root.appendChild(el('<p class="q-sub">Answer honestly and we\'ll reveal your top 3 manifesting blocks — then build your personalized path to dissolve them. Takes about 5 minutes.</p>'));
+    root.appendChild(el('<p class="q-sub" style="font-weight:600; color:var(--mv-text); margin-bottom:1rem;">What do you most want to manifest right now?</p>'));
+    root.appendChild(optionMenu(Object.keys(GOALS).map(function(k) {
+      return { emoji: GOALS[k].emoji, label: GOALS[k].label, value: k };
+    }), function(o) { intake.goal = o.value; next(); }));
+  }});
+
+  screens.push({ id: 'age', answerable: true, build: function(root) {
+    root.appendChild(el('<h2 class="q-title">What\'s your age?</h2>'));
+    root.appendChild(el('<p class="q-sub">Manifesting blocks show up differently at each life stage — this helps us calibrate your results.</p>'));
+    root.appendChild(optionMenu([
+      { emoji: '🌱', label: '18–29', value: '18-29' },
+      { emoji: '🌿', label: '30–39', value: '30-39' },
+      { emoji: '🌳', label: '40–49', value: '40-49' },
+      { emoji: '✨', label: '50+',   value: '50+' }
+    ], function(o) { intake.age = o.value; next(); }));
+  }});
+
+  screens.push({ id: 'experience', answerable: true, build: function(root) {
+    root.appendChild(el('<h2 class="q-title">How long have you been practicing manifesting?</h2>'));
+    root.appendChild(optionMenu([
+      { emoji: '🚪', label: 'Just getting started', value: 'new' },
+      { emoji: '📖', label: 'Less than a year',      value: '<1y' },
+      { emoji: '🔮', label: '1–3 years',             value: '1-3y' },
+      { emoji: '🧘', label: '3+ years',              value: '3y+' }
+    ], function(o) { intake.experience = o.value; next(); }));
+  }});
+
+  // ── Category interstitials + 30 statement screens ──
+  var categories = [
+    { pill: '🚗 The Car', title: 'Inner Identity', firstQ: 1,
+      body: 'Your identity is the vehicle that carries every manifestation. These next statements reveal whether your inner self-image is big enough to hold what you\'re asking for.',
+      stat: null },
+    { pill: '⛽ The Fuel', title: 'Energetic Alignment', firstQ: 10,
+      body: 'You can\'t manifest from an empty tank. This section looks at the energy you\'re running on — and what\'s draining it.',
+      stat: { big: 'Great progress', small: 'Most people never look at their blocks this honestly. You\'re already ahead.' } },
+    { pill: '📍 The GPS', title: 'Subconscious Programming', firstQ: 16,
+      body: 'Your subconscious is the navigation system. If it\'s programmed with old coordinates, you\'ll keep arriving at the old destination — no matter how hard you visualize.',
+      stat: { big: '20M+ students', small: 'Mindvalley has guided learners in 190+ countries through this exact inner work.' } },
+    { pill: '🧑 The Driver', title: 'Manifesting Integration', firstQ: 25,
+      body: 'Last section. This is where we measure how you receive — because manifesting isn\'t just about asking. It\'s about being able to hold what arrives.',
+      stat: null }
+  ];
+
+  categories.forEach(function(cat) {
+    screens.push({ id: 'cat-' + cat.firstQ, answerable: false, build: function(root) {
+      var c = el('<div class="info-center"></div>');
+      c.appendChild(el('<div class="info-pill">' + cat.pill + '</div>'));
+      c.appendChild(el('<h2 class="q-title">' + cat.title + '</h2>'));
+      c.appendChild(el('<p class="info-body">' + cat.body + '</p>'));
+      if (cat.stat) {
+        c.appendChild(el('<div class="info-stat-card"><div class="big">' + cat.stat.big + '</div><div class="small">' + cat.stat.small + '</div></div>'));
+      }
+      var btn = el('<button type="button" class="btn-primary">Continue</button>');
+      btn.addEventListener('click', next);
+      c.appendChild(btn);
+      root.appendChild(c);
+    }});
+
+    var lastQ = cat.firstQ === 25 ? 30 : (categories[categories.indexOf(cat) + 1].firstQ - 1);
+    for (var q = cat.firstQ; q <= lastQ; q++) {
+      (function(qNum) {
+        screens.push({ id: 'q' + qNum, answerable: true, build: function(root) {
+          root.appendChild(el('<div class="q-eyebrow">' + cat.pill.replace(/^[^ ]+ /, '') + ' · ' + cat.title + '</div>'));
+          root.appendChild(el('<h2 class="q-title" style="font-size:1.3125rem; line-height:1.75rem;">' + statements[qNum - 1] + '</h2>'));
+          root.appendChild(el('<p class="q-sub">How true is this for you?</p>'));
+          root.appendChild(optionMenu(scaleOpts.map(function(s) {
+            return { emoji: s.emoji, label: s.label, value: s.v };
+          }), function(o) { answers[qNum] = o.value; next(); }));
+        }});
+      })(q);
+    }
+
+    // Section-matched real student stories (stories.mindvalley.com)
+    var ss = sectionStories[cat.firstQ];
+    if (ss) {
+      screens.push({ id: 'stories-' + cat.firstQ, answerable: false, build: function(root) {
+        var c = el('<div class="info-center"></div>');
+        c.appendChild(el('<div class="q-eyebrow">Real Mindvalley Students</div>'));
+        c.appendChild(el('<h2 class="q-title" style="font-size:1.3125rem; line-height:1.75rem;">' + ss.heading + '</h2>'));
+        var stack = el('<div class="stories-stack" style="margin-top:1.5rem;"></div>');
+        ss.stories.forEach(function(st) { stack.appendChild(storyCard(st)); });
+        c.appendChild(stack);
+        var btn = el('<button type="button" class="btn-primary">Continue</button>');
+        btn.addEventListener('click', next);
+        c.appendChild(btn);
+        root.appendChild(c);
+      }});
+    }
+  });
+
+  // ── Loader: "building your profile" (MadMuscles plan-generation screen) ──
+  screens.push({ id: 'loader', answerable: false, noBack: true, build: function(root) {
+    var c = el('<div class="info-center"></div>');
+    c.appendChild(el('<h2 class="q-title">Building your Manifestation Profile…</h2>'));
+    c.appendChild(el('<div class="loader-pct" id="loaderPct">0%</div>'));
+    c.appendChild(el('<div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>'));
+    var steps = el('<div class="loader-steps"></div>');
+    var stepDefs = [
+      'Analyzing your inner identity patterns',
+      'Measuring your energetic alignment',
+      'Decoding your subconscious programming',
+      'Calculating your integration readiness'
+    ];
+    stepDefs.forEach(function(s, i) {
+      steps.appendChild(el('<div class="loader-step" id="lstep' + i + '"><span class="dot"></span><span>' + s + '</span></div>'));
+    });
+    c.appendChild(steps);
+    root.appendChild(c);
+
+    var pct = 0;
+    var iv = setInterval(function() {
+      pct += 2;
+      if (pct > 100) { clearInterval(iv); setTimeout(next, 400); return; }
+      document.getElementById('loaderPct').textContent = pct + '%';
+      document.getElementById('loaderFill').style.width = pct + '%';
+      [24, 49, 74, 99].forEach(function(threshold, i) {
+        if (pct >= threshold) document.getElementById('lstep' + i).classList.add('done');
+      });
+    }, 55);
+  }});
+
+  // ── Email gate ──
+  screens.push({ id: 'gate', answerable: false, noBack: true, build: function(root) {
+    var card = el('<div class="gate-card"></div>');
+    card.appendChild(el('<div class="q-eyebrow">Your results are ready</div>'));
+    card.appendChild(el('<h2 class="q-title" style="margin-bottom:0.75rem;">See your top 3 manifesting blocks</h2>'));
+    card.appendChild(el('<p class="q-sub" style="margin-bottom:1.5rem;">Enter your details to unlock your personalized assessment — we\'ll also send a copy to your inbox so you can come back to it anytime.</p>'));
+
+    var form = el('<form id="leadForm" novalidate></form>');
+    form.innerHTML =
+      '<div class="form-field">' +
+        '<label for="firstName">First name</label>' +
+        '<input type="text" id="firstName" name="firstName" autocomplete="given-name" required />' +
+        '<div class="form-error" id="firstNameError">Please enter your first name.</div>' +
+      '</div>' +
+      '<div class="form-field">' +
+        '<label for="email">Email address</label>' +
+        '<input type="email" id="email" name="email" autocomplete="email" required />' +
+        '<div class="form-error" id="emailError">Please enter a valid email address.</div>' +
+      '</div>' +
+      '<label class="consent-row">' +
+        '<input type="checkbox" id="consent" />' +
+        '<span>Yes, send me my results and occasional emails from Mindvalley with manifesting tools, Pathway updates, and related resources. Unsubscribe anytime.</span>' +
+      '</label>' +
+      '<button type="submit" class="btn-primary" id="submitBtn">Reveal my results</button>' +
+      '<p class="gate-privacy">We respect your privacy. Your information is kept secure and never shared.</p>';
+
+    form.addEventListener('submit', onGateSubmit);
+    card.appendChild(form);
+    root.appendChild(card);
+  }});
+
+  // ── Results ──
+  screens.push({ id: 'results', answerable: false, noBack: true, build: function(root) {
+    var scored = computeScores();
+    var sorted = scored.slice().sort(function(a, b) { return b.score - a.score; });
+    var top3 = sorted.slice(0, 3);
+    var top3Names = top3.map(function(s) { return s.name; });
+
+    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', here are your results' : 'Here are your results') + '</div>'));
+    root.appendChild(el('<h2 class="q-title">Your Top 3 Manifesting Blocks</h2>'));
+    root.appendChild(el('<p class="q-sub">These are the primary patterns to dissolve first — where the biggest shift lives.</p>'));
+
+    var top3Html = '';
+    top3.forEach(function(s, i) {
+      top3Html += '<div class="top-block-row">' +
+        '<div class="rank-num">' + (i + 1) + '</div>' +
+        '<div class="top-block-info">' +
+          '<div class="top-block-name">' + s.name + '</div>' +
+          '<div class="top-block-cat">' + s.cat + '</div>' +
+          '<div class="top-block-desc">' + s.desc + '</div>' +
+        '</div>' +
+        '<div class="top-block-score">' + s.score + '<span class="top-block-max"> / 15</span></div>' +
+        '</div>';
+    });
+    root.appendChild(el('<div>' + top3Html + '</div>'));
+
+    var barsHtml = '<p class="q-eyebrow" style="text-align:left; margin:1.5rem 0 0.75rem 0;">All Block Scores</p>';
+    scored.forEach(function(s) {
+      var pct = (s.score / 15 * 100);
+      var isTop = top3Names.indexOf(s.name) !== -1;
+      barsHtml += '<div class="score-bar-row">' +
+        '<div class="score-bar-label">' + s.name + '</div>' +
+        '<div class="score-bar-track"><div class="score-bar-fill' + (isTop ? ' top3' : '') + '" style="width:' + pct + '%;"></div></div>' +
+        '<div class="score-bar-val">' + s.score + '</div>' +
+        '</div>';
+    });
+    root.appendChild(el('<div class="all-scores">' + barsHtml + '</div>'));
+
+    var btn = el('<button type="button" class="btn-primary" style="margin-top:2rem;">See my personalized plan →</button>');
+    btn.addEventListener('click', next);
+    root.appendChild(btn);
+  }});
+
+  // ── Order menu: Manifesting Pathway plan selection (MadMuscles paywall design) ──
+  screens.push({ id: 'plan', answerable: false, noBack: true, build: function(root) {
+    var scored = computeScores();
+    var sorted = scored.slice().sort(function(a, b) { return b.score - a.score; });
+    var topBlock = sorted[0];
+    var goal = GOALS[intake.goal] || GOALS.wealth;
+
+    root.appendChild(el('<div class="q-eyebrow">Your Personalized Plan</div>'));
+    root.appendChild(el('<h2 class="q-title">The Manifesting Pathway</h2>'));
+    root.appendChild(el('<p class="q-sub">' + (firstName ? firstName + ', your' : 'Your') + ' #1 block is <b style="color:var(--mv-purple);">' + topBlock.name + '</b>. The Manifesting Pathway gives you the step-by-step programs, teachers, and daily practices to dissolve it — and manifest ' + goal.noun + '.</p>'));
+
+    // Projection chart (MadMuscles-style results curve)
+    var chart = el('<div class="chart-card"></div>');
+    chart.appendChild(el('<div class="chart-title">Your projected <b>' + topBlock.name + '</b> intensity on the Pathway</div>'));
+    chart.appendChild(el(
+      '<svg viewBox="0 0 400 150" width="100%" height="auto" role="img" aria-label="Projected block intensity declining over 12 weeks">' +
+        '<defs><linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#7a12d4" stop-opacity="0.25"/>' +
+          '<stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/>' +
+        '</linearGradient></defs>' +
+        '<path d="M20,30 C120,38 180,70 250,100 C300,120 350,128 380,130 L380,150 L20,150 Z" fill="url(#fillGrad)"/>' +
+        '<path d="M20,30 C120,38 180,70 250,100 C300,120 350,128 380,130" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/>' +
+        '<circle cx="20" cy="30" r="6" fill="#7a12d4"/>' +
+        '<circle cx="380" cy="130" r="6" fill="#9333ea"/>' +
+        '<text x="32" y="22" font-size="11" font-weight="600" fill="#4b5563" font-family="sans-serif">High — today</text>' +
+        '<text x="290" y="118" font-size="11" font-weight="600" fill="#7a12d4" font-family="sans-serif">Dissolved</text>' +
+      '</svg>'
+    ));
+    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Week 4</span><span>Week 8</span><span>Week 12</span></div>'));
+    root.appendChild(chart);
+
+    // Personalized curriculum — top 3 blocks mapped to quests, with the why
+    root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">Your personalized 12-week curriculum</h3>'));
+    root.appendChild(el('<p class="q-sub">Built from your three highest-scoring blocks. Each phase is one Mindvalley quest, chosen specifically to dissolve one of them — in the order that unlocks the others.</p>'));
+    var phases = [];
+    sorted.slice(0, 3).forEach(function(b) {
+      var m = questMap[b.id];
+      var existing = null;
+      phases.forEach(function(p) { if (p.quest === m.quest) existing = p; });
+      if (existing) { existing.blocks.push(b); }
+      else { phases.push({ quest: m.quest, teacher: m.teacher, why: m.why, blocks: [b] }); }
+    });
+    var weekLabels = phases.length === 3 ? ['Weeks 1–4', 'Weeks 5–8', 'Weeks 9–12']
+                   : phases.length === 2 ? ['Weeks 1–6', 'Weeks 7–12'] : ['Weeks 1–12'];
+    phases.forEach(function(p, i) {
+      var blockNames = p.blocks.map(function(b) { return '<b>' + b.name + '</b> (' + b.score + '/15)'; }).join(' and ');
+      var assets = questAssets[p.quest] || {};
+      root.appendChild(el('<div class="curr-card">' +
+        (assets.cover ? '<img class="curr-cover" src="' + assets.cover + '" alt="' + p.quest + ' quest cover" loading="lazy" />' : '') +
+        '<div class="curr-body">' +
+          '<div class="curr-week">Phase ' + (i + 1) + ' · ' + weekLabels[i] + '</div>' +
+          '<div class="curr-quest">' + p.quest + '</div>' +
+          '<div class="curr-author-row">' +
+            (assets.authorPhoto ? '<img class="curr-author-img" src="' + assets.authorPhoto + '" alt="' + p.teacher + '" loading="lazy" />' : '') +
+            '<span class="curr-teacher">with ' + p.teacher + '</span>' +
+          '</div>' +
+          '<div class="curr-why">Why: you scored highest on ' + blockNames + '. ' + p.why + '</div>' +
+        '</div>' +
+        '</div>'));
+    });
+    root.appendChild(el('<p class="q-sub" style="margin-top:0.75rem; margin-bottom:1.75rem; font-size:0.8125rem;">All four quests — plus the full Mindvalley library — are included in your Manifesting Pathway membership.</p>'));
+
+    // Countdown reservation bar
+    root.appendChild(el('<div class="timer-bar">⏳ Your results-based discount is reserved for <b id="timerVal">10:00</b></div>'));
+
+    // Tier cards — highest-value tier pre-selected (MadMuscles anchoring pattern)
+    var tiersWrap = el('<div class="tiers"></div>');
+    tiers.forEach(function(t) {
+      var badge = t.badge ? '<div class="tier-badge' + (t.badge.hot ? ' hot' : '') + '">' + t.badge.text + '</div>' : '';
+      var save = t.save ? '<span class="tier-save">' + t.save + '</span>' : '';
+      var oldPrice = t.old ? '<span class="tier-old">' + t.old + '</span>' : '';
+      var card = el('<div class="tier' + (t.key === selectedTier ? ' selected' : '') + '" data-tier="' + t.key + '" role="radio" aria-checked="' + (t.key === selectedTier) + '">' +
+        badge +
+        '<span class="tier-radio"></span>' +
+        '<div class="tier-main">' +
+          '<div class="tier-name">' + t.name + '</div>' +
+          '<div class="tier-prices">' + oldPrice + '<span class="tier-new">' + t.now + '</span>' + save + '</div>' +
+        '</div>' +
+        '<div class="tier-perday"><div class="amt">' + t.perday + '</div><div class="per">per day</div></div>' +
+        '</div>');
+      card.addEventListener('click', function() {
+        selectedTier = t.key;
+        tiersWrap.querySelectorAll('.tier').forEach(function(x) {
+          x.classList.toggle('selected', x.getAttribute('data-tier') === t.key);
+          x.setAttribute('aria-checked', x.getAttribute('data-tier') === t.key);
+        });
+      });
+      tiersWrap.appendChild(card);
+    });
+    root.appendChild(tiersWrap);
+
+    // Answer the "my curriculum is 12 weeks — why buy a year?" objection
+    root.appendChild(el('<div class="info-stat-card" style="max-width:none; text-align:left; margin-bottom:1.25rem;">' +
+      '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your curriculum dissolves your top 3 blocks in 12 weeks — but you have ' +
+      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and costs less than 5 months at the monthly price.</div>' +
+      '</div>'));
+
+    var cta = el('<button type="button" class="btn-primary">Get my Manifesting Pathway plan →</button>');
+    cta.addEventListener('click', function() {
+      window.open(PATHWAY_URL + '&plan=' + selectedTier + '&block=' + encodeURIComponent(topBlock.name), '_blank', 'noopener');
+    });
+    root.appendChild(cta);
+
+    root.appendChild(el('<div class="guarantee-row">🛡️ 15-day money-back guarantee</div>'));
+
+    // What students manifested — real results wall (stories.mindvalley.com)
+    root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem; margin-top:2.25rem;">What students on these quests manifested</h3>'));
+    root.appendChild(el('<p class="q-sub">Real stories from Mindvalley\'s verified student stories engine.</p>'));
+    var wall = el('<div class="stories-stack"></div>');
+    manifestWall.forEach(function(st) { wall.appendChild(storyCard(st)); });
+    root.appendChild(wall);
+
+    var cta2 = el('<button type="button" class="btn-primary">Start my 12-week plan →</button>');
+    cta2.addEventListener('click', function() {
+      window.open(PATHWAY_URL + '&plan=' + selectedTier + '&block=' + encodeURIComponent(topBlock.name), '_blank', 'noopener');
+    });
+    root.appendChild(cta2);
+
+    root.appendChild(el('<p class="plan-smallprint">Your plan renews at the end of the selected period at the standard rate unless cancelled. Cancel anytime from your account — no questions asked. Prices in USD. Individual results vary.</p>'));
+
+    startTimer();
+  }});
+
+  /* =====================================================================
+     ENGINE
+     ===================================================================== */
+
+  var shell = document.getElementById('shell');
+  var screenEls = [];
+
+  screens.forEach(function(s, i) {
+    var sec = document.createElement('section');
+    sec.className = 'screen';
+    sec.setAttribute('data-screen', s.id);
+    shell.appendChild(sec);
+    screenEls.push(sec);
+  });
+
+  function show(i) {
+    var s = screens[i];
+    var elx = screenEls[i];
+    elx.innerHTML = '';
+    s.build(elx);
+    screenEls.forEach(function(x) { x.classList.remove('active'); });
+    elx.classList.add('active');
+    current = i;
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    updateChrome();
+  }
+
+  function next() {
+    history.push(current);
+    show(current + 1);
+  }
+
+  document.getElementById('backBtn').addEventListener('click', function() {
+    if (!history.length) return;
+    var prev = history.pop();
+    show(prev);
+  });
+
+  function updateChrome() {
+    var s = screens[current];
+    var answered = Object.keys(answers).length + ['goal','age','experience'].filter(function(k){ return intake[k]; }).length;
+    document.getElementById('progressFill').style.width = (answered / ANSWERABLE * 100) + '%';
+    var count = document.getElementById('stepCount');
+    count.textContent = s.answerable ? (Math.min(answered + 1, ANSWERABLE)) + ' / ' + ANSWERABLE : '';
+    var back = document.getElementById('backBtn');
+    back.classList.toggle('show', current > 0 && !s.noBack && history.length > 0);
+  }
+
+  /* =====================================================================
+     SCORING + LEAD SUBMIT (same payload shape as Quiz Option A)
+     ===================================================================== */
+
+  function computeScores() {
+    return blocks.map(function(b) {
+      var total = 0;
+      b.qs.forEach(function(q) { total += (answers[q] || 0); });
+      return { id: b.id, name: b.name, cat: b.cat, desc: b.desc, score: total };
+    });
+  }
+
+  function onGateSubmit(e) {
+    e.preventDefault();
+    var fnInput = document.getElementById('firstName');
+    var emInput = document.getElementById('email');
+    var fnErr = document.getElementById('firstNameError');
+    var emErr = document.getElementById('emailError');
+    var valid = true;
+
+    fnInput.classList.remove('error'); fnErr.classList.remove('visible');
+    emInput.classList.remove('error'); emErr.classList.remove('visible');
+
+    if (!fnInput.value.trim()) { fnInput.classList.add('error'); fnErr.classList.add('visible'); valid = false; }
+    var emailVal = emInput.value.trim();
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal || !emailRe.test(emailVal)) { emInput.classList.add('error'); emErr.classList.add('visible'); valid = false; }
+    if (!valid) return;
+
+    firstName = fnInput.value.trim();
+    var consent = document.getElementById('consent').checked;
+    var scored = computeScores();
+    var sorted = scored.slice().sort(function(a, b) { return b.score - a.score; });
+    var top3 = sorted.slice(0, 3);
+
+    var payload = {
+      version: 'blocks-v2-madmuscles',
+      firstName: firstName,
+      email: emailVal,
+      consent: consent,
+      submittedAt: new Date().toISOString(),
+      goal: intake.goal,
+      age: intake.age,
+      experience: intake.experience,
+      topBlocks: top3.map(function(b) { return { id: b.id, name: b.name, score: b.score }; }),
+      allScores: scored.map(function(b) { return { id: b.id, name: b.name, score: b.score }; }),
+      rawAnswers: answers,
+      utm: {
+        source: getQueryParam('utm_source'),
+        medium: getQueryParam('utm_medium'),
+        campaign: getQueryParam('utm_campaign'),
+        term: getQueryParam('utm_term'),
+        content: getQueryParam('utm_content')
+      },
+      referrer: document.referrer || null,
+      userAgent: navigator.userAgent
+    };
+    submitLead(payload);
+    next(); // → results
+  }
+
+  function submitLead(payload) {
+    try {
+      fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function() { /* silent */ });
+    } catch (e) { /* silent */ }
+  }
+
+  function getQueryParam(name) {
+    var m = window.location.search.match(new RegExp('[?&]' + name + '=([^&]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  /* ── Discount reservation countdown ── */
+  var timerIv = null;
+  function startTimer() {
+    var secs = 600;
+    if (timerIv) clearInterval(timerIv);
+    timerIv = setInterval(function() {
+      secs = Math.max(0, secs - 1);
+      var m = Math.floor(secs / 60), s = secs % 60;
+      var elx = document.getElementById('timerVal');
+      if (elx) elx.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+      if (secs === 0) clearInterval(timerIv);
+    }, 1000);
+  }
+
+  // Boot
+  show(0);
+})();
+</script>
+
+</body>
+</html>
