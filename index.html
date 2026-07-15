@@ -284,7 +284,8 @@
     .stack-card { background: white; border: 2px solid var(--mv-purple); border-radius: 1rem; overflow: hidden; margin-bottom: 1.5rem; }
     .stack-head { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); color: white; text-align: center; padding: 0.75rem 1rem; font-weight: 700; font-size: 0.9375rem; }
     .stack-body { padding: 1rem 1.25rem 1.25rem 1.25rem; }
-    .stack-row { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--mv-border); font-size: 0.875rem; text-align: left; }
+    .stack-row { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--mv-border); font-size: 0.875rem; text-align: left; }
+    .stack-row .nm { flex: 1; min-width: 0; }
     .stack-row:last-of-type { border-bottom: none; }
     .stack-row .nm { color: var(--mv-text); font-weight: 500; }
     .stack-row .nm small { display: block; color: var(--mv-text-faint); font-weight: 400; font-size: 0.71875rem; }
@@ -299,6 +300,13 @@
     .time-line b { color: var(--mv-text); }
     .exit-ramp { text-align: center; margin-top: 1.75rem; font-size: 0.84375rem; color: var(--mv-text-subtle); line-height: 1.6; }
     .exit-ramp a { color: var(--mv-purple); font-weight: 600; }
+    .sev-wrap { margin: 0 auto 1.25rem auto; max-width: 22rem; }
+    .sev-track { height: 0.625rem; border-radius: 1rem; background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444); position: relative; }
+    .sev-marker { position: absolute; top: -0.3125rem; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: white; border: 3px solid var(--mv-purple); transform: translateX(-50%); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+    .sev-labels { display: flex; justify-content: space-between; font-size: 0.6875rem; color: var(--mv-text-faint); margin-top: 0.45rem; }
+    .stack-row .thumb { width: 3.5rem; height: 2.1rem; object-fit: cover; border-radius: 0.375rem; flex-shrink: 0; }
+    .bridge-img { width: 100%; border-radius: 1rem; display: block; margin-bottom: 1rem; aspect-ratio: 16 / 7; object-fit: cover; }
+    .mini-heading { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mv-text-faint); margin: 1.5rem 0 0.75rem 0; }
 
     @media (max-width: 380px) {
       .q-title { font-size: 1.3125rem; line-height: 1.7rem; }
@@ -824,6 +832,10 @@
     root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', your' : 'Your') + ' diagnosis is ready</div>'));
     root.appendChild(el('<h2 class="q-title">Your #1 block:<br/>' + topBlock.name + '</h2>'));
 
+    // Severity meter — visual read on their score
+    var sevPct = Math.round(topBlock.score / 15 * 100);
+    root.appendChild(el('<div class="sev-wrap"><div class="sev-track"><div class="sev-marker" style="left:' + sevPct + '%;"></div></div><div class="sev-labels"><span>Mild</span><span>Moderate</span><span>Severe</span></div></div>'));
+
     // Mirror paragraph — their goal + experience + score, before any charts
     root.appendChild(el('<div class="diag-card">You want to manifest <b>' + goal.noun + '</b>, and ' + expPhrase() +
       '. Your answers show why it hasn\'t fully landed yet: you scored <b>' + topBlock.score + '/15</b> on <b>' + topBlock.name + '</b>. ' +
@@ -839,6 +851,13 @@
       qc.appendChild(qt);
       qc.appendChild(el('<div class="quote-verdict">That\'s not a discipline problem. That\'s the block doing exactly what blocks do.</div>'));
       root.appendChild(qc);
+    }
+
+    // Real student who had this exact block (photo + verified story)
+    var diagProof = questAssets[questMap[topBlock.id].quest] && questAssets[questMap[topBlock.id].quest].proof;
+    if (diagProof) {
+      root.appendChild(el('<div class="mini-heading">Someone who had this exact block</div>'));
+      root.appendChild(storyCard(diagProof));
     }
 
     root.appendChild(el('<p class="q-sub" style="margin:1.5rem auto 0.75rem auto; font-weight:600; color:var(--mv-text);">Your full block profile</p>'));
@@ -886,6 +905,8 @@
     root.appendChild(el('<div class="q-eyebrow">The hard truth</div>'));
     root.appendChild(el('<h2 class="q-title">Why your manifesting hasn\'t worked yet</h2>'));
 
+    root.appendChild(el('<img class="bridge-img" src="https://a.storyblok.com/f/60579/53640/d570736190/silva-brain-visualization.jpg" alt="Your subconscious filters every visualization" loading="lazy" />'));
+
     root.appendChild(el('<div class="bridge-analogy"><div class="big">🏎️</div><p>' +
       (yearsRef ? 'For ' + yearsRef + ' you\'ve' : 'You\'ve') +
       ' been pressing the accelerator — visualizing, affirming, scripting — <b>with the handbrake on</b>.<br/>' +
@@ -898,7 +919,15 @@
 
     root.appendChild(el('<div class="reframe">Blocks don\'t dissolve by knowing their name.<br/>They dissolve with <b>the right protocol, in the right order</b> — and yours takes 12 weeks.</div>'));
 
-    var btn = el('<button type="button" class="btn-primary">Show me my 12-week protocol →</button>');
+    // She was stuck the same way — then the protocol
+    root.appendChild(el('<div class="mini-heading">She was stuck too</div>'));
+    root.appendChild(storyCard({
+      name: 'Alvina Saunders', sub: 'Trainer · Silver Spring, US', quest: 'The Silva Ultramind System',
+      photo: MVSTORY + '9815/blob',
+      text: 'Went from "one step forward, three steps back" to moving faster — with precision and total clarity about her future.'
+    }));
+
+    var btn = el('<button type="button" class="btn-primary" style="margin-top:1.25rem;">Show me my 12-week protocol →</button>');
     btn.addEventListener('click', next);
     root.appendChild(btn);
   }});
@@ -970,19 +999,24 @@
       }
       root.appendChild(currCard);
     });
-    // Offer stack — quantify what the membership contains vs the price
+    // Offer stack — quest cover thumbs + outcome-driven value lines
     // ($349 = standard single-quest price; confirm with Finance alongside pricing sign-off)
     var ALL_QUESTS = ['The Silva Ultramind System', 'Duality', 'The Art of Manifesting', 'Feng Shui for Life'];
+    var QUEST_OUTCOMES = {
+      'The Silva Ultramind System': 'reprogram your subconscious at the alpha level — visualize from the end result, on command',
+      'Duality': 'clear the energy blocks around receiving — students report income and opportunity shifts',
+      'The Art of Manifesting': 'collapse the gap between intention and arrival — students manifest on exact dates',
+      'Feng Shui for Life': 'turn your home into an opportunity magnet — shifts within days of repositioning'
+    };
     var stackRows = '';
     ALL_QUESTS.forEach(function(qn) {
       var ph = null;
       phases.forEach(function(p, pi) { if (p.quest === qn) ph = pi; });
-      var noteTxt = ph !== null
-        ? 'Phase ' + (ph + 1) + ' · dissolves your ' + phases[ph].blocks.map(function(b) { return b.name; }).join(' + ')
-        : 'included — your environment & support layer';
-      stackRows += '<div class="stack-row"><span class="nm">' + qn + '<small>' + noteTxt + '</small></span><span class="vl">$349 value</span></div>';
+      var noteTxt = (ph !== null ? 'Phase ' + (ph + 1) + ' · ' : '') + QUEST_OUTCOMES[qn];
+      var thumb = questAssets[qn] && questAssets[qn].cover ? '<img class="thumb" src="' + questAssets[qn].cover + '" alt="' + qn + '" loading="lazy" />' : '';
+      stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + qn + '<small>' + noteTxt + '</small></span><span class="vl">$349 value</span></div>';
     });
-    stackRows += '<div class="stack-row"><span class="nm">+ 100+ more Mindvalley programs<small>every quest, all teachers, all pathways</small></span><span class="vl">included</span></div>';
+    stackRows += '<div class="stack-row"><span class="nm">+ 20+ more programs in the Manifesting Pathway<small>each targets a different block — plus the full Mindvalley library beyond it</small></span><span class="vl">included</span></div>';
     root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your protocol</div><div class="stack-body">' +
       stackRows +
       '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">$199/yr</span></span></div>' +
@@ -1030,10 +1064,11 @@
     });
     root.appendChild(cta);
 
-    // Guarantee as a challenge, tied to their Phase 1 quest and #1 block
-    root.appendChild(el('<div class="challenge-card"><div class="challenge-title">🛡️ The Week-One Challenge</div>' +
-      '<div class="challenge-body">Do the first week of <b>' + phases[0].quest + '</b> — about 20 minutes a day. If you don\'t feel ' +
-      topBlock.name + ' start to loosen, one click inside your account gets you a full refund. You have 15 days. No questions, no phone calls.</div></div>'));
+    // Refund policy, framed as a week-one test tied to their Phase 1 quest and #1 block
+    root.appendChild(el('<div class="challenge-card"><div class="challenge-title">🛡️ 15-Day Money-Back Guarantee</div>' +
+      '<div class="challenge-body">Every plan is fully refundable for 15 days from purchase. Here\'s how we suggest you use it: do the first week of <b>' +
+      phases[0].quest + '</b> — about 20 minutes a day. If you don\'t feel ' + topBlock.name +
+      ' start to loosen, one click inside your account gets you a <b>full refund</b>. No questions, no phone calls.</div></div>'));
     root.appendChild(el('<div class="time-line">⏱️ Your protocol takes <b>~20 minutes a day</b>.</div>'));
 
     // What students manifested — real results wall (stories.mindvalley.com)
@@ -1050,7 +1085,7 @@
     root.appendChild(cta2);
 
     // Exit ramp — keep non-buyers in the funnel instead of losing the click
-    root.appendChild(el('<div class="exit-ramp">Not ready to decide? <a href="https://www.mindvalley.com/manifesting?utm_source=quiz&utm_medium=manifesting-blocks-quiz&utm_campaign=manifesting-pathway&utm_content=exit-ramp" target="_blank" rel="noopener">Watch the free Manifesting masterclass first →</a></div>'));
+    root.appendChild(el('<div class="exit-ramp">Not ready to decide? <a href="https://www.mindvalley.com/manifesting/masterclass?utm_source=quiz&utm_medium=manifesting-blocks-quiz&utm_campaign=manifesting-pathway&utm_content=exit-ramp" target="_blank" rel="noopener">Watch the free Manifesting masterclass first →</a></div>'));
 
     root.appendChild(el('<p class="plan-smallprint">Your plan renews at the end of the selected period at the standard rate unless cancelled. Cancel anytime from your account — no questions asked. Prices in USD. Individual results vary. Quest values reflect standard single-quest pricing.</p>'));
 
