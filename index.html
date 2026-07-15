@@ -323,7 +323,7 @@
       <button class="back-btn" id="backBtn" aria-label="Go back">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <div class="logo">Mind<b>valley</b></div>
+      <img class="logo" src="https://marisha-mv.github.io/manifesting-quiz/photos/mv-logo.png" alt="Mindvalley" style="height:1.375rem; width:auto; display:block;" />
       <div class="step-count" id="stepCount"></div>
     </div>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -451,52 +451,52 @@
   }
 
   /* Real student photos served via Mindvalley's own Cloudinary account (400×400 face crops) */
-  var MVSTORY = 'https://res.cloudinary.com/mindvalley/image/fetch/f_auto,q_auto,w_400,h_400,c_fill/https://storage.googleapis.com/mv-stories/';
+  var MVSTORY = 'https://marisha-mv.github.io/manifesting-quiz/photos/';
 
   /* Section-matched stories — keyed by category firstQ, matched to that level's blocks */
   var sectionStories = {
     1: { heading: 'Students who cleared these Inner Identity blocks', stories: [
       { name: 'Anthon Fynn-Williams', sub: 'Digital Analyst, Vodafone · London, UK', quest: 'The Silva Ultramind System',
-        photo: MVSTORY + '15659/whatsapp-image-2020-09-04-at-00.26.55.jpeg',
+        photo: MVSTORY + 'anthon.jpg',
         text: 'Developed "a much deeper sense of self-love, self-belief & self-confidence" — and a whole new outlook on life.' },
       { name: 'Maribel Ariza', sub: 'Psychologist · Málaga, Spain', quest: 'The Silva Ultramind System',
-        photo: MVSTORY + '7903/ed792aca-f373-45a2-ae05-58678c5d94cf.jpeg',
+        photo: MVSTORY + 'maribel.jpg',
         text: 'Went from complaining and worrying to believing in her own power to shape reality — and recovered her self-confidence.' },
       { name: 'Deanna C', sub: 'Dating & Relationship Coach · United States', quest: 'Duality',
-        photo: MVSTORY + '4359/0937ccd025d64ad14acd27a112e49dab.jpg',
+        photo: MVSTORY + 'deanna.jpg',
         text: '"I had such a release. I didn\'t even know I had that block."' }
     ]},
     10: { heading: 'Students who fixed their energy — and watched results follow', stories: [
       { name: 'Mfon Etukeren', sub: 'Tax Lawyer · Houston, US', quest: 'Duality',
-        photo: MVSTORY + '7016/20191008-_swm9471.jpg',
+        photo: MVSTORY + 'mfon.jpg',
         text: '"The energy blocks began to clear and income rose by 50%."' },
       { name: 'Pete Basaraba', sub: 'Business Owner · Nelson, Canada', quest: 'Duality',
-        photo: MVSTORY + '35093/MossBoss.jpeg',
+        photo: MVSTORY + 'pete.jpg',
         text: '"In my business new opportunities keep flowing in naturally now."' },
       { name: 'Stephanie Thoma', sub: 'Life & Executive Coach · San Francisco, US', quest: 'Feng Shui for Life',
-        photo: MVSTORY + '25780/2021-Stephanie-Michelle-28.jpeg',
+        photo: MVSTORY + 'stephanie.jpg',
         text: 'Repositioned her desk toward her success direction — a prospective client reached out within days.' }
     ]},
     16: { heading: 'Students who reprogrammed the subconscious patterns you just answered about', stories: [
       { name: 'Steve Hall', sub: 'Founder, Beealigned Coaching · Geelong, Australia', quest: 'The Silva Ultramind System',
-        photo: MVSTORY + '14889/stevehall_911_hires--2-.jpg',
+        photo: MVSTORY + 'steve.jpg',
         text: 'Used the Three Scenes technique — habits changed naturally, and breakthrough business inspirations followed.' },
       { name: 'Julia Andina', sub: 'Adult Education Teacher · Liepaja, Latvia', quest: 'The Silva Ultramind System',
-        photo: MVSTORY + '27707/photo_2023-05-05_16-09-11.jpg',
+        photo: MVSTORY + 'julia.jpg',
         text: 'Used the Three Scenes technique to "get rid of my sugar addiction" — and her sleep improved within days.' },
       { name: 'Jennifer Waters', sub: 'Wellbeing Coach · Nottingham, UK', quest: 'The Silva Ultramind System',
-        photo: MVSTORY + '13275/02_jenny-waters_16-07-15_cropped.jpg',
+        photo: MVSTORY + 'jennifer.jpg',
         text: 'Her stalled house move and stuck work situations resolved after applying the mental-video technique.' }
     ]},
     25: { heading: 'Students who learned to receive — and what arrived', stories: [
       { name: 'Pınar İbrahimhakkıoğlu', sub: 'Associate Certified Coach · Istanbul, Turkey', quest: 'The Art of Manifesting',
-        photo: MVSTORY + '30147/Vesikal%C4%B1k-p%C4%B1nar.JPG',
+        photo: MVSTORY + 'pinar.jpg',
         text: 'Her "first intention actualized on the exact date that I manifested for."' },
       { name: 'Frederic', sub: 'Financial Counselor · Zurich, Switzerland', quest: 'The Art of Manifesting',
-        photo: MVSTORY + '33790/e8cfd26e-0be6-404b-b3d3-5d6d600a002e.jpeg',
+        photo: MVSTORY + 'frederic.jpg',
         text: 'Bought the family house before he\'d even finished the quest.' },
       { name: 'Brie', sub: 'Coach · Oranjestad, Aruba', quest: 'The Art of Manifesting',
-        photo: MVSTORY + '31612/Brie%20-%20Headshot.jpg',
+        photo: MVSTORY + 'brie.jpg',
         text: '"Client flowed in like the ocean tide" — 10 days after setting the goal.' }
     ]}
   };
@@ -504,53 +504,53 @@
   /* Plan-page wall: concrete manifested results */
   var manifestWall = [
     { name: 'Julie Faust Pippin', sub: 'Life Coach · San Luis Obispo, US', quest: 'The Art of Manifesting',
-      photo: MVSTORY + '29871/Screenshot%202023-10-04%20at%206.40.34%20PM.jpg',
+      photo: MVSTORY + 'julie.jpg',
       text: 'Manifested over $70,000.' },
     { name: 'Anthoinette Okafor', sub: 'Bank Branch Manager · Uyo, Nigeria', quest: 'The Art of Manifesting',
-      photo: MVSTORY + '30954/IMG_20230920_082004_292.jpg',
+      photo: MVSTORY + 'anthoinette.jpg',
       text: '"Three times my monthly earning in a single month."' },
     { name: 'Mi Kwan Lock', sub: 'Actress · Paris, France', quest: 'The Art of Manifesting',
-      photo: MVSTORY + '30914/292061355_10167367010190377_8958025044561042316_n.jpg',
+      photo: MVSTORY + 'mikwan.jpg',
       text: 'Saw her quest manifestation land on day 7 — then booked three straight weeks of shoots.' },
     { name: 'Henry Pi & Bella Wang', sub: 'Transformation Coaches · Taipei, Taiwan', quest: 'Feng Shui for Life',
-      photo: MVSTORY + '32564/1.png',
+      photo: MVSTORY + 'henrybella.jpg',
       text: 'After 9 years of trying, conceived their first child after rebalancing their home.' },
     { name: 'Chang', sub: 'Medical Equipment MNC · Germany', quest: 'Feng Shui for Life',
-      photo: MVSTORY + '10400/e40b16f8477960ca06e10c07b2b20754.png',
+      photo: MVSTORY + 'chang.jpg',
       text: 'Career changes within 1–2 weeks for him and his wife — and her meditation and yoga business surged.' },
     { name: 'Nikki Phao', sub: 'Investor · Bangkok, Thailand', quest: 'The Silva Ultramind System',
-      photo: MVSTORY + '7985/img_7464.jpg',
+      photo: MVSTORY + 'nikki.jpg',
       text: 'An unexpected person entered her life with a partnership opportunity.' }
   ];
 
   /* Official quest covers + author photos (Mindvalley CDN / Storyblok, verified) */
   var questAssets = {
     'The Silva Ultramind System': {
-      cover: 'https://assets.mindvalley.com/api/v1/assets/10b1de3f-44d4-4dd5-84d7-dc2456a79da4.jpeg',
-      authorPhoto: 'https://a.storyblok.com/f/60579/1536x2300/bddf3ec3ac/04-author-vishen.webp/m/240x240/smart',
+      cover: 'https://marisha-mv.github.io/manifesting-quiz/photos/cover-silva.jpg',
+      authorPhoto: 'https://marisha-mv.github.io/manifesting-quiz/photos/author-vishen.jpg',
       proof: { name: 'Steve Hall', sub: 'Founder, Beealigned Coaching · Geelong, Australia', quest: 'The Silva Ultramind System',
-        photo: MVSTORY + '14889/stevehall_911_hires--2-.jpg',
+        photo: MVSTORY + 'steve.jpg',
         text: 'Used the Three Scenes technique — habits changed naturally, and breakthrough business inspirations followed.' }
     },
     'Duality': {
-      cover: 'https://assets.mindvalley.com/api/v1/assets/f74c2478-7131-4f5a-8dad-79a812f2b1c3.jpg',
-      authorPhoto: 'https://a.storyblok.com/f/60579/700x760/4314cdd654/du_sp_author-m.jpg/m/240x240/smart',
+      cover: 'https://marisha-mv.github.io/manifesting-quiz/photos/cover-duality.jpg',
+      authorPhoto: 'https://marisha-mv.github.io/manifesting-quiz/photos/author-jeffrey.jpg',
       proof: { name: 'Mfon Etukeren', sub: 'Tax Lawyer · Houston, US', quest: 'Duality',
-        photo: MVSTORY + '7016/20191008-_swm9471.jpg',
+        photo: MVSTORY + 'mfon.jpg',
         text: '"The energy blocks began to clear and income rose by 50%."' }
     },
     'The Art of Manifesting': {
-      cover: 'https://a.storyblok.com/f/60579/1920x1080/4e415b623e/tam_questcover_en.jpg/m/960x540',
-      authorPhoto: 'https://a.storyblok.com/f/60579/2864x1611/505079877a/regan-hillyer2.webp/m/240x240/smart',
+      cover: 'https://marisha-mv.github.io/manifesting-quiz/photos/cover-aom.jpg',
+      authorPhoto: 'https://marisha-mv.github.io/manifesting-quiz/photos/author-regan.jpg',
       proof: { name: 'Pınar İbrahimhakkıoğlu', sub: 'Associate Certified Coach · Istanbul, Turkey', quest: 'The Art of Manifesting',
-        photo: MVSTORY + '30147/Vesikal%C4%B1k-p%C4%B1nar.JPG',
+        photo: MVSTORY + 'pinar.jpg',
         text: 'Her "first intention actualized on the exact date that I manifested for."' }
     },
     'Feng Shui for Life': {
-      cover: 'https://assets.mindvalley.com/api/v1/assets/ab864489-c1ee-470e-b8ce-37be73d7a095.jpg',
-      authorPhoto: 'https://storage.googleapis.com/mv-prod-blog-en-assets/2023/09/f6b28624-marie-diamond-768x768.webp',
+      cover: 'https://marisha-mv.github.io/manifesting-quiz/photos/cover-fs.jpg',
+      authorPhoto: 'https://marisha-mv.github.io/manifesting-quiz/photos/author-marie.webp',
       proof: { name: 'Stephanie Thoma', sub: 'Life & Executive Coach · San Francisco, US', quest: 'Feng Shui for Life',
-        photo: MVSTORY + '25780/2021-Stephanie-Michelle-28.jpeg',
+        photo: MVSTORY + 'stephanie.jpg',
         text: 'Repositioned her desk toward her success direction — a prospective client reached out within days.' }
     }
   };
@@ -905,7 +905,7 @@
     root.appendChild(el('<div class="q-eyebrow">The hard truth</div>'));
     root.appendChild(el('<h2 class="q-title">Why your manifesting hasn\'t worked yet</h2>'));
 
-    root.appendChild(el('<img class="bridge-img" src="https://a.storyblok.com/f/60579/53640/d570736190/silva-brain-visualization.jpg" alt="Your subconscious filters every visualization" loading="lazy" />'));
+    root.appendChild(el('<img class="bridge-img" src="https://marisha-mv.github.io/manifesting-quiz/photos/bridge-brain.jpg" alt="Your subconscious filters every visualization" loading="lazy" />'));
 
     root.appendChild(el('<div class="bridge-analogy"><div class="big">🏎️</div><p>' +
       (yearsRef ? 'For ' + yearsRef + ' you\'ve' : 'You\'ve') +
@@ -923,7 +923,7 @@
     root.appendChild(el('<div class="mini-heading">She was stuck too</div>'));
     root.appendChild(storyCard({
       name: 'Alvina Saunders', sub: 'Trainer · Silver Spring, US', quest: 'The Silva Ultramind System',
-      photo: MVSTORY + '9815/blob',
+      photo: MVSTORY + 'alvina.jpg',
       text: 'Went from "one step forward, three steps back" to moving faster — with precision and total clarity about her future.'
     }));
 
