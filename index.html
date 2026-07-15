@@ -258,6 +258,48 @@
     .curr-why { font-size: 0.84375rem; color: var(--mv-text-muted); margin-top: 0.625rem; line-height: 1.55; }
     .curr-why b { color: var(--mv-purple); }
 
+    /* ===== Diagnosis (results) ===== */
+    .diag-card { background: var(--mv-purple-50); border: 1.5px solid var(--mv-purple-100); border-radius: 1rem; padding: 1.375rem; font-size: 0.9975rem; line-height: 1.6; color: var(--mv-text); margin-bottom: 0.875rem; text-align: left; }
+    .diag-card b { color: var(--mv-purple); }
+    .quote-card { background: white; border: 1.5px solid var(--mv-border); border-left: 4px solid var(--mv-purple); border-radius: 0.75rem; padding: 1.125rem 1.25rem; margin-bottom: 0.875rem; text-align: left; }
+    .quote-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mv-text-faint); margin-bottom: 0.5rem; }
+    .quote-text { font-size: 0.9375rem; font-style: italic; color: var(--mv-text); line-height: 1.5; }
+    .quote-verdict { font-size: 0.875rem; color: var(--mv-purple); font-weight: 600; margin-top: 0.625rem; }
+    .cost-line { text-align: center; font-size: 0.875rem; color: var(--mv-text-muted); margin: 1.25rem 0 1.5rem 0; line-height: 1.5; }
+    .cost-line b { color: var(--mv-text); }
+
+    /* ===== Belief bridge ===== */
+    .bridge-analogy { background: linear-gradient(180deg, #1a0b3e 0%, #4c1d95 100%); color: white; border-radius: 1rem; padding: 1.5rem 1.375rem; text-align: center; margin-bottom: 1rem; }
+    .bridge-analogy .big { font-size: 2rem; margin-bottom: 0.625rem; }
+    .bridge-analogy p { margin: 0; font-size: 0.9975rem; line-height: 1.55; }
+    .bridge-analogy b { color: #fbbf24; }
+    .bridge-row { display: flex; gap: 0.875rem; align-items: flex-start; background: white; border: 1px solid var(--mv-border); border-radius: 0.875rem; padding: 1rem 1.125rem; margin-bottom: 0.625rem; text-align: left; }
+    .bridge-row .ic { font-size: 1.25rem; flex-shrink: 0; }
+    .bridge-row .tx { font-size: 0.9075rem; line-height: 1.5; color: var(--mv-text-muted); }
+    .bridge-row .tx b { color: var(--mv-text); }
+    .reframe { background: var(--mv-purple-50); border: 1.5px solid var(--mv-purple-100); border-radius: 1rem; padding: 1.25rem 1.375rem; text-align: center; font-size: 0.9975rem; line-height: 1.6; margin: 1rem 0 1.5rem 0; }
+    .reframe b { color: var(--mv-purple); }
+
+    /* ===== Offer stack / challenge / exit ramp ===== */
+    .stack-card { background: white; border: 2px solid var(--mv-purple); border-radius: 1rem; overflow: hidden; margin-bottom: 1.5rem; }
+    .stack-head { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); color: white; text-align: center; padding: 0.75rem 1rem; font-weight: 700; font-size: 0.9375rem; }
+    .stack-body { padding: 1rem 1.25rem 1.25rem 1.25rem; }
+    .stack-row { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--mv-border); font-size: 0.875rem; text-align: left; }
+    .stack-row:last-of-type { border-bottom: none; }
+    .stack-row .nm { color: var(--mv-text); font-weight: 500; }
+    .stack-row .nm small { display: block; color: var(--mv-text-faint); font-weight: 400; font-size: 0.71875rem; }
+    .stack-row .vl { color: var(--mv-text-subtle); white-space: nowrap; }
+    .stack-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 0.875rem; margin-top: 0.25rem; border-top: 2px solid var(--mv-border); font-weight: 700; }
+    .stack-total .strike { text-decoration: line-through; color: var(--mv-text-faint); font-weight: 500; margin-right: 0.5rem; }
+    .stack-total .now { color: var(--mv-purple); font-size: 1.25rem; }
+    .challenge-card { background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 1rem; padding: 1.25rem 1.375rem; margin: 1rem 0 0.5rem 0; text-align: left; }
+    .challenge-title { font-weight: 700; color: #047857; font-size: 0.9975rem; margin-bottom: 0.4rem; }
+    .challenge-body { font-size: 0.875rem; line-height: 1.55; color: var(--mv-text-muted); }
+    .time-line { text-align: center; font-size: 0.84375rem; color: var(--mv-text-subtle); margin: 0.875rem 0 0.5rem 0; }
+    .time-line b { color: var(--mv-text); }
+    .exit-ramp { text-align: center; margin-top: 1.75rem; font-size: 0.84375rem; color: var(--mv-text-subtle); line-height: 1.6; }
+    .exit-ramp a { color: var(--mv-purple); font-weight: 600; }
+
     @media (max-width: 380px) {
       .q-title { font-size: 1.3125rem; line-height: 1.7rem; }
       .score-bar-label { width: 6.5rem; }
@@ -761,16 +803,45 @@
     root.appendChild(card);
   }});
 
-  // ── Results ──
+  // ── Results: personalized diagnosis (mirror → quote-back → evidence → cost) ──
+  function expPhrase() {
+    return {
+      'new':  'you\'re just getting started',
+      '<1y':  'you\'ve been practicing for almost a year',
+      '1-3y': 'you\'ve been practicing for 1–3 years',
+      '3y+':  'you\'ve been practicing for over 3 years'
+    }[intake.experience] || 'you\'ve been practicing for a while';
+  }
+
   screens.push({ id: 'results', answerable: false, noBack: true, build: function(root) {
     var scored = computeScores();
     var sorted = scored.slice().sort(function(a, b) { return b.score - a.score; });
     var top3 = sorted.slice(0, 3);
     var top3Names = top3.map(function(s) { return s.name; });
+    var topBlock = sorted[0];
+    var goal = GOALS[intake.goal] || GOALS.wealth;
 
-    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', here are your results' : 'Here are your results') + '</div>'));
-    root.appendChild(el('<h2 class="q-title">Your Top 3 Manifesting Blocks</h2>'));
-    root.appendChild(el('<p class="q-sub">These are the primary patterns to dissolve first — where the biggest shift lives.</p>'));
+    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', your' : 'Your') + ' diagnosis is ready</div>'));
+    root.appendChild(el('<h2 class="q-title">Your #1 block:<br/>' + topBlock.name + '</h2>'));
+
+    // Mirror paragraph — their goal + experience + score, before any charts
+    root.appendChild(el('<div class="diag-card">You want to manifest <b>' + goal.noun + '</b>, and ' + expPhrase() +
+      '. Your answers show why it hasn\'t fully landed yet: you scored <b>' + topBlock.score + '/15</b> on <b>' + topBlock.name + '</b>. ' +
+      topBlock.desc + '</div>'));
+
+    // Quote their own highest-rated symptom back at them
+    var maxQ = topBlock.qs[0];
+    topBlock.qs.forEach(function(q) { if ((answers[q] || 0) > (answers[maxQ] || 0)) maxQ = q; });
+    if ((answers[maxQ] || 0) >= 4) {
+      var qc = el('<div class="quote-card"></div>');
+      qc.appendChild(el('<div class="quote-label">In your own words — you rated this ' + answers[maxQ] + '/5</div>'));
+      var qt = document.createElement('div'); qt.className = 'quote-text'; qt.textContent = '"' + statements[maxQ - 1] + '"';
+      qc.appendChild(qt);
+      qc.appendChild(el('<div class="quote-verdict">That\'s not a discipline problem. That\'s the block doing exactly what blocks do.</div>'));
+      root.appendChild(qc);
+    }
+
+    root.appendChild(el('<p class="q-sub" style="margin:1.5rem auto 0.75rem auto; font-weight:600; color:var(--mv-text);">Your full block profile</p>'));
 
     var top3Html = '';
     top3.forEach(function(s, i) {
@@ -798,7 +869,36 @@
     });
     root.appendChild(el('<div class="all-scores">' + barsHtml + '</div>'));
 
-    var btn = el('<button type="button" class="btn-primary" style="margin-top:2rem;">See my personalized plan →</button>');
+    root.appendChild(el('<div class="cost-line"><b>Blocks don\'t age out.</b> Every month this one stays active is another month ' + goal.noun.split(' ')[0] + ' stays theoretical.</div>'));
+
+    var btn = el('<button type="button" class="btn-primary">See why nothing you\'ve tried has worked →</button>');
+    btn.addEventListener('click', next);
+    root.appendChild(btn);
+  }});
+
+  // ── Belief bridge: install "the block is why everything failed" before the plan ──
+  screens.push({ id: 'bridge', answerable: false, noBack: true, build: function(root) {
+    var sorted = computeScores().sort(function(a, b) { return b.score - a.score; });
+    var topBlock = sorted[0];
+    var veteran = intake.experience === '3y+' || intake.experience === '1-3y';
+    var yearsRef = intake.experience === '3y+' ? 'over 3 years' : intake.experience === '1-3y' ? 'years' : null;
+
+    root.appendChild(el('<div class="q-eyebrow">The hard truth</div>'));
+    root.appendChild(el('<h2 class="q-title">Why your manifesting hasn\'t worked yet</h2>'));
+
+    root.appendChild(el('<div class="bridge-analogy"><div class="big">🏎️</div><p>' +
+      (yearsRef ? 'For ' + yearsRef + ' you\'ve' : 'You\'ve') +
+      ' been pressing the accelerator — visualizing, affirming, scripting — <b>with the handbrake on</b>.<br/>' +
+      topBlock.name + ' is the handbrake.</p></div>'));
+
+    root.appendChild(el('<div class="bridge-row"><div class="ic">🧠</div><div class="tx"><b>More visualization can\'t fix it.</b> You\'d be visualizing through the block — it filters every image you send.</div></div>'));
+    root.appendChild(el('<div class="bridge-row"><div class="ic">💪</div><div class="tx"><b>Willpower can\'t fix it.</b> It lives in your subconscious — underneath the level where decisions happen.</div></div>'));
+    root.appendChild(el('<div class="bridge-row"><div class="ic">⏳</div><div class="tx"><b>Time won\'t fix it.</b> Blocks don\'t age out. ' +
+      (veteran ? 'Yours has already survived ' + (yearsRef || 'years') + ' of practice.' : 'Left alone, they compound.') + '</div></div>'));
+
+    root.appendChild(el('<div class="reframe">Blocks don\'t dissolve by knowing their name.<br/>They dissolve with <b>the right protocol, in the right order</b> — and yours takes 12 weeks.</div>'));
+
+    var btn = el('<button type="button" class="btn-primary">Show me my 12-week protocol →</button>');
     btn.addEventListener('click', next);
     root.appendChild(btn);
   }});
@@ -870,7 +970,23 @@
       }
       root.appendChild(currCard);
     });
-    root.appendChild(el('<p class="q-sub" style="margin-top:0.75rem; margin-bottom:1.75rem; font-size:0.8125rem;">All four quests — plus the full Mindvalley library — are included in your Manifesting Pathway membership.</p>'));
+    // Offer stack — quantify what the membership contains vs the price
+    // ($349 = standard single-quest price; confirm with Finance alongside pricing sign-off)
+    var ALL_QUESTS = ['The Silva Ultramind System', 'Duality', 'The Art of Manifesting', 'Feng Shui for Life'];
+    var stackRows = '';
+    ALL_QUESTS.forEach(function(qn) {
+      var ph = null;
+      phases.forEach(function(p, pi) { if (p.quest === qn) ph = pi; });
+      var noteTxt = ph !== null
+        ? 'Phase ' + (ph + 1) + ' · dissolves your ' + phases[ph].blocks.map(function(b) { return b.name; }).join(' + ')
+        : 'included — your environment & support layer';
+      stackRows += '<div class="stack-row"><span class="nm">' + qn + '<small>' + noteTxt + '</small></span><span class="vl">$349 value</span></div>';
+    });
+    stackRows += '<div class="stack-row"><span class="nm">+ 100+ more Mindvalley programs<small>every quest, all teachers, all pathways</small></span><span class="vl">included</span></div>';
+    root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your protocol</div><div class="stack-body">' +
+      stackRows +
+      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">$199/yr</span></span></div>' +
+      '</div></div>'));
 
     // Countdown bar — mirrors the live funnel's 15-minute $100-discount window
     root.appendChild(el('<div class="timer-bar" id="timerBar">⏳ <b id="timerVal">14:59</b>&nbsp;remaining for this $100 discount</div>'));
@@ -914,7 +1030,11 @@
     });
     root.appendChild(cta);
 
-    root.appendChild(el('<div class="guarantee-row">🛡️ 15-day money-back guarantee</div>'));
+    // Guarantee as a challenge, tied to their Phase 1 quest and #1 block
+    root.appendChild(el('<div class="challenge-card"><div class="challenge-title">🛡️ The Week-One Challenge</div>' +
+      '<div class="challenge-body">Do the first week of <b>' + phases[0].quest + '</b> — about 20 minutes a day. If you don\'t feel ' +
+      topBlock.name + ' start to loosen, one click inside your account gets you a full refund. You have 15 days. No questions, no phone calls.</div></div>'));
+    root.appendChild(el('<div class="time-line">⏱️ Your protocol takes <b>~20 minutes a day</b>.</div>'));
 
     // What students manifested — real results wall (stories.mindvalley.com)
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem; margin-top:2.25rem;">What students on these quests manifested</h3>'));
@@ -929,7 +1049,10 @@
     });
     root.appendChild(cta2);
 
-    root.appendChild(el('<p class="plan-smallprint">Your plan renews at the end of the selected period at the standard rate unless cancelled. Cancel anytime from your account — no questions asked. Prices in USD. Individual results vary.</p>'));
+    // Exit ramp — keep non-buyers in the funnel instead of losing the click
+    root.appendChild(el('<div class="exit-ramp">Not ready to decide? <a href="https://www.mindvalley.com/manifesting?utm_source=quiz&utm_medium=manifesting-blocks-quiz&utm_campaign=manifesting-pathway&utm_content=exit-ramp" target="_blank" rel="noopener">Watch the free Manifesting masterclass first →</a></div>'));
+
+    root.appendChild(el('<p class="plan-smallprint">Your plan renews at the end of the selected period at the standard rate unless cancelled. Cancel anytime from your account — no questions asked. Prices in USD. Individual results vary. Quest values reflect standard single-quest pricing.</p>'));
 
     startTimer();
   }});
