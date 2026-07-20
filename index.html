@@ -370,200 +370,200 @@
       desc: 'When big wins arrive, you flinch. You\'re manifesting well but your nervous system can\'t yet hold the version of you that receives it.' }
   ];
 
-  /* 30 scenario questions — same block mapping and 1–5 scoring as the original
-     statements, rewritten as concrete situations with specific answers so every
-     screen feels like an input to the plan (MadMuscles pattern), not a survey. */
+  /* 30 scenario questions — synthesized from Schwartz (specificity/recognition),
+     Hormozi (behavioral, quantified), and Brunson (identity/inner-monologue) drafts.
+     Same block mapping and 1–5 scoring as the original instrument. */
   var QUESTIONS = [
     // Block 1 · The Upper Limit Problem
-    { t: 'Picture your biggest goal actually happening — the money, the person, the life. What\'s the very first voice in your head?', opts: [
-      { v: 1, e: '😄', l: '"Of course. It was always going to happen"' },
-      { v: 2, e: '🙂', l: '"Finally — and I\'m ready"' },
-      { v: 3, e: '😬', l: '"Amazing... but how would I even get there?"' },
-      { v: 4, e: '😟', l: '"People like me don\'t usually get that"' },
-      { v: 5, e: '🫠', l: 'Honestly? I can\'t even picture it clearly' } ]},
-    { t: 'A perfect opportunity for your dream lands in your lap TODAY. Are you ready?', opts: [
-      { v: 1, e: '🚀', l: 'I\'d grab it on the spot' },
-      { v: 2, e: '💪', l: 'A little nervous, but yes' },
-      { v: 3, e: '🤔', l: 'I\'d ask for time to think it over' },
-      { v: 4, e: '📚', l: 'I\'d feel I need one more course or qualification first' },
-      { v: 5, e: '🙈', l: 'I\'d probably let it pass — and regret it' } ]},
-    { t: 'Your dream opportunity hits your inbox. First 60 seconds — what happens in your body?', opts: [
-      { v: 1, e: '🔥', l: 'Pure excitement — I\'m buzzing' },
-      { v: 2, e: '😊', l: 'A happy flutter, then calm' },
-      { v: 3, e: '😅', l: 'Excitement and anxiety, 50/50' },
-      { v: 4, e: '😰', l: 'Tight chest — "what if I mess this up?"' },
-      { v: 5, e: '🥶', l: 'Dread. Part of me wishes it hadn\'t come' } ]},
+    { t: 'You finally say your biggest dream out loud. The voice in your head answers first — what does it say?', opts: [
+      { v: 1, e: '🔥', l: '"Of course you will. It\'s already yours."' },
+      { v: 2, e: '😊', l: '"That\'s big — but you\'ve done big before."' },
+      { v: 3, e: '😬', l: '"Okay… but let\'s be realistic."' },
+      { v: 4, e: '🙈', l: '"Who do you think you are?"' },
+      { v: 5, e: '💔', l: '"People like us don\'t get that life."' } ]},
+    { t: 'A real opportunity — 2× bigger than anything you\'ve done — lands in your inbox today. What do you actually do?', opts: [
+      { v: 1, e: '🚀', l: 'Reply yes within the hour' },
+      { v: 2, e: '👍', l: 'Say yes after a day to think' },
+      { v: 3, e: '⏳', l: 'Ask for time… stall a week' },
+      { v: 4, e: '📝', l: 'Draft a reply — never send it' },
+      { v: 5, e: '🙈', l: 'Let it expire. "Not ready yet"' } ]},
+    { t: 'The dream email lands: "We chose YOU." What happens in your body in the first 60 seconds?', opts: [
+      { v: 1, e: '🔥', l: 'Warm rush — a full-body YES' },
+      { v: 2, e: '🦋', l: 'Happy jitters, then grounded' },
+      { v: 3, e: '🎢', l: 'Excited AND a knot in my stomach' },
+      { v: 4, e: '😰', l: 'Tight chest — "can I actually do this?"' },
+      { v: 5, e: '🫣', l: 'Panic. I\'d want to un-read it' } ]},
     // Block 2 · Emotional Incongruence
-    { t: 'An unexpected $2,000 lands in your account. Honest first thought?', opts: [
-      { v: 1, e: '🥳', l: '"Yes! More of this, please"' },
-      { v: 2, e: '😊', l: 'Grateful — straight into my dream fund' },
-      { v: 3, e: '🤨', l: '"Nice... what\'s the catch?"' },
-      { v: 4, e: '😕', l: '"Someone else probably needs it more"' },
-      { v: 5, e: '😔', l: 'It wouldn\'t feel like mine — I\'d feel weird spending it' } ]},
-    { t: 'When something great happens in your life, what usually comes next?', opts: [
-      { v: 1, e: '✨', l: 'More good — wins come in streaks for me' },
-      { v: 2, e: '🙂', l: 'Life just carries on' },
-      { v: 3, e: '🤷', l: 'Sometimes a dip, sometimes not' },
-      { v: 4, e: '😬', l: 'I catch myself waiting for the other shoe to drop' },
-      { v: 5, e: '⛈️', l: 'Something bad. Every single time' } ]},
-    { t: 'Someone gives you a big, genuine compliment in front of others. You...', opts: [
-      { v: 1, e: '😄', l: 'Take it in — "thank you, I worked for that"' },
-      { v: 2, e: '🙂', l: 'Smile and say thanks' },
-      { v: 3, e: '😅', l: 'Deflect with a joke' },
-      { v: 4, e: '🙃', l: 'Immediately point out my flaws' },
-      { v: 5, e: '😖', l: 'Cringe — praise is physically uncomfortable' } ]},
+    { t: '$2,000 you didn\'t expect hits your account. Your very first thought?', opts: [
+      { v: 1, e: '🎉', l: '"Thank you! More of this, please."' },
+      { v: 2, e: '😊', l: '"Nice — I\'ll enjoy some of this."' },
+      { v: 3, e: '🤨', l: '"Okay… what\'s the catch?"' },
+      { v: 4, e: '😟', l: '"Something bad is coming to balance this."' },
+      { v: 5, e: '😔', l: '"Someone else needed this more than me."' } ]},
+    { t: 'After your last genuine win, how long before something "went wrong" — a fight, illness, spending spree?', opts: [
+      { v: 1, e: '😌', l: 'Nothing did — I just enjoyed it' },
+      { v: 2, e: '🙂', l: 'A few smooth weeks, at least' },
+      { v: 3, e: '🤔', l: 'About a week, then a wobble' },
+      { v: 4, e: '⏰', l: 'Within 48 hours, like clockwork' },
+      { v: 5, e: '🌩️', l: 'Same day. Every single time' } ]},
+    { t: 'Last time someone praised you in front of others — what did you actually say?', opts: [
+      { v: 1, e: '🙏', l: '"Thank you" — full stop' },
+      { v: 2, e: '😊', l: 'Thanks, plus a small joke' },
+      { v: 3, e: '↩️', l: 'Deflected credit to someone else' },
+      { v: 4, e: '😬', l: 'Listed my flaws to balance it' },
+      { v: 5, e: '🏃', l: 'Changed the subject immediately' } ]},
     // Block 3 · Fear of Success
-    { t: 'Imagine you 10× your success this year. What worries you most about that picture?', opts: [
-      { v: 1, e: '😌', l: 'Nothing — bring it on' },
-      { v: 2, e: '🙂', l: 'Minor logistics' },
-      { v: 3, e: '🤔', l: 'Whether I could keep it up' },
-      { v: 4, e: '⏰', l: 'What it would cost me — time, freedom, privacy' },
-      { v: 5, e: '💔', l: 'Losing people — being treated differently' } ]},
-    { t: 'You hit your biggest goal. Six months later — where are you?', opts: [
-      { v: 1, e: '📈', l: 'Building the next level' },
-      { v: 2, e: '😊', l: 'Enjoying it, steady' },
-      { v: 3, e: '😅', l: 'Working hard to keep it' },
-      { v: 4, e: '😰', l: 'White-knuckling it — scared it\'ll slip' },
-      { v: 5, e: '📉', l: 'Honestly? I\'d expect to have lost it by then' } ]},
-    { t: 'Think of the last BIG thing you almost achieved. What actually happened at the finish line?', opts: [
-      { v: 1, e: '🏁', l: 'Crossed it — I finish what I start' },
-      { v: 2, e: '💪', l: 'Finished, with a wobble' },
-      { v: 3, e: '🐢', l: 'Slowed down, got there late' },
-      { v: 4, e: '🙃', l: 'Suddenly got "busy" and it fizzled' },
-      { v: 5, e: '💥', l: 'I blew it up right before the end — again' } ]},
+    { t: 'Your goal 10×\'s next month. How many people in your life would you actually tell?', opts: [
+      { v: 1, e: '📣', l: 'Everyone — I\'d post about it' },
+      { v: 2, e: '🥂', l: 'Most friends and family' },
+      { v: 3, e: '🤫', l: '2–3 safe people only' },
+      { v: 4, e: '😶', l: 'Maybe one person, quietly' },
+      { v: 5, e: '🙊', l: 'No one — I\'d hide it' } ]},
+    { t: 'Fast-forward: six months AFTER your biggest goal came true. What do you honestly picture?', opts: [
+      { v: 1, e: '🌅', l: 'A bigger dream already in motion' },
+      { v: 2, e: '😊', l: 'Me — happy, settled into it' },
+      { v: 3, e: '😐', l: 'Weirdly… I can\'t picture it at all' },
+      { v: 4, e: '😬', l: 'Pressure — everyone expecting more' },
+      { v: 5, e: '📉', l: 'Me losing it, proving I was a fluke' } ]},
+    { t: 'Think of the last BIG thing you were 90% done with. What actually happened at the end?', opts: [
+      { v: 1, e: '🥂', l: 'I finished it and celebrated' },
+      { v: 2, e: '🐢', l: 'Finished — though I dragged near the end' },
+      { v: 3, e: '🚧', l: 'It stalled "for good reasons"' },
+      { v: 4, e: '🤒', l: 'I got sick / busy / distracted right then' },
+      { v: 5, e: '🚪', l: 'I quietly abandoned it at the finish line' } ]},
     // Block 4 · Hustle Mode
-    { t: 'It\'s Sunday afternoon and there\'s nothing you have to do. How does that feel?', opts: [
-      { v: 1, e: '🧘', l: 'Delicious — rest is part of my plan' },
-      { v: 2, e: '😊', l: 'Nice. I recharge easily' },
-      { v: 3, e: '📱', l: 'Fine for an hour... then I reach for the laptop' },
-      { v: 4, e: '😣', l: 'Twitchy — like I\'m falling behind' },
-      { v: 5, e: '🚨', l: 'Guilty and anxious. I can\'t remember my last real day off' } ]},
-    { t: 'If you took your foot off the gas for one month, what happens to what you\'ve built?', opts: [
-      { v: 1, e: '🏛️', l: 'It runs without me' },
-      { v: 2, e: '🙂', l: 'A few things slip, nothing serious' },
-      { v: 3, e: '😬', l: 'It would wobble' },
-      { v: 4, e: '😰', l: 'Things would start breaking' },
-      { v: 5, e: '🔥', l: 'Collapse — it only works because I push' } ]},
-    { t: 'The work you\'re doing toward your dream mostly feels like...', opts: [
-      { v: 1, e: '🌊', l: 'Flow — it pulls me forward' },
-      { v: 2, e: '😊', l: 'Mostly energizing' },
-      { v: 3, e: '⚖️', l: 'Half inspiration, half grind' },
-      { v: 4, e: '🥵', l: 'Mostly pushing and pressure' },
-      { v: 5, e: '⛓️', l: 'Pure grind — I\'m running on willpower fumes' } ]},
+    { t: 'How many full days off — zero work, zero guilt — did you take in the last 30 days?', opts: [
+      { v: 1, e: '🧘', l: '6+ — rest is on my calendar' },
+      { v: 2, e: '😌', l: '4–5 real days off' },
+      { v: 3, e: '📱', l: '2–3, with phone-checking' },
+      { v: 4, e: '😓', l: 'One — and I felt guilty all day' },
+      { v: 5, e: '⛓️', l: 'Zero. Rest feels like losing' } ]},
+    { t: 'If you eased off for one whole month, what do you believe happens to your dream?', opts: [
+      { v: 1, e: '🌊', l: 'It keeps flowing — it\'s not all on me' },
+      { v: 2, e: '🙂', l: 'It holds steady, maybe slows' },
+      { v: 3, e: '😕', l: 'It stalls — momentum is mine to keep' },
+      { v: 4, e: '😨', l: 'It unravels. Fast' },
+      { v: 5, e: '💀', l: 'Total collapse. It\'s ALL on me' } ]},
+    { t: 'When did you last hit a goal WITHOUT exhausting yourself to get it?', opts: [
+      { v: 1, e: '🌊', l: 'My last few wins felt easy' },
+      { v: 2, e: '🙂', l: 'Within the past year' },
+      { v: 3, e: '🤔', l: 'Once, a few years back' },
+      { v: 4, e: '😮‍💨', l: 'I honestly can\'t name one' },
+      { v: 5, e: '🩹', l: 'Every win has cost me my health' } ]},
     // Block 5 · Wrong Environment
-    { t: 'You share your biggest dream at dinner. What does your circle do?', opts: [
-      { v: 1, e: '🎉', l: 'Lean in — they start plotting with me' },
-      { v: 2, e: '😊', l: 'Encourage me' },
-      { v: 3, e: '😐', l: 'Polite nods... then the subject changes' },
-      { v: 4, e: '🙄', l: 'The "be realistic" speech' },
-      { v: 5, e: '🤐', l: 'I\'d never share it — they\'d laugh or lecture' } ]},
-    { t: 'Walk into your home or workspace right now. What does it do to your energy?', opts: [
-      { v: 1, e: '✨', l: 'Lifts me — it\'s my sanctuary' },
-      { v: 2, e: '🙂', l: 'Feels good, mostly' },
-      { v: 3, e: '😑', l: 'Nothing — it\'s just a room' },
-      { v: 4, e: '😮‍💨', l: 'Drains me a little — clutter, noise' },
-      { v: 5, e: '🕳️', l: 'Heavy. I avoid being there' } ]},
-    { t: 'Tally your last 24 hours of input — conversations, feeds, news. The mix was...', opts: [
-      { v: 1, e: '🌱', l: 'Mostly growth — books, ideas, builders' },
-      { v: 2, e: '🙂', l: 'More positive than not' },
-      { v: 3, e: '⚖️', l: 'About 50/50' },
-      { v: 4, e: '📉', l: 'More doom-scroll and complaining than I\'d like' },
-      { v: 5, e: '🌀', l: 'Drama, gossip, doom — and I can\'t stop' } ]},
+    { t: 'Of the 5 people you texted most this week — how many are building something bigger than you?', opts: [
+      { v: 1, e: '📈', l: '4–5 — my circle stretches me' },
+      { v: 2, e: '🤝', l: '2–3 growth-minded people' },
+      { v: 3, e: '🕐', l: 'One — and I ration our time' },
+      { v: 4, e: '🤷', l: 'Zero, but they\'re supportive' },
+      { v: 5, e: '🙄', l: 'Zero — most mock my goals' } ]},
+    { t: 'You walk into your home after a long day. What does the space DO to you?', opts: [
+      { v: 1, e: '🕯️', l: 'Lifts me — it\'s my sanctuary' },
+      { v: 2, e: '🙂', l: 'Comfortable, mostly calm' },
+      { v: 3, e: '😐', l: 'Neutral — I don\'t really notice it' },
+      { v: 4, e: '🌀', l: 'The clutter quietly drains me' },
+      { v: 5, e: '🪫', l: 'Heavy. I feel smaller walking in' } ]},
+    { t: 'Open your screen time right now. What ate your last 2 hours of scrolling?', opts: [
+      { v: 1, e: '🎓', l: 'Courses, books, who I\'m becoming' },
+      { v: 2, e: '📖', l: 'Mostly useful, some junk' },
+      { v: 3, e: '⚖️', l: '50/50 learning vs. doomscroll' },
+      { v: 4, e: '🌀', l: 'Drama, news, comparison spiral' },
+      { v: 5, e: '😵‍💫', l: 'I don\'t even know. It\'s a blur' } ]},
     // Block 6 · Bullshit Rules (Brules)
-    { t: 'Complete the sentence the way your FAMILY would: "Money is..."', opts: [
-      { v: 1, e: '🌊', l: '"...energy. It flows to value"' },
-      { v: 2, e: '🙂', l: '"...a tool"' },
-      { v: 3, e: '😐', l: '"...security — hold it tight"' },
-      { v: 4, e: '😬', l: '"...hard to get and easy to lose"' },
-      { v: 5, e: '⛔', l: '"...the root of all evil / not for people like us"' } ]},
-    { t: 'Picture yourself VERY rich and VERY visible. Does any part of you flinch?', opts: [
-      { v: 1, e: '😎', l: 'Not at all — that\'s the plan' },
-      { v: 2, e: '🙂', l: 'A tiny flicker, easily dismissed' },
-      { v: 3, e: '🤔', l: 'Some discomfort I can\'t quite name' },
-      { v: 4, e: '😟', l: 'Yes — it feels unsafe, or "too much"' },
-      { v: 5, e: '🙅', l: 'A strong no — rich people lose their soul' } ]},
-    { t: 'Which of these lives rent-free in your head?', opts: [
-      { v: 1, e: '🆓', l: 'None — I\'ve rewritten my money scripts' },
-      { v: 2, e: '🙂', l: '"Work smart" — mostly useful stuff' },
-      { v: 3, e: '😅', l: '"Money doesn\'t grow on trees"' },
-      { v: 4, e: '😬', l: '"People like us don\'t do that"' },
-      { v: 5, e: '📢', l: 'Several — I hear my parents every time I spend' } ]},
+    { t: 'Growing up, how did your family finish the sentence: "Rich people are…"?', opts: [
+      { v: 1, e: '🌟', l: '"…proof of what\'s possible"' },
+      { v: 2, e: '🤷', l: 'Nothing strong either way' },
+      { v: 3, e: '🎲', l: '"…lucky. Born into it"' },
+      { v: 4, e: '😠', l: '"…greedy or selfish"' },
+      { v: 5, e: '🔒', l: '"…not people like us"' } ]},
+    { t: 'Last time you bought something premium for yourself — what did you do right after?', opts: [
+      { v: 1, e: '💅', l: 'Enjoyed it. Zero explanation' },
+      { v: 2, e: '🙂', l: 'Smiled and told a friend' },
+      { v: 3, e: '🗣️', l: 'Justified it out loud to someone' },
+      { v: 4, e: '🛍️', l: 'Hid the bag, deleted the receipt' },
+      { v: 5, e: '↩️', l: 'Returned it within the week' } ]},
+    { t: 'Which of these have you actually said out loud in the last 30 days?', opts: [
+      { v: 1, e: '😎', l: 'None — money talk is easy for me' },
+      { v: 2, e: '🌱', l: '"It\'s fine, I\'m just careful"' },
+      { v: 3, e: '🌳', l: '"Money doesn\'t grow on trees"' },
+      { v: 4, e: '🧱', l: '"People like us don\'t do that"' },
+      { v: 5, e: '⛓️', l: '"Wanting more is selfish"' } ]},
     // Block 7 · Visualization from Lack
-    { t: 'Close your eyes and picture your dream life. What\'s the dominant feeling?', opts: [
-      { v: 1, e: '😊', l: 'Like it\'s already mine — warm and real' },
-      { v: 2, e: '🙂', l: 'Excitement' },
-      { v: 3, e: '😌', l: 'Nice, but distant — like watching a movie' },
-      { v: 4, e: '😕', l: 'A pang — reminded how far away it is' },
-      { v: 5, e: '😢', l: 'An ache. Visualizing actually hurts' } ]},
-    { t: 'You scroll past someone living YOUR exact dream. Instant reaction?', opts: [
-      { v: 1, e: '🔥', l: '"Proof it\'s possible — I\'m next"' },
-      { v: 2, e: '😊', l: 'Genuinely happy for them' },
-      { v: 3, e: '😐', l: 'Neutral, keep scrolling' },
-      { v: 4, e: '😒', l: 'A comparison sting' },
-      { v: 5, e: '😭', l: '"Why them and not me?"' } ]},
-    { t: 'When you think about your #1 desire, the actual feeling is usually...', opts: [
-      { v: 1, e: '🧲', l: 'Certainty — like it\'s already done' },
-      { v: 2, e: '🙂', l: 'Mostly excitement' },
-      { v: 3, e: '😐', l: 'An even mix of excitement and wanting' },
-      { v: 4, e: '😩', l: 'Deep longing — "I want it SO badly"' },
-      { v: 5, e: '🕳️', l: 'A constant ache of it being missing' } ]},
+    { t: 'After a visualization session, you usually open your eyes feeling…', opts: [
+      { v: 1, e: '🌕', l: 'Full — like it already happened' },
+      { v: 2, e: '🌤️', l: 'Lighter and motivated' },
+      { v: 3, e: '🕐', l: 'Good for an hour, then it fades' },
+      { v: 4, e: '🕳️', l: 'Emptier — the gap looks bigger' },
+      { v: 5, e: '🆘', l: 'Desperate for it to hurry up' } ]},
+    { t: 'Someone on your feed is living YOUR exact dream. What did you do last time it happened?', opts: [
+      { v: 1, e: '📸', l: 'Screenshot — into my proof file' },
+      { v: 2, e: '👏', l: 'Commented congrats and meant it' },
+      { v: 3, e: '👀', l: 'Watched it 3 times, said nothing' },
+      { v: 4, e: '😞', l: 'Felt behind for the rest of the day' },
+      { v: 5, e: '❌', l: 'Unfollowed and closed the app' } ]},
+    { t: 'Say your #1 desire out loud right now. Where do you physically feel it?', opts: [
+      { v: 1, e: '💫', l: 'Chest open — like it\'s already done' },
+      { v: 2, e: '🌞', l: 'Warm and excited' },
+      { v: 3, e: '😶', l: 'Neutral — honestly, nothing' },
+      { v: 4, e: '✊', l: 'Tight jaw, gripped hands' },
+      { v: 5, e: '🫗', l: 'A pit in my stomach — the missing' } ]},
     // Block 8 · Time Lag Frustration
-    { t: 'Your manifesting practice so far has felt like...', opts: [
-      { v: 1, e: '🌱', l: 'Seeds sprouting — results keep arriving' },
-      { v: 2, e: '🙂', l: 'Working, slowly' },
-      { v: 3, e: '🤷', l: 'Hit and miss' },
-      { v: 4, e: '😤', l: 'A lot of effort, little to show' },
-      { v: 5, e: '🧱', l: 'A wall. Years in, nothing\'s landed' } ]},
-    { t: 'How often does "this should have happened by NOW" cross your mind?', opts: [
-      { v: 1, e: '😌', l: 'Never — it arrives when it arrives' },
-      { v: 2, e: '🙂', l: 'Rarely' },
-      { v: 3, e: '😐', l: 'A few times a month' },
-      { v: 4, e: '😖', l: 'Every week' },
-      { v: 5, e: '⏰', l: 'Daily — I feel like I\'m running out of time' } ]},
-    { t: 'Be honest: how close are you to giving up on manifesting?', opts: [
-      { v: 1, e: '🚀', l: 'Not remotely — I\'m all in' },
-      { v: 2, e: '🙂', l: 'Committed — just curious why it\'s slow' },
-      { v: 3, e: '🤔', l: 'I have my doubting days' },
-      { v: 4, e: '😞', l: 'One foot out the door' },
-      { v: 5, e: '🏳️', l: 'This quiz is kind of my last try' } ]},
+    { t: 'Your manifesting journey so far has honestly felt like…', opts: [
+      { v: 1, e: '🌊', l: 'A steady stream of small proofs' },
+      { v: 2, e: '🚶', l: 'Slow, but clearly moving' },
+      { v: 3, e: '🔁', l: 'Two steps forward, two back' },
+      { v: 4, e: '🍽️', l: 'Ordering food that never arrives' },
+      { v: 5, e: '🕳️', l: 'Shouting into a void for years' } ]},
+    { t: 'In the last 7 days, how many times did you think "this should\'ve happened by NOW"?', opts: [
+      { v: 1, e: '🕊️', l: 'Zero — I trust the timing' },
+      { v: 2, e: '🍃', l: 'Once, then I let it go' },
+      { v: 3, e: '😕', l: 'A few times this week' },
+      { v: 4, e: '😩', l: 'Daily, like a background hum' },
+      { v: 5, e: '🔁', l: 'Many times a day, on a loop' } ]},
+    { t: 'Real talk — how close are you to closing the vision board for good?', opts: [
+      { v: 1, e: '💪', l: 'Not even close. I\'m all in' },
+      { v: 2, e: '🙂', l: 'I wobble, but I always come back' },
+      { v: 3, e: '😐', l: 'One foot out the door' },
+      { v: 4, e: '😞', l: 'I\'ve mostly stopped. Quietly' },
+      { v: 5, e: '🚪', l: 'This quiz is my last flicker of hope' } ]},
     // Block 9 · Surrender Block
-    { t: 'You set a big intention. What do you actually do next?', opts: [
-      { v: 1, e: '🕊️', l: 'Release it and follow the nudges' },
-      { v: 2, e: '🙂', l: 'Take steps, stay loose on the "how"' },
-      { v: 3, e: '📋', l: 'Build a detailed plan with dates' },
-      { v: 4, e: '🔍', l: 'Check constantly for signs it\'s working' },
-      { v: 5, e: '🎛️', l: 'Micromanage every step — MY way, MY timeline' } ]},
-    { t: 'Life throws your plan sideways. Your gut reaction?', opts: [
-      { v: 1, e: '🧭', l: '"Interesting — a redirect"' },
-      { v: 2, e: '🙂', l: 'Adapt and keep moving' },
-      { v: 3, e: '😕', l: 'Annoyed for a day, then adjust' },
-      { v: 4, e: '😫', l: 'Frustrated for days' },
-      { v: 5, e: '😱', l: 'Panic — losing the plan feels like losing everything' } ]},
-    { t: 'Deep down, do you trust that life is working things out in your favor?', opts: [
-      { v: 1, e: '💜', l: 'Fully — I\'ve seen it too many times' },
-      { v: 2, e: '🙂', l: 'Mostly' },
-      { v: 3, e: '🤞', l: 'I want to' },
-      { v: 4, e: '😟', l: 'Only when things are already going well' },
-      { v: 5, e: '🧊', l: 'No — if I don\'t force it, nothing happens' } ]},
+    { t: 'You set an intention Monday. How many times had you checked for "signs" by Friday?', opts: [
+      { v: 1, e: '🧘', l: 'Zero — I acted, then let go' },
+      { v: 2, e: '🙂', l: 'Once or twice, lightly' },
+      { v: 3, e: '🔍', l: 'Every day, "just checking"' },
+      { v: 4, e: '📲', l: 'Multiple times a day' },
+      { v: 5, e: '😤', l: 'Hourly. I white-knuckle it' } ]},
+    { t: 'Life just torched your carefully-made plan. Your gut response?', opts: [
+      { v: 1, e: '🌊', l: '"Plot twist — something better\'s coming."' },
+      { v: 2, e: '🙂', l: 'A breath, then I adapt' },
+      { v: 3, e: '😖', l: 'Scramble to rebuild control by nightfall' },
+      { v: 4, e: '😡', l: 'Rage. The plan WAS the point' },
+      { v: 5, e: '🥀', l: '"See? Nothing works out for me."' } ]},
+    { t: '3am honesty — do you trust life is actually working FOR you?', opts: [
+      { v: 1, e: '🌌', l: 'Yes — I\'ve seen it too many times' },
+      { v: 2, e: '🙂', l: 'Mostly, with occasional doubts' },
+      { v: 3, e: '🎲', l: '50/50 — depends on the week' },
+      { v: 4, e: '😶', l: 'I say yes. My gut says no' },
+      { v: 5, e: '🪂', l: 'No. If I let go, everything drops' } ]},
     // Block 10 · Quantum Leap Syndrome
-    { t: 'Your manifestation lands TOMORROW — bigger than you asked for. First reaction?', opts: [
-      { v: 1, e: '🥂', l: 'Celebrate and expand into it' },
-      { v: 2, e: '😊', l: 'Thrilled — slightly stunned' },
-      { v: 3, e: '😅', l: 'Happy panic' },
-      { v: 4, e: '😰', l: 'Overwhelmed — "I\'m not ready"' },
-      { v: 5, e: '🫣', l: 'I\'d honestly want to hide' } ]},
-    { t: 'An offer shows up that seems "too good to be true." What do you do?', opts: [
-      { v: 1, e: '🎁', l: 'Say yes — good things find me' },
-      { v: 2, e: '🙂', l: 'Check it out, usually accept' },
-      { v: 3, e: '🧐', l: 'Investigate hard before touching it' },
-      { v: 4, e: '😬', l: 'Usually find a reason to pass' },
-      { v: 5, e: '🚪', l: 'I\'ve walked away from real gold — more than once' } ]},
-    { t: 'You finally GET the thing you\'ve been asking for. A week later, you feel...', opts: [
-      { v: 1, e: '👑', l: 'Like it was always meant to be mine' },
-      { v: 2, e: '😊', l: 'Grateful and settled' },
-      { v: 3, e: '🤔', l: 'Pleased, but it feels slightly unreal' },
-      { v: 4, e: '😅', l: 'Like they\'ll realize their mistake' },
-      { v: 5, e: '🎭', l: 'Full impostor — waiting to be found out' } ]}
+    { t: 'Last time something arrived FASTER than expected — what did you do in week one?', opts: [
+      { v: 1, e: '🏗️', l: 'Received it and built on it' },
+      { v: 2, e: '🥂', l: 'Celebrated, then adjusted' },
+      { v: 3, e: '🕵️', l: 'Kept waiting for the catch' },
+      { v: 4, e: '🍀', l: 'Told everyone it was just luck' },
+      { v: 5, e: '💥', l: 'Undid it — refunded, quit, wrecked it' } ]},
+    { t: 'Someone offers you 3× what you normally get paid. Your actual response?', opts: [
+      { v: 1, e: '🧾', l: '"Yes. Here\'s my invoice."' },
+      { v: 2, e: '👍', l: 'Accept after one gut-check' },
+      { v: 3, e: '📉', l: 'Negotiate myself DOWN' },
+      { v: 4, e: '🫣', l: '"Need to think" — then hide' },
+      { v: 5, e: '🚪', l: 'Refer them to someone "better"' } ]},
+    { t: 'One week after you finally GET the thing — which scene is most likely you?', opts: [
+      { v: 1, e: '👑', l: 'Wearing it like it was always mine' },
+      { v: 2, e: '😊', l: 'Settling in, pinch-me moments' },
+      { v: 3, e: '😅', l: 'Waiting for someone to take it back' },
+      { v: 4, e: '🎭', l: 'Feeling like a fraud in my own life' },
+      { v: 5, e: '💥', l: 'Finding a way to lose it — again' } ]}
   ];
 
   /* =====================================================================
