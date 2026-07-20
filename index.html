@@ -370,45 +370,200 @@
       desc: 'When big wins arrive, you flinch. You\'re manifesting well but your nervous system can\'t yet hold the version of you that receives it.' }
   ];
 
-  var statements = [
-    'When I think about my biggest goal, I feel a wave of doubt that I have what it takes to get there.',
-    'I often feel I need more education, training, or experience before I can pursue what I really want.',
-    'When an exciting opportunity comes along, my first reaction is nervousness and "what if" worries rather than joy.',
-    'When something good happens to me, a part of me feels I don\'t truly deserve it.',
-    'Every time something great starts happening in my life, something bad seems to follow soon after.',
-    'I feel guilty when I receive money, compliments, or gifts — like I haven\'t earned them.',
-    'I worry that achieving my goal will require sacrificing my freedom, relationships, or lifestyle.',
-    'I\'m afraid that if I succeed, I won\'t be able to sustain it and everything will collapse.',
-    'I sometimes get close to a major goal and then pull back or sabotage myself before reaching it.',
-    'I feel anxious or guilty when I\'m not actively working toward my goals.',
-    'I believe that if I stop pushing hard, everything I\'ve built will fall apart.',
-    'My work regularly feels like grinding and pressure rather than inspired, natural action.',
-    'The people closest to me don\'t support or understand my dreams and goals.',
-    'My home or workspace feels heavy, draining, or uninspiring to me.',
-    'I spend significant time consuming negative media or around people who gossip and complain.',
-    'I carry beliefs from my upbringing about money, success, or love that I know aren\'t serving me.',
-    'Part of me believes that being wealthy, visible, or highly successful is unsafe or morally wrong.',
-    'I catch myself repeating family sayings like "money doesn\'t grow on trees" or "people like us don\'t do that."',
-    'When I visualize my goals, I feel the painful gap between where I am and where I want to be.',
-    'Looking at my vision board or thinking about my dreams makes me feel sad or frustrated rather than inspired.',
-    'I find myself thinking "I want it so badly" with a feeling of longing or yearning.',
-    'I feel frustrated that my manifesting practices haven\'t produced visible results yet.',
-    'I frequently catch myself thinking "this should have happened by now" or "I\'m running out of time."',
-    'I\'ve considered giving up on manifesting because results aren\'t coming fast enough.',
-    'I need to control exactly how and when my goals will manifest — I can\'t let go of the process.',
-    'When things don\'t go according to my plan, I feel anxious rather than curious about where life is leading me.',
-    'I find it very hard to trust that the universe is orchestrating things in my favor behind the scenes.',
-    'When success arrives faster or bigger than I expected, I feel overwhelmed or panicked rather than excited.',
-    'I\'ve turned down or sabotaged good opportunities because they felt "too good to be true."',
-    'When I get what I\'ve been asking for, I feel like a fraud — as if I\'ll be found out any moment.'
-  ];
-
-  var scaleOpts = [
-    { v: 1, emoji: '🙅', label: 'Strongly disagree' },
-    { v: 2, emoji: '🤔', label: 'Disagree' },
-    { v: 3, emoji: '😐', label: 'Neutral' },
-    { v: 4, emoji: '😟', label: 'Agree' },
-    { v: 5, emoji: '💯', label: 'Strongly agree — this is me' }
+  /* 30 scenario questions — same block mapping and 1–5 scoring as the original
+     statements, rewritten as concrete situations with specific answers so every
+     screen feels like an input to the plan (MadMuscles pattern), not a survey. */
+  var QUESTIONS = [
+    // Block 1 · The Upper Limit Problem
+    { t: 'Picture your biggest goal actually happening — the money, the person, the life. What\'s the very first voice in your head?', opts: [
+      { v: 1, e: '😄', l: '"Of course. It was always going to happen"' },
+      { v: 2, e: '🙂', l: '"Finally — and I\'m ready"' },
+      { v: 3, e: '😬', l: '"Amazing... but how would I even get there?"' },
+      { v: 4, e: '😟', l: '"People like me don\'t usually get that"' },
+      { v: 5, e: '🫠', l: 'Honestly? I can\'t even picture it clearly' } ]},
+    { t: 'A perfect opportunity for your dream lands in your lap TODAY. Are you ready?', opts: [
+      { v: 1, e: '🚀', l: 'I\'d grab it on the spot' },
+      { v: 2, e: '💪', l: 'A little nervous, but yes' },
+      { v: 3, e: '🤔', l: 'I\'d ask for time to think it over' },
+      { v: 4, e: '📚', l: 'I\'d feel I need one more course or qualification first' },
+      { v: 5, e: '🙈', l: 'I\'d probably let it pass — and regret it' } ]},
+    { t: 'Your dream opportunity hits your inbox. First 60 seconds — what happens in your body?', opts: [
+      { v: 1, e: '🔥', l: 'Pure excitement — I\'m buzzing' },
+      { v: 2, e: '😊', l: 'A happy flutter, then calm' },
+      { v: 3, e: '😅', l: 'Excitement and anxiety, 50/50' },
+      { v: 4, e: '😰', l: 'Tight chest — "what if I mess this up?"' },
+      { v: 5, e: '🥶', l: 'Dread. Part of me wishes it hadn\'t come' } ]},
+    // Block 2 · Emotional Incongruence
+    { t: 'An unexpected $2,000 lands in your account. Honest first thought?', opts: [
+      { v: 1, e: '🥳', l: '"Yes! More of this, please"' },
+      { v: 2, e: '😊', l: 'Grateful — straight into my dream fund' },
+      { v: 3, e: '🤨', l: '"Nice... what\'s the catch?"' },
+      { v: 4, e: '😕', l: '"Someone else probably needs it more"' },
+      { v: 5, e: '😔', l: 'It wouldn\'t feel like mine — I\'d feel weird spending it' } ]},
+    { t: 'When something great happens in your life, what usually comes next?', opts: [
+      { v: 1, e: '✨', l: 'More good — wins come in streaks for me' },
+      { v: 2, e: '🙂', l: 'Life just carries on' },
+      { v: 3, e: '🤷', l: 'Sometimes a dip, sometimes not' },
+      { v: 4, e: '😬', l: 'I catch myself waiting for the other shoe to drop' },
+      { v: 5, e: '⛈️', l: 'Something bad. Every single time' } ]},
+    { t: 'Someone gives you a big, genuine compliment in front of others. You...', opts: [
+      { v: 1, e: '😄', l: 'Take it in — "thank you, I worked for that"' },
+      { v: 2, e: '🙂', l: 'Smile and say thanks' },
+      { v: 3, e: '😅', l: 'Deflect with a joke' },
+      { v: 4, e: '🙃', l: 'Immediately point out my flaws' },
+      { v: 5, e: '😖', l: 'Cringe — praise is physically uncomfortable' } ]},
+    // Block 3 · Fear of Success
+    { t: 'Imagine you 10× your success this year. What worries you most about that picture?', opts: [
+      { v: 1, e: '😌', l: 'Nothing — bring it on' },
+      { v: 2, e: '🙂', l: 'Minor logistics' },
+      { v: 3, e: '🤔', l: 'Whether I could keep it up' },
+      { v: 4, e: '⏰', l: 'What it would cost me — time, freedom, privacy' },
+      { v: 5, e: '💔', l: 'Losing people — being treated differently' } ]},
+    { t: 'You hit your biggest goal. Six months later — where are you?', opts: [
+      { v: 1, e: '📈', l: 'Building the next level' },
+      { v: 2, e: '😊', l: 'Enjoying it, steady' },
+      { v: 3, e: '😅', l: 'Working hard to keep it' },
+      { v: 4, e: '😰', l: 'White-knuckling it — scared it\'ll slip' },
+      { v: 5, e: '📉', l: 'Honestly? I\'d expect to have lost it by then' } ]},
+    { t: 'Think of the last BIG thing you almost achieved. What actually happened at the finish line?', opts: [
+      { v: 1, e: '🏁', l: 'Crossed it — I finish what I start' },
+      { v: 2, e: '💪', l: 'Finished, with a wobble' },
+      { v: 3, e: '🐢', l: 'Slowed down, got there late' },
+      { v: 4, e: '🙃', l: 'Suddenly got "busy" and it fizzled' },
+      { v: 5, e: '💥', l: 'I blew it up right before the end — again' } ]},
+    // Block 4 · Hustle Mode
+    { t: 'It\'s Sunday afternoon and there\'s nothing you have to do. How does that feel?', opts: [
+      { v: 1, e: '🧘', l: 'Delicious — rest is part of my plan' },
+      { v: 2, e: '😊', l: 'Nice. I recharge easily' },
+      { v: 3, e: '📱', l: 'Fine for an hour... then I reach for the laptop' },
+      { v: 4, e: '😣', l: 'Twitchy — like I\'m falling behind' },
+      { v: 5, e: '🚨', l: 'Guilty and anxious. I can\'t remember my last real day off' } ]},
+    { t: 'If you took your foot off the gas for one month, what happens to what you\'ve built?', opts: [
+      { v: 1, e: '🏛️', l: 'It runs without me' },
+      { v: 2, e: '🙂', l: 'A few things slip, nothing serious' },
+      { v: 3, e: '😬', l: 'It would wobble' },
+      { v: 4, e: '😰', l: 'Things would start breaking' },
+      { v: 5, e: '🔥', l: 'Collapse — it only works because I push' } ]},
+    { t: 'The work you\'re doing toward your dream mostly feels like...', opts: [
+      { v: 1, e: '🌊', l: 'Flow — it pulls me forward' },
+      { v: 2, e: '😊', l: 'Mostly energizing' },
+      { v: 3, e: '⚖️', l: 'Half inspiration, half grind' },
+      { v: 4, e: '🥵', l: 'Mostly pushing and pressure' },
+      { v: 5, e: '⛓️', l: 'Pure grind — I\'m running on willpower fumes' } ]},
+    // Block 5 · Wrong Environment
+    { t: 'You share your biggest dream at dinner. What does your circle do?', opts: [
+      { v: 1, e: '🎉', l: 'Lean in — they start plotting with me' },
+      { v: 2, e: '😊', l: 'Encourage me' },
+      { v: 3, e: '😐', l: 'Polite nods... then the subject changes' },
+      { v: 4, e: '🙄', l: 'The "be realistic" speech' },
+      { v: 5, e: '🤐', l: 'I\'d never share it — they\'d laugh or lecture' } ]},
+    { t: 'Walk into your home or workspace right now. What does it do to your energy?', opts: [
+      { v: 1, e: '✨', l: 'Lifts me — it\'s my sanctuary' },
+      { v: 2, e: '🙂', l: 'Feels good, mostly' },
+      { v: 3, e: '😑', l: 'Nothing — it\'s just a room' },
+      { v: 4, e: '😮‍💨', l: 'Drains me a little — clutter, noise' },
+      { v: 5, e: '🕳️', l: 'Heavy. I avoid being there' } ]},
+    { t: 'Tally your last 24 hours of input — conversations, feeds, news. The mix was...', opts: [
+      { v: 1, e: '🌱', l: 'Mostly growth — books, ideas, builders' },
+      { v: 2, e: '🙂', l: 'More positive than not' },
+      { v: 3, e: '⚖️', l: 'About 50/50' },
+      { v: 4, e: '📉', l: 'More doom-scroll and complaining than I\'d like' },
+      { v: 5, e: '🌀', l: 'Drama, gossip, doom — and I can\'t stop' } ]},
+    // Block 6 · Bullshit Rules (Brules)
+    { t: 'Complete the sentence the way your FAMILY would: "Money is..."', opts: [
+      { v: 1, e: '🌊', l: '"...energy. It flows to value"' },
+      { v: 2, e: '🙂', l: '"...a tool"' },
+      { v: 3, e: '😐', l: '"...security — hold it tight"' },
+      { v: 4, e: '😬', l: '"...hard to get and easy to lose"' },
+      { v: 5, e: '⛔', l: '"...the root of all evil / not for people like us"' } ]},
+    { t: 'Picture yourself VERY rich and VERY visible. Does any part of you flinch?', opts: [
+      { v: 1, e: '😎', l: 'Not at all — that\'s the plan' },
+      { v: 2, e: '🙂', l: 'A tiny flicker, easily dismissed' },
+      { v: 3, e: '🤔', l: 'Some discomfort I can\'t quite name' },
+      { v: 4, e: '😟', l: 'Yes — it feels unsafe, or "too much"' },
+      { v: 5, e: '🙅', l: 'A strong no — rich people lose their soul' } ]},
+    { t: 'Which of these lives rent-free in your head?', opts: [
+      { v: 1, e: '🆓', l: 'None — I\'ve rewritten my money scripts' },
+      { v: 2, e: '🙂', l: '"Work smart" — mostly useful stuff' },
+      { v: 3, e: '😅', l: '"Money doesn\'t grow on trees"' },
+      { v: 4, e: '😬', l: '"People like us don\'t do that"' },
+      { v: 5, e: '📢', l: 'Several — I hear my parents every time I spend' } ]},
+    // Block 7 · Visualization from Lack
+    { t: 'Close your eyes and picture your dream life. What\'s the dominant feeling?', opts: [
+      { v: 1, e: '😊', l: 'Like it\'s already mine — warm and real' },
+      { v: 2, e: '🙂', l: 'Excitement' },
+      { v: 3, e: '😌', l: 'Nice, but distant — like watching a movie' },
+      { v: 4, e: '😕', l: 'A pang — reminded how far away it is' },
+      { v: 5, e: '😢', l: 'An ache. Visualizing actually hurts' } ]},
+    { t: 'You scroll past someone living YOUR exact dream. Instant reaction?', opts: [
+      { v: 1, e: '🔥', l: '"Proof it\'s possible — I\'m next"' },
+      { v: 2, e: '😊', l: 'Genuinely happy for them' },
+      { v: 3, e: '😐', l: 'Neutral, keep scrolling' },
+      { v: 4, e: '😒', l: 'A comparison sting' },
+      { v: 5, e: '😭', l: '"Why them and not me?"' } ]},
+    { t: 'When you think about your #1 desire, the actual feeling is usually...', opts: [
+      { v: 1, e: '🧲', l: 'Certainty — like it\'s already done' },
+      { v: 2, e: '🙂', l: 'Mostly excitement' },
+      { v: 3, e: '😐', l: 'An even mix of excitement and wanting' },
+      { v: 4, e: '😩', l: 'Deep longing — "I want it SO badly"' },
+      { v: 5, e: '🕳️', l: 'A constant ache of it being missing' } ]},
+    // Block 8 · Time Lag Frustration
+    { t: 'Your manifesting practice so far has felt like...', opts: [
+      { v: 1, e: '🌱', l: 'Seeds sprouting — results keep arriving' },
+      { v: 2, e: '🙂', l: 'Working, slowly' },
+      { v: 3, e: '🤷', l: 'Hit and miss' },
+      { v: 4, e: '😤', l: 'A lot of effort, little to show' },
+      { v: 5, e: '🧱', l: 'A wall. Years in, nothing\'s landed' } ]},
+    { t: 'How often does "this should have happened by NOW" cross your mind?', opts: [
+      { v: 1, e: '😌', l: 'Never — it arrives when it arrives' },
+      { v: 2, e: '🙂', l: 'Rarely' },
+      { v: 3, e: '😐', l: 'A few times a month' },
+      { v: 4, e: '😖', l: 'Every week' },
+      { v: 5, e: '⏰', l: 'Daily — I feel like I\'m running out of time' } ]},
+    { t: 'Be honest: how close are you to giving up on manifesting?', opts: [
+      { v: 1, e: '🚀', l: 'Not remotely — I\'m all in' },
+      { v: 2, e: '🙂', l: 'Committed — just curious why it\'s slow' },
+      { v: 3, e: '🤔', l: 'I have my doubting days' },
+      { v: 4, e: '😞', l: 'One foot out the door' },
+      { v: 5, e: '🏳️', l: 'This quiz is kind of my last try' } ]},
+    // Block 9 · Surrender Block
+    { t: 'You set a big intention. What do you actually do next?', opts: [
+      { v: 1, e: '🕊️', l: 'Release it and follow the nudges' },
+      { v: 2, e: '🙂', l: 'Take steps, stay loose on the "how"' },
+      { v: 3, e: '📋', l: 'Build a detailed plan with dates' },
+      { v: 4, e: '🔍', l: 'Check constantly for signs it\'s working' },
+      { v: 5, e: '🎛️', l: 'Micromanage every step — MY way, MY timeline' } ]},
+    { t: 'Life throws your plan sideways. Your gut reaction?', opts: [
+      { v: 1, e: '🧭', l: '"Interesting — a redirect"' },
+      { v: 2, e: '🙂', l: 'Adapt and keep moving' },
+      { v: 3, e: '😕', l: 'Annoyed for a day, then adjust' },
+      { v: 4, e: '😫', l: 'Frustrated for days' },
+      { v: 5, e: '😱', l: 'Panic — losing the plan feels like losing everything' } ]},
+    { t: 'Deep down, do you trust that life is working things out in your favor?', opts: [
+      { v: 1, e: '💜', l: 'Fully — I\'ve seen it too many times' },
+      { v: 2, e: '🙂', l: 'Mostly' },
+      { v: 3, e: '🤞', l: 'I want to' },
+      { v: 4, e: '😟', l: 'Only when things are already going well' },
+      { v: 5, e: '🧊', l: 'No — if I don\'t force it, nothing happens' } ]},
+    // Block 10 · Quantum Leap Syndrome
+    { t: 'Your manifestation lands TOMORROW — bigger than you asked for. First reaction?', opts: [
+      { v: 1, e: '🥂', l: 'Celebrate and expand into it' },
+      { v: 2, e: '😊', l: 'Thrilled — slightly stunned' },
+      { v: 3, e: '😅', l: 'Happy panic' },
+      { v: 4, e: '😰', l: 'Overwhelmed — "I\'m not ready"' },
+      { v: 5, e: '🫣', l: 'I\'d honestly want to hide' } ]},
+    { t: 'An offer shows up that seems "too good to be true." What do you do?', opts: [
+      { v: 1, e: '🎁', l: 'Say yes — good things find me' },
+      { v: 2, e: '🙂', l: 'Check it out, usually accept' },
+      { v: 3, e: '🧐', l: 'Investigate hard before touching it' },
+      { v: 4, e: '😬', l: 'Usually find a reason to pass' },
+      { v: 5, e: '🚪', l: 'I\'ve walked away from real gold — more than once' } ]},
+    { t: 'You finally GET the thing you\'ve been asking for. A week later, you feel...', opts: [
+      { v: 1, e: '👑', l: 'Like it was always meant to be mine' },
+      { v: 2, e: '😊', l: 'Grateful and settled' },
+      { v: 3, e: '🤔', l: 'Pleased, but it feels slightly unreal' },
+      { v: 4, e: '😅', l: 'Like they\'ll realize their mistake' },
+      { v: 5, e: '🎭', l: 'Full impostor — waiting to be found out' } ]}
   ];
 
   /* =====================================================================
@@ -646,6 +801,7 @@
      STATE
      ===================================================================== */
   var answers = {};          // qNum (1-30) -> 1..5
+  var answersLabel = {};     // qNum -> the exact option text they picked (for quote-back)
   var intake = { goal: null, age: null, experience: null };
   var firstName = '';
   var selectedTier = 'yearly';  // MadMuscles pattern: pre-select the highest-value tier
@@ -746,12 +902,12 @@
     for (var q = cat.firstQ; q <= lastQ; q++) {
       (function(qNum) {
         screens.push({ id: 'q' + qNum, answerable: true, build: function(root) {
+          var qd = QUESTIONS[qNum - 1];
           root.appendChild(el('<div class="q-eyebrow">' + cat.pill.replace(/^[^ ]+ /, '') + ' · ' + cat.title + '</div>'));
-          root.appendChild(el('<h2 class="q-title" style="font-size:1.3125rem; line-height:1.75rem;">' + statements[qNum - 1] + '</h2>'));
-          root.appendChild(el('<p class="q-sub">How true is this for you?</p>'));
-          root.appendChild(optionMenu(scaleOpts.map(function(s) {
-            return { emoji: s.emoji, label: s.label, value: s.v };
-          }), function(o) { answers[qNum] = o.value; next(); }));
+          root.appendChild(el('<h2 class="q-title" style="font-size:1.3125rem; line-height:1.75rem;">' + qd.t + '</h2>'));
+          root.appendChild(optionMenu(qd.opts.map(function(s) {
+            return { emoji: s.e, label: s.l, value: s.v };
+          }), function(o) { answers[qNum] = o.value; answersLabel[qNum] = o.label; next(); }));
         }});
       })(q);
     }
@@ -871,12 +1027,13 @@
     var topDef = blocks.filter(function(b) { return b.id === topBlock.id; })[0];
     var maxQ = topDef.qs[0];
     topDef.qs.forEach(function(q) { if ((answers[q] || 0) > (answers[maxQ] || 0)) maxQ = q; });
-    if ((answers[maxQ] || 0) >= 4) {
+    if ((answers[maxQ] || 0) >= 4 && answersLabel[maxQ]) {
       var qc = el('<div class="quote-card"></div>');
-      qc.appendChild(el('<div class="quote-label">In your own words — you rated this ' + answers[maxQ] + '/5</div>'));
-      var qt = document.createElement('div'); qt.className = 'quote-text'; qt.textContent = '"' + statements[maxQ - 1] + '"';
+      qc.appendChild(el('<div class="quote-label">Your own answer, a few minutes ago</div>'));
+      var qt = document.createElement('div'); qt.className = 'quote-text';
+      qt.textContent = QUESTIONS[maxQ - 1].t + ' — you answered: ' + answersLabel[maxQ];
       qc.appendChild(qt);
-      qc.appendChild(el('<div class="quote-verdict">That\'s not a discipline problem. That\'s the block doing exactly what blocks do.</div>'));
+      qc.appendChild(el('<div class="quote-verdict">That\'s not a personality quirk. That\'s ' + topBlock.name + ' talking.</div>'));
       root.appendChild(qc);
     }
 
