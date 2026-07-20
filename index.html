@@ -583,8 +583,8 @@
   /* ── Order menu tiers — live funnel pricing from mindvalley.com/manifesting/sales.
         Per-day price is the anchor (MadMuscles pattern): old per-day struck above the big number. ── */
   var tiers = [
-    { key: 'monthly', name: 'Monthly',  old: '$99',  now: '$49',  save: '50% OFF',  perdayOld: '$3.30', perday: '$1.63', note: 'Pay monthly, cancel anytime.', badge: null },
-    { key: 'yearly',  name: 'Yearly',   old: '$249', now: '$149', save: '$100 OFF', perdayOld: '$0.68', perday: '$0.41', note: 'Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
+    { key: 'monthly', name: 'Monthly',  old: '$99',  now: '$49',  save: '50% OFF',  perdayOld: '$3.30', perday: '$1.63', note: 'Full Mindvalley Membership · 110+ programs. Cancel anytime.', badge: null },
+    { key: 'yearly',  name: 'Yearly',   old: '$249', now: '$149', save: '$100 OFF', perdayOld: '$0.68', perday: '$0.41', note: 'Manifesting Collection · 33+ programs. Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
   ];
   /* Mindvalley checkout — the live funnel checkout links from the order menu on
      mindvalley.com/manifesting/sales. The $100 discount is already applied on these
@@ -1044,7 +1044,7 @@
       var thumb = questAssets[qn] && questAssets[qn].cover ? '<img class="thumb" src="' + questAssets[qn].cover + '" alt="' + qn + '" loading="lazy" />' : '';
       stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + qn + '<small>' + noteTxt + '</small></span><span class="vl">$349 value</span></div>';
     });
-    stackRows += '<div class="stack-row"><span class="nm">+ 20+ more programs in the Manifesting Pathway<small>each targets a different block — plus the full Mindvalley library beyond it</small></span><span class="vl">included</span></div>';
+    stackRows += '<div class="stack-row"><span class="nm">+ 29+ more manifesting programs<small>each targets a different block — all included in your plan</small></span><span class="vl">included</span></div>';
     root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your protocol</div><div class="stack-body">' +
       stackRows +
       '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">$149/yr</span></span></div>' +
