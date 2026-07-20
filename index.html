@@ -842,8 +842,10 @@
       topBlock.desc + '</div>'));
 
     // Quote their own highest-rated symptom back at them
-    var maxQ = topBlock.qs[0];
-    topBlock.qs.forEach(function(q) { if ((answers[q] || 0) > (answers[maxQ] || 0)) maxQ = q; });
+    // (computeScores() strips qs — look the question list up from the block definition)
+    var topDef = blocks.filter(function(b) { return b.id === topBlock.id; })[0];
+    var maxQ = topDef.qs[0];
+    topDef.qs.forEach(function(q) { if ((answers[q] || 0) > (answers[maxQ] || 0)) maxQ = q; });
     if ((answers[maxQ] || 0) >= 4) {
       var qc = el('<div class="quote-card"></div>');
       qc.appendChild(el('<div class="quote-label">In your own words — you rated this ' + answers[maxQ] + '/5</div>'));
