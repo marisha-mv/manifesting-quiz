@@ -222,6 +222,7 @@
     .tier-perday .amt { font-size: 1.375rem; font-weight: 700; color: var(--mv-text); line-height: 1.1; }
     .tier.selected .tier-perday .amt { color: var(--mv-purple); }
     .tier-perday .per { font-size: 0.6875rem; color: var(--mv-text-faint); }
+    .tier-perday .perday-old { font-size: 0.75rem; color: var(--mv-text-faint); text-decoration: line-through; line-height: 1.1; }
 
     .plan-smallprint { font-size: 0.75rem; color: var(--mv-text-faint); line-height: 1.5; text-align: center; margin-top: 1rem; }
     .guarantee-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--mv-text-muted); margin-top: 1rem; text-align: center; }
@@ -579,10 +580,11 @@
           why: 'It expands your energetic capacity to hold bigger — so when the quantum leap arrives, your nervous system says yes instead of flinching.' }
   };
 
-  /* ── Order menu tiers — live funnel pricing from mindvalley.com/manifesting/sales ── */
+  /* ── Order menu tiers — live funnel pricing from mindvalley.com/manifesting/sales.
+        Per-day price is the anchor (MadMuscles pattern): old per-day struck above the big number. ── */
   var tiers = [
-    { key: 'monthly', name: 'Monthly',  old: '$99',  now: '$49',  save: '50% OFF',  permo: '$49',    note: 'Pay monthly, cancel anytime.', badge: null },
-    { key: 'yearly',  name: 'Yearly',   old: '$299', now: '$199', save: '$100 OFF', permo: '$16.60', note: 'Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
+    { key: 'monthly', name: 'Monthly',  old: '$99',  now: '$49',  save: '50% OFF',  perdayOld: '$3.30', perday: '$1.63', note: 'Pay monthly, cancel anytime.', badge: null },
+    { key: 'yearly',  name: 'Yearly',   old: '$299', now: '$199', save: '$100 OFF', perdayOld: '$0.82', perday: '$0.55', note: 'Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
   ];
   /* Mindvalley checkout — the live funnel checkout links from the order menu on
      mindvalley.com/manifesting/sales. The $100 discount is already applied on these
@@ -1041,7 +1043,10 @@
           '<div class="tier-prices">' + oldPrice + '<span class="tier-new">' + t.now + '</span>' + save + '</div>' +
           (t.note ? '<div style="font-size:0.71875rem; color:var(--mv-text-faint); margin-top:0.2rem;">' + t.note + '</div>' : '') +
         '</div>' +
-        '<div class="tier-perday"><div class="amt">' + t.permo + '</div><div class="per">per month</div></div>' +
+        '<div class="tier-perday">' +
+          (t.perdayOld ? '<div class="perday-old">' + t.perdayOld + '</div>' : '') +
+          '<div class="amt">' + t.perday + '</div><div class="per">per day</div>' +
+        '</div>' +
         '</div>');
       card.addEventListener('click', function() {
         selectedTier = t.key;
