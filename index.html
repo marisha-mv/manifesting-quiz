@@ -584,7 +584,7 @@
         Per-day price is the anchor (MadMuscles pattern): old per-day struck above the big number. ── */
   var tiers = [
     { key: 'monthly', name: 'Monthly',  old: '$99',  now: '$49',  save: '50% OFF',  perdayOld: '$3.30', perday: '$1.63', note: 'Pay monthly, cancel anytime.', badge: null },
-    { key: 'yearly',  name: 'Yearly',   old: '$299', now: '$199', save: '$100 OFF', perdayOld: '$0.82', perday: '$0.55', note: 'Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
+    { key: 'yearly',  name: 'Yearly',   old: '$249', now: '$149', save: '$100 OFF', perdayOld: '$0.68', perday: '$0.41', note: 'Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
   ];
   /* Mindvalley checkout — the live funnel checkout links from the order menu on
      mindvalley.com/manifesting/sales. The $100 discount is already applied on these
@@ -594,10 +594,32 @@
      to this funnel, with tier in utm_content and the user's #1 block in utm_term.
      Inbound ad params (gclid/fbclid + original utm_*) are forwarded so the
      ad → quiz → sale chain survives end-to-end. */
+  /* The checkout_link endpoints return JSON ({checkout_url: ...}), not a page —
+     the sales page fetches them and then navigates to checkout_url. We do the same:
+     resolve on plan-screen load (CORS is open), with a snapshot fallback if the
+     fetch fails. The yearly checkout_url carries the $100 discount code R12UFOJ3Q. */
   var CHECKOUT_LINKS = {
-    monthly: 'https://secure.mindvalley.com/v3/checkout_link/D7I02BYFN69URS4OQTEH',
-    yearly:  'https://secure.mindvalley.com/v3/checkout_link/CV3QEN40K6BLW52ZDAOU'
+    monthly: {
+      api: 'https://secure.mindvalley.com/v3/checkout_link/D7I02BYFN69URS4OQTEH',
+      fallback: 'https://secure.mindvalley.com/v3/flow?charge_plan_id=su%7C1446&mvh=5EF1FC355C3975550A5B779E1E88C9D34EDEBCBA8356D5D6DB3ADFC05B43505C'
+    },
+    yearly: {
+      api: 'https://secure.mindvalley.com/v3/checkout_link/CV3QEN40K6BLW52ZDAOU',
+      fallback: 'https://secure.mindvalley.com/v3/flow?discount=R12UFOJ3Q&charge_plan_id=su%7C1698&mvh=F702305037B30D09B1DFF75527795A225D6FEB3505BCB095A8CED209C14CE2A9'
+    }
   };
+  var resolvedCheckout = {};
+  function resolveCheckoutUrls() {
+    ['monthly', 'yearly'].forEach(function(k) {
+      if (resolvedCheckout[k]) return;
+      try {
+        fetch(CHECKOUT_LINKS[k].api)
+          .then(function(r) { return r.json(); })
+          .then(function(d) { if (d && d.checkout_url) resolvedCheckout[k] = d.checkout_url; })
+          .catch(function() { /* fallback covers it */ });
+      } catch (e) { /* fallback covers it */ }
+    });
+  }
   function buildCheckoutUrl(tier, topBlockName) {
     var params = [
       'utm_source=quiz',
@@ -616,7 +638,8 @@
       var v = getQueryParam(k);
       if (v) params.push('src_' + k + '=' + encodeURIComponent(v));
     });
-    return CHECKOUT_LINKS[tier] + '?' + params.join('&');
+    var base = resolvedCheckout[tier] || CHECKOUT_LINKS[tier].fallback;
+    return base + (base.indexOf('?') > -1 ? '&' : '?') + params.join('&');
   }
 
   /* =====================================================================
@@ -938,6 +961,7 @@
 
   // ── Order menu: Manifesting Pathway plan selection (MadMuscles paywall design) ──
   screens.push({ id: 'plan', answerable: false, noBack: true, build: function(root) {
+    resolveCheckoutUrls(); // resolve real checkout_url JSON before the user clicks
     var scored = computeScores();
     var sorted = scored.slice().sort(function(a, b) { return b.score - a.score; });
     var topBlock = sorted[0];
@@ -1023,7 +1047,7 @@
     stackRows += '<div class="stack-row"><span class="nm">+ 20+ more programs in the Manifesting Pathway<small>each targets a different block — plus the full Mindvalley library beyond it</small></span><span class="vl">included</span></div>';
     root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your protocol</div><div class="stack-body">' +
       stackRows +
-      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">$199/yr</span></span></div>' +
+      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">$149/yr</span></span></div>' +
       '</div></div>'));
 
     // Countdown bar — mirrors the live funnel's 15-minute $100-discount window
@@ -1062,7 +1086,7 @@
     // Answer the "my curriculum is 12 weeks — why buy a year?" objection
     root.appendChild(el('<div class="info-stat-card" style="max-width:none; text-align:left; margin-bottom:1.25rem;">' +
       '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your curriculum dissolves your top 3 blocks in 12 weeks — but you have ' +
-      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and at $199 with the $100 discount, it costs about 4 months at the monthly price. The other 8 months are free.</div>' +
+      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and at $149 with the $100 discount, it costs about 3 months at the monthly price. The other 9 months are free.</div>' +
       '</div>'));
 
     var cta = el('<button type="button" class="btn-primary">Get my Manifesting Pathway plan →</button>');
