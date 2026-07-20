@@ -598,14 +598,18 @@
      the sales page fetches them and then navigates to checkout_url. We do the same:
      resolve on plan-screen load (CORS is open), with a snapshot fallback if the
      fetch fails. The yearly checkout_url carries the $100 discount code R12UFOJ3Q. */
+  /* Marketing tags follow the live MV sales-page pattern:
+     mv_core,aor,<product>,<segment>,<billing>,<funnel>,<placement> */
   var CHECKOUT_LINKS = {
     monthly: {
       api: 'https://secure.mindvalley.com/v3/checkout_link/D7I02BYFN69URS4OQTEH',
-      fallback: 'https://secure.mindvalley.com/v3/flow?charge_plan_id=su%7C1446&mvh=5EF1FC355C3975550A5B779E1E88C9D34EDEBCBA8356D5D6DB3ADFC05B43505C'
+      fallback: 'https://secure.mindvalley.com/v3/flow?charge_plan_id=su%7C1446&mvh=5EF1FC355C3975550A5B779E1E88C9D34EDEBCBA8356D5D6DB3ADFC05B43505C',
+      tags: 'mv_core,aor,manifesting_product,nonmember,monthly,vsl_funnel,main'
     },
     yearly: {
       api: 'https://secure.mindvalley.com/v3/checkout_link/CV3QEN40K6BLW52ZDAOU',
-      fallback: 'https://secure.mindvalley.com/v3/flow?discount=R12UFOJ3Q&charge_plan_id=su%7C1698&mvh=F702305037B30D09B1DFF75527795A225D6FEB3505BCB095A8CED209C14CE2A9'
+      fallback: 'https://secure.mindvalley.com/v3/flow?discount=R12UFOJ3Q&charge_plan_id=su%7C1698&mvh=F702305037B30D09B1DFF75527795A225D6FEB3505BCB095A8CED209C14CE2A9',
+      tags: 'mv_core,aor,manifesting_product,nonmember,yearly,vsl_funnel,main'
     }
   };
   var resolvedCheckout = {};
@@ -622,6 +626,7 @@
   }
   function buildCheckoutUrl(tier, topBlockName) {
     var params = [
+      'tags=' + encodeURIComponent(CHECKOUT_LINKS[tier].tags),
       'utm_source=quiz',
       'utm_medium=manifesting-blocks-quiz',
       'utm_campaign=manifesting-pathway',
@@ -1232,12 +1237,52 @@
     next(); // → results
   }
 
+  /* Lead capture — same two destinations as the live blocks quiz
+     (pages.mindvalley.com/quiz/blocks): Supabase quiz_leads + Make.com webhook
+     for Braze automation. The anon key is publishable and the table is
+     INSERT-only under RLS, so committing it is safe. */
+  var SUPABASE_URL = 'https://ycyalmbguumkghkctwhk.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljeWFsbWJndXVta2doa2N0d2hrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2ODM0MTgsImV4cCI6MjA4MDI1OTQxOH0.EtIhzP3jIX0s1cHAIw_E3TkTMaCWY-uNhBPQWbQ71cY';
+  var MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/ngtmyyg503kavj3zouw4sticn6nfar41';
+
   function submitLead(payload) {
+    var topBlock = (payload.topBlocks && payload.topBlocks[0]) || {};
+    var pres = questMap[topBlock.id] || {};
     try {
-      fetch('/api/submit-lead', {
+      fetch(SUPABASE_URL + '/rest/v1/quiz_leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          first_name: payload.firstName,
+          email: payload.email,
+          pathway: 'manifesting',
+          block_type: topBlock.name || null,
+          prescribed_masterclass: pres.quest || null,
+          prescribed_trainer: pres.teacher || null,
+          answers: payload,
+          source: 'manifesting-blocks-quiz',
+          user_agent: payload.userAgent
+        }),
+        keepalive: true
+      }).catch(function() { /* silent */ });
+    } catch (e) { /* silent */ }
+    try {
+      fetch(MAKE_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          first_name: payload.firstName,
+          email: payload.email,
+          pathway: 'manifesting',
+          block_type: topBlock.name || null,
+          masterclass: pres.quest || null,
+          trainer: pres.teacher || null
+        }),
         keepalive: true
       }).catch(function() { /* silent */ });
     } catch (e) { /* silent */ }
