@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Founder Bottleneck Quiz — Mindvalley</title>
+  <meta name="description" content="It's not your marketing. Find the founder bottleneck quietly capping your company — and the 12-week protocol to break it." />
+  <meta name="theme-color" content="#7a12d4" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="What's Actually Capping Your Growth? — Free Founder Assessment" />
+  <meta property="og:description" content="Your company can only grow as fast as you do. Find your #1 founder bottleneck in 5 minutes." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Mindvalley plain tokens (inlined from mindvalley-core.css) ===== */
+    :root {
+      --font-brand: "Google Sans Flex", Verdana, sans-serif;
+      --mv-purple: #7a12d4;
+      --mv-purple-light: #9333ea;
+      --mv-purple-50: #f9f7fc;
+      --mv-purple-100: #e0cfff;
+      --mv-border: #e8e0f0;
+      --mv-text: #0f131a;
+      --mv-text-muted: #4b5563;
+      --mv-text-subtle: #6b7280;
+      --mv-text-faint: #9ca3af;
+      --mv-bg: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; color: var(--mv-text); font-size: 16px; text-rendering: optimizeLegibility; }
+    body { margin: 0; padding: 0; font-family: var(--font-brand); font-weight: 400; background: var(--mv-bg); }
+    p { margin: 0 0 1.25rem; }
+    p:last-child { margin-bottom: 0; }
+    button { font-family: var(--font-brand); }
+
+    .shell { max-width: 30rem; margin: 0 auto; padding: 0 1.25rem 4rem 1.25rem; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px); border-bottom: 1px solid #f3f4f6;
+    }
+    .topbar-inner {
+      max-width: 30rem; margin: 0 auto; padding: 0.875rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+    }
+    .back-btn {
+      width: 2.25rem; height: 2.25rem; border: none; background: transparent; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--mv-text-muted);
+      transition: background 0.15s ease; visibility: hidden;
+    }
+    .back-btn.show { visibility: visible; }
+    .back-btn:hover { background: var(--mv-purple-50); color: var(--mv-purple); }
+    .step-count { font-size: 0.8125rem; font-weight: 600; color: var(--mv-text-faint); min-width: 3.25rem; text-align: right; }
+    .progress-track { height: 0.25rem; background: #f3f4f6; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--mv-purple), var(--mv-purple-light)); transition: width 0.3s ease; }
+
+    .screen { display: none; padding-top: 2rem; }
+    .screen.active { display: block; animation: fadeInUp 0.35s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
+
+    .q-eyebrow { font-weight: 600; font-size: 0.75rem; line-height: 1.25rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mv-purple); text-align: center; margin-bottom: 0.625rem; }
+    .q-title { font-weight: 600; font-size: 1.5rem; line-height: 1.9rem; text-align: center; margin: 0 0 0.625rem 0; letter-spacing: 0.01em; }
+    .q-sub { font-size: 0.9375rem; line-height: 1.45rem; color: var(--mv-text-muted); text-align: center; margin: 0 auto 1.75rem auto; max-width: 24rem; }
+
+    .opts { display: flex; flex-direction: column; gap: 0.625rem; }
+    .opt {
+      display: flex; align-items: center; gap: 0.875rem; width: 100%;
+      padding: 1rem 1.125rem; background: #fff; border: 1.5px solid var(--mv-border); border-radius: 1rem;
+      font-size: 1rem; font-weight: 500; color: var(--mv-text); cursor: pointer; text-align: left;
+      transition: border-color 0.12s ease, background 0.12s ease, transform 0.08s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .opt:hover { border-color: var(--mv-purple-100); background: var(--mv-purple-50); }
+    .opt:active { transform: scale(0.985); }
+    .opt.selected { border-color: var(--mv-purple); background: var(--mv-purple-50); box-shadow: 0 2px 10px rgba(122, 18, 212, 0.12); }
+    .opt .emoji { font-size: 1.375rem; width: 1.75rem; text-align: center; flex-shrink: 0; }
+    .opt .opt-label { flex: 1; line-height: 1.35; }
+    .opt .tick {
+      width: 1.375rem; height: 1.375rem; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: white; transition: all 0.12s ease;
+    }
+    .opt.selected .tick { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); border-color: var(--mv-purple); }
+    .opt.selected .tick::after { content: '✓'; }
+
+    .info-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 auto 1.25rem auto;
+      background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+      color: white; padding: 0.5rem 1.25rem; border-radius: 2rem; font-weight: 600; font-size: 0.9375rem;
+    }
+    .info-center { text-align: center; }
+    .info-body { font-size: 1rem; line-height: 1.55rem; color: var(--mv-text-muted); max-width: 24rem; margin: 0 auto 2rem auto; text-align: center; }
+    .info-stat-card {
+      background: var(--mv-purple-50); border: 1px solid var(--mv-border); border-radius: 1rem;
+      padding: 1.25rem 1.5rem; margin: 0 auto 2rem auto; max-width: 24rem; text-align: center;
+    }
+    .info-stat-card .big { font-size: 1.75rem; font-weight: 700; color: var(--mv-purple); line-height: 1.2; }
+    .info-stat-card .small { font-size: 0.875rem; color: var(--mv-text-muted); margin-top: 0.25rem; }
+
+    .btn-primary {
+      display: inline-block; width: 100%; padding: 1.05rem 1.5rem; border: none; border-radius: 0.75rem;
+      background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+      color: white; font-size: 1.0625rem; font-weight: 700; cursor: pointer; letter-spacing: 0.01em;
+      transition: transform 0.1s ease, box-shadow 0.15s ease; box-shadow: 0 6px 16px rgba(122, 18, 212, 0.28);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(122, 18, 212, 0.38); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .loader-pct { font-size: 3.25rem; font-weight: 700; color: var(--mv-purple); text-align: center; margin-bottom: 0.25rem; }
+    .loader-track { height: 0.5rem; background: #f3f4f6; border-radius: 1rem; overflow: hidden; margin: 1rem 0 2rem 0; }
+    .loader-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--mv-purple), var(--mv-purple-light)); border-radius: 1rem; transition: width 0.2s linear; }
+    .loader-steps { display: flex; flex-direction: column; gap: 0.75rem; max-width: 22rem; margin: 0 auto; }
+    .loader-step { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9375rem; color: var(--mv-text-faint); transition: color 0.2s ease; }
+    .loader-step .dot {
+      width: 1.25rem; height: 1.25rem; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.6875rem; color: white; transition: all 0.2s ease;
+    }
+    .loader-step.done { color: var(--mv-text); }
+    .loader-step.done .dot { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); border-color: var(--mv-purple); }
+    .loader-step.done .dot::after { content: '✓'; }
+
+    .gate-card {
+      background: white; border: 2px solid var(--mv-purple); border-radius: 1rem; padding: 2rem 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .gate-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--mv-purple), var(--mv-purple-light), #c084fc, var(--mv-purple-light), var(--mv-purple));
+    }
+    .form-field { margin-bottom: 1rem; }
+    .form-field label { display: block; font-size: 0.8125rem; font-weight: 600; color: #374151; margin-bottom: 0.375rem; }
+    .form-field input[type="text"],
+    .form-field input[type="email"] {
+      width: 100%; padding: 0.875rem 1rem; border: 1.5px solid #d1d5db; border-radius: 0.625rem;
+      font-family: var(--font-brand); font-size: 1rem; transition: border-color 0.15s ease; -webkit-appearance: none;
+    }
+    .form-field input:focus { outline: none; border-color: var(--mv-purple); box-shadow: 0 0 0 3px rgba(122, 18, 212, 0.1); }
+    .form-field input.error { border-color: #dc2626; }
+    .form-error { color: #dc2626; font-size: 0.8125rem; margin-top: 0.375rem; display: none; }
+    .form-error.visible { display: block; }
+    .consent-row { display: flex; align-items: flex-start; gap: 0.5rem; margin: 1rem 0 1.5rem 0; font-size: 0.8125rem; color: var(--mv-text-subtle); line-height: 1.4; }
+    .consent-row input[type="checkbox"] { margin-top: 0.15rem; flex-shrink: 0; accent-color: var(--mv-purple); }
+    .gate-privacy { text-align: center; font-size: 0.75rem; color: var(--mv-text-faint); margin-top: 1rem; }
+
+    .top-block-row { display: flex; align-items: flex-start; gap: 0.875rem; padding: 1.125rem 0; border-bottom: 1px solid #f3f4f6; }
+    .top-block-row:last-child { border-bottom: none; }
+    .rank-num {
+      width: 2.25rem; height: 2.25rem; border-radius: 50%;
+      background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+      color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9375rem; flex-shrink: 0;
+    }
+    .top-block-info { flex: 1; min-width: 0; }
+    .top-block-name { font-weight: 600; color: var(--mv-text); font-size: 1rem; }
+    .top-block-cat { font-size: 0.6875rem; color: var(--mv-text-faint); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.125rem; }
+    .top-block-desc { font-size: 0.875rem; color: var(--mv-text-muted); margin-top: 0.4rem; line-height: 1.5; }
+    .top-block-score { font-size: 1.25rem; font-weight: 700; color: var(--mv-purple); white-space: nowrap; }
+    .top-block-max { font-size: 0.6875rem; color: var(--mv-text-faint); font-weight: 400; }
+
+    .all-scores { margin-top: 1.75rem; }
+    .score-bar-row { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.45rem; }
+    .score-bar-label { width: 8.5rem; font-size: 0.75rem; color: #374151; text-align: right; flex-shrink: 0; }
+    .score-bar-track { flex: 1; height: 1.25rem; background: #f3f4f6; border-radius: 0.75rem; overflow: hidden; }
+    .score-bar-fill { height: 100%; background: linear-gradient(90deg, var(--mv-purple-100), var(--mv-purple)); border-radius: 0.75rem; transition: width 0.6s ease; }
+    .score-bar-fill.top3 { background: linear-gradient(90deg, var(--mv-purple), var(--mv-purple-light)); }
+    .score-bar-val { width: 1.75rem; font-size: 0.8125rem; font-weight: 600; color: #374151; flex-shrink: 0; }
+
+    .chart-card { background: white; border: 1px solid var(--mv-border); border-radius: 1rem; padding: 1.5rem 1.25rem 1rem 1.25rem; margin-bottom: 1.75rem; }
+    .chart-title { font-size: 0.8125rem; font-weight: 600; color: var(--mv-text-muted); text-align: center; margin-bottom: 0.75rem; }
+    .chart-title b { color: var(--mv-purple); }
+    .chart-labels { display: flex; justify-content: space-between; font-size: 0.6875rem; color: var(--mv-text-faint); padding: 0.375rem 0.25rem 0 0.25rem; }
+
+    .timer-bar {
+      display: flex; align-items: center; justify-content: center; gap: 0.625rem;
+      background: var(--mv-purple-50); border: 1px solid var(--mv-border); border-radius: 0.75rem;
+      padding: 0.75rem 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--mv-text-muted);
+    }
+    .timer-bar b { color: var(--mv-purple); font-variant-numeric: tabular-nums; font-size: 1.0625rem; }
+
+    .tiers { display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 1.25rem; }
+    .tier {
+      position: relative; display: flex; align-items: center; gap: 0.875rem;
+      background: #fff; border: 2px solid var(--mv-border); border-radius: 1rem; padding: 1.125rem 1rem;
+      cursor: pointer; transition: border-color 0.12s ease, background 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tier.selected { border-color: var(--mv-purple); background: var(--mv-purple-50); box-shadow: 0 4px 14px rgba(122, 18, 212, 0.14); }
+    .tier-badge {
+      position: absolute; top: -0.75rem; left: 1rem; padding: 0.25rem 0.75rem; border-radius: 1rem;
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      background: #f3f4f6; color: var(--mv-text-subtle);
+    }
+    .tier-badge.hot { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); color: white; }
+    .tier-radio {
+      width: 1.375rem; height: 1.375rem; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.6875rem; color: white; transition: all 0.12s ease;
+    }
+    .tier.selected .tier-radio { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); border-color: var(--mv-purple); }
+    .tier.selected .tier-radio::after { content: '✓'; }
+    .tier-main { flex: 1; min-width: 0; }
+    .tier-name { font-weight: 700; font-size: 1rem; }
+    .tier-prices { display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.25rem; }
+    .tier-old { font-size: 0.8125rem; color: var(--mv-text-faint); text-decoration: line-through; }
+    .tier-new { font-size: 0.9375rem; font-weight: 600; color: var(--mv-text); }
+    .tier-save { font-size: 0.6875rem; font-weight: 700; color: var(--mv-purple); background: var(--mv-purple-100); border-radius: 0.375rem; padding: 0.125rem 0.4rem; }
+    .tier-perday { text-align: center; padding-left: 0.875rem; border-left: 1px solid var(--mv-border); min-width: 4.75rem; }
+    .tier-perday .amt { font-size: 1.375rem; font-weight: 700; color: var(--mv-text); line-height: 1.1; }
+    .tier.selected .tier-perday .amt { color: var(--mv-purple); }
+    .tier-perday .per { font-size: 0.6875rem; color: var(--mv-text-faint); }
+    .tier-perday .perday-old { font-size: 0.75rem; color: var(--mv-text-faint); text-decoration: line-through; line-height: 1.1; }
+
+    .plan-smallprint { font-size: 0.75rem; color: var(--mv-text-faint); line-height: 1.5; text-align: center; margin-top: 1rem; }
+    .guarantee-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--mv-text-muted); margin-top: 1rem; text-align: center; }
+
+    .stories-stack { display: flex; flex-direction: column; gap: 0.75rem; margin: 0 0 1.75rem 0; text-align: left; }
+    .story-card { background: #fff; border: 1px solid var(--mv-border); border-radius: 1rem; padding: 1.125rem 1.25rem; }
+    .story-text { font-size: 0.9375rem; line-height: 1.5; color: var(--mv-text); font-weight: 500; margin: 0; }
+    .story-meta { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.875rem; }
+    .story-avatar {
+      width: 3rem; height: 3rem; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+      color: white; font-weight: 700; font-size: 0.9375rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(122, 18, 212, 0.18);
+    }
+    .story-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+    .story-name { font-size: 0.875rem; font-weight: 600; color: var(--mv-text); }
+    .story-sub { font-size: 0.75rem; color: var(--mv-text-faint); }
+    .story-stars { color: #f59e0b; font-size: 0.8125rem; letter-spacing: 0.1em; margin-bottom: 0.45rem; }
+    .story-verified { display: flex; align-items: center; gap: 0.3rem; font-size: 0.6875rem; color: #059669; font-weight: 600; margin-top: 0.15rem; }
+    .story-verified svg { flex-shrink: 0; }
+    .story-quest { display: inline-block; margin-top: 0.625rem; font-size: 0.6875rem; font-weight: 700; color: var(--mv-purple); background: var(--mv-purple-100); padding: 0.2rem 0.5rem; border-radius: 0.375rem; }
+
+    .curr-card { background: #fff; border: 1px solid var(--mv-border); border-radius: 1rem; margin-bottom: 0.875rem; text-align: left; overflow: hidden; }
+    .curr-cover { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: var(--mv-purple-50); }
+    .curr-body { padding: 1rem 1.25rem 1.25rem 1.25rem; }
+    .curr-week { font-size: 0.6875rem; font-weight: 700; color: var(--mv-purple); letter-spacing: 0.08em; text-transform: uppercase; }
+    .curr-quest { font-weight: 700; font-size: 1.0625rem; margin-top: 0.2rem; }
+    .curr-author-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+    .curr-author-img { width: 1.875rem; height: 1.875rem; border-radius: 50%; object-fit: cover; display: block; border: 1.5px solid var(--mv-purple-100); }
+    .curr-teacher { font-size: 0.78125rem; color: var(--mv-text-subtle); font-weight: 500; }
+    .curr-why { font-size: 0.84375rem; color: var(--mv-text-muted); margin-top: 0.625rem; line-height: 1.55; }
+    .curr-why b { color: var(--mv-purple); }
+
+    .diag-card { background: var(--mv-purple-50); border: 1.5px solid var(--mv-purple-100); border-radius: 1rem; padding: 1.375rem; font-size: 0.9975rem; line-height: 1.6; color: var(--mv-text); margin-bottom: 0.875rem; text-align: left; }
+    .diag-card b { color: var(--mv-purple); }
+    .quote-card { background: white; border: 1.5px solid var(--mv-border); border-left: 4px solid var(--mv-purple); border-radius: 0.75rem; padding: 1.125rem 1.25rem; margin-bottom: 0.875rem; text-align: left; }
+    .quote-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mv-text-faint); margin-bottom: 0.5rem; }
+    .quote-text { font-size: 0.9375rem; font-style: italic; color: var(--mv-text); line-height: 1.5; }
+    .quote-verdict { font-size: 0.875rem; color: var(--mv-purple); font-weight: 600; margin-top: 0.625rem; }
+    .cost-line { text-align: center; font-size: 0.875rem; color: var(--mv-text-muted); margin: 1.25rem 0 1.5rem 0; line-height: 1.5; }
+    .cost-line b { color: var(--mv-text); }
+
+    .bridge-analogy { background: linear-gradient(180deg, #1a0b3e 0%, #4c1d95 100%); color: white; border-radius: 1rem; padding: 1.5rem 1.375rem; text-align: center; margin-bottom: 1rem; }
+    .bridge-analogy .big { font-size: 2rem; margin-bottom: 0.625rem; }
+    .bridge-analogy p { margin: 0; font-size: 0.9975rem; line-height: 1.55; }
+    .bridge-analogy b { color: #fbbf24; }
+    .bridge-row { display: flex; gap: 0.875rem; align-items: flex-start; background: white; border: 1px solid var(--mv-border); border-radius: 0.875rem; padding: 1rem 1.125rem; margin-bottom: 0.625rem; text-align: left; }
+    .bridge-row .ic { font-size: 1.25rem; flex-shrink: 0; }
+    .bridge-row .tx { font-size: 0.9075rem; line-height: 1.5; color: var(--mv-text-muted); }
+    .bridge-row .tx b { color: var(--mv-text); }
+    .reframe { background: var(--mv-purple-50); border: 1.5px solid var(--mv-purple-100); border-radius: 1rem; padding: 1.25rem 1.375rem; text-align: center; font-size: 0.9975rem; line-height: 1.6; margin: 1rem 0 1.5rem 0; }
+    .reframe b { color: var(--mv-purple); }
+
+    .stack-card { background: white; border: 2px solid var(--mv-purple); border-radius: 1rem; overflow: hidden; margin-bottom: 1.5rem; }
+    .stack-head { background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); color: white; text-align: center; padding: 0.75rem 1rem; font-weight: 700; font-size: 0.9375rem; }
+    .stack-body { padding: 1rem 1.25rem 1.25rem 1.25rem; }
+    .stack-row { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--mv-border); font-size: 0.875rem; text-align: left; }
+    .stack-row .nm { flex: 1; min-width: 0; }
+    .stack-row:last-of-type { border-bottom: none; }
+    .stack-row .nm { color: var(--mv-text); font-weight: 500; }
+    .stack-row .nm small { display: block; color: var(--mv-text-faint); font-weight: 400; font-size: 0.71875rem; }
+    .stack-row .vl { color: var(--mv-text-subtle); white-space: nowrap; }
+    .stack-row .thumb { width: 3.5rem; height: 2.1rem; object-fit: cover; border-radius: 0.375rem; flex-shrink: 0; }
+    .stack-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 0.875rem; margin-top: 0.25rem; border-top: 2px solid var(--mv-border); font-weight: 700; }
+    .stack-total .strike { text-decoration: line-through; color: var(--mv-text-faint); font-weight: 500; margin-right: 0.5rem; }
+    .stack-total .now { color: var(--mv-purple); font-size: 1.25rem; }
+    .challenge-card { background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 1rem; padding: 1.25rem 1.375rem; margin: 1rem 0 0.5rem 0; text-align: left; }
+    .challenge-title { font-weight: 700; color: #047857; font-size: 0.9975rem; margin-bottom: 0.4rem; }
+    .challenge-body { font-size: 0.875rem; line-height: 1.55; color: var(--mv-text-muted); }
+    .time-line { text-align: center; font-size: 0.84375rem; color: var(--mv-text-subtle); margin: 0.875rem 0 0.5rem 0; }
+    .time-line b { color: var(--mv-text); }
+    .exit-ramp { text-align: center; margin-top: 1.75rem; font-size: 0.84375rem; color: var(--mv-text-subtle); line-height: 1.6; }
+    .exit-ramp a { color: var(--mv-purple); font-weight: 600; }
+    .sev-wrap { margin: 0 auto 1.25rem auto; max-width: 22rem; }
+    .sev-track { height: 0.625rem; border-radius: 1rem; background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444); position: relative; }
+    .sev-marker { position: absolute; top: -0.3125rem; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: white; border: 3px solid var(--mv-purple); transform: translateX(-50%); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+    .sev-labels { display: flex; justify-content: space-between; font-size: 0.6875rem; color: var(--mv-text-faint); margin-top: 0.45rem; }
+    .bridge-img { width: 100%; border-radius: 1rem; display: block; margin-bottom: 1rem; aspect-ratio: 16 / 7; object-fit: cover; }
+    .mini-heading { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mv-text-faint); margin: 1.5rem 0 0.75rem 0; }
+
+    @media (max-width: 380px) {
+      .q-title { font-size: 1.3125rem; line-height: 1.7rem; }
+      .score-bar-label { width: 6.5rem; }
+      .tier-perday { min-width: 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <button class="back-btn" id="backBtn" aria-label="Go back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <img class="logo" src="https://marisha-mv.github.io/manifesting-quiz/photos/mv-logo.png" alt="Mindvalley" style="height:1.375rem; width:auto; display:block;" />
+      <div class="step-count" id="stepCount"></div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="shell" id="shell"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* =====================================================================
+     DATA — Founder Bottleneck instrument: 10 bottlenecks across 4 founder
+     systems, 3 questions each, 1–5 scoring. Core thesis (primed throughout):
+     the systems are interdependent — a bottleneck in one drags the others.
+     ===================================================================== */
+
+  var STAGES = {
+    pre:   { emoji: '💡', label: 'Pre-launch / idea stage',   phrase: 'a pre-launch venture' },
+    small: { emoji: '🌱', label: 'Doing under $10K/month',    phrase: 'a business doing under $10K a month' },
+    mid:   { emoji: '🚀', label: '$10K–$50K/month',           phrase: 'a business doing $10–50K a month' },
+    big:   { emoji: '🏢', label: '$50K+/month',               phrase: 'a business doing $50K+ a month' }
+  };
+  var HOURS = {
+    u40: { emoji: '⏱️', label: 'Under 40 hours',           phrase: 'sub-40-hour' },
+    h50: { emoji: '💼', label: '40–50 hours',               phrase: '40–50-hour' },
+    h70: { emoji: '🔥', label: '50–70 hours',               phrase: '50–70-hour' },
+    h99: { emoji: '🫠', label: '70+ hours (be honest)',     phrase: '70-plus-hour' }
+  };
+  var WANTS = {
+    scale:  { emoji: '📈', label: 'Scale it — without burning out',        phrase: 'scale without burning out' },
+    health: { emoji: '❤️‍🩹', label: 'Get my health and energy back',        phrase: 'get your health and energy back' },
+    family: { emoji: '👨‍👩‍👧', label: 'Be actually present with my people', phrase: 'be actually present with the people you love' },
+    think:  { emoji: '🧠', label: 'Space to think like a CEO again',       phrase: 'get space to think like a CEO again' }
+  };
+
+  var blocks = [
+    { id: 1, name: 'Running on Fumes', cat: 'The Engine · Founder Energy', qs: [1,2,3],
+      desc: 'Your strategy isn\'t the problem — your battery is. Every decision, pitch, and plan is running through a body operating at 60%.' },
+    { id: 2, name: 'The Recovery Debt', cat: 'The Engine · Founder Energy', qs: [4,5,6],
+      desc: 'You never actually switch off, so your brain never actually recharges. Fatigue compounds like debt — and it\'s charging interest on every decision.' },
+    { id: 3, name: 'The Founder Ceiling', cat: 'The OS · Founder Psychology', qs: [7,8,9],
+      desc: 'Your revenue keeps stalling at the same number because that\'s where your identity ends. Companies grow to the size of their founder\'s self-image — then stop.' },
+    { id: 4, name: 'The Impostor Loop', cat: 'The OS · Founder Psychology', qs: [10,11,12],
+      desc: 'You discount your wins, brace to be "found out," and play small in rooms that matter. It\'s quietly capping your prices, your visibility, and your asks.' },
+    { id: 5, name: 'Scarcity OS', cat: 'The OS · Founder Psychology', qs: [13,14,15],
+      desc: 'Fear is making your decisions: underpricing, bad-fit clients, cash hoarded instead of deployed. Scarcity compounds faster than revenue.' },
+    { id: 6, name: 'The Control Trap', cat: 'The Cockpit · Leadership & Leverage', qs: [16,17,18],
+      desc: 'Everything routes through you, so nothing scales past you. Your team can only grow into the space you release — and you haven\'t released any.' },
+    { id: 7, name: 'Lone Wolf Syndrome', cat: 'The Cockpit · Leadership & Leverage', qs: [19,20,21],
+      desc: 'You\'re making every hard call alone, in an echo chamber of one. Isolation isn\'t noble — it\'s expensive.' },
+    { id: 8, name: 'The Drift', cat: 'The Compass · Vision & Life', qs: [22,23,24],
+      desc: 'You\'re hitting numbers that feel hollow because the vision that started this got buried under the running of it. Reactive quarters, no pull.' },
+    { id: 9, name: 'The Shiny Object Cycle', cat: 'The Compass · Vision & Life', qs: [25,26,27],
+      desc: 'You quit at the dip and call it a pivot. The graveyard of half-built projects isn\'t a strategy problem — it\'s a focus wound.' },
+    { id: 10, name: 'The Deferred Life', cat: 'The Compass · Vision & Life', qs: [28,29,30],
+      desc: 'Health, marriage, joy — all postponed "until it\'s done." The finish line keeps moving because the deferral IS the pattern.' }
+  ];
+
+  /* 30 scenario questions — synthesized from Schwartz / Hormozi / Brunson drafts. */
+  var QUESTIONS = [
+    // Bottleneck 1 · Running on Fumes
+    { t: 'It\'s 6:47am. The alarm goes off. What actually happens next?', opts: [
+      { v: 1, e: '🌅', l: 'I\'m up before it — clear-headed, ready' },
+      { v: 2, e: '☀️', l: 'Up on time, feeling human within minutes' },
+      { v: 3, e: '😑', l: 'One snooze, then coffee does the heavy lifting' },
+      { v: 4, e: '🧟', l: 'Three snoozes and a dread-scroll before I move' },
+      { v: 5, e: '🪫', l: 'I wake up tired. Every day. For months' } ]},
+    { t: 'Count yesterday\'s caffeine hits — coffees, energy drinks, pre-workout. Real number?', opts: [
+      { v: 1, e: '💧', l: 'One or none — I don\'t need it to function' },
+      { v: 2, e: '🍵', l: 'Two, mostly for the ritual' },
+      { v: 3, e: '☕', l: 'Three — the 2pm cup is non-negotiable' },
+      { v: 4, e: '⚡', l: 'Four+ and I still crashed' },
+      { v: 5, e: '🔋', l: 'Lost count. Caffeine IS my energy plan' } ]},
+    { t: 'It\'s 2:30pm and a big decision lands on your desk. What state are you in?', opts: [
+      { v: 1, e: '⚡', l: 'Sharp — afternoons are my power hours' },
+      { v: 2, e: '🙂', l: 'Fine, maybe a small dip' },
+      { v: 3, e: '🥱', l: 'Foggy — I push through on willpower' },
+      { v: 4, e: '😵‍💫', l: 'I reread the same email three times' },
+      { v: 5, e: '🛑', l: 'I park anything important until tomorrow' } ]},
+    // Bottleneck 2 · The Recovery Debt
+    { t: 'Check your phone\'s sleep data. Average hours over the last 7 nights?', opts: [
+      { v: 1, e: '😴', l: '7.5+ — sleep is non-negotiable' },
+      { v: 2, e: '🌙', l: 'Around 7, slips on launch weeks' },
+      { v: 3, e: '⏰', l: '6-ish — the alarm always wins' },
+      { v: 4, e: '📱', l: '5–6, phone in bed until 1am' },
+      { v: 5, e: '🧟', l: 'Under 5, or totally random' } ]},
+    { t: 'Picture your last vacation. Be honest about the laptop.', opts: [
+      { v: 1, e: '🏝️', l: 'Fully offline. The business survived' },
+      { v: 2, e: '📵', l: 'Checked in once a day, then let go' },
+      { v: 3, e: '💼', l: 'A "half day" of work most mornings' },
+      { v: 4, e: '🔥', l: 'I just worked from a nicer chair with a view' },
+      { v: 5, e: '🚫', l: 'Vacation? Not a real one in years' } ]},
+    { t: 'You finally sit down to rest on Sunday. What does your brain do?', opts: [
+      { v: 1, e: '🧘', l: 'It actually rests. Off means off' },
+      { v: 2, e: '😌', l: 'Drifts to work sometimes — I redirect it' },
+      { v: 3, e: '🌀', l: 'Loops on Monday\'s problems the whole time' },
+      { v: 4, e: '😬', l: 'Resting makes me anxious — I feel behind' },
+      { v: 5, e: '⛓️', l: 'I don\'t remember what "off" feels like' } ]},
+    // Bottleneck 3 · The Founder Ceiling
+    { t: 'Pull up your last 12 months of revenue. What\'s the honest pattern?', opts: [
+      { v: 1, e: '📈', l: 'Climbing — new highs most quarters' },
+      { v: 2, e: '🪜', l: 'Growing, with a flat quarter or two' },
+      { v: 3, e: '📊', l: 'Stuck in the same band for 6+ months' },
+      { v: 4, e: '🔁', l: 'Same number for 1–2 years, whatever I try' },
+      { v: 5, e: '📉', l: 'Hit a peak, slid back, stayed there' } ]},
+    { t: 'Your revenue has hovered around the same number for a while. Deep down — why?', opts: [
+      { v: 1, e: '🚀', l: 'It hasn\'t — we keep breaking through' },
+      { v: 2, e: '🧩', l: 'Tactics. I just need a sharper strategy' },
+      { v: 3, e: '🪞', l: 'Funny how it stalls right where I feel comfortable' },
+      { v: 4, e: '🚧', l: 'Every push past it, something in me pulls back' },
+      { v: 5, e: '🔒', l: 'The number is me. I\'m the ceiling and I know it' } ]},
+    { t: 'Picture charging 3× your current price starting tomorrow. What does your body do?', opts: [
+      { v: 1, e: '😎', l: 'Nothing — I\'ve raised prices before' },
+      { v: 2, e: '🤨', l: 'A flinch, then I\'d test it' },
+      { v: 3, e: '😅', l: 'Sweaty — I\'d have to add more deliverables' },
+      { v: 4, e: '🙅', l: '"My market won\'t pay that" — instantly' },
+      { v: 5, e: '🤢', l: 'Physical no. That number isn\'t "me"' } ]},
+    // Bottleneck 4 · The Impostor Loop
+    { t: 'Someone introduces you as "a successful founder" at dinner. Your gut reaction?', opts: [
+      { v: 1, e: '🤝', l: 'Accurate. I own it and say thanks' },
+      { v: 2, e: '😊', l: 'A little flattered, mostly comfortable' },
+      { v: 3, e: '😶', l: 'I deflect — "eh, we\'re a small operation"' },
+      { v: 4, e: '🎭', l: 'Smile outside, "if only they knew" inside' },
+      { v: 5, e: '🏃', l: 'I change the subject before anyone asks numbers' } ]},
+    { t: 'You\'re in a room of founders doing 10× your revenue. What do you do?', opts: [
+      { v: 1, e: '🎤', l: 'Ask questions, share openly — I belong here' },
+      { v: 2, e: '👂', l: 'Mostly listen, but speak when it counts' },
+      { v: 3, e: '🤐', l: 'Stay quiet so nobody spots the gap' },
+      { v: 4, e: '📝', l: 'Rehearse every sentence before I dare speak' },
+      { v: 5, e: '🚪', l: 'I stopped entering those rooms a while ago' } ]},
+    { t: 'A podcast invites you on to teach exactly what you do. Honest first thought?', opts: [
+      { v: 1, e: '✅', l: '"Great — when do we record?"' },
+      { v: 2, e: '🙂', l: 'Excited, slightly nervous' },
+      { v: 3, e: '😬', l: '"What if they ask something I can\'t answer?"' },
+      { v: 4, e: '🫣', l: '"They picked the wrong person"' },
+      { v: 5, e: '👻', l: 'I\'d find a reason to decline' } ]},
+    // Bottleneck 5 · Scarcity OS
+    { t: 'A prospect says your price feels high. What happens in the next 10 seconds?', opts: [
+      { v: 1, e: '🧱', l: 'Nothing. The price is the price' },
+      { v: 2, e: '💬', l: 'I calmly re-anchor them on the value' },
+      { v: 3, e: '😰', l: 'My stomach drops and I soften the number' },
+      { v: 4, e: '✂️', l: 'I\'ve already offered a discount. Reflexively' },
+      { v: 5, e: '🩸', l: 'I quoted low BEFORE they even pushed back' } ]},
+    { t: 'Count them: how many current clients would you fire today if money weren\'t a factor?', opts: [
+      { v: 1, e: '🧼', l: 'Zero — I already pruned the list' },
+      { v: 2, e: '🤏', l: 'One, and I\'m handling it this month' },
+      { v: 3, e: '😑', l: 'Two or three drainers I tolerate' },
+      { v: 4, e: '😖', l: 'A third of my roster' },
+      { v: 5, e: '⛓️', l: 'Most of them — but I need the cash' } ]},
+    { t: 'Last time a $2K investment (coach, hire, tool) would clearly pay for itself — what did you do?', opts: [
+      { v: 1, e: '⚡', l: 'Bought same day, ROI\'d it' },
+      { v: 2, e: '🧮', l: 'Bought after a week of spreadsheet math' },
+      { v: 3, e: '🐌', l: 'Deliberated a month, then maybe' },
+      { v: 4, e: '📝', l: 'Added it to "someday" — it\'s still there' },
+      { v: 5, e: '🔒', l: 'Didn\'t spend. I never spend on growth' } ]},
+    // Bottleneck 6 · The Control Trap
+    { t: 'Open Slack or WhatsApp right now. How many messages today are people asking YOU to decide?', opts: [
+      { v: 1, e: '0️⃣', l: 'Barely any — the team owns decisions' },
+      { v: 2, e: '✌️', l: 'A couple of big-ticket ones' },
+      { v: 3, e: '🔟', l: 'Ten-ish — I\'m the tiebreaker for everything' },
+      { v: 4, e: '📨', l: 'Dozens. My inbox is the approval queue' },
+      { v: 5, e: '🌪️', l: 'Nothing moves until I answer' } ]},
+    { t: 'A team member does a task 80% as well as you would. Your move?', opts: [
+      { v: 1, e: '👏', l: 'Ship it. Their 80% beats my 100%' },
+      { v: 2, e: '🧭', l: 'Quick feedback, then fully hands off' },
+      { v: 3, e: '🔧', l: 'I "polish" it myself... every time' },
+      { v: 4, e: '↩️', l: 'I quietly redo it after they log off' },
+      { v: 5, e: '🙃', l: 'Delegate? I stopped even assigning it' } ]},
+    { t: 'You vanish for 2 weeks — no phone. What happens to the business?', opts: [
+      { v: 1, e: '📈', l: 'It grows. Genuinely' },
+      { v: 2, e: '🙂', l: 'Runs fine, minor hiccups' },
+      { v: 3, e: '😐', l: 'Survives, but nothing moves forward' },
+      { v: 4, e: '🔥', l: 'Small fires everywhere by day 3' },
+      { v: 5, e: '💀', l: 'Let\'s be honest: it stops' } ]},
+    // Bottleneck 7 · Lone Wolf Syndrome
+    { t: 'It\'s a $100K decision and you\'re 60% sure. Who do you actually call?', opts: [
+      { v: 1, e: '📞', l: 'My circle of founders who\'ve done it' },
+      { v: 2, e: '🤝', l: 'A mentor or two I trust' },
+      { v: 3, e: '💍', l: 'My partner, who nods supportively' },
+      { v: 4, e: '🔎', l: 'Google, podcasts, and a 2am spiral' },
+      { v: 5, e: '🪞', l: 'No one. It\'s always just me' } ]},
+    { t: 'When did you last show a peer your real numbers and ask "what am I missing?"', opts: [
+      { v: 1, e: '📊', l: 'Within the last month' },
+      { v: 2, e: '🗓️', l: 'Sometime this quarter' },
+      { v: 3, e: '😶', l: 'Over a year ago' },
+      { v: 4, e: '🔐', l: 'Never — my numbers stay private' },
+      { v: 5, e: '🎭', l: 'Never — I only show the highlight reel' } ]},
+    { t: 'A friend asks "how\'s business, really?" What comes out of your mouth?', opts: [
+      { v: 1, e: '💯', l: 'The truth — wins, messes, all of it' },
+      { v: 2, e: '🙂', l: 'Mostly honest, softened at the edges' },
+      { v: 3, e: '🎬', l: 'The highlight reel. Always the highlight reel' },
+      { v: 4, e: '😔', l: '"Great!" — while I\'m quietly drowning' },
+      { v: 5, e: '🏝️', l: 'I stopped answering honestly years ago' } ]},
+    // Bottleneck 8 · The Drift
+    { t: 'Someone asks why you started this company. What happens?', opts: [
+      { v: 1, e: '✨', l: 'The answer lights me up. Same why, bigger fire' },
+      { v: 2, e: '🙂', l: 'I remember it clearly — mostly still true' },
+      { v: 3, e: '📜', l: 'I recite the old story, but it feels borrowed' },
+      { v: 4, e: '😶‍🌫️', l: 'I hesitate. The why has gone fuzzy' },
+      { v: 5, e: '🪦', l: 'Started? I\'m just keeping the thing alive now' } ]},
+    { t: 'Last time you hit a big goal — how long did the high actually last?', opts: [
+      { v: 1, e: '🎉', l: 'Weeks — and it fuels the next one' },
+      { v: 2, e: '😊', l: 'A few days of real satisfaction' },
+      { v: 3, e: '😐', l: 'About an hour, then "what\'s next"' },
+      { v: 4, e: '🫙', l: 'Nothing. Checked the box, felt empty' },
+      { v: 5, e: '😞', l: 'Worse — hitting it made me feel MORE lost' } ]},
+    { t: 'Where did your top 3 priorities this quarter actually come from?', opts: [
+      { v: 1, e: '🗺️', l: 'My written 3-year vision' },
+      { v: 2, e: '🎯', l: 'An annual plan I mostly follow' },
+      { v: 3, e: '📉', l: 'Whatever last month\'s numbers scared me into' },
+      { v: 4, e: '🌊', l: 'Competitors, trends, and my feed' },
+      { v: 5, e: '🚒', l: 'No plan. I fight this week\'s fire' } ]},
+    // Bottleneck 9 · The Shiny Object Cycle
+    { t: 'Count your half-built projects — unlaunched offers, dead funnels, parked domains. Real number?', opts: [
+      { v: 1, e: '1️⃣', l: '0–1. I finish what I start' },
+      { v: 2, e: '✌️', l: 'Two, with kill dates set' },
+      { v: 3, e: '✋', l: 'Three to five, "on pause"' },
+      { v: 4, e: '🪦', l: 'Six to ten. It\'s a graveyard' },
+      { v: 5, e: '♾️', l: 'I stopped counting years ago' } ]},
+    { t: 'A shiny new idea hits mid-project — better model, hot trend. Your honest reflex?', opts: [
+      { v: 1, e: '📓', l: 'Notebook. It waits until this thing ships' },
+      { v: 2, e: '⏸️', l: 'One weekend exploring, then back on track' },
+      { v: 3, e: '🐿️', l: 'I "run both." Neither gets my best' },
+      { v: 4, e: '🔀', l: 'The new thing wins. It always feels smarter' },
+      { v: 5, e: '🎢', l: 'My business is a stack of pivots at the dip' } ]},
+    { t: 'A new business idea hits at 11pm. What do you do in the next 48 hours?', opts: [
+      { v: 1, e: '📓', l: 'Note it, review Friday, usually kill it' },
+      { v: 2, e: '🧪', l: 'Run a small test inside the current plan' },
+      { v: 3, e: '🌐', l: 'Buy the domain "just in case"' },
+      { v: 4, e: '🛠️', l: 'Build a landing page, tell the team' },
+      { v: 5, e: '🔄', l: 'Reshuffle the whole quarter around it' } ]},
+    // Bottleneck 10 · The Deferred Life
+    { t: 'How many doctor, dentist, or health checkups have you skipped or postponed this past year?', opts: [
+      { v: 1, e: '🩺', l: 'Zero — they\'re on the calendar' },
+      { v: 2, e: '🦷', l: 'One, rescheduled and done' },
+      { v: 3, e: '📆', l: 'Two or three, "when things calm down"' },
+      { v: 4, e: '🙈', l: 'I stopped booking them entirely' },
+      { v: 5, e: '⚠️', l: 'There\'s a symptom I\'m actively ignoring' } ]},
+    { t: 'Your partner or kids ask for real time with you. What\'s your honest reflex?', opts: [
+      { v: 1, e: '👨‍👩‍👧', l: 'They already have it — it\'s protected' },
+      { v: 2, e: '😊', l: 'Usually yes, with rare slips' },
+      { v: 3, e: '📅', l: '"After this launch." I say it a lot' },
+      { v: 4, e: '😞', l: 'They\'ve stopped asking as often' },
+      { v: 5, e: '💔', l: 'They\'ve stopped asking at all' } ]},
+    { t: 'Imagine the business hits the goal tomorrow. What\'s waiting for you outside of it?', opts: [
+      { v: 1, e: '❤️', l: 'A full life I never put on hold' },
+      { v: 2, e: '🏡', l: 'A good life that wants a bit more of me' },
+      { v: 3, e: '🫥', l: 'Hobbies and friendships I\'ve let go quiet' },
+      { v: 4, e: '🩺', l: 'A body and marriage that sent warnings I ignored' },
+      { v: 5, e: '👻', l: 'Honestly? Nothing. The business IS my life' } ]}
+  ];
+
+  /* =====================================================================
+     REAL STUDENT STORIES — stories.mindvalley.com (canonical engine — never
+     fabricate). Founder/operator stories, self-hosted photos.
+     ===================================================================== */
+
+  var MVSTORY = 'https://marisha-mv.github.io/manifesting-quiz/photos/';
+
+  function initials(name) {
+    return name.split(' ').filter(Boolean).map(function(w) { return w[0]; }).join('').replace(/[^A-Za-zÀ-ž]/g, '').slice(0, 2).toUpperCase();
+  }
+
+  function storyCard(st) {
+    var card = document.createElement('div');
+    card.className = 'story-card';
+    var stars = document.createElement('div'); stars.className = 'story-stars'; stars.textContent = '★★★★★';
+    card.appendChild(stars);
+    var p = document.createElement('p'); p.className = 'story-text'; p.textContent = st.text;
+    card.appendChild(p);
+    var meta = document.createElement('div'); meta.className = 'story-meta';
+    var av = document.createElement('div'); av.className = 'story-avatar';
+    if (st.photo) {
+      var img = document.createElement('img');
+      img.src = st.photo; img.alt = st.name; img.loading = 'lazy';
+      img.onerror = function() { av.removeChild(img); av.textContent = initials(st.name); };
+      av.appendChild(img);
+    } else {
+      av.textContent = initials(st.name);
+    }
+    var info = document.createElement('div');
+    var nm = document.createElement('div'); nm.className = 'story-name'; nm.textContent = st.name;
+    var sb = document.createElement('div'); sb.className = 'story-sub'; sb.textContent = st.sub;
+    var vf = document.createElement('div'); vf.className = 'story-verified';
+    vf.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="#059669"><path d="M12 2l2.4 2.4 3.4-.5 1 3.3 3.2 1.4-1.2 3.4 1.2 3.4-3.2 1.4-1 3.3-3.4-.5L12 22l-2.4-2.4-3.4.5-1-3.3L2 15.4l1.2-3.4L2 8.6l3.2-1.4 1-3.3 3.4.5L12 2zm-1.2 13.6l6-6-1.4-1.4-4.6 4.6-2.2-2.2-1.4 1.4 3.6 3.6z"/></svg>Verified Mindvalley student';
+    info.appendChild(nm); info.appendChild(sb); info.appendChild(vf);
+    meta.appendChild(av); meta.appendChild(info);
+    card.appendChild(meta);
+    var q = document.createElement('span'); q.className = 'story-quest'; q.textContent = st.quest;
+    card.appendChild(q);
+    return card;
+  }
+
+  /* Section-matched stories — keyed by category firstQ */
+  var sectionStories = {
+    1: { heading: 'Founders who fixed the engine first', stories: [
+      { name: 'Emilian Popa', sub: 'Entrepreneur · Nairobi, Kenya', quest: 'The Longevity Blueprint',
+        photo: MVSTORY + 'f-emilian.jpg',
+        text: 'Thought he was optimized — until a biological age test read 22 years older than his real age. Rebuilt his daily routines: "a clear structure I could actually implement."' },
+      { name: 'Kathleen "Kat" Dugan', sub: 'Business Owner · Raleigh, US', quest: '10X Fitness',
+        photo: MVSTORY + 'f-kat.jpg',
+        text: 'From "sluggish all the time" with a severe lack of focus to significantly stronger and far more disciplined — in 12 weeks.' },
+      { name: 'Charlton Collaco', sub: 'CEO, Astra Metal Systems · Goa, India', quest: 'The Longevity Blueprint',
+        photo: MVSTORY + 'f-charlton.jpg',
+        text: '"I\'m feeling stronger, more disciplined, more confident" — and took that energy straight into scaling his business.' }
+    ]},
+    7: { heading: 'Founders who upgraded the operating system', stories: [
+      { name: 'Nora Cavani', sub: 'Founder & CEO · Stockholm, Sweden', quest: 'Entrepreneurship Mastery',
+        photo: MVSTORY + 'f-nora.jpg',
+        text: '"I completely restructured my business — this month alone our sales increased by 300% while we reduced ad spend by 50%."' },
+      { name: 'Audrey Tournier', sub: 'Founder, Slow Living · Shenzhen, China', quest: 'Money EQ',
+        photo: MVSTORY + 'f-audrey.jpg',
+        text: '"I doubled my revenue and I reimbursed $11,000 of debt in one year."' },
+      { name: 'Chris Jarvis', sub: 'Bestselling Author · Dallas, US', quest: 'Money EQ',
+        photo: MVSTORY + 'f-chrisj.jpg',
+        text: 'Was successful but felt guilty about it. Cleared the guilt — and his new book, program, and university are "well on their way to massive success."' }
+    ]},
+    16: { heading: 'Founders who stopped being the bottleneck', stories: [
+      { name: 'Peter Kell', sub: 'Entrepreneur · United States', quest: 'Business Mastery',
+        photo: MVSTORY + 'f-peterk.jpg',
+        text: '"The most life-changing thing about business I\'ve learned from Vishen... is how the hell do you run a 300-person team."' },
+      { name: 'Charu Aggarwal', sub: 'Founder · New York, US', quest: 'Entrepreneurship Mastery',
+        photo: MVSTORY + 'f-charu.jpg',
+        text: '"I saved over $10–15K almost immediately. The program paid for itself multiple times over on that alone."' },
+      { name: 'Mariana Cassimiro', sub: 'Founder · Coimbra, Portugal', quest: 'Entrepreneurship Mastery',
+        photo: MVSTORY + 'f-mariana.jpg',
+        text: '17 years at Goldman Sachs, Executive Director. "Six months ago I had a career. Now I have a business."' }
+    ]},
+    22: { heading: 'Founders who fixed the life the business runs on', stories: [
+      { name: 'Camille', sub: 'Business Owner · Fort Collins, US', quest: 'Lifebook Online',
+        photo: MVSTORY + 'f-camille.jpg',
+        text: 'During Lifebook she started 3 new businesses, dropped 45 lbs, and rekindled her marriage — in one season. Every area moved at once.' },
+      { name: 'Jamil Damji', sub: 'Founder, KeyGlee · Phoenix, US', quest: 'The 6 Phase Meditation',
+        photo: MVSTORY + 'f-jamil.jpg',
+        text: '"The most powerful 20 minutes someone can spend. I can see tangible results in my life — from my relationships to my business."' },
+      { name: 'Tomáš Filip', sub: 'Startup Founder · Brno, Czechia', quest: 'The 6 Phase Meditation',
+        photo: MVSTORY + 'f-tomas.jpg',
+        text: 'Years of theory became daily practice — "the catalyst for a complete lifestyle redesign."' }
+    ]}
+  };
+
+  /* Plan-page wall: concrete founder results */
+  var manifestWall = [
+    { name: 'Nora Cavani', sub: 'Founder & CEO · Stockholm, Sweden', quest: 'Entrepreneurship Mastery',
+      photo: MVSTORY + 'f-nora.jpg',
+      text: '"Sales increased by 300% this month while we reduced ad spend by 50%."' },
+    { name: 'Alex Echols', sub: 'Founder · Miami Beach, US', quest: 'Business Mastery',
+      photo: MVSTORY + 'f-alexe.jpg',
+      text: '"These improvements have been pivotal on the journey to our first $5 million in revenue."' },
+    { name: 'Audrey Tournier', sub: 'Founder, Slow Living · Shenzhen, China', quest: 'Money EQ',
+      photo: MVSTORY + 'f-audrey.jpg',
+      text: 'Doubled her revenue and repaid $11,000 of debt in one year.' },
+    { name: 'Charu Aggarwal', sub: 'Founder · New York, US', quest: 'Entrepreneurship Mastery',
+      photo: MVSTORY + 'f-charu.jpg',
+      text: '"I saved $10–15K almost immediately — it paid for itself multiple times over."' },
+    { name: 'Camille', sub: 'Business Owner · Fort Collins, US', quest: 'Lifebook Online',
+      photo: MVSTORY + 'f-camille.jpg',
+      text: 'Started 3 new businesses, 45 lbs lighter, marriage rekindled — all in one Lifebook season.' },
+    { name: 'Emilian Popa', sub: 'Entrepreneur · Nairobi, Kenya', quest: 'The Longevity Blueprint',
+      photo: MVSTORY + 'f-emilian.jpg',
+      text: 'A biological-age wake-up call became daily, weekly, monthly routines he actually keeps.' }
+  ];
+
+  /* Quest covers + teacher photos + per-quest founder proof */
+  var questAssets = {
+    'The Longevity Blueprint': {
+      cover: MVSTORY + 'cover-longevity.jpg', authorPhoto: MVSTORY + 'author-ben.webp',
+      proof: { name: 'Emilian Popa', sub: 'Entrepreneur · Nairobi, Kenya', quest: 'The Longevity Blueprint',
+        photo: MVSTORY + 'f-emilian.jpg',
+        text: 'Biological age test read 22 years older — rebuilt his daily operating routines with "a clear structure I could actually implement."' }
+    },
+    'The 6 Phase Meditation': {
+      cover: null, authorPhoto: MVSTORY + 'author-vishen.jpg',
+      proof: { name: 'Jamil Damji', sub: 'Founder, KeyGlee · Phoenix, US', quest: 'The 6 Phase Meditation',
+        photo: MVSTORY + 'f-jamil.jpg',
+        text: '"The most powerful 20 minutes someone can spend — tangible results from my relationships to my business."' }
+    },
+    'Be Extraordinary': {
+      cover: MVSTORY + 'cover-beext.jpg', authorPhoto: MVSTORY + 'author-vishen.jpg',
+      proof: { name: 'Cathy Madeo', sub: 'Business Owner · Boca Raton, US', quest: 'Be Extraordinary',
+        photo: MVSTORY + 'f-cathy.jpg',
+        text: '"Empowered me to build the business I now own" — after 20 years teaching, the online success finally came.' }
+    },
+    'Uncompromised Life': {
+      cover: MVSTORY + 'cover-ul.jpg',
+      authorPhoto: 'https://a.storyblok.com/f/60579/564x846/956727e42c/mv_hp_author_marisa-peer_2-3.jpg/m/240x240/smart',
+      proof: { name: 'Lavinia Lazar', sub: 'Coach & Entrepreneur · Munich, Germany', quest: 'Uncompromised Life',
+        photo: MVSTORY + 'f-lavinia.jpg',
+        text: '"Helped me become more aware of my value, quit my job and become an entrepreneur."' }
+    },
+    'Money EQ': {
+      cover: MVSTORY + 'cover-moneyeq.jpg', authorPhoto: MVSTORY + 'author-ken.webp',
+      proof: { name: 'Audrey Tournier', sub: 'Founder, Slow Living · Shenzhen, China', quest: 'Money EQ',
+        photo: MVSTORY + 'f-audrey.jpg',
+        text: '"I doubled my revenue and reimbursed $11,000 of debt in one year."' }
+    },
+    'Business Mastery': {
+      cover: null, authorPhoto: MVSTORY + 'author-vishen.jpg',
+      proof: { name: 'Alex Echols', sub: 'Founder · Miami Beach, US', quest: 'Business Mastery',
+        photo: MVSTORY + 'f-alexe.jpg',
+        text: '"Pivotal on the journey to our first $5 million in revenue."' }
+    },
+    'Entrepreneurship Mastery': {
+      cover: null, authorPhoto: MVSTORY + 'author-vishen.jpg',
+      proof: { name: 'Nora Cavani', sub: 'Founder & CEO · Stockholm, Sweden', quest: 'Entrepreneurship Mastery',
+        photo: MVSTORY + 'f-nora.jpg',
+        text: '"Sales increased by 300% while we reduced ad spend by 50%."' }
+    },
+    'Life Visioning Mastery': {
+      cover: null, authorPhoto: MVSTORY + 'author-beckwith.webp',
+      proof: { name: 'Melissa Kerr', sub: 'Entrepreneur · Geneva, Switzerland', quest: 'Life Visioning Mastery',
+        photo: MVSTORY + 'f-melissak.jpg',
+        text: '"My business has never been more successful than last month since the launch two years ago."' }
+    },
+    'Super Productivity': {
+      cover: null, authorPhoto: MVSTORY + 'author-vishen.jpg',
+      proof: { name: 'Andra Trita', sub: 'Entrepreneur · Bucharest, Romania', quest: 'Super Productivity',
+        photo: MVSTORY + 'f-andra.jpg',
+        text: '"After this quest I identify myself as a high performer."' }
+    },
+    'Lifebook Online': {
+      cover: null, authorPhoto: null,
+      proof: { name: 'Camille', sub: 'Business Owner · Fort Collins, US', quest: 'Lifebook Online',
+        photo: MVSTORY + 'f-camille.jpg',
+        text: 'Started 3 new businesses, dropped 45 lbs, rekindled her marriage — one season, every area at once.' }
+    }
+  };
+
+  /* Bottleneck → program map (all inside Mindvalley Membership) */
+  var questMap = {
+    1:  { quest: 'The Longevity Blueprint', teacher: 'Ben Greenfield',
+          why: 'Every decision you make runs through your biology. This rebuilds the founder engine first — energy protocols, sleep, and daily routines that raise the ceiling on everything downstream.' },
+    2:  { quest: 'The 6 Phase Meditation', teacher: 'Vishen Lakhiani',
+          why: 'The 20-minute daily reset founders like Jamil (KeyGlee) swear by — it pays the recovery debt down every day, so fatigue stops making your decisions for you.' },
+    3:  { quest: 'Be Extraordinary', teacher: 'Vishen Lakhiani',
+          why: 'Revenue stalls where identity ends. This upgrades the self-image your company keeps bumping into — so the next plateau doesn\'t hold.' },
+    4:  { quest: 'Uncompromised Life', teacher: 'Marisa Peer',
+          why: 'Rapid Transformational Therapy rewires the "I\'ll be found out" loop at the level it actually runs — so you price, pitch, and show up at full size.' },
+    5:  { quest: 'Money EQ', teacher: 'Ken Honda',
+          why: 'Your scarcity wiring was installed long before you ran a business. This heals the money fear behind your underpricing, bad-fit clients, and hoarded cash.' },
+    6:  { quest: 'Business Mastery', teacher: 'Vishen Lakhiani',
+          why: 'Direct mentoring on teams, systems, and letting go — how founders stop being the bottleneck in their own org chart.' },
+    7:  { quest: 'Entrepreneurship Mastery', teacher: 'Vishen Lakhiani',
+          why: 'A founder operating system — plus a cohort of peers who get it. The end of deciding everything alone.' },
+    8:  { quest: 'Life Visioning Mastery', teacher: 'Michael Beckwith',
+          why: 'Reconnects you to a vision with pull. Strategy stops being reactive the moment the destination is alive again.' },
+    9:  { quest: 'Super Productivity', teacher: 'Vishen Lakhiani',
+          why: 'Focus architecture: finish the thing, kill the shiny object, and let compounding do what restarts never will.' },
+    10: { quest: 'Lifebook Online', teacher: 'Jon & Missy Butcher',
+          why: 'You design all 12 categories of your life — so the business becomes the vehicle, not the destination. The deferred life ends here.' }
+  };
+
+  /* ── Order menu tiers — full Mindvalley Membership, both cycles ── */
+  var tiers = [
+    { key: 'monthly', name: 'Monthly', old: null,   now: '$49',  save: null,       perdayOld: null,    perday: '$1.63', note: 'Full Mindvalley Membership · 110+ programs. Cancel anytime.', badge: null },
+    { key: 'yearly',  name: 'Yearly',  old: '$299', now: '$199', save: '$100 OFF', perdayOld: '$0.82', perday: '$0.55', note: 'Full Mindvalley Membership · 110+ programs. Billed yearly.', badge: { text: 'Best Value', hot: true } }
+  ];
+
+  /* Membership checkout — both links sell product 5035 (full Membership).
+     The yearly link carries the $100 discount (code ORHPXJZIA) server-side,
+     so the timer's promise is exactly what checkout shows. checkout_link
+     endpoints return JSON {checkout_url}; we resolve at plan-load with a
+     snapshot fallback. */
+  var CHECKOUT_LINKS = {
+    monthly: {
+      api: 'https://secure.mindvalley.com/v3/checkout_link/D7I02BYFN69URS4OQTEH',
+      fallback: 'https://secure.mindvalley.com/v3/flow?charge_plan_id=su%7C1446&mvh=5EF1FC355C3975550A5B779E1E88C9D34EDEBCBA8356D5D6DB3ADFC05B43505C'
+    },
+    yearly: {
+      api: 'https://secure.mindvalley.com/v3/checkout_link/DAR8S3TNQGFU4CWL7HP0',
+      fallback: 'https://secure.mindvalley.com/v3/flow?discount=ORHPXJZIA&charge_plan_id=su%7C1447&mvh=EC7D6B4A348B90F964ADA4E637E2E8691F3ABB8263823BAF550DC88045E8E8A9'
+    }
+  };
+  var resolvedCheckout = {};
+  function resolveCheckoutUrls() {
+    ['monthly', 'yearly'].forEach(function(k) {
+      if (resolvedCheckout[k]) return;
+      try {
+        fetch(CHECKOUT_LINKS[k].api)
+          .then(function(r) { return r.json(); })
+          .then(function(d) { if (d && d.checkout_url) resolvedCheckout[k] = d.checkout_url; })
+          .catch(function() { /* fallback covers it */ });
+      } catch (e) { /* fallback covers it */ }
+    });
+  }
+  function buildCheckoutUrl(tier, topBlockName) {
+    var params = [
+      'utm_source=quiz',
+      'utm_medium=founder-bottleneck-quiz',
+      'utm_campaign=membership',
+      'utm_content=' + tier,
+      'utm_term=' + encodeURIComponent(topBlockName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''))
+    ];
+    ['gclid', 'fbclid', 'gbraid', 'wbraid', 'ttclid'].forEach(function(k) {
+      var v = getQueryParam(k);
+      if (v) params.push(k + '=' + encodeURIComponent(v));
+    });
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(k) {
+      var v = getQueryParam(k);
+      if (v) params.push('src_' + k + '=' + encodeURIComponent(v));
+    });
+    var base = resolvedCheckout[tier] || CHECKOUT_LINKS[tier].fallback;
+    return base + (base.indexOf('?') > -1 ? '&' : '?') + params.join('&');
+  }
+
+  /* =====================================================================
+     STATE
+     ===================================================================== */
+  var answers = {};
+  var answersLabel = {};
+  var intake = { stage: null, hours: null, want: null };
+  var firstName = '';
+  var selectedTier = 'yearly';
+  var screens = [];
+  var current = 0;
+  var history = [];
+  var ANSWERABLE = 33;
+
+  /* =====================================================================
+     SCREEN DEFINITIONS
+     ===================================================================== */
+
+  function el(html) {
+    var d = document.createElement('div');
+    d.innerHTML = html.trim();
+    return d.firstChild;
+  }
+
+  function optionMenu(opts, onPick) {
+    var wrap = document.createElement('div');
+    wrap.className = 'opts';
+    opts.forEach(function(o) {
+      var b = el('<button type="button" class="opt"><span class="emoji">' + o.emoji + '</span><span class="opt-label">' + o.label + '</span><span class="tick"></span></button>');
+      b.addEventListener('click', function() {
+        wrap.querySelectorAll('.opt').forEach(function(x) { x.classList.remove('selected'); });
+        b.classList.add('selected');
+        setTimeout(function() { onPick(o); }, 260);
+      });
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+
+  // ── Intake: stage (identity mirror) → hours → want ──
+  screens.push({ id: 'stage', answerable: true, build: function(root) {
+    root.appendChild(el('<div class="q-eyebrow">Free Founder Assessment</div>'));
+    root.appendChild(el('<h1 class="q-title">What\'s Actually Capping Your Growth?</h1>'));
+    root.appendChild(el('<p class="q-sub">It\'s not your marketing. Your company can only grow as fast as YOU do — and in 5 minutes we\'ll find the founder bottleneck quietly holding it. Then, the 12-week protocol to break it.</p>'));
+    root.appendChild(el('<p class="q-sub" style="font-weight:600; color:var(--mv-text); margin-bottom:1rem;">Where\'s the business right now?</p>'));
+    root.appendChild(optionMenu(Object.keys(STAGES).map(function(k) {
+      return { emoji: STAGES[k].emoji, label: STAGES[k].label, value: k };
+    }), function(o) { intake.stage = o.value; next(); }));
+  }});
+
+  screens.push({ id: 'hours', answerable: true, build: function(root) {
+    root.appendChild(el('<h2 class="q-title">How many hours a week are you really putting in?</h2>'));
+    root.appendChild(el('<p class="q-sub">Every area of your life is either fueling those hours — or quietly bleeding them.</p>'));
+    root.appendChild(optionMenu(Object.keys(HOURS).map(function(k) {
+      return { emoji: HOURS[k].emoji, label: HOURS[k].label, value: k };
+    }), function(o) { intake.hours = o.value; next(); }));
+  }});
+
+  screens.push({ id: 'want', answerable: true, build: function(root) {
+    root.appendChild(el('<h2 class="q-title">If we handed you back 10 hours a week — where would they go?</h2>'));
+    root.appendChild(optionMenu(Object.keys(WANTS).map(function(k) {
+      return { emoji: WANTS[k].emoji, label: WANTS[k].label, value: k };
+    }), function(o) { intake.want = o.value; next(); }));
+  }});
+
+  // ── Category interstitials (dependency priming) + 30 questions + stories ──
+  var categories = [
+    { pill: '🔋 The Engine', title: 'Founder Energy', firstQ: 1,
+      body: 'Founders optimize the company and ignore the machine that runs it. Your energy is the input for every other system — decisions, leadership, vision. When the battery\'s low, everything downstream runs on backup power.',
+      stat: null },
+    { pill: '🧠 The OS', title: 'Founder Psychology', firstQ: 7,
+      body: 'Energy powers the machine — psychology steers it. Your beliefs about money, worth, and risk quietly set your prices, your hires, and your ceiling. And here\'s the dependency: when energy dips, old programming takes the wheel.',
+      stat: { big: '20M+ students', small: 'Mindvalley has trained founders and leaders in 190+ countries through this exact inner work.' } },
+    { pill: '✈️ The Cockpit', title: 'Leadership & Leverage', firstQ: 16,
+      body: 'Here\'s the chain most founders miss: your psychology sets YOUR ceiling — your leadership sets your TEAM\'s. A control habit born from scarcity thinking caps ten other people\'s output. These next questions measure the leverage you\'re leaving on the table.',
+      stat: null },
+    { pill: '🧭 The Compass', title: 'Vision & Life', firstQ: 22,
+      body: 'Last system — the one powering all the others. When the life you\'re building stops pulling you, energy leaks, focus scatters, and control tightens. Vision isn\'t the soft stuff. It\'s load-bearing.',
+      stat: { big: 'Almost there', small: 'Your bottleneck profile is nearly mapped — these final answers connect the chain.' } }
+  ];
+
+  categories.forEach(function(cat) {
+    screens.push({ id: 'cat-' + cat.firstQ, answerable: false, build: function(root) {
+      var c = el('<div class="info-center"></div>');
+      c.appendChild(el('<div class="info-pill">' + cat.pill + '</div>'));
+      c.appendChild(el('<h2 class="q-title">' + cat.title + '</h2>'));
+      c.appendChild(el('<p class="info-body">' + cat.body + '</p>'));
+      if (cat.stat) {
+        c.appendChild(el('<div class="info-stat-card"><div class="big">' + cat.stat.big + '</div><div class="small">' + cat.stat.small + '</div></div>'));
+      }
+      var btn = el('<button type="button" class="btn-primary">Continue</button>');
+      btn.addEventListener('click', next);
+      c.appendChild(btn);
+      root.appendChild(c);
+    }});
+
+    var lastQ = cat.firstQ === 22 ? 30 : (categories[categories.indexOf(cat) + 1].firstQ - 1);
+    for (var q = cat.firstQ; q <= lastQ; q++) {
+      (function(qNum) {
+        screens.push({ id: 'q' + qNum, answerable: true, build: function(root) {
+          var qd = QUESTIONS[qNum - 1];
+          root.appendChild(el('<div class="q-eyebrow">' + cat.pill.replace(/^[^ ]+ /, '') + ' · ' + cat.title + '</div>'));
+          root.appendChild(el('<h2 class="q-title" style="font-size:1.3125rem; line-height:1.75rem;">' + qd.t + '</h2>'));
+          root.appendChild(optionMenu(qd.opts.map(function(s) {
+            return { emoji: s.e, label: s.l, value: s.v };
+          }), function(o) { answers[qNum] = o.value; answersLabel[qNum] = o.label; next(); }));
+        }});
+      })(q);
+    }
+
+    // Section-matched real founder stories (stories.mindvalley.com)
+    var ss = sectionStories[cat.firstQ];
+    if (ss) {
+      screens.push({ id: 'stories-' + cat.firstQ, answerable: false, build: function(root) {
+        var c = el('<div class="info-center"></div>');
+        c.appendChild(el('<div class="q-eyebrow">Real Mindvalley Founders</div>'));
+        c.appendChild(el('<h2 class="q-title" style="font-size:1.3125rem; line-height:1.75rem;">' + ss.heading + '</h2>'));
+        var stack = el('<div class="stories-stack" style="margin-top:1.5rem;"></div>');
+        ss.stories.forEach(function(st) { stack.appendChild(storyCard(st)); });
+        c.appendChild(stack);
+        var btn = el('<button type="button" class="btn-primary">Continue</button>');
+        btn.addEventListener('click', next);
+        c.appendChild(btn);
+        root.appendChild(c);
+      }});
+    }
+  });
+
+  // ── Loader ──
+  screens.push({ id: 'loader', answerable: false, noBack: true, build: function(root) {
+    var c = el('<div class="info-center"></div>');
+    c.appendChild(el('<h2 class="q-title">Building your Founder Bottleneck Profile…</h2>'));
+    c.appendChild(el('<div class="loader-pct" id="loaderPct">0%</div>'));
+    c.appendChild(el('<div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>'));
+    var steps = el('<div class="loader-steps"></div>');
+    var stepDefs = [
+      'Analyzing your energy systems',
+      'Mapping your founder psychology',
+      'Measuring your leverage & leadership',
+      'Cross-referencing life-area dependencies'
+    ];
+    stepDefs.forEach(function(s, i) {
+      steps.appendChild(el('<div class="loader-step" id="lstep' + i + '"><span class="dot"></span><span>' + s + '</span></div>'));
+    });
+    c.appendChild(steps);
+    root.appendChild(c);
+
+    var pct = 0;
+    var iv = setInterval(function() {
+      pct += 2;
+      if (pct > 100) { clearInterval(iv); setTimeout(next, 400); return; }
+      document.getElementById('loaderPct').textContent = pct + '%';
+      document.getElementById('loaderFill').style.width = pct + '%';
+      [24, 49, 74, 99].forEach(function(threshold, i) {
+        if (pct >= threshold) document.getElementById('lstep' + i).classList.add('done');
+      });
+    }, 55);
+  }});
+
+  // ── Email gate ──
+  screens.push({ id: 'gate', answerable: false, noBack: true, build: function(root) {
+    var card = el('<div class="gate-card"></div>');
+    card.appendChild(el('<div class="q-eyebrow">Your profile is ready</div>'));
+    card.appendChild(el('<h2 class="q-title" style="margin-bottom:0.75rem;">See your #1 founder bottleneck</h2>'));
+    card.appendChild(el('<p class="q-sub" style="margin-bottom:1.5rem;">Enter your details to unlock your full bottleneck profile — we\'ll also send a copy to your inbox so you can come back to it anytime.</p>'));
+
+    var form = el('<form id="leadForm" novalidate></form>');
+    form.innerHTML =
+      '<div class="form-field">' +
+        '<label for="firstName">First name</label>' +
+        '<input type="text" id="firstName" name="firstName" autocomplete="given-name" required />' +
+        '<div class="form-error" id="firstNameError">Please enter your first name.</div>' +
+      '</div>' +
+      '<div class="form-field">' +
+        '<label for="email">Email address</label>' +
+        '<input type="email" id="email" name="email" autocomplete="email" required />' +
+        '<div class="form-error" id="emailError">Please enter a valid email address.</div>' +
+      '</div>' +
+      '<label class="consent-row">' +
+        '<input type="checkbox" id="consent" />' +
+        '<span>Yes, send me my results and occasional emails from Mindvalley with founder tools, Membership updates, and related resources. Unsubscribe anytime.</span>' +
+      '</label>' +
+      '<button type="submit" class="btn-primary" id="submitBtn">Reveal my bottleneck</button>' +
+      '<p class="gate-privacy">We respect your privacy. Your information is kept secure and never shared.</p>';
+
+    form.addEventListener('submit', onGateSubmit);
+    card.appendChild(form);
+    root.appendChild(card);
+  }});
+
+  // ── Results: personalized diagnosis ──
+  function hoursPhrase() { return (HOURS[intake.hours] || HOURS.h50).phrase; }
+  function stagePhrase() { return (STAGES[intake.stage] || STAGES.small).phrase; }
+  function wantPhrase() { return (WANTS[intake.want] || WANTS.scale).phrase; }
+
+  screens.push({ id: 'results', answerable: false, noBack: true, build: function(root) {
+    var scored = computeScores();
+    var sorted = scored.slice().sort(function(a, b) { return b.score - a.score; });
+    var top3 = sorted.slice(0, 3);
+    var top3Names = top3.map(function(s) { return s.name; });
+    var topBlock = sorted[0];
+
+    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', your' : 'Your') + ' diagnosis is ready</div>'));
+    root.appendChild(el('<h2 class="q-title">Your #1 bottleneck:<br/>' + topBlock.name + '</h2>'));
+
+    var sevPct = Math.round(topBlock.score / 15 * 100);
+    root.appendChild(el('<div class="sev-wrap"><div class="sev-track"><div class="sev-marker" style="left:' + sevPct + '%;"></div></div><div class="sev-labels"><span>Mild</span><span>Moderate</span><span>Severe</span></div></div>'));
+
+    // Mirror paragraph — stage + hours + want + score
+    root.appendChild(el('<div class="diag-card">You\'re running <b>' + stagePhrase() + '</b> on <b>' + hoursPhrase() + ' weeks</b>, and what you want most is to <b>' + wantPhrase() + '</b>. Your answers show what\'s actually in the way: you scored <b>' + topBlock.score + '/15</b> on <b>' + topBlock.name + '</b>. ' + topBlock.desc + '</div>'));
+
+    // Quote their own answer back
+    var topDef = blocks.filter(function(b) { return b.id === topBlock.id; })[0];
+    var maxQ = topDef.qs[0];
+    topDef.qs.forEach(function(q) { if ((answers[q] || 0) > (answers[maxQ] || 0)) maxQ = q; });
+    if ((answers[maxQ] || 0) >= 4 && answersLabel[maxQ]) {
+      var qc = el('<div class="quote-card"></div>');
+      qc.appendChild(el('<div class="quote-label">Your own answer, a few minutes ago</div>'));
+      var qt = document.createElement('div'); qt.className = 'quote-text';
+      qt.textContent = QUESTIONS[maxQ - 1].t + ' — you answered: ' + answersLabel[maxQ];
+      qc.appendChild(qt);
+      qc.appendChild(el('<div class="quote-verdict">That\'s not a work-ethic problem. That\'s ' + topBlock.name + ' running your calendar.</div>'));
+      root.appendChild(qc);
+    }
+
+    // Real founder who had this exact bottleneck
+    var diagProof = questAssets[questMap[topBlock.id].quest] && questAssets[questMap[topBlock.id].quest].proof;
+    if (diagProof) {
+      root.appendChild(el('<div class="mini-heading">A founder who had this exact bottleneck</div>'));
+      root.appendChild(storyCard(diagProof));
+    }
+
+    root.appendChild(el('<p class="q-sub" style="margin:1.5rem auto 0.75rem auto; font-weight:600; color:var(--mv-text);">Your full bottleneck profile</p>'));
+
+    var top3Html = '';
+    top3.forEach(function(s, i) {
+      top3Html += '<div class="top-block-row">' +
+        '<div class="rank-num">' + (i + 1) + '</div>' +
+        '<div class="top-block-info">' +
+          '<div class="top-block-name">' + s.name + '</div>' +
+          '<div class="top-block-cat">' + s.cat + '</div>' +
+          '<div class="top-block-desc">' + s.desc + '</div>' +
+        '</div>' +
+        '<div class="top-block-score">' + s.score + '<span class="top-block-max"> / 15</span></div>' +
+        '</div>';
+    });
+    root.appendChild(el('<div>' + top3Html + '</div>'));
+
+    var barsHtml = '<p class="q-eyebrow" style="text-align:left; margin:1.5rem 0 0.75rem 0;">All Bottleneck Scores</p>';
+    scored.forEach(function(s) {
+      var pct = (s.score / 15 * 100);
+      var isTop = top3Names.indexOf(s.name) !== -1;
+      barsHtml += '<div class="score-bar-row">' +
+        '<div class="score-bar-label">' + s.name + '</div>' +
+        '<div class="score-bar-track"><div class="score-bar-fill' + (isTop ? ' top3' : '') + '" style="width:' + pct + '%;"></div></div>' +
+        '<div class="score-bar-val">' + s.score + '</div>' +
+        '</div>';
+    });
+    root.appendChild(el('<div class="all-scores">' + barsHtml + '</div>'));
+
+    // Interdependency callout — top 3 span N of the 4 founder systems
+    var systems = [];
+    top3.forEach(function(s) { var c = s.cat.split(' · ')[0]; if (systems.indexOf(c) === -1) systems.push(c); });
+    root.appendChild(el('<div class="diag-card" style="margin-top:1.25rem;">Notice: your top 3 bottlenecks span <b>' + systems.length + ' of the 4 founder systems</b>. That\'s the pattern — bottlenecks chain across areas and feed each other. It\'s also why fixing one area at a time has never held.</div>'));
+
+    root.appendChild(el('<div class="cost-line"><b>Bottlenecks don\'t resolve with revenue — they scale with it.</b> Every quarter this one stays active costs more than the last.</div>'));
+
+    var btn = el('<button type="button" class="btn-primary">See why working harder hasn\'t fixed it →</button>');
+    btn.addEventListener('click', next);
+    root.appendChild(btn);
+  }});
+
+  // ── Belief bridge: the dependency chain ──
+  screens.push({ id: 'bridge', answerable: false, noBack: true, build: function(root) {
+    var sorted = computeScores().sort(function(a, b) { return b.score - a.score; });
+    var topBlock = sorted[0];
+
+    root.appendChild(el('<div class="q-eyebrow">The uncomfortable math</div>'));
+    root.appendChild(el('<h2 class="q-title">Why working harder hasn\'t fixed it</h2>'));
+
+    root.appendChild(el('<div class="bridge-analogy"><div class="big">🏎️</div><p>You\'ve been upgrading the car — tactics, tools, hires — while <b>' + topBlock.name + '</b> has the handbrake on.<br/>And the handbrake isn\'t in the business. It\'s in the driver.</p></div>'));
+
+    root.appendChild(el('<div class="bridge-row"><div class="ic">🔗</div><div class="tx"><b>Your bottlenecks are chained.</b> Low energy → foggy decisions → scarcity calls → weaker team → more on your plate → less sleep. Fixing one link alone doesn\'t hold — the chain pulls it back.</div></div>'));
+    root.appendChild(el('<div class="bridge-row"><div class="ic">📈</div><div class="tx"><b>More tactics can\'t fix it.</b> Every playbook runs through the founder executing it. A capped founder caps every playbook.</div></div>'));
+    root.appendChild(el('<div class="bridge-row"><div class="ic">⏳</div><div class="tx"><b>Time won\'t fix it.</b> Bottlenecks scale with revenue — they get more expensive every quarter, not softer.</div></div>'));
+
+    root.appendChild(el('<div class="reframe">Founders don\'t have business problems.<br/>They have <b>founder bottlenecks</b> that show up as business problems — and they release in <b>the right order, across every system at once</b>. That\'s a 12-week protocol.</div>'));
+
+    root.appendChild(el('<div class="mini-heading">He was stuck too</div>'));
+    root.appendChild(storyCard({
+      name: 'Vincent Sere', sub: 'General Contractor · Delray Beach, US', quest: 'Super Productivity',
+      photo: MVSTORY + 'f-vincent.jpg',
+      text: '"After 6 classes I am suddenly a high energy, highly productive person" — after years of lost days, forgetfulness, and social-media spirals.'
+    }));
+
+    var btn = el('<button type="button" class="btn-primary" style="margin-top:1.25rem;">Show me my 12-week protocol →</button>');
+    btn.addEventListener('click', next);
+    root.appendChild(btn);
+  }});
+
+  // ── Plan: Founder Reset on full Membership ──
+  screens.push({ id: 'plan', answerable: false, noBack: true, build: function(root) {
+    resolveCheckoutUrls();
+    var scored = computeScores();
+    var sorted = scored.slice().sort(function(a, b) { return b.score - a.score; });
+    var topBlock = sorted[0];
+
+    root.appendChild(el('<div class="q-eyebrow">Your Personalized Protocol</div>'));
+    root.appendChild(el('<h2 class="q-title">The Founder Reset</h2>'));
+    root.appendChild(el('<p class="q-sub">' + (firstName ? firstName + ', your' : 'Your') + ' #1 bottleneck is <b style="color:var(--mv-purple);">' + topBlock.name + '</b>. And because bottlenecks chain across systems, the fix isn\'t a course — it\'s the full toolkit. <b>Mindvalley Membership</b>: every program across energy, psychology, leadership, and life — sequenced for you below.</p>'));
+
+    // Projection chart
+    var chart = el('<div class="chart-card"></div>');
+    chart.appendChild(el('<div class="chart-title">Your projected <b>' + topBlock.name + '</b> intensity on the protocol</div>'));
+    chart.appendChild(el(
+      '<svg viewBox="0 0 400 150" width="100%" height="auto" role="img" aria-label="Projected bottleneck intensity declining over 12 weeks">' +
+        '<defs><linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#7a12d4" stop-opacity="0.25"/>' +
+          '<stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/>' +
+        '</linearGradient></defs>' +
+        '<path d="M20,30 C120,38 180,70 250,100 C300,120 350,128 380,130 L380,150 L20,150 Z" fill="url(#fillGrad)"/>' +
+        '<path d="M20,30 C120,38 180,70 250,100 C300,120 350,128 380,130" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/>' +
+        '<circle cx="20" cy="30" r="6" fill="#7a12d4"/>' +
+        '<circle cx="380" cy="130" r="6" fill="#9333ea"/>' +
+        '<text x="32" y="22" font-size="11" font-weight="600" fill="#4b5563" font-family="sans-serif">High — today</text>' +
+        '<text x="290" y="118" font-size="11" font-weight="600" fill="#7a12d4" font-family="sans-serif">Released</text>' +
+      '</svg>'
+    ));
+    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Week 4</span><span>Week 8</span><span>Week 12</span></div>'));
+    root.appendChild(chart);
+
+    // Personalized curriculum
+    root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">Your personalized 12-week reset</h3>'));
+    root.appendChild(el('<p class="q-sub">Built from your three highest-scoring bottlenecks — one program per phase, in the order that unchains the others.</p>'));
+    var phases = [];
+    sorted.slice(0, 3).forEach(function(b) {
+      var m = questMap[b.id];
+      var existing = null;
+      phases.forEach(function(p) { if (p.quest === m.quest) existing = p; });
+      if (existing) { existing.blocks.push(b); }
+      else { phases.push({ quest: m.quest, teacher: m.teacher, why: m.why, blocks: [b] }); }
+    });
+    var weekLabels = phases.length === 3 ? ['Weeks 1–4', 'Weeks 5–8', 'Weeks 9–12']
+                   : phases.length === 2 ? ['Weeks 1–6', 'Weeks 7–12'] : ['Weeks 1–12'];
+    phases.forEach(function(p, i) {
+      var blockNames = p.blocks.map(function(b) { return '<b>' + b.name + '</b> (' + b.score + '/15)'; }).join(' and ');
+      var assets = questAssets[p.quest] || {};
+      var currCard = el('<div class="curr-card">' +
+        (assets.cover ? '<img class="curr-cover" src="' + assets.cover + '" alt="' + p.quest + ' quest cover" loading="lazy" />' : '') +
+        '<div class="curr-body">' +
+          '<div class="curr-week">Phase ' + (i + 1) + ' · ' + weekLabels[i] + '</div>' +
+          '<div class="curr-quest">' + p.quest + '</div>' +
+          '<div class="curr-author-row">' +
+            (assets.authorPhoto ? '<img class="curr-author-img" src="' + assets.authorPhoto + '" alt="' + p.teacher + '" loading="lazy" />' : '') +
+            '<span class="curr-teacher">with ' + p.teacher + '</span>' +
+          '</div>' +
+          '<div class="curr-why">Why: you scored highest on ' + blockNames + '. ' + p.why + '</div>' +
+        '</div>' +
+        '</div>');
+      if (assets.proof) {
+        var proofCard = storyCard(assets.proof);
+        proofCard.style.margin = '0 1.25rem 1.25rem 1.25rem';
+        proofCard.style.background = 'var(--mv-purple-50)';
+        currCard.appendChild(proofCard);
+      }
+      root.appendChild(currCard);
+    });
+
+    // Offer stack — phase quests + the full library
+    var stackRows = '';
+    phases.forEach(function(p, i) {
+      var assets = questAssets[p.quest] || {};
+      var thumb = assets.cover ? '<img class="thumb" src="' + assets.cover + '" alt="' + p.quest + '" loading="lazy" />' : '';
+      stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + p.quest + '<small>Phase ' + (i + 1) + ' · releases ' + p.blocks.map(function(b) { return b.name; }).join(' + ') + '</small></span><span class="vl">$349 value</span></div>';
+    });
+    stackRows += '<div class="stack-row"><span class="nm">+ 100+ more Mindvalley programs<small>every system your bottlenecks touch — energy, mind, leadership, life. Lifebook, Money EQ, Super Productivity, 10X &amp; more</small></span><span class="vl">included</span></div>';
+    root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your reset</div><div class="stack-body">' +
+      stackRows +
+      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,047+</span><span class="now">$199/yr</span></span></div>' +
+      '</div></div>'));
+
+    // Countdown — real window, discount is server-side on the yearly link
+    root.appendChild(el('<div class="timer-bar" id="timerBar">⏳ <b id="timerVal">14:59</b>&nbsp;remaining for this $100 discount</div>'));
+
+    // Tiers
+    var tiersWrap = el('<div class="tiers"></div>');
+    tiers.forEach(function(t) {
+      var badge = t.badge ? '<div class="tier-badge' + (t.badge.hot ? ' hot' : '') + '">' + t.badge.text + '</div>' : '';
+      var save = t.save ? '<span class="tier-save">' + t.save + '</span>' : '';
+      var oldPrice = t.old ? '<span class="tier-old">' + t.old + '</span>' : '';
+      var card = el('<div class="tier' + (t.key === selectedTier ? ' selected' : '') + '" data-tier="' + t.key + '" role="radio" aria-checked="' + (t.key === selectedTier) + '">' +
+        badge +
+        '<span class="tier-radio"></span>' +
+        '<div class="tier-main">' +
+          '<div class="tier-name">' + t.name + '</div>' +
+          '<div class="tier-prices">' + oldPrice + '<span class="tier-new">' + t.now + '</span>' + save + '</div>' +
+          (t.note ? '<div style="font-size:0.71875rem; color:var(--mv-text-faint); margin-top:0.2rem;">' + t.note + '</div>' : '') +
+        '</div>' +
+        '<div class="tier-perday">' +
+          (t.perdayOld ? '<div class="perday-old">' + t.perdayOld + '</div>' : '') +
+          '<div class="amt">' + t.perday + '</div><div class="per">per day</div>' +
+        '</div>' +
+        '</div>');
+      card.addEventListener('click', function() {
+        selectedTier = t.key;
+        tiersWrap.querySelectorAll('.tier').forEach(function(x) {
+          x.classList.toggle('selected', x.getAttribute('data-tier') === t.key);
+          x.setAttribute('aria-checked', x.getAttribute('data-tier') === t.key);
+        });
+      });
+      tiersWrap.appendChild(card);
+    });
+    root.appendChild(tiersWrap);
+
+    // Why yearly — the dependency argument
+    root.appendChild(el('<div class="info-stat-card" style="max-width:none; text-align:left; margin-bottom:1.25rem;">' +
+      '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your reset handles your top 3 bottlenecks in 12 weeks — but there are 7 more behind them, and they\'re chained: fix your energy and delegation gets easier; heal scarcity and pricing fixes itself. At <b>$199 with the $100 off</b>, yearly costs about 4 months at the monthly price. The other 8 months are free.</div>' +
+      '</div>'));
+
+    var cta = el('<button type="button" class="btn-primary">Start my Founder Reset →</button>');
+    cta.addEventListener('click', function() {
+      window.open(buildCheckoutUrl(selectedTier, topBlock.name), '_blank', 'noopener');
+    });
+    root.appendChild(cta);
+
+    // Refund policy as a week-one test
+    root.appendChild(el('<div class="challenge-card"><div class="challenge-title">🛡️ 15-Day Money-Back Guarantee</div>' +
+      '<div class="challenge-body">Every plan is fully refundable for 15 days from purchase. Here\'s how we suggest you use it: do the first week of <b>' +
+      phases[0].quest + '</b> — about 20 minutes a day. If you don\'t feel ' + topBlock.name +
+      ' start to loosen, one click inside your account gets you a <b>full refund</b>. No questions, no phone calls.</div></div>'));
+    root.appendChild(el('<div class="time-line">⏱️ Your protocol takes <b>~20 minutes a day</b> — less than your morning inbox triage.</div>'));
+
+    // What founders got — real results wall
+    root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem; margin-top:2.25rem;">What founders inside Membership built</h3>'));
+    root.appendChild(el('<p class="q-sub">Real people, real photos, real results — from 25,000+ verified stories at stories.mindvalley.com.</p>'));
+    var wall = el('<div class="stories-stack"></div>');
+    manifestWall.forEach(function(st) { wall.appendChild(storyCard(st)); });
+    root.appendChild(wall);
+
+    var cta2 = el('<button type="button" class="btn-primary">Start my 12-week reset →</button>');
+    cta2.addEventListener('click', function() {
+      window.open(buildCheckoutUrl(selectedTier, topBlock.name), '_blank', 'noopener');
+    });
+    root.appendChild(cta2);
+
+    root.appendChild(el('<div class="exit-ramp">Not ready to decide? <a href="https://www.mindvalley.com/membership?utm_source=quiz&utm_medium=founder-bottleneck-quiz&utm_campaign=membership&utm_content=exit-ramp" target="_blank" rel="noopener">See everything inside Membership first →</a></div>'));
+
+    root.appendChild(el('<p class="plan-smallprint">Your plan renews at the end of the selected period at the standard rate unless cancelled. Cancel anytime from your account — no questions asked. Prices in USD. Individual results vary. Quest values reflect standard single-quest pricing.</p>'));
+
+    startTimer();
+  }});
+
+  /* =====================================================================
+     ENGINE
+     ===================================================================== */
+
+  var shell = document.getElementById('shell');
+  var screenEls = [];
+
+  screens.forEach(function(s, i) {
+    var sec = document.createElement('section');
+    sec.className = 'screen';
+    sec.setAttribute('data-screen', s.id);
+    shell.appendChild(sec);
+    screenEls.push(sec);
+  });
+
+  function show(i) {
+    var s = screens[i];
+    var elx = screenEls[i];
+    elx.innerHTML = '';
+    s.build(elx);
+    screenEls.forEach(function(x) { x.classList.remove('active'); });
+    elx.classList.add('active');
+    current = i;
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    updateChrome();
+  }
+
+  function next() {
+    history.push(current);
+    show(current + 1);
+  }
+
+  document.getElementById('backBtn').addEventListener('click', function() {
+    if (!history.length) return;
+    var prev = history.pop();
+    show(prev);
+  });
+
+  function updateChrome() {
+    var s = screens[current];
+    var answered = Object.keys(answers).length + ['stage','hours','want'].filter(function(k){ return intake[k]; }).length;
+    document.getElementById('progressFill').style.width = (answered / ANSWERABLE * 100) + '%';
+    var count = document.getElementById('stepCount');
+    count.textContent = s.answerable ? (Math.min(answered + 1, ANSWERABLE)) + ' / ' + ANSWERABLE : '';
+    var back = document.getElementById('backBtn');
+    back.classList.toggle('show', current > 0 && !s.noBack && history.length > 0);
+  }
+
+  /* =====================================================================
+     SCORING + LEAD SUBMIT
+     ===================================================================== */
+
+  function computeScores() {
+    return blocks.map(function(b) {
+      var total = 0;
+      b.qs.forEach(function(q) { total += (answers[q] || 0); });
+      return { id: b.id, name: b.name, cat: b.cat, desc: b.desc, score: total };
+    });
+  }
+
+  function onGateSubmit(e) {
+    e.preventDefault();
+    var fnInput = document.getElementById('firstName');
+    var emInput = document.getElementById('email');
+    var fnErr = document.getElementById('firstNameError');
+    var emErr = document.getElementById('emailError');
+    var valid = true;
+
+    fnInput.classList.remove('error'); fnErr.classList.remove('visible');
+    emInput.classList.remove('error'); emErr.classList.remove('visible');
+
+    if (!fnInput.value.trim()) { fnInput.classList.add('error'); fnErr.classList.add('visible'); valid = false; }
+    var emailVal = emInput.value.trim();
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal || !emailRe.test(emailVal)) { emInput.classList.add('error'); emErr.classList.add('visible'); valid = false; }
+    if (!valid) return;
+
+    firstName = fnInput.value.trim();
+    var consent = document.getElementById('consent').checked;
+    var scored = computeScores();
+    var sorted = scored.slice().sort(function(a, b) { return b.score - a.score; });
+    var top3 = sorted.slice(0, 3);
+
+    var payload = {
+      version: 'founder-v1',
+      firstName: firstName,
+      email: emailVal,
+      consent: consent,
+      submittedAt: new Date().toISOString(),
+      stage: intake.stage,
+      hours: intake.hours,
+      want: intake.want,
+      topBlocks: top3.map(function(b) { return { id: b.id, name: b.name, score: b.score }; }),
+      allScores: scored.map(function(b) { return { id: b.id, name: b.name, score: b.score }; }),
+      rawAnswers: answers,
+      utm: {
+        source: getQueryParam('utm_source'),
+        medium: getQueryParam('utm_medium'),
+        campaign: getQueryParam('utm_campaign'),
+        term: getQueryParam('utm_term'),
+        content: getQueryParam('utm_content')
+      },
+      referrer: document.referrer || null,
+      userAgent: navigator.userAgent
+    };
+    submitLead(payload);
+    next(); // → results
+  }
+
+  function submitLead(payload) {
+    try {
+      fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function() { /* silent */ });
+    } catch (e) { /* silent */ }
+  }
+
+  function getQueryParam(name) {
+    var m = window.location.search.match(new RegExp('[?&]' + name + '=([^&]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  /* ── $100-discount countdown — real persistent window (funnel pattern) ── */
+  var timerIv = null;
+  var TIMER_KEY = 'mv_founder_quiz_discount_expiry';
+  var TIMER_WINDOW_MS = 15 * 60 * 1000;
+  function startTimer() {
+    var now = Date.now();
+    var expiry = null;
+    try { expiry = parseInt(localStorage.getItem(TIMER_KEY), 10) || null; } catch (e) {}
+    if (!expiry || expiry < now - 24 * 3600 * 1000) {
+      expiry = now + TIMER_WINDOW_MS;
+      try { localStorage.setItem(TIMER_KEY, String(expiry)); } catch (e) {}
+    }
+    if (timerIv) clearInterval(timerIv);
+    function tick() {
+      var elx = document.getElementById('timerVal');
+      var bar = document.getElementById('timerBar');
+      if (!elx || !bar) return;
+      var secs = Math.max(0, Math.floor((expiry - Date.now()) / 1000));
+      if (secs === 0) {
+        bar.innerHTML = '✅ Your $100 discount is still being held — complete checkout to lock it in.';
+        clearInterval(timerIv);
+        return;
+      }
+      var m = Math.floor(secs / 60), s = secs % 60;
+      elx.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+    }
+    tick();
+    timerIv = setInterval(tick, 1000);
+  }
+
+  // Boot
+  show(0);
+})();
+</script>
+
+</body>
+</html>
