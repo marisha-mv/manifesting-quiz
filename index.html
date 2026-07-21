@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Manifesting Blocks Quiz — Mindvalley</title>
-  <meta name="description" content="A personalized assessment to identify your top 3 manifesting blocks — then get your personalized Manifesting Pathway plan." />
+  <meta name="description" content="A personalized assessment to identify your top 3 manifesting blocks — then get your personalized 12-week manifesting plan." />
   <meta name="theme-color" content="#7a12d4" />
 
   <!-- Open Graph -->
@@ -965,7 +965,7 @@
     root.appendChild(btn);
   }});
 
-  // ── Order menu: Manifesting Pathway plan selection (MadMuscles paywall design) ──
+  // ── Order menu: personalized protocol, delivered via full Membership (MadMuscles paywall design) ──
   screens.push({ id: 'plan', answerable: false, noBack: true, build: function(root) {
     resolveCheckoutUrls(); // resolve real checkout_url JSON before the user clicks
     var scored = computeScores();
@@ -974,8 +974,8 @@
     var goal = GOALS[intake.goal] || GOALS.wealth;
 
     root.appendChild(el('<div class="q-eyebrow">Your Personalized Plan</div>'));
-    root.appendChild(el('<h2 class="q-title">The Manifesting Pathway</h2>'));
-    root.appendChild(el('<p class="q-sub">' + (firstName ? firstName + ', your' : 'Your') + ' #1 block is <b style="color:var(--mv-purple);">' + topBlock.name + '</b>. The Manifesting Pathway gives you the step-by-step programs, teachers, and daily practices to dissolve it — and manifest ' + goal.noun + '.</p>'));
+    root.appendChild(el('<h2 class="q-title">Your Manifesting Protocol</h2>'));
+    root.appendChild(el('<p class="q-sub">' + (firstName ? firstName + ', your' : 'Your') + ' #1 block is <b style="color:var(--mv-purple);">' + topBlock.name + '</b>. Your plan runs on <b>full Mindvalley Membership</b> — every program, teacher, and daily practice you need to dissolve it and manifest ' + goal.noun + ', starting with your 12-week curriculum.</p>'));
 
     // Projection chart (MadMuscles-style results curve)
     var chart = el('<div class="chart-card"></div>');
@@ -1095,7 +1095,7 @@
       '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and at $299 with the $100 discount, it costs about 6 months at the monthly price. The other 6 months are free.</div>' +
       '</div>'));
 
-    var cta = el('<button type="button" class="btn-primary">Get my Manifesting Pathway plan →</button>');
+    var cta = el('<button type="button" class="btn-primary">Start my plan with full Membership →</button>');
     cta.addEventListener('click', function() {
       window.open(buildCheckoutUrl(selectedTier, topBlock.name), '_blank', 'noopener');
     });
