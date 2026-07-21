@@ -308,7 +308,7 @@
       <button class="back-btn" id="backBtn" aria-label="Go back">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <img class="logo" src="https://marisha-mv.github.io/manifesting-quiz/photos/mv-logo.png" alt="Mindvalley" style="height:1.375rem; width:auto; display:block;" />
+      <img class="logo" src="photos/mv-logo.png" alt="Mindvalley" style="height:1.375rem; width:auto; display:block;" />
       <div class="step-count" id="stepCount"></div>
     </div>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -326,11 +326,17 @@
      the systems are interdependent — a bottleneck in one drags the others.
      ===================================================================== */
 
+  var BIZ = {
+    agency: { emoji: '🧑‍💻', label: 'An agency / client services',      phrase: 'an agency' },
+    coach:  { emoji: '🎤', label: 'Coaching, courses, or content',     phrase: 'a coaching business' },
+    ecom:   { emoji: '🛍️', label: 'An e-commerce / DTC brand',         phrase: 'an e-commerce brand' },
+    saas:   { emoji: '⚙️', label: 'A SaaS / tech startup',             phrase: 'a startup' }
+  };
   var STAGES = {
-    pre:   { emoji: '💡', label: 'Pre-launch / idea stage',   phrase: 'a pre-launch venture' },
-    small: { emoji: '🌱', label: 'Doing under $10K/month',    phrase: 'a business doing under $10K a month' },
-    mid:   { emoji: '🚀', label: '$10K–$50K/month',           phrase: 'a business doing $10–50K a month' },
-    big:   { emoji: '🏢', label: '$50K+/month',               phrase: 'a business doing $50K+ a month' }
+    pre:   { emoji: '💡', label: 'Pre-launch / idea stage',   phrase: 'that\'s still pre-revenue' },
+    small: { emoji: '🌱', label: 'Under $10K/month',          phrase: 'doing under $10K a month' },
+    mid:   { emoji: '🚀', label: '$10K–$50K/month',           phrase: 'doing $10–50K a month' },
+    big:   { emoji: '🏢', label: '$50K+/month',               phrase: 'doing $50K+ a month' }
   };
   var HOURS = {
     u40: { emoji: '⏱️', label: 'Under 40 hours',           phrase: 'sub-40-hour' },
@@ -567,7 +573,7 @@
      fabricate). Founder/operator stories, self-hosted photos.
      ===================================================================== */
 
-  var MVSTORY = 'https://marisha-mv.github.io/manifesting-quiz/photos/';
+  var MVSTORY = 'photos/';
 
   function initials(name) {
     return name.split(' ').filter(Boolean).map(function(w) { return w[0]; }).join('').replace(/[^A-Za-zÀ-ž]/g, '').slice(0, 2).toUpperCase();
@@ -820,13 +826,13 @@
      ===================================================================== */
   var answers = {};
   var answersLabel = {};
-  var intake = { stage: null, hours: null, want: null };
+  var intake = { biz: null, stage: null, hours: null, want: null };
   var firstName = '';
   var selectedTier = 'yearly';
   var screens = [];
   var current = 0;
   var history = [];
-  var ANSWERABLE = 33;
+  var ANSWERABLE = 34;
 
   /* =====================================================================
      SCREEN DEFINITIONS
@@ -853,12 +859,20 @@
     return wrap;
   }
 
-  // ── Intake: stage (identity mirror) → hours → want ──
-  screens.push({ id: 'stage', answerable: true, build: function(root) {
+  // ── Intake: business type (identity mirror) → stage → hours → want ──
+  screens.push({ id: 'biz', answerable: true, build: function(root) {
     root.appendChild(el('<div class="q-eyebrow">The Exponential Founder Assessment</div>'));
     root.appendChild(el('<h1 class="q-title">What\'s Actually Capping Your Growth?</h1>'));
-    root.appendChild(el('<p class="q-sub">Linear founders build linear companies — every tactic runs through the founder executing it. In 5 minutes, this assessment measures your four founder systems and finds the bottleneck keeping your growth linear. Then: the 12-week protocol to break it.</p>'));
-    root.appendChild(el('<p class="q-sub" style="font-weight:600; color:var(--mv-text); margin-bottom:1rem;">Where\'s the business right now?</p>'));
+    root.appendChild(el('<p class="q-sub">It\'s not your marketing. Every tactic runs through the founder executing it — and in 5 minutes, this assessment finds the founder bottleneck keeping your growth linear.</p>'));
+    root.appendChild(el('<p class="q-sub" style="font-weight:600; color:var(--mv-text); margin-bottom:1rem;">First — what are you building?</p>'));
+    root.appendChild(optionMenu(Object.keys(BIZ).map(function(k) {
+      return { emoji: BIZ[k].emoji, label: BIZ[k].label, value: k };
+    }), function(o) { intake.biz = o.value; next(); }));
+  }});
+
+  screens.push({ id: 'stage', answerable: true, build: function(root) {
+    root.appendChild(el('<h2 class="q-title">Where\'s the revenue right now?</h2>'));
+    root.appendChild(el('<p class="q-sub">This calibrates your benchmarks — the same bottleneck shows up differently at each stage.</p>'));
     root.appendChild(optionMenu(Object.keys(STAGES).map(function(k) {
       return { emoji: STAGES[k].emoji, label: STAGES[k].label, value: k };
     }), function(o) { intake.stage = o.value; next(); }));
@@ -1005,6 +1019,7 @@
   }});
 
   // ── Results: personalized diagnosis ──
+  function bizPhrase() { return (BIZ[intake.biz] || BIZ.coach).phrase; }
   function hoursPhrase() { return (HOURS[intake.hours] || HOURS.h50).phrase; }
   function stagePhrase() { return (STAGES[intake.stage] || STAGES.small).phrase; }
   function wantPhrase() { return (WANTS[intake.want] || WANTS.scale).phrase; }
@@ -1023,7 +1038,7 @@
     root.appendChild(el('<div class="sev-wrap"><div class="sev-track"><div class="sev-marker" style="left:' + sevPct + '%;"></div></div><div class="sev-labels"><span>Mild</span><span>Moderate</span><span>Severe</span></div></div>'));
 
     // Mirror paragraph — stage + hours + want + score
-    root.appendChild(el('<div class="diag-card">You\'re running <b>' + stagePhrase() + '</b> on <b>' + hoursPhrase() + ' weeks</b>, and what you want most is to <b>' + wantPhrase() + '</b>. Your answers show what\'s actually in the way: you scored <b>' + topBlock.score + '/15</b> on <b>' + topBlock.name + '</b>. ' + topBlock.desc + '</div>'));
+    root.appendChild(el('<div class="diag-card">You\'re running <b>' + bizPhrase() + ' ' + stagePhrase() + '</b> on <b>' + hoursPhrase() + ' weeks</b>, and what you want most is to <b>' + wantPhrase() + '</b>. Your answers show what\'s actually in the way: you scored <b>' + topBlock.score + '/15</b> on <b>' + topBlock.name + '</b>. ' + topBlock.desc + '</div>'));
 
     // Quote their own answer back
     var topDef = blocks.filter(function(b) { return b.id === topBlock.id; })[0];
@@ -1306,7 +1321,7 @@
 
   function updateChrome() {
     var s = screens[current];
-    var answered = Object.keys(answers).length + ['stage','hours','want'].filter(function(k){ return intake[k]; }).length;
+    var answered = Object.keys(answers).length + ['biz','stage','hours','want'].filter(function(k){ return intake[k]; }).length;
     document.getElementById('progressFill').style.width = (answered / ANSWERABLE * 100) + '%';
     var count = document.getElementById('stepCount');
     count.textContent = s.answerable ? (Math.min(answered + 1, ANSWERABLE)) + ' / ' + ANSWERABLE : '';
@@ -1355,6 +1370,7 @@
       email: emailVal,
       consent: consent,
       submittedAt: new Date().toISOString(),
+      biz: intake.biz,
       stage: intake.stage,
       hours: intake.hours,
       want: intake.want,
