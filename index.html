@@ -1328,8 +1328,22 @@
     timerIv = setInterval(tick, 1000);
   }
 
-  // Boot
-  show(0);
+  /* QA shortcut — ?qa=<screen-id> (plan | results | bridge | gate | loader)
+     seeds dummy intake + answers and jumps straight to that screen so checkout
+     and pricing can be tested without answering all 33 questions. Deliberately
+     skips the email gate, so no test leads are submitted. */
+  var qaJump = getQueryParam('qa');
+  if (qaJump) {
+    intake.goal = 'wealth'; intake.age = '30-39'; intake.experience = '1-3y';
+    firstName = 'Test';
+    for (var qi = 1; qi <= 30; qi++) answers[qi] = ((qi * 7) % 5) + 1;
+    var qaIdx = 0;
+    screens.forEach(function(s, i) { if (s.id === qaJump) qaIdx = i; });
+    show(qaIdx);
+  } else {
+    // Boot
+    show(0);
+  }
 })();
 </script>
 
