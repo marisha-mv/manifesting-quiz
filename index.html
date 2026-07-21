@@ -584,11 +584,12 @@
         Per-day price is the anchor (MadMuscles pattern): old per-day struck above the big number. ── */
   var tiers = [
     { key: 'monthly', name: 'Monthly',  old: '$99',  now: '$49',  save: '$50 OFF',  perdayOld: '$3.30', perday: '$1.63', note: 'Full Mindvalley Membership · 110+ programs. Cancel anytime.', badge: null },
-    { key: 'yearly',  name: 'Yearly',   old: '$249', now: '$149', save: '$100 OFF', perdayOld: '$0.68', perday: '$0.41', note: 'Manifesting Collection · 33+ programs. Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
+    { key: 'yearly',  name: 'Yearly',   old: '$399', now: '$299', save: '$100 OFF', perdayOld: '$1.09', perday: '$0.82', note: 'Full Mindvalley Membership · 110+ programs. Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
   ];
-  /* Mindvalley checkout — the live funnel checkout links from the order menu on
-     mindvalley.com/manifesting/sales. The $100 discount is already applied on these
-     links server-side (yearly: $299 → $199), so what the timer promises is what
+  /* Mindvalley checkout — both tiers sell the FULL Mindvalley Membership
+     (product 5035). Monthly is the manifesting funnel's $49 link; yearly is the
+     $399 → $299 link (live on mindvalley.com/superbrain/sales) whose $100
+     discount is applied server-side, so what the timer promises is what
      checkout shows.
      Attribution: every checkout click is stamped utm_source=quiz so sales are traceable
      to this funnel, with tier in utm_content and the user's #1 block in utm_term.
@@ -597,19 +598,19 @@
   /* The checkout_link endpoints return JSON ({checkout_url: ...}), not a page —
      the sales page fetches them and then navigates to checkout_url. We do the same:
      resolve on plan-screen load (CORS is open), with a snapshot fallback if the
-     fetch fails. The yearly checkout_url carries the $100 discount code R12UFOJ3Q. */
+     fetch fails. The yearly checkout_url carries the $100 discount code ORHPXJZIA. */
   /* Marketing tags follow the live MV sales-page pattern:
      mv_core,aor,<product>,<segment>,<billing>,<funnel>,<placement> */
   var CHECKOUT_LINKS = {
     monthly: {
       api: 'https://secure.mindvalley.com/v3/checkout_link/D7I02BYFN69URS4OQTEH',
       fallback: 'https://secure.mindvalley.com/v3/flow?charge_plan_id=su%7C1446&mvh=5EF1FC355C3975550A5B779E1E88C9D34EDEBCBA8356D5D6DB3ADFC05B43505C',
-      tags: 'mv_core,aor,manifesting_product,nonmember,monthly,vsl_funnel,main'
+      tags: 'mv_core,aor,mvmm_product,nonmember,monthly,vsl_funnel,main'
     },
     yearly: {
-      api: 'https://secure.mindvalley.com/v3/checkout_link/CV3QEN40K6BLW52ZDAOU',
-      fallback: 'https://secure.mindvalley.com/v3/flow?discount=R12UFOJ3Q&charge_plan_id=su%7C1698&mvh=F702305037B30D09B1DFF75527795A225D6FEB3505BCB095A8CED209C14CE2A9',
-      tags: 'mv_core,aor,manifesting_product,nonmember,yearly,vsl_funnel,main'
+      api: 'https://secure.mindvalley.com/v3/checkout_link/DAR8S3TNQGFU4CWL7HP0',
+      fallback: 'https://secure.mindvalley.com/v3/flow?discount=ORHPXJZIA&charge_plan_id=su%7C1445&mvh=A640114023EE788EC53777E0148A2A0A5830B40D4D7E0FD8BED1EBFA6C88D13A',
+      tags: 'mv_core,aor,mvmm_product,nonmember,yearly,vsl_funnel,main'
     }
   };
   var resolvedCheckout = {};
@@ -1049,10 +1050,10 @@
       var thumb = questAssets[qn] && questAssets[qn].cover ? '<img class="thumb" src="' + questAssets[qn].cover + '" alt="' + qn + '" loading="lazy" />' : '';
       stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + qn + '<small>' + noteTxt + '</small></span><span class="vl">$349 value</span></div>';
     });
-    stackRows += '<div class="stack-row"><span class="nm">+ 29+ more manifesting programs<small>each targets a different block — all included in your plan</small></span><span class="vl">included</span></div>';
+    stackRows += '<div class="stack-row"><span class="nm">+ 100+ more Mindvalley programs<small>the full Membership library — every quest, teacher, and daily practice included</small></span><span class="vl">included</span></div>';
     root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your protocol</div><div class="stack-body">' +
       stackRows +
-      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">$149/yr</span></span></div>' +
+      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">$299/yr</span></span></div>' +
       '</div></div>'));
 
     // Countdown bar — mirrors the live funnel's 15-minute $100-discount window
@@ -1091,7 +1092,7 @@
     // Answer the "my curriculum is 12 weeks — why buy a year?" objection
     root.appendChild(el('<div class="info-stat-card" style="max-width:none; text-align:left; margin-bottom:1.25rem;">' +
       '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your curriculum dissolves your top 3 blocks in 12 weeks — but you have ' +
-      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and at $149 with the $100 discount, it costs about 3 months at the monthly price. The other 9 months are free.</div>' +
+      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and at $299 with the $100 discount, it costs about 6 months at the monthly price. The other 6 months are free.</div>' +
       '</div>'));
 
     var cta = el('<button type="button" class="btn-primary">Get my Manifesting Pathway plan →</button>');
