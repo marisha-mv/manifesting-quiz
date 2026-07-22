@@ -263,8 +263,8 @@
   var GROW = {
     biz:    { emoji: '🚀', label: 'My business',           noun: 'your business',            pathway: 'ee' },
     career: { emoji: '💼', label: 'My career',             noun: 'your career',              pathway: 'ee' },
-    craft:  { emoji: '🎤', label: 'My craft & audience',   noun: 'your craft and audience',  pathway: 'sa' },
-    self:   { emoji: '🌱', label: 'Myself & my life',      noun: 'yourself and your life',   pathway: 'man' }
+    craft:  { emoji: '🎤', label: 'My craft & audience',   noun: 'your craft and audience',  pathway: 'auth' },
+    self:   { emoji: '🌱', label: 'Myself & my life',      noun: 'yourself and your life',   pathway: 'mind' }
   };
 
   var STAGE_SETS = {
@@ -321,20 +321,20 @@
 
   /* Pathways — the recommendation layer */
   var PATHWAYS = {
-    ee:  { key: 'ee',  emoji: '🚀', name: 'Exponential Entrepreneur', tag: 'Grow the venture by growing the one running it.' },
-    sa:  { key: 'sa',  emoji: '🎤', name: 'Speaking & Authorship',    tag: 'Turn your craft and voice into authority.' },
-    man: { key: 'man', emoji: '✨', name: 'Manifesting',              tag: 'Create the life — from identity outward.' },
-    lon: { key: 'lon', emoji: '🧬', name: 'Longevity',                tag: 'Upgrade the body every other goal runs on.' }
+    ee:   { key: 'ee',   emoji: '🚀', name: 'The Exponential Entrepreneur', count: 26, tag: 'Grow the venture by growing the one running it.' },
+    auth: { key: 'auth', emoji: '🎤', name: 'The Authority',                count: 14, tag: 'Turn your craft and voice into influence.' },
+    mind: { key: 'mind', emoji: '🧠', name: 'The Extraordinary Mind',       count: 24, tag: 'Upgrade the mind that runs your life.' },
+    body: { key: 'body', emoji: '🧬', name: 'The Ageless Body',             count: 15, tag: 'Upgrade the body every other goal runs on.' }
   };
   var FREE_CLASS = {
-    ee:  { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
-    sa:  { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
-    man: { url: 'https://www.mindvalley.com/manifesting/masterclass',      label: 'the free Manifesting masterclass' },
-    lon: { url: 'https://www.mindvalley.com/10x/masterclass',              label: 'the free 10X body transformation masterclass' }
+    ee:   { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
+    auth: { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
+    mind: { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
+    body: { url: 'https://www.mindvalley.com/10x/masterclass',              label: 'the free 10X body transformation masterclass' }
   };
   function recommendPathway(topBlock) {
     // Energy-dominant diagnosis overrides: you can't grow anything on a dead battery.
-    if (topBlock.id === 1 || topBlock.id === 2) return PATHWAYS.lon;
+    if (topBlock.id === 1 || topBlock.id === 2) return PATHWAYS.body;
     return PATHWAYS[(GROW[intake.grow] || GROW.self).pathway];
   }
 
@@ -716,50 +716,139 @@
     return card;
   }
 
+  /* Program covers (Airtable, re-hosted) + teacher photos + proof stories */
+  function progCover(slug) { return PH + 'prog-' + slug + '.jpg'; }
   var questAssets = {
-    'The Longevity Blueprint':  { cover: PH + 'cover-longevity.jpg', authorPhoto: PH + 'author-ben.webp',      proof: S.emilian },
-    'The 6 Phase Meditation':   { cover: null,                       authorPhoto: PH + 'author-vishen.jpg',    proof: S.jamil },
-    'Be Extraordinary':         { cover: PH + 'cover-beext.jpg',     authorPhoto: PH + 'author-vishen.jpg',    proof: S.padmaja },
-    'Uncompromised Life':       { cover: PH + 'cover-ul.jpg',        authorPhoto: 'https://a.storyblok.com/f/60579/564x846/956727e42c/mv_hp_author_marisa-peer_2-3.jpg/m/240x240/smart', proof: S.sarah },
-    'Money EQ':                 { cover: PH + 'cover-moneyeq.jpg',   authorPhoto: PH + 'author-ken.webp',      proof: S.audrey },
-    'Business Mastery':         { cover: null,                       authorPhoto: PH + 'author-vishen.jpg',    proof: S.alexe },
-    'Entrepreneurship Mastery': { cover: null,                       authorPhoto: PH + 'author-vishen.jpg',    proof: S.nora },
-    'Life Visioning Mastery':   { cover: null,                       authorPhoto: PH + 'author-beckwith.webp', proof: S.melissak },
-    'Super Productivity':       { cover: null,                       authorPhoto: PH + 'author-vishen.jpg',    proof: S.andra },
-    'Lifebook Online':          { cover: null,                       authorPhoto: null,                        proof: S.camille }
+    'Healing Burnout':            { cover: progCover('healing-burnout') },
+    'The Power of Boldness':      { cover: progCover('the-power-of-boldness') },
+    'The Quest for Personal Mastery': { cover: progCover('the-quest-for-personal-mastery') },
+    'Money EQ':                   { cover: progCover('money-eq'), authorPhoto: PH + 'author-ken.webp', proof: S.audrey },
+    'Scale Your Business to $1 Million': { cover: progCover('scale-your-business-to-1-million') },
+    'Mastering Authentic Networking': { cover: progCover('mastering-authentic-networking') },
+    'Vivid Vision':               { cover: progCover('vivid-vision') },
+    'Becoming Focused and Indistractable': { cover: progCover('becoming-focused-and-indistractable') },
+    'The 6 Phase Meditation':     { cover: progCover('the-6-phase-meditation'), authorPhoto: PH + 'author-vishen.jpg', proof: S.jamil },
+    'Everyday Bliss':             { cover: progCover('everyday-bliss') },
+    'Be Extraordinary':           { cover: progCover('be-extraordinary'), authorPhoto: PH + 'author-vishen.jpg', proof: S.padmaja },
+    'Uncompromised Life':         { cover: progCover('uncompromised-life'), authorPhoto: 'https://a.storyblok.com/f/60579/564x846/956727e42c/mv_hp_author_marisa-peer_2-3.jpg/m/240x240/smart', proof: S.sarah },
+    'Rapid Transformational Hypnotherapy for Abundance': { cover: progCover('rapid-transformational-hypnotherapy-'), authorPhoto: 'https://a.storyblok.com/f/60579/564x846/956727e42c/mv_hp_author_marisa-peer_2-3.jpg/m/240x240/smart' },
+    'Tapping into Emotional Mastery': { cover: progCover('tapping-into-emotional-mastery') },
+    'UNSHAKEABLE: From Self-Doubt to Self-Determination': { cover: progCover('unshakeable-from-self-doubt-to-self-') },
+    'Life Visioning Mastery':     { cover: progCover('life-visioning-mastery'), authorPhoto: PH + 'author-beckwith.webp', proof: S.melissak },
+    'The Values Factor':          { cover: progCover('the-values-factor') },
+    'The 3 Most Important Questions': { cover: progCover('the-3-most-important-questions'), authorPhoto: PH + 'author-vishen.jpg' },
+    'The Champion Mindset':       { cover: progCover('the-champion-mindset') },
+    'Reinventing Yourself':       { cover: progCover('reinventing-yourself') },
+    'Total Self-Confidence':      { cover: progCover('total-self-confidence') },
+    'The 7-Figure Creator':       { cover: progCover('the-7-figure-creator') },
+    'Build Your Dream Community': { cover: progCover('build-your-dream-community') },
+    'Magnetic Charisma':          { cover: progCover('magnetic-charisma') },
+    'Speak and Inspire':          { cover: progCover('speak-and-inspire') },
+    'Course Pro':                 { cover: progCover('course-pro'), authorPhoto: PH + 'author-vishen.jpg' },
+    'The Longevity Blueprint':    { cover: progCover('the-longevity-blueprint'), authorPhoto: PH + 'author-ben.webp', proof: S.emilian },
+    'The Mastery of Sleep':       { cover: progCover('the-mastery-of-sleep') },
+    '10X Fitness':                { cover: progCover('10x-fitness'), proof: S.kat },
+    'Body First':                 { cover: progCover('body-first') },
+    'Smarter Not Harder':         { cover: progCover('smarter-not-harder') },
+    'Modern Qi Gong':             { cover: progCover('modern-qi-gong') },
+    'Beyond Fasting':             { cover: progCover('beyond-fasting') },
+    'Total Transformation Training': { cover: progCover('total-transformation-training') }
   };
 
-  var questMap = {
-    1:  { quest: 'The Longevity Blueprint', teacher: 'Ben Greenfield',
-          why: 'Every decision you make runs through your biology. This rebuilds the engine first — energy protocols, sleep, and daily routines that raise the ceiling on everything downstream.' },
-    2:  { quest: 'The 6 Phase Meditation', teacher: 'Vishen Lakhiani',
-          why: 'The 20-minute daily reset that pays the recovery debt down every day — so fatigue stops making your decisions for you.' },
-    3:  { quest: 'Be Extraordinary', teacher: 'Vishen Lakhiani',
-          why: 'Growth stalls where identity ends. This upgrades the self-image your life keeps bumping into — so the next plateau doesn\'t hold.' },
-    4:  { quest: 'Uncompromised Life', teacher: 'Marisa Peer',
-          why: 'Rapid Transformational Therapy rewires the "I\'ll be found out" loop at the level it actually runs — so you ask, show up, and take space at full size.' },
-    5:  { quest: 'Money EQ', teacher: 'Ken Honda',
-          why: 'Your scarcity wiring was installed long before now. This heals the fear behind undervaluing yourself, tolerating drains, and hoarding instead of investing.' },
-    6:  { quest: 'Business Mastery', teacher: 'Vishen Lakhiani',
-          why: 'Direct mentoring on teams, systems, and letting go — how you stop being the bottleneck in your own org chart.' },
-    7:  { quest: 'Entrepreneurship Mastery', teacher: 'Vishen Lakhiani',
-          why: 'An operating system plus a cohort of peers who get it — the end of deciding everything alone.' },
-    8:  { quest: 'Life Visioning Mastery', teacher: 'Michael Beckwith',
-          why: 'Reconnects you to a vision with pull. Strategy stops being reactive the moment the destination is alive again.' },
-    9:  { quest: 'Super Productivity', teacher: 'Vishen Lakhiani',
-          why: 'Focus architecture: finish the thing, kill the shiny object, and let compounding do what restarts never will.' },
-    10: { quest: 'Lifebook Online', teacher: 'Jon & Missy Butcher',
-          why: 'You design all 12 categories of your life — so the goal becomes the vehicle, not the destination. The deferred life ends here.' }
+  /* Per-pathway bottleneck→program maps — every program verified in-pathway
+     (source: canonical pathway Airtable, July 2026). */
+  var PATHWAY_MAPS = {
+    ee: {
+      1:  { quest: 'Healing Burnout', teacher: 'Dr. Romie Mushtaq',
+            why: 'A physician\'s protocol for the burned-out brain — rebuilds the energy your whole operation runs on.' },
+      2:  { quest: 'Healing Burnout', teacher: 'Dr. Romie Mushtaq',
+            why: 'You can\'t out-hustle a nervous system in debt. This restores real recovery — so decisions stop being made by fatigue.' },
+      3:  { quest: 'The Power of Boldness', teacher: 'Naveen Jain',
+            why: 'A billionaire\'s operating system for thinking 10× bigger — the direct antidote to a self-image that stalls at "realistic."' },
+      4:  { quest: 'The Quest for Personal Mastery', teacher: 'Srikumar Rao',
+            why: 'The legendary MBA course on unshakeable inner footing — the impostor loop dissolves when your worth stops riding on outcomes.' },
+      5:  { quest: 'Money EQ', teacher: 'Ken Honda',
+            why: 'Heals the scarcity wiring behind underpricing, bad clients, and hoarded cash — installed long before you ever ran a business.' },
+      6:  { quest: 'Scale Your Business to $1 Million', teacher: 'Verne Harnish',
+            why: 'The systems-and-delegation playbook from the founder of EO — how businesses outgrow the founder\'s hands.' },
+      7:  { quest: 'Mastering Authentic Networking', teacher: 'Keith Ferrazzi',
+            why: 'The world\'s top networking mind on building a circle that carries you — the end of deciding everything alone.' },
+      8:  { quest: 'Vivid Vision', teacher: 'Cameron Herold',
+            why: 'The tool top operators use to make a 3-year vision so vivid it pulls — strategy stops being reactive when the destination is alive.' },
+      9:  { quest: 'Becoming Focused and Indistractable', teacher: 'Nir Eyal',
+            why: 'From the author of Indistractable — the focus architecture that ends the shiny object cycle for good.' },
+      10: { quest: 'Healing Burnout', teacher: 'Dr. Romie Mushtaq',
+            why: 'The deferred life shows up in the body first. This is where you stop paying for growth with yourself.' }
+    },
+    mind: {
+      1:  { quest: 'The 6 Phase Meditation', teacher: 'Vishen Lakhiani',
+            why: '20 minutes a day that measurably restores energy and clarity — the reset everything else builds on.' },
+      2:  { quest: 'Everyday Bliss', teacher: 'Paul McKenna',
+            why: 'Rewires your stress response so switching off becomes automatic — recovery stops being a skill you lack.' },
+      3:  { quest: 'Be Extraordinary', teacher: 'Vishen Lakhiani',
+            why: 'Growth stalls where identity ends. Vishen\'s flagship upgrades the self-image your life keeps bumping into.' },
+      4:  { quest: 'Uncompromised Life', teacher: 'Marisa Peer',
+            why: 'Rapid Transformational Therapy rewires the "I\'ll be found out" loop at the level it actually runs.' },
+      5:  { quest: 'Rapid Transformational Hypnotherapy for Abundance', teacher: 'Marisa Peer',
+            why: 'Hypnotherapy that rewrites the scarcity script underneath your decisions — deservingness first, abundance follows.' },
+      6:  { quest: 'Tapping into Emotional Mastery', teacher: 'Jennifer Partridge',
+            why: 'The control habit is anxiety wearing a productivity costume. Tapping releases it at the nervous-system level.' },
+      7:  { quest: 'UNSHAKEABLE: From Self-Doubt to Self-Determination', teacher: 'Dr. Shadé Zahrai',
+            why: 'Builds the self-trust that makes asking for help feel safe — the end of the echo chamber of one.' },
+      8:  { quest: 'Life Visioning Mastery', teacher: 'Michael B. Beckwith',
+            why: 'Reconnects you to a vision with pull — direction stops being reactive when the destination is alive again.' },
+      9:  { quest: 'The Values Factor', teacher: 'Dr. John DeMartini',
+            why: 'When priorities align with your highest values, focus stops being discipline and starts being gravity.' },
+      10: { quest: 'The 3 Most Important Questions', teacher: 'Vishen Lakhiani',
+            why: 'Vishen\'s life-design method — the end of "I\'ll live when..." You design the life first; the goals serve it.' }
+    },
+    auth: {
+      1:  { quest: 'The Champion Mindset', teacher: 'Florencia Andrés',
+            why: 'The performance psychology of sustained energy — how champions produce without burning down.' },
+      2:  { quest: 'The Champion Mindset', teacher: 'Florencia Andrés',
+            why: 'Recovery is a competitive skill. Train the switch-off the way champions do.' },
+      3:  { quest: 'Reinventing Yourself', teacher: 'Dorie Clark',
+            why: 'The playbook for outgrowing your current identity — the ceiling breaks when the story does.' },
+      4:  { quest: 'Total Self-Confidence', teacher: 'Paul McKenna',
+            why: 'McKenna\'s hypnosis-driven confidence rebuild — the impostor loop can\'t survive a nervous system that feels safe being seen.' },
+      5:  { quest: 'The 7-Figure Creator', teacher: 'John Lee',
+            why: 'Pricing, packaging, and positioning for creators — the end of undercharging for your craft.' },
+      6:  { quest: 'Build Your Dream Community', teacher: 'Radha Agrawal',
+            why: 'Leverage for creators isn\'t doing more — it\'s a community that grows without you posting every day.' },
+      7:  { quest: 'Magnetic Charisma', teacher: 'Vanessa Van Edwards',
+            why: 'The science of connection — the circle and collaborations that end the lone-wolf grind.' },
+      8:  { quest: 'Speak and Inspire', teacher: 'Lisa Nichols',
+            why: 'Reconnects your message to the fire that started it — audiences feel the difference instantly.' },
+      9:  { quest: 'Course Pro', teacher: 'Jimmy Naraine',
+            why: 'Ship the thing. A proven system for finishing and launching — the antidote to a drawer of half-built ideas.' },
+      10: { quest: 'Reinventing Yourself', teacher: 'Dorie Clark',
+            why: 'The deferred life ends when the next chapter starts on purpose — not "after this launch."' }
+    },
+    body: {
+      1:  { quest: 'The Longevity Blueprint', teacher: 'Ben Greenfield',
+            why: 'Rebuilds the physical engine — energy protocols, movement, and routines that raise the ceiling on everything downstream.' },
+      2:  { quest: 'The Mastery of Sleep', teacher: 'Dr. Michael Breus',
+            why: 'America\'s sleep doctor pays down your recovery debt — the highest-ROI 8 hours on your calendar.' },
+      3:  { quest: '10X Fitness', teacher: 'Ronan Diego',
+            why: 'Nothing rewrites an identity ceiling like a body that keeps doing what your old self-image said was impossible.' },
+      4:  { quest: 'Body First', teacher: 'Lorenzo Delano',
+            why: 'Confidence isn\'t a thought — it\'s a physiology. Build it from the body up.' },
+      5:  { quest: 'Smarter Not Harder', teacher: 'Dave Asprey',
+            why: 'Maximum return on minimum input — scarcity thinking ends where efficiency begins.' },
+      6:  { quest: 'Modern Qi Gong', teacher: 'Lee Holden',
+            why: 'The practice of moving with flow instead of force — control releases in the body before it releases in the calendar.' },
+      7:  { quest: 'Modern Qi Gong', teacher: 'Lee Holden',
+            why: 'Energy work that reconnects you — to your body first, then to everyone around it.' },
+      8:  { quest: 'Beyond Fasting', teacher: 'Ronan Diego',
+            why: 'Metabolic clarity is mental clarity — vision sharpens when the fog lifts.' },
+      9:  { quest: 'Total Transformation Training', teacher: 'Christine Bullock',
+            why: 'A 12-week structure you finish — proof to yourself that the shiny object cycle is breakable.' },
+      10: { quest: 'The Longevity Blueprint', teacher: 'Ben Greenfield',
+            why: 'The deferred life is deferred health. This is where the postponing ends.' }
+    }
   };
-  var QM_NONBIZ = {
-    6: { quest: 'Super Productivity', teacher: 'Vishen Lakhiani',
-         why: 'Leverage isn\'t just teams — it\'s systems. This builds the structures that let things move without routing through you.' },
-    7: { quest: 'Be Extraordinary', teacher: 'Vishen Lakhiani',
-         why: 'The identity work that makes reaching out, asking for help, and being seen feel safe — the end of the echo chamber of one.' }
-  };
-  function questFor(blockId) {
-    if (intake.grow !== 'biz' && QM_NONBIZ[blockId]) return QM_NONBIZ[blockId];
-    return questMap[blockId];
+  function questFor(blockId, pwKey) {
+    return PATHWAY_MAPS[pwKey][blockId];
   }
 
   var tiers = [
@@ -1037,7 +1126,9 @@
       root.appendChild(qc);
     }
 
-    var diagProof = questAssets[questFor(topBlock.id).quest] && questAssets[questFor(topBlock.id).quest].proof;
+    var pwR = recommendPathway(topBlock);
+    var diagProg = questFor(topBlock.id, pwR.key).quest;
+    var diagProof = questAssets[diagProg] && questAssets[diagProg].proof;
     if (diagProof) {
       root.appendChild(el('<div class="mini-heading">Someone who had this exact bottleneck</div>'));
       root.appendChild(storyCard(diagProof));
@@ -1128,29 +1219,41 @@
       '</div>'));
 
     var chart = el('<div class="chart-card"></div>');
-    chart.appendChild(el('<div class="chart-title">Your projected <b>' + topBlock.name + '</b> intensity on the pathway</div>'));
+    chart.appendChild(el('<div class="chart-title">What happens to <b>' + growNoun() + '</b> when you upgrade the person running it</div>'));
     chart.appendChild(el(
-      '<svg viewBox="0 0 400 150" width="100%" height="auto" role="img" aria-label="Projected bottleneck intensity declining over 12 weeks">' +
-        '<defs><linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">' +
-          '<stop offset="0%" stop-color="#7a12d4" stop-opacity="0.25"/>' +
+      '<svg viewBox="0 0 400 190" width="100%" height="auto" role="img" aria-label="Two growth curves diverging after a 12-week reset">' +
+        '<defs><linearGradient id="expFill" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#7a12d4" stop-opacity="0.22"/>' +
           '<stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/>' +
         '</linearGradient></defs>' +
-        '<path d="M20,30 C120,38 180,70 250,100 C300,120 350,128 380,130 L380,150 L20,150 Z" fill="url(#fillGrad)"/>' +
-        '<path d="M20,30 C120,38 180,70 250,100 C300,120 350,128 380,130" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/>' +
-        '<circle cx="20" cy="30" r="6" fill="#7a12d4"/>' +
-        '<circle cx="380" cy="130" r="6" fill="#9333ea"/>' +
-        '<text x="32" y="22" font-size="11" font-weight="600" fill="#4b5563" font-family="sans-serif">High — today</text>' +
-        '<text x="290" y="118" font-size="11" font-weight="600" fill="#7a12d4" font-family="sans-serif">Released</text>' +
+        // 12-week reset window
+        '<rect x="20" y="14" width="120" height="146" fill="#7a12d4" fill-opacity="0.05"/>' +
+        '<line x1="140" y1="14" x2="140" y2="160" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4 4"/>' +
+        '<text x="30" y="28" font-size="10" font-weight="700" fill="#7a12d4" font-family="sans-serif">YOUR 12-WEEK RESET</text>' +
+        // same-operator line (linear, barely rising)
+        '<path d="M20,150 L380,128" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"/>' +
+        '<text x="298" y="120" font-size="10" font-weight="600" fill="#9ca3af" font-family="sans-serif">Same you — linear</text>' +
+        // upgraded-operator curve (compounding after the reset)
+        '<path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26 L380,160 L20,160 Z" fill="url(#expFill)"/>' +
+        '<path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/>' +
+        '<circle cx="140" cy="134" r="5" fill="#9333ea"/>' +
+        '<circle cx="380" cy="26" r="6" fill="#7a12d4"/>' +
+        '<text x="255" y="52" font-size="11" font-weight="700" fill="#7a12d4" font-family="sans-serif">Exponential you</text>' +
       '</svg>'
     ));
-    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Week 4</span><span>Week 8</span><span>Week 12</span></div>'));
+    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Week 12</span><span>Month 6</span><span>Month 12</span></div>'));
+    chart.appendChild(el('<p style="font-size:0.8125rem; line-height:1.5; color:var(--mv-text-muted); text-align:center; margin:0.875rem 0 0 0;">The lines split inside the first 12 weeks — while <b style="color:var(--mv-purple);">' + topBlock.name + '</b> is releasing. Wait a quarter, and the same split just starts a quarter later.</p>'));
     root.appendChild(chart);
+
+    // The curve, in real life — personal growth converting into results
+    root.appendChild(el('<div class="mini-heading">The curve, in real life</div>'));
+    root.appendChild(storyCard(wallFor()[0]));
 
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">Your first 12 weeks on the pathway</h3>'));
     root.appendChild(el('<p class="q-sub">Built from your three highest-scoring bottlenecks — one program per phase, in the order that unchains the others.</p>'));
     var phases = [];
     sorted.slice(0, 3).forEach(function(b) {
-      var m = questFor(b.id);
+      var m = questFor(b.id, pw.key);
       var existing = null;
       phases.forEach(function(p) { if (p.quest === m.quest) existing = p; });
       if (existing) { existing.blocks.push(b); }
@@ -1188,7 +1291,7 @@
       var thumb = assets.cover ? '<img class="thumb" src="' + assets.cover + '" alt="' + p.quest + '" loading="lazy" />' : '';
       stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + p.quest + '<small>Phase ' + (i + 1) + ' · releases ' + p.blocks.map(function(b) { return b.name; }).join(' + ') + '</small></span><span class="vl">$349 value</span></div>';
     });
-    stackRows += '<div class="stack-row"><span class="nm">The full ' + pw.name + ' pathway<small>every program on your pathway, sequenced</small></span><span class="vl">included</span></div>';
+    stackRows += '<div class="stack-row"><span class="nm">The full ' + pw.name + ' pathway<small>' + pw.count + ' programs, sequenced — yours from day one</small></span><span class="vl">included</span></div>';
     stackRows += '<div class="stack-row"><span class="nm">+ 100+ more Mindvalley programs<small>every system your bottlenecks touch — energy, mind, leverage, life</small></span><span class="vl">included</span></div>';
     root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your pathway</div><div class="stack-body">' +
       stackRows +
@@ -1197,6 +1300,10 @@
 
     root.appendChild(el('<div class="timer-bar" id="timerBar">⏳ <b id="timerVal">14:59</b>&nbsp;remaining for this $100 discount</div>'));
 
+    var noteFor = function(t) {
+      return 'Your ' + pw.name + ' pathway (' + pw.count + ' programs) + the full 110+ program library. ' +
+             (t.key === 'yearly' ? 'Billed yearly, cancel anytime.' : 'Cancel anytime.');
+    };
     var tiersWrap = el('<div class="tiers"></div>');
     tiers.forEach(function(t) {
       var badge = t.badge ? '<div class="tier-badge' + (t.badge.hot ? ' hot' : '') + '">' + t.badge.text + '</div>' : '';
@@ -1208,7 +1315,7 @@
         '<div class="tier-main">' +
           '<div class="tier-name">' + t.name + '</div>' +
           '<div class="tier-prices">' + oldPrice + '<span class="tier-new">' + t.now + '</span>' + save + '</div>' +
-          (t.note ? '<div style="font-size:0.71875rem; color:var(--mv-text-faint); margin-top:0.2rem;">' + t.note + '</div>' : '') +
+          '<div style="font-size:0.71875rem; color:var(--mv-text-faint); margin-top:0.2rem;">' + noteFor(t) + '</div>' +
         '</div>' +
         '<div class="tier-perday">' +
           (t.perdayOld ? '<div class="perday-old">' + t.perdayOld + '</div>' : '') +
