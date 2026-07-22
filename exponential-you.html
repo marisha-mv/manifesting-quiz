@@ -851,9 +851,54 @@
     return PATHWAY_MAPS[pwKey][blockId];
   }
 
+  /* Flagship 12-week arcs per pathway: Phase 1 = their #1 bottleneck's program,
+     Phases 2–3 = the pathway's signature progression. One story, all in-pathway. */
+  var PATHWAY_ARCS = {
+    ee: {
+      p2: { quest: 'Vivid Vision', teacher: 'Cameron Herold', stage: 'Set the vision',
+            why: 'With the inner bottleneck releasing, you write your Vivid Vision — a 3-year picture so sharp it aligns every decision, hire, and hour behind it.' },
+      p3: { quest: 'Scale Your Business to $1 Million', teacher: 'Verne Harnish', stage: 'Install the systems',
+            why: 'Then Verne Harnish\'s scaling playbook installs the systems and delegation that grow the business beyond your hands.' },
+      backups: [
+        { quest: 'Money EQ', teacher: 'Ken Honda', why: 'Ken Honda\'s money psychology — so the growth you\'re building has nothing left to sabotage it.' },
+        { quest: 'The Power of Boldness', teacher: 'Naveen Jain', why: 'Naveen Jain\'s framework for thinking 10× bigger — the scale of your thinking sets the scale of the plan.' },
+        { quest: 'Becoming Focused and Indistractable', teacher: 'Nir Eyal', why: 'Nir Eyal\'s focus architecture keeps the whole arc on rails.' } ]
+    },
+    auth: {
+      p2: { quest: 'Speak and Inspire', teacher: 'Lisa Nichols', stage: 'Own the room',
+            why: 'With the inner work underway, Lisa Nichols trains you to move any room — the skill every authority is built on.' },
+      p3: { quest: 'The 7-Figure Creator', teacher: 'John Lee', stage: 'Build the income engine',
+            why: 'Then John Lee\'s creator system turns that voice into audience and income — content, offers, and scale.' },
+      backups: [
+        { quest: 'Magnetic Charisma', teacher: 'Vanessa Van Edwards', why: 'The science of presence and connection — how magnetic people are made.' },
+        { quest: 'Total Self-Confidence', teacher: 'Paul McKenna', why: 'McKenna\'s confidence rebuild keeps the new identity unshakeable on any stage.' },
+        { quest: 'Build Your Dream Community', teacher: 'Radha Agrawal', why: 'Radha Agrawal\'s community playbook — an audience that grows itself.' } ]
+    },
+    mind: {
+      p2: { quest: 'Be Extraordinary', teacher: 'Vishen Lakhiani', stage: 'Upgrade the identity',
+            why: 'Vishen\'s flagship rebuilds the identity and consciousness your next level requires — the ceiling moves when the self-image does.' },
+      p3: { quest: 'The 6 Phase Meditation', teacher: 'Vishen Lakhiani', stage: 'Lock it in daily',
+            why: 'The 6 Phase becomes your daily operating system — 20 minutes a day that locks the new identity in for good.' },
+      backups: [
+        { quest: 'Life Visioning Mastery', teacher: 'Michael B. Beckwith', why: 'Beckwith\'s visioning process gives the new identity a destination with pull.' },
+        { quest: 'Uncompromised Life', teacher: 'Marisa Peer', why: 'Marisa Peer\'s RTT clears whatever the deeper work shakes loose.' },
+        { quest: 'The 3 Most Important Questions', teacher: 'Vishen Lakhiani', why: 'Vishen\'s life-design method turns the growth into a designed life.' } ]
+    },
+    body: {
+      p2: { quest: '10X Fitness', teacher: 'Ronan Diego', stage: 'Rebuild the strength',
+            why: 'With energy returning, 10X rebuilds real strength in two short workouts a week — proof your body sets the pace now.' },
+      p3: { quest: 'The Longevity Blueprint', teacher: 'Ben Greenfield', stage: 'Make it permanent',
+            why: 'Ben Greenfield\'s full protocol stack makes the new energy permanent — sleep, movement, recovery, routines.' },
+      backups: [
+        { quest: 'The Mastery of Sleep', teacher: 'Dr. Michael Breus', why: 'Dr. Breus\'s sleep protocol compounds everything else you\'re building.' },
+        { quest: 'Smarter Not Harder', teacher: 'Dave Asprey', why: 'Asprey\'s minimum-effective-dose approach keeps the gains on a busy calendar.' },
+        { quest: 'Beyond Fasting', teacher: 'Ronan Diego', why: 'Metabolic clarity locks in the mental clarity.' } ]
+    }
+  };
+
   var tiers = [
-    { key: 'monthly', name: 'Monthly', old: null,   now: '$49',  save: null,       perdayOld: null,    perday: '$1.63', note: 'Full Mindvalley Membership · 110+ programs. Cancel anytime.', badge: null },
-    { key: 'yearly',  name: 'Yearly',  old: '$299', now: '$199', save: '$100 OFF', perdayOld: '$0.82', perday: '$0.55', note: 'Full Mindvalley Membership · 110+ programs. Billed yearly.', badge: { text: 'Best Value', hot: true } }
+    { key: 'monthly', name: 'Monthly', old: null,   now: '$49',  save: null,       perdayOld: null,    perday: '$1.63', note: null, badge: null },
+    { key: 'yearly',  name: 'Yearly',  old: '$299', now: '$199', save: '$100 OFF', perdayOld: '$0.82', perday: '$0.55', note: null, badge: { text: 'Best Value', hot: true } }
   ];
 
   var CHECKOUT_LINKS = {
@@ -1251,29 +1296,31 @@
 
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">Your first 12 weeks on the pathway</h3>'));
     root.appendChild(el('<p class="q-sub">Built from your three highest-scoring bottlenecks — one program per phase, in the order that unchains the others.</p>'));
-    var phases = [];
-    sorted.slice(0, 3).forEach(function(b) {
-      var m = questFor(b.id, pw.key);
-      var existing = null;
-      phases.forEach(function(p) { if (p.quest === m.quest) existing = p; });
-      if (existing) { existing.blocks.push(b); }
-      else { phases.push({ quest: m.quest, teacher: m.teacher, why: m.why, blocks: [b] }); }
+    // Phase 1 releases their #1 bottleneck; Phases 2–3 follow the pathway's
+    // flagship arc (with backups if Phase 1 already used an arc program).
+    var arc = PATHWAY_ARCS[pw.key];
+    var p1m = questFor(topBlock.id, pw.key);
+    var phases = [{ quest: p1m.quest, teacher: p1m.teacher, stage: 'Release your #1 bottleneck',
+      why: 'You scored highest on <b>' + topBlock.name + '</b> (' + topBlock.score + '/15). ' + p1m.why }];
+    var backups = arc.backups.slice();
+    [arc.p2, arc.p3].forEach(function(slot) {
+      var pick = slot;
+      while (phases.some(function(p) { return p.quest === pick.quest; }) && backups.length) pick = backups.shift();
+      phases.push({ quest: pick.quest, teacher: pick.teacher, stage: slot.stage, why: pick.why });
     });
-    var weekLabels = phases.length === 3 ? ['Weeks 1–4', 'Weeks 5–8', 'Weeks 9–12']
-                   : phases.length === 2 ? ['Weeks 1–6', 'Weeks 7–12'] : ['Weeks 1–12'];
+    var weekLabels = ['Weeks 1–4', 'Weeks 5–8', 'Weeks 9–12'];
     phases.forEach(function(p, i) {
-      var blockNames = p.blocks.map(function(b) { return '<b>' + b.name + '</b> (' + b.score + '/15)'; }).join(' and ');
       var assets = questAssets[p.quest] || {};
       var currCard = el('<div class="curr-card">' +
         (assets.cover ? '<img class="curr-cover" src="' + assets.cover + '" alt="' + p.quest + ' quest cover" loading="lazy" />' : '') +
         '<div class="curr-body">' +
-          '<div class="curr-week">Phase ' + (i + 1) + ' · ' + weekLabels[i] + '</div>' +
+          '<div class="curr-week">Phase ' + (i + 1) + ' · ' + weekLabels[i] + ' · ' + p.stage + '</div>' +
           '<div class="curr-quest">' + p.quest + '</div>' +
           '<div class="curr-author-row">' +
             (assets.authorPhoto ? '<img class="curr-author-img" src="' + assets.authorPhoto + '" alt="' + p.teacher + '" loading="lazy" />' : '') +
             '<span class="curr-teacher">with ' + p.teacher + '</span>' +
           '</div>' +
-          '<div class="curr-why">Why: you scored highest on ' + blockNames + '. ' + p.why + '</div>' +
+          '<div class="curr-why">' + p.why + '</div>' +
         '</div>' +
         '</div>');
       if (assets.proof) {
@@ -1289,10 +1336,9 @@
     phases.forEach(function(p, i) {
       var assets = questAssets[p.quest] || {};
       var thumb = assets.cover ? '<img class="thumb" src="' + assets.cover + '" alt="' + p.quest + '" loading="lazy" />' : '';
-      stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + p.quest + '<small>Phase ' + (i + 1) + ' · releases ' + p.blocks.map(function(b) { return b.name; }).join(' + ') + '</small></span><span class="vl">$349 value</span></div>';
+      stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + p.quest + '<small>Phase ' + (i + 1) + ' · ' + p.stage + '</small></span><span class="vl">$349 value</span></div>';
     });
     stackRows += '<div class="stack-row"><span class="nm">The full ' + pw.name + ' pathway<small>' + pw.count + ' programs, sequenced — yours from day one</small></span><span class="vl">included</span></div>';
-    stackRows += '<div class="stack-row"><span class="nm">+ 100+ more Mindvalley programs<small>every system your bottlenecks touch — energy, mind, leverage, life</small></span><span class="vl">included</span></div>';
     root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your pathway</div><div class="stack-body">' +
       stackRows +
       '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,047+</span><span class="now">$199/yr</span></span></div>' +
@@ -1301,7 +1347,7 @@
     root.appendChild(el('<div class="timer-bar" id="timerBar">⏳ <b id="timerVal">14:59</b>&nbsp;remaining for this $100 discount</div>'));
 
     var noteFor = function(t) {
-      return 'Your ' + pw.name + ' pathway (' + pw.count + ' programs) + the full 110+ program library. ' +
+      return 'Your ' + pw.name + ' pathway — ' + pw.count + ' programs, sequenced. ' +
              (t.key === 'yearly' ? 'Billed yearly, cancel anytime.' : 'Cancel anytime.');
     };
     var tiersWrap = el('<div class="tiers"></div>');
