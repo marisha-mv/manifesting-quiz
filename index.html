@@ -1169,16 +1169,35 @@
      ENGINE
      ===================================================================== */
 
-  var shell = document.getElementById('shell');
+  var shellEl = null;
   var screenEls = [];
 
-  screens.forEach(function(s, i) {
-    var sec = document.createElement('section');
-    sec.className = 'screen';
-    sec.setAttribute('data-screen', s.id);
-    shell.appendChild(sec);
-    screenEls.push(sec);
-  });
+  /* The quiz mounts (and re-mounts) itself: some hosts (the MV page builder)
+     hydrate client-side and wipe DOM that arrived via raw HTML. State lives in
+     this closure and survives a wipe; only the DOM is rebuilt. */
+  function mountQuiz() {
+    shellEl = document.getElementById('shell');
+    if (!shellEl) return false;
+    shellEl.innerHTML = '';
+    screenEls = [];
+    screens.forEach(function(s) {
+      var sec = document.createElement('section');
+      sec.className = 'screen';
+      sec.setAttribute('data-screen', s.id);
+      shellEl.appendChild(sec);
+      screenEls.push(sec);
+    });
+    var back = document.getElementById('backBtn');
+    if (back && !back.__quizBound) {
+      back.__quizBound = true;
+      back.addEventListener('click', function() {
+        if (!history.length) return;
+        show(history.pop());
+      });
+    }
+    show(current);
+    return true;
+  }
 
   function show(i) {
     var s = screens[i];
@@ -1197,11 +1216,6 @@
     show(current + 1);
   }
 
-  document.getElementById('backBtn').addEventListener('click', function() {
-    if (!history.length) return;
-    var prev = history.pop();
-    show(prev);
-  });
 
   function updateChrome() {
     var s = screens[current];
@@ -1373,13 +1387,19 @@
     intake.goal = 'wealth'; intake.age = '30-39'; intake.experience = '1-3y';
     firstName = 'Test';
     for (var qi = 1; qi <= 30; qi++) answers[qi] = ((qi * 7) % 5) + 1;
-    var qaIdx = 0;
-    screens.forEach(function(s, i) { if (s.id === qaJump) qaIdx = i; });
-    show(qaIdx);
-  } else {
-    // Boot
-    show(0);
+    screens.forEach(function(s, i) { if (s.id === qaJump) current = i; });
   }
+
+  /* Boot with retry (script may load before the shell exists) + a watchdog
+     that re-mounts if a host framework replaces the DOM after hydration. */
+  function boot() {
+    if (!mountQuiz()) { setTimeout(boot, 150); return; }
+    setInterval(function() {
+      if (!shellEl || !document.body.contains(shellEl) || !shellEl.children.length) mountQuiz();
+    }, 600);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 
