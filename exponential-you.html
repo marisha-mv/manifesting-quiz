@@ -752,7 +752,9 @@
     'Smarter Not Harder':         { cover: progCover('smarter-not-harder') },
     'Modern Qi Gong':             { cover: progCover('modern-qi-gong') },
     'Beyond Fasting':             { cover: progCover('beyond-fasting') },
-    'Total Transformation Training': { cover: progCover('total-transformation-training') }
+    'Total Transformation Training': { cover: progCover('total-transformation-training') },
+    'Ultimate Leadership':            { cover: progCover('ultimate-leadership') },
+    'The Transformational Leader':    { cover: progCover('the-transformational-leader') }
   };
 
   /* Per-pathway bottleneck→program maps — every program verified in-pathway
@@ -847,7 +849,12 @@
             why: 'The deferred life is deferred health. This is where the postponing ends.' }
     }
   };
+  var CAREER_EE_OVERRIDES = {
+    6: { quest: 'Ultimate Leadership', teacher: 'Keith Ferrazzi',
+         why: 'You\'ve become the approval queue. Ferrazzi\'s leadership system turns control into trust — so work moves without routing through you.' }
+  };
   function questFor(blockId, pwKey) {
+    if (pwKey === 'ee' && intake.grow === 'career' && CAREER_EE_OVERRIDES[blockId]) return CAREER_EE_OVERRIDES[blockId];
     return PATHWAY_MAPS[pwKey][blockId];
   }
 
@@ -860,9 +867,19 @@
       p3: { quest: 'Scale Your Business to $1 Million', teacher: 'Verne Harnish', stage: 'Install the systems',
             why: 'Then Verne Harnish\'s scaling playbook installs the systems and delegation that grow the business beyond your hands.' },
       backups: [
-        { quest: 'Money EQ', teacher: 'Ken Honda', why: 'Ken Honda\'s money psychology — so the growth you\'re building has nothing left to sabotage it.' },
-        { quest: 'The Power of Boldness', teacher: 'Naveen Jain', why: 'Naveen Jain\'s framework for thinking 10× bigger — the scale of your thinking sets the scale of the plan.' },
-        { quest: 'Becoming Focused and Indistractable', teacher: 'Nir Eyal', why: 'Nir Eyal\'s focus architecture keeps the whole arc on rails.' } ]
+        { quest: 'Money EQ', teacher: 'Ken Honda', stage: 'Clear the money wiring', why: 'Ken Honda\'s money psychology — so the growth you\'re building has nothing left to sabotage it.' },
+        { quest: 'The Power of Boldness', teacher: 'Naveen Jain', stage: 'Think 10× bigger', why: 'Naveen Jain\'s framework for thinking 10× bigger — the scale of your thinking sets the scale of the plan.' },
+        { quest: 'Becoming Focused and Indistractable', teacher: 'Nir Eyal', stage: 'Protect the focus', why: 'Nir Eyal\'s focus architecture keeps the whole arc on rails.' } ]
+    },
+    ee_career: {
+      p2: { quest: 'Vivid Vision', teacher: 'Cameron Herold', stage: 'Set the vision',
+            why: 'With the inner bottleneck releasing, you write your Vivid Vision — a 3-year picture of your career so sharp it aligns every decision and ask behind it.' },
+      p3: { quest: 'The Transformational Leader', teacher: 'Monty Moran', stage: 'Lead at the next level',
+            why: 'Then Monty Moran — the CEO who built Chipotle\'s legendary culture — trains the leadership your next level is actually promoted for.' },
+      backups: [
+        { quest: 'Ultimate Leadership', teacher: 'Keith Ferrazzi', stage: 'Multiply through people', why: 'Keith Ferrazzi\'s playbook for leading beyond authority — teams, allies, and rooms that move with you.' },
+        { quest: 'Money EQ', teacher: 'Ken Honda', stage: 'Clear the money wiring', why: 'Ken Honda\'s money psychology — so your asks and negotiations have nothing left to sabotage them.' },
+        { quest: 'Becoming Focused and Indistractable', teacher: 'Nir Eyal', stage: 'Protect the focus', why: 'Nir Eyal\'s focus architecture keeps the whole arc on rails.' } ]
     },
     auth: {
       p2: { quest: 'Speak and Inspire', teacher: 'Lisa Nichols', stage: 'Own the room',
@@ -870,9 +887,9 @@
       p3: { quest: 'The 7-Figure Creator', teacher: 'John Lee', stage: 'Build the income engine',
             why: 'Then John Lee\'s creator system turns that voice into audience and income — content, offers, and scale.' },
       backups: [
-        { quest: 'Magnetic Charisma', teacher: 'Vanessa Van Edwards', why: 'The science of presence and connection — how magnetic people are made.' },
-        { quest: 'Total Self-Confidence', teacher: 'Paul McKenna', why: 'McKenna\'s confidence rebuild keeps the new identity unshakeable on any stage.' },
-        { quest: 'Build Your Dream Community', teacher: 'Radha Agrawal', why: 'Radha Agrawal\'s community playbook — an audience that grows itself.' } ]
+        { quest: 'Magnetic Charisma', teacher: 'Vanessa Van Edwards', stage: 'Become magnetic', why: 'The science of presence and connection — how magnetic people are made.' },
+        { quest: 'Total Self-Confidence', teacher: 'Paul McKenna', stage: 'Bulletproof the confidence', why: 'McKenna\'s confidence rebuild keeps the new identity unshakeable on any stage.' },
+        { quest: 'Build Your Dream Community', teacher: 'Radha Agrawal', stage: 'Build your community', why: 'Radha Agrawal\'s community playbook — an audience that grows itself.' } ]
     },
     mind: {
       p2: { quest: 'Be Extraordinary', teacher: 'Vishen Lakhiani', stage: 'Upgrade the identity',
@@ -880,9 +897,9 @@
       p3: { quest: 'The 6 Phase Meditation', teacher: 'Vishen Lakhiani', stage: 'Lock it in daily',
             why: 'The 6 Phase becomes your daily operating system — 20 minutes a day that locks the new identity in for good.' },
       backups: [
-        { quest: 'Life Visioning Mastery', teacher: 'Michael B. Beckwith', why: 'Beckwith\'s visioning process gives the new identity a destination with pull.' },
-        { quest: 'Uncompromised Life', teacher: 'Marisa Peer', why: 'Marisa Peer\'s RTT clears whatever the deeper work shakes loose.' },
-        { quest: 'The 3 Most Important Questions', teacher: 'Vishen Lakhiani', why: 'Vishen\'s life-design method turns the growth into a designed life.' } ]
+        { quest: 'Life Visioning Mastery', teacher: 'Michael B. Beckwith', stage: 'Give it a destination', why: 'Beckwith\'s visioning process gives the new identity a destination with pull.' },
+        { quest: 'Uncompromised Life', teacher: 'Marisa Peer', stage: 'Clear the deep blocks', why: 'Marisa Peer\'s RTT clears whatever the deeper work shakes loose.' },
+        { quest: 'The 3 Most Important Questions', teacher: 'Vishen Lakhiani', stage: 'Design the life', why: 'Vishen\'s life-design method turns the growth into a designed life.' } ]
     },
     body: {
       p2: { quest: '10X Fitness', teacher: 'Ronan Diego', stage: 'Rebuild the strength',
@@ -890,9 +907,9 @@
       p3: { quest: 'The Longevity Blueprint', teacher: 'Ben Greenfield', stage: 'Make it permanent',
             why: 'Ben Greenfield\'s full protocol stack makes the new energy permanent — sleep, movement, recovery, routines.' },
       backups: [
-        { quest: 'The Mastery of Sleep', teacher: 'Dr. Michael Breus', why: 'Dr. Breus\'s sleep protocol compounds everything else you\'re building.' },
-        { quest: 'Smarter Not Harder', teacher: 'Dave Asprey', why: 'Asprey\'s minimum-effective-dose approach keeps the gains on a busy calendar.' },
-        { quest: 'Beyond Fasting', teacher: 'Ronan Diego', why: 'Metabolic clarity locks in the mental clarity.' } ]
+        { quest: 'The Mastery of Sleep', teacher: 'Dr. Michael Breus', stage: 'Repay the sleep debt', why: 'Dr. Breus\'s sleep protocol compounds everything else you\'re building.' },
+        { quest: 'Smarter Not Harder', teacher: 'Dave Asprey', stage: 'Optimize the inputs', why: 'Asprey\'s minimum-effective-dose approach keeps the gains on a busy calendar.' },
+        { quest: 'Beyond Fasting', teacher: 'Ronan Diego', stage: 'Sharpen the clarity', why: 'Metabolic clarity locks in the mental clarity.' } ]
     }
   };
 
@@ -1177,6 +1194,9 @@
     if (diagProof) {
       root.appendChild(el('<div class="mini-heading">Someone who had this exact bottleneck</div>'));
       root.appendChild(storyCard(diagProof));
+    } else {
+      root.appendChild(el('<div class="mini-heading">Someone who broke through on this pathway</div>'));
+      root.appendChild(storyCard(wallFor()[0]));
     }
 
     root.appendChild(el('<p class="q-sub" style="margin:1.5rem auto 0.75rem auto; font-weight:600; color:var(--mv-text);">Your full bottleneck profile</p>'));
@@ -1298,7 +1318,7 @@
     root.appendChild(el('<p class="q-sub">Built from your three highest-scoring bottlenecks — one program per phase, in the order that unchains the others.</p>'));
     // Phase 1 releases their #1 bottleneck; Phases 2–3 follow the pathway's
     // flagship arc (with backups if Phase 1 already used an arc program).
-    var arc = PATHWAY_ARCS[pw.key];
+    var arc = (pw.key === 'ee' && intake.grow === 'career') ? PATHWAY_ARCS.ee_career : PATHWAY_ARCS[pw.key];
     var p1m = questFor(topBlock.id, pw.key);
     var phases = [{ quest: p1m.quest, teacher: p1m.teacher, stage: 'Release your #1 bottleneck',
       why: 'You scored highest on <b>' + topBlock.name + '</b> (' + topBlock.score + '/15). ' + p1m.why }];
@@ -1306,7 +1326,7 @@
     [arc.p2, arc.p3].forEach(function(slot) {
       var pick = slot;
       while (phases.some(function(p) { return p.quest === pick.quest; }) && backups.length) pick = backups.shift();
-      phases.push({ quest: pick.quest, teacher: pick.teacher, stage: slot.stage, why: pick.why });
+      phases.push({ quest: pick.quest, teacher: pick.teacher, stage: pick.stage || slot.stage, why: pick.why });
     });
     var weekLabels = ['Weeks 1–4', 'Weeks 5–8', 'Weeks 9–12'];
     phases.forEach(function(p, i) {
