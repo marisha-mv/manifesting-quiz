@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Manifesting Blocks Quiz — Mindvalley</title>
-  <meta name="description" content="A personalized assessment to identify your top 3 manifesting blocks — then get your personalized Manifesting Pathway plan." />
+  <meta name="description" content="A personalized assessment to identify your top 3 manifesting blocks — then get your personalized manifesting plan." />
   <meta name="theme-color" content="#7a12d4" />
 
   <!-- Open Graph -->
@@ -12,6 +12,7 @@
   <meta property="og:description" content="Take this quiz to uncover your top 3 manifesting blocks — and get a personalized plan to dissolve them." />
   <meta property="og:type" content="website" />
 
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
@@ -738,13 +739,15 @@
   /* ── Order menu tiers — live funnel pricing from mindvalley.com/manifesting/sales.
         Per-day price is the anchor (MadMuscles pattern): old per-day struck above the big number. ── */
   var tiers = [
-    { key: 'monthly', name: 'Monthly',  old: '$99',  now: '$49',  save: '$50 OFF',  perdayOld: '$3.30', perday: '$1.63', note: 'Full Mindvalley Membership · 110+ programs. Cancel anytime.', badge: null },
-    { key: 'yearly',  name: 'Yearly',   old: '$249', now: '$149', save: '$100 OFF', perdayOld: '$0.68', perday: '$0.41', note: 'Manifesting Collection · 33+ programs. Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
+    { key: 'monthly', name: 'Monthly',  old: null,   now: '$49',  save: null,       perdayOld: null,    perday: '$1.63', note: 'Manifesting Collection · 33+ programs. Cancel anytime.', badge: null },
+    { key: 'yearly',  name: 'Yearly',   old: '$299', now: '$199', save: '$100 OFF', perdayOld: '$0.82', perday: '$0.55', note: 'Manifesting Collection · 33+ programs. Billed yearly, cancel anytime.', badge: { text: 'Best Value', hot: true } }
   ];
-  /* Mindvalley checkout — the live funnel checkout links from the order menu on
-     mindvalley.com/manifesting/sales. The $100 discount is already applied on these
-     links server-side (yearly: $299 → $199), so what the timer promises is what
-     checkout shows.
+  /* Mindvalley checkout — both tiers sell the Manifesting Collection
+     (product 5086). Monthly is the $49 link live on be-extraordinary/sales;
+     yearly is the manifesting funnel's link whose $100 discount is applied
+     server-side. Yearly pricing is GEO-TIERED (Tier 1 $299→$199, Tier 2
+     $249→$149), so the order menu re-renders its yearly numbers from the
+     resolved checkout_link JSON — the card always shows what checkout charges.
      Attribution: every checkout click is stamped utm_source=quiz so sales are traceable
      to this funnel, with tier in utm_content and the user's #1 block in utm_term.
      Inbound ad params (gclid/fbclid + original utm_*) are forwarded so the
@@ -753,30 +756,69 @@
      the sales page fetches them and then navigates to checkout_url. We do the same:
      resolve on plan-screen load (CORS is open), with a snapshot fallback if the
      fetch fails. The yearly checkout_url carries the $100 discount code R12UFOJ3Q. */
+  /* Marketing tags follow the live MV sales-page pattern:
+     mv_core,aor,<product>,<segment>,<billing>,<funnel>,<placement> */
   var CHECKOUT_LINKS = {
     monthly: {
-      api: 'https://secure.mindvalley.com/v3/checkout_link/D7I02BYFN69URS4OQTEH',
-      fallback: 'https://secure.mindvalley.com/v3/flow?charge_plan_id=su%7C1446&mvh=5EF1FC355C3975550A5B779E1E88C9D34EDEBCBA8356D5D6DB3ADFC05B43505C'
+      api: 'https://secure.mindvalley.com/v3/checkout_link/LOYVQ5UBSP298JIN06A1',
+      fallback: 'https://secure.mindvalley.com/v3/flow?charge_plan_id=su%7C1550&mvh=01A9F48B9F34974CB2C762ADBCD9F17631081B0C89A56120F76519E178C86606',
+      tags: 'mv_core,aor,manifesting_product,nonmember,monthly,vsl_funnel,main'
     },
     yearly: {
       api: 'https://secure.mindvalley.com/v3/checkout_link/CV3QEN40K6BLW52ZDAOU',
-      fallback: 'https://secure.mindvalley.com/v3/flow?discount=R12UFOJ3Q&charge_plan_id=su%7C1698&mvh=F702305037B30D09B1DFF75527795A225D6FEB3505BCB095A8CED209C14CE2A9'
+      fallback: 'https://secure.mindvalley.com/v3/flow?discount=R12UFOJ3Q&charge_plan_id=su%7C1547&mvh=B2B19CDC1FA4569D0D34081602EA855EAB60FA1CD2F4EF609099A95628D88D8C',
+      tags: 'mv_core,aor,manifesting_product,nonmember,yearly,vsl_funnel,main'
     }
   };
   var resolvedCheckout = {};
+  /* Fallback numbers (Tier 1); the resolved checkout_link JSON overrides them
+     per viewer so the order menu always matches what checkout charges. */
+  var PRICING = { yearly: { price: 299, discounted: 199, off: 100 } };
+  function money(n) { return '$' + (n % 1 ? n.toFixed(2) : String(Math.round(n))); }
+  function whyYearlyHtml(p) {
+    var months = Math.max(1, Math.round(p.discounted / 49));
+    return '<b style="color:var(--mv-purple);">Why yearly?</b> Your curriculum dissolves your top 3 blocks in 12 weeks — but you have ' +
+      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and at ' +
+      money(p.discounted) + ' with the ' + money(p.off) + ' discount, it costs about ' + months + ' months at the monthly price. The other ' + (12 - months) + ' months are free.';
+  }
+  function applyLivePricing() {
+    var p = PRICING.yearly;
+    var set = function(sel, txt) { var e = document.querySelector(sel); if (e) e.textContent = txt; };
+    set('[data-tier="yearly"] .tier-old', money(p.price));
+    set('[data-tier="yearly"] .tier-new', money(p.discounted));
+    set('[data-tier="yearly"] .tier-save', money(p.off) + ' OFF');
+    set('[data-tier="yearly"] .perday-old', '$' + (p.price / 365).toFixed(2));
+    set('[data-tier="yearly"] .tier-perday .amt', '$' + (p.discounted / 365).toFixed(2));
+    set('.stack-total .now', money(p.discounted) + '/yr');
+    set('#timerOff', money(p.off));
+    var wy = document.getElementById('whyYearlyCopy');
+    if (wy) wy.innerHTML = whyYearlyHtml(p);
+  }
   function resolveCheckoutUrls() {
     ['monthly', 'yearly'].forEach(function(k) {
       if (resolvedCheckout[k]) return;
       try {
         fetch(CHECKOUT_LINKS[k].api)
           .then(function(r) { return r.json(); })
-          .then(function(d) { if (d && d.checkout_url) resolvedCheckout[k] = d.checkout_url; })
+          .then(function(d) {
+            if (!d || !d.checkout_url) return;
+            resolvedCheckout[k] = d.checkout_url;
+            if (k === 'yearly' && d.price) {
+              PRICING.yearly = {
+                price: parseFloat(d.price),
+                discounted: parseFloat(d.discounted_price || d.price),
+                off: parseFloat(d.discount_amount || 0)
+              };
+              applyLivePricing();
+            }
+          })
           .catch(function() { /* fallback covers it */ });
       } catch (e) { /* fallback covers it */ }
     });
   }
   function buildCheckoutUrl(tier, topBlockName) {
     var params = [
+      'tags=' + encodeURIComponent(CHECKOUT_LINKS[tier].tags),
       'utm_source=quiz',
       'utm_medium=manifesting-blocks-quiz',
       'utm_campaign=manifesting-pathway',
@@ -982,7 +1024,7 @@
       '</div>' +
       '<label class="consent-row">' +
         '<input type="checkbox" id="consent" />' +
-        '<span>Yes, send me my results and occasional emails from Mindvalley with manifesting tools, Pathway updates, and related resources. Unsubscribe anytime.</span>' +
+        '<span>Yes, send me my results and occasional emails from Mindvalley with manifesting tools, program updates, and related resources. Unsubscribe anytime.</span>' +
       '</label>' +
       '<button type="submit" class="btn-primary" id="submitBtn">Reveal my results</button>' +
       '<p class="gate-privacy">We respect your privacy. Your information is kept secure and never shared.</p>';
@@ -1116,7 +1158,7 @@
     root.appendChild(btn);
   }});
 
-  // ── Order menu: Manifesting Pathway plan selection (MadMuscles paywall design) ──
+  // ── Order menu: personalized plan, delivered via the Manifesting Collection (MadMuscles paywall design) ──
   screens.push({ id: 'plan', answerable: false, noBack: true, build: function(root) {
     resolveCheckoutUrls(); // resolve real checkout_url JSON before the user clicks
     var scored = computeScores();
@@ -1125,14 +1167,14 @@
     var goal = GOALS[intake.goal] || GOALS.wealth;
 
     root.appendChild(el('<div class="q-eyebrow">Your Personalized Plan</div>'));
-    root.appendChild(el('<h2 class="q-title">The Manifesting Pathway</h2>'));
-    root.appendChild(el('<p class="q-sub">' + (firstName ? firstName + ', your' : 'Your') + ' #1 block is <b style="color:var(--mv-purple);">' + topBlock.name + '</b>. The Manifesting Pathway gives you the step-by-step programs, teachers, and daily practices to dissolve it — and manifest ' + goal.noun + '.</p>'));
+    root.appendChild(el('<h2 class="q-title">Your Manifesting Plan</h2>'));
+    root.appendChild(el('<p class="q-sub">' + (firstName ? firstName + ', your' : 'Your') + ' #1 block is <b style="color:var(--mv-purple);">' + topBlock.name + '</b>. The <b>Manifesting Collection</b> gives you the step-by-step programs, teachers, and daily practices to dissolve it — and manifest ' + goal.noun + '.</p>'));
 
     // Projection chart (MadMuscles-style results curve)
     var chart = el('<div class="chart-card"></div>');
-    chart.appendChild(el('<div class="chart-title">Your projected <b>' + topBlock.name + '</b> intensity on the Pathway</div>'));
+    chart.appendChild(el('<div class="chart-title">Your projected <b>' + topBlock.name + '</b> intensity on your plan</div>'));
     chart.appendChild(el(
-      '<svg viewBox="0 0 400 150" width="100%" height="auto" role="img" aria-label="Projected block intensity declining over 12 weeks">' +
+      '<svg viewBox="0 0 400 150" width="100%" style="height:auto;" role="img" aria-label="Projected block intensity declining over 12 weeks">' +
         '<defs><linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">' +
           '<stop offset="0%" stop-color="#7a12d4" stop-opacity="0.25"/>' +
           '<stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/>' +
@@ -1204,11 +1246,11 @@
     stackRows += '<div class="stack-row"><span class="nm">+ 29+ more manifesting programs<small>each targets a different block — all included in your plan</small></span><span class="vl">included</span></div>';
     root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your protocol</div><div class="stack-body">' +
       stackRows +
-      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">$149/yr</span></span></div>' +
+      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,396+</span><span class="now">' + money(PRICING.yearly.discounted) + '/yr</span></span></div>' +
       '</div></div>'));
 
     // Countdown bar — mirrors the live funnel's 15-minute $100-discount window
-    root.appendChild(el('<div class="timer-bar" id="timerBar">⏳ <b id="timerVal">14:59</b>&nbsp;remaining for this $100 discount</div>'));
+    root.appendChild(el('<div class="timer-bar" id="timerBar">⏳ <b id="timerVal">14:59</b>&nbsp;remaining for this <span id="timerOff">' + money(PRICING.yearly.off) + '</span> discount</div>'));
 
     // Tier cards — highest-value tier pre-selected (MadMuscles anchoring pattern)
     var tiersWrap = el('<div class="tiers"></div>');
@@ -1242,11 +1284,10 @@
 
     // Answer the "my curriculum is 12 weeks — why buy a year?" objection
     root.appendChild(el('<div class="info-stat-card" style="max-width:none; text-align:left; margin-bottom:1.25rem;">' +
-      '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your curriculum dissolves your top 3 blocks in 12 weeks — but you have ' +
-      '7 more blocks behind them, and new goals create new ceilings. Yearly keeps every quest, teacher, and practice in your corner for the full journey — and at $149 with the $100 discount, it costs about 3 months at the monthly price. The other 9 months are free.</div>' +
+      '<div class="small" id="whyYearlyCopy" style="margin-top:0; font-size:0.84375rem; line-height:1.55;">' + whyYearlyHtml(PRICING.yearly) + '</div>' +
       '</div>'));
 
-    var cta = el('<button type="button" class="btn-primary">Get my Manifesting Pathway plan →</button>');
+    var cta = el('<button type="button" class="btn-primary">Get my manifesting plan →</button>');
     cta.addEventListener('click', function() {
       window.open(buildCheckoutUrl(selectedTier, topBlock.name), '_blank', 'noopener');
     });
@@ -1277,6 +1318,7 @@
 
     root.appendChild(el('<p class="plan-smallprint">Your plan renews at the end of the selected period at the standard rate unless cancelled. Cancel anytime from your account — no questions asked. Prices in USD. Individual results vary. Quest values reflect standard single-quest pricing.</p>'));
 
+    applyLivePricing(); // sync numbers if the checkout JSON already resolved
     startTimer();
   }});
 
@@ -1284,16 +1326,35 @@
      ENGINE
      ===================================================================== */
 
-  var shell = document.getElementById('shell');
+  var shellEl = null;
   var screenEls = [];
 
-  screens.forEach(function(s, i) {
-    var sec = document.createElement('section');
-    sec.className = 'screen';
-    sec.setAttribute('data-screen', s.id);
-    shell.appendChild(sec);
-    screenEls.push(sec);
-  });
+  /* The quiz mounts (and re-mounts) itself: some hosts (the MV page builder)
+     hydrate client-side and wipe DOM that arrived via raw HTML. State lives in
+     this closure and survives a wipe; only the DOM is rebuilt. */
+  function mountQuiz() {
+    shellEl = document.getElementById('shell');
+    if (!shellEl) return false;
+    shellEl.innerHTML = '';
+    screenEls = [];
+    screens.forEach(function(s) {
+      var sec = document.createElement('section');
+      sec.className = 'screen';
+      sec.setAttribute('data-screen', s.id);
+      shellEl.appendChild(sec);
+      screenEls.push(sec);
+    });
+    var back = document.getElementById('backBtn');
+    if (back && !back.__quizBound) {
+      back.__quizBound = true;
+      back.addEventListener('click', function() {
+        if (!history.length) return;
+        show(history.pop());
+      });
+    }
+    show(current);
+    return true;
+  }
 
   function show(i) {
     var s = screens[i];
@@ -1312,11 +1373,6 @@
     show(current + 1);
   }
 
-  document.getElementById('backBtn').addEventListener('click', function() {
-    if (!history.length) return;
-    var prev = history.pop();
-    show(prev);
-  });
 
   function updateChrome() {
     var s = screens[current];
@@ -1389,12 +1445,54 @@
     next(); // → results
   }
 
+  /* Lead capture — same two destinations as the live blocks quiz
+     (pages.mindvalley.com/quiz/blocks): Supabase quiz_leads + Make.com webhook
+     for Braze automation. The anon key is publishable and the table is
+     INSERT-only under RLS, so committing it is safe. */
+  var SUPABASE_URL = 'https://ycyalmbguumkghkctwhk.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljeWFsbWJndXVta2doa2N0d2hrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2ODM0MTgsImV4cCI6MjA4MDI1OTQxOH0.EtIhzP3jIX0s1cHAIw_E3TkTMaCWY-uNhBPQWbQ71cY';
+  var MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/ngtmyyg503kavj3zouw4sticn6nfar41';
+
   function submitLead(payload) {
+    var topBlock = (payload.topBlocks && payload.topBlocks[0]) || {};
+    var pres = questMap[topBlock.id] || {};
     try {
-      fetch('/api/submit-lead', {
+      fetch(SUPABASE_URL + '/rest/v1/quiz_leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          first_name: payload.firstName,
+          email: payload.email,
+          pathway: 'manifesting',
+          block_type: topBlock.name || null,
+          prescribed_masterclass: pres.quest || null,
+          prescribed_trainer: pres.teacher || null,
+          answers: payload,
+          source: 'manifesting-blocks-quiz',
+          user_agent: payload.userAgent
+        }),
+        keepalive: true
+      }).catch(function() { /* silent */ });
+    } catch (e) { /* silent */ }
+    try {
+      fetch(MAKE_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          first_name: payload.firstName,
+          email: payload.email,
+          pathway: 'manifesting',
+          block_type: topBlock.name || null,
+          masterclass: pres.quest || null,
+          trainer: pres.teacher || null,
+          source: 'manifesting-blocks-quiz',
+          consent: !!payload.consent
+        }),
         keepalive: true
       }).catch(function() { /* silent */ });
     } catch (e) { /* silent */ }
@@ -1428,7 +1526,7 @@
       if (!elx || !bar) return;
       var secs = Math.max(0, Math.floor((expiry - Date.now()) / 1000));
       if (secs === 0) {
-        bar.innerHTML = '✅ Your $100 discount is still being held — complete checkout to lock it in.';
+        bar.innerHTML = '✅ Your ' + money(PRICING.yearly.off) + ' discount is still being held — complete checkout to lock it in.';
         clearInterval(timerIv);
         return;
       }
@@ -1439,8 +1537,28 @@
     timerIv = setInterval(tick, 1000);
   }
 
-  // Boot
-  show(0);
+  /* QA shortcut — ?qa=<screen-id> (plan | results | bridge | gate | loader)
+     seeds dummy intake + answers and jumps straight to that screen so checkout
+     and pricing can be tested without answering all 33 questions. Deliberately
+     skips the email gate, so no test leads are submitted. */
+  var qaJump = getQueryParam('qa');
+  if (qaJump) {
+    intake.goal = 'wealth'; intake.age = '30-39'; intake.experience = '1-3y';
+    firstName = 'Test';
+    for (var qi = 1; qi <= 30; qi++) answers[qi] = ((qi * 7) % 5) + 1;
+    screens.forEach(function(s, i) { if (s.id === qaJump) current = i; });
+  }
+
+  /* Boot with retry (script may load before the shell exists) + a watchdog
+     that re-mounts if a host framework replaces the DOM after hydration. */
+  function boot() {
+    if (!mountQuiz()) { setTimeout(boot, 150); return; }
+    setInterval(function() {
+      if (!shellEl || !document.body.contains(shellEl) || !shellEl.children.length) mountQuiz();
+    }, 600);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 
