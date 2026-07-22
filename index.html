@@ -1332,7 +1332,9 @@
           pathway: 'manifesting',
           block_type: topBlock.name || null,
           masterclass: pres.quest || null,
-          trainer: pres.teacher || null
+          trainer: pres.teacher || null,
+          source: 'manifesting-blocks-quiz',
+          consent: !!payload.consent
         }),
         keepalive: true
       }).catch(function() { /* silent */ });
