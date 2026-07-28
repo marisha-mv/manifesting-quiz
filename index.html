@@ -1288,13 +1288,15 @@
     next(); // → results
   }
 
-  /* Lead capture — same two destinations as the live blocks quiz
-     (pages.mindvalley.com/quiz/blocks): Supabase quiz_leads + Make.com webhook
-     for Braze automation. The anon key is publishable and the table is
-     INSERT-only under RLS, so committing it is safe. */
+  /* Lead capture — two destinations:
+     1. Supabase quiz_leads (system of record, every submission). The anon key
+        is publishable and the table is INSERT-only under RLS, so committing
+        it is safe.
+     2. Monique's Braze webhook (Make.com) — fires ONLY when the consent
+        checkbox is checked, per Martech's spec. */
   var SUPABASE_URL = 'https://ycyalmbguumkghkctwhk.supabase.co';
   var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljeWFsbWJndXVta2doa2N0d2hrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2ODM0MTgsImV4cCI6MjA4MDI1OTQxOH0.EtIhzP3jIX0s1cHAIw_E3TkTMaCWY-uNhBPQWbQ71cY';
-  var MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/ngtmyyg503kavj3zouw4sticn6nfar41';
+  var MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/87s7gtedgcuihzwim673eu37s1us5t7m';
 
   function submitLead(payload) {
     var topBlock = (payload.topBlocks && payload.topBlocks[0]) || {};
@@ -1322,6 +1324,7 @@
         keepalive: true
       }).catch(function() { /* silent */ });
     } catch (e) { /* silent */ }
+    if (!payload.consent) return; // no consent, no webhook — Supabase still has the record
     try {
       fetch(MAKE_WEBHOOK_URL, {
         method: 'POST',
@@ -1329,12 +1332,16 @@
         body: JSON.stringify({
           first_name: payload.firstName,
           email: payload.email,
+          consent: true,
           pathway: 'manifesting',
           block_type: topBlock.name || null,
           masterclass: pres.quest || null,
           trainer: pres.teacher || null,
           source: 'manifesting-blocks-quiz',
-          consent: !!payload.consent
+          goal: payload.goal || null,
+          age: payload.age || null,
+          experience: payload.experience || null,
+          submitted_at: payload.submittedAt
         }),
         keepalive: true
       }).catch(function() { /* silent */ });
