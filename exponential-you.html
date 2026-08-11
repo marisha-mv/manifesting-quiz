@@ -501,8 +501,6 @@
       text: '"I saved over $10–15K almost immediately. The program paid for itself multiple times over on that alone."' },
     mariana:  { name: 'Mariana Cassimiro', sub: 'Founder · Coimbra, Portugal', quest: 'Entrepreneurship Mastery', photo: PH + 'f-mariana.jpg',
       text: '17 years at Goldman Sachs, Executive Director. "Six months ago I had a career. Now I have a business."' },
-    camille:  { name: 'Camille', sub: 'Business Owner · Fort Collins, US', quest: 'Lifebook Online', photo: PH + 'f-camille.jpg',
-      text: 'During Lifebook she started 3 new businesses, dropped 45 lbs, and rekindled her marriage — in one season. Every area moved at once.' },
     jamil:    { name: 'Jamil Damji', sub: 'Founder, KeyGlee · Phoenix, US', quest: 'The 6 Phase Meditation', photo: PH + 'f-jamil.jpg',
       text: '"The most powerful 20 minutes someone can spend. I can see tangible results in my life — from my relationships to my business."' },
     tomas:    { name: 'Tomáš Filip', sub: 'Startup Founder · Brno, Czechia', quest: 'The 6 Phase Meditation', photo: PH + 'f-tomas.jpg',
@@ -546,46 +544,37 @@
     chang:    { name: 'Chang', sub: 'Medical Equipment MNC · Germany', quest: 'Feng Shui for Life', photo: PH + 'chang.jpg',
       text: 'Career changes within 1–2 weeks for him and his wife — and her meditation and yoga business surged.' },
     melissak: { name: 'Melissa Kerr', sub: 'Entrepreneur · Geneva, Switzerland', quest: 'Life Visioning Mastery', photo: PH + 'f-melissak.jpg',
-      text: '"My business has never been more successful than last month since the launch two years ago."' }
+      text: '"My business has never been more successful than last month since the launch two years ago."' },
+    ivan:     { name: 'Ivan Garcia', sub: 'Educator · Lisbon, Portugal', quest: 'Magnetic Charisma', photo: null,
+      text: '"It\'s almost impossible not to feel more charismatic after just a couple of lessons."' },
+    davids:   { name: 'David Steinfeldt', sub: 'Mannheim, Germany', quest: 'Magnetic Charisma', photo: null,
+      text: '"I already feel that I have more, and deeper, connections with the people around me."' },
+    patriciaw:{ name: 'Patricia Walker', sub: 'Nurse · Atlanta, US', quest: 'Total Self-Confidence', photo: null,
+      text: '"My confidence has increased significantly, and I\'ve taken so many risks in a short amount of time."' },
+    jackson:  { name: 'Jackson Chua', sub: 'Transformation Coach · Singapore', quest: 'Total Self-Confidence', photo: null,
+      text: '"This quest certainly plays an essential role in building my confidence."' },
+    nardos:   { name: 'Nardos Debebe', sub: 'Parenting Coach · Addis Ababa, Ethiopia', quest: 'Conscious Parenting Mastery', photo: null,
+      text: '"Applicable knowledge and tools that help every parent achieve a true connection with their child."' },
+    andreac:  { name: 'Andrea Crisp', sub: 'Life & Purpose Coach · Ontario, Canada', quest: 'Calling in "The One"', photo: null,
+      text: '"I experienced healing I never knew was possible for my life."' },
+    prem:     { name: 'Prem Glidden', sub: 'Relationship Coach · Delray Beach, US', quest: 'Calling in "The One"', photo: null,
+      text: '"It gave me the tools I needed to manifest great love in my life."' },
+    clara:    { name: 'Clara Stickney', sub: 'Musician · Portland, US', quest: 'Calling in "The One"', photo: null,
+      text: '"It helped me heal from a significant heartbreak — and led me to the most incredibly loving relationship."' }
   };
 
-  /* Per-branch proof casting: section screens (keyed by firstQ) + results wall */
-  var PROOF = {
-    biz: {
-      1:  { heading: 'Founders who fixed the engine first',        stories: [S.emilian, S.kat, S.charlton] },
-      7:  { heading: 'Founders who upgraded the operating system', stories: [S.nora, S.audrey, S.chrisj] },
-      16: { heading: 'Founders who stopped being the bottleneck',  stories: [S.peterk, S.charu, S.mariana] },
-      22: { heading: 'Founders who fixed the life it all runs on', stories: [S.camille, S.jamil, S.tomas] },
-      wall: [S.nora, S.alexe, S.audrey, S.charu, S.camille, S.emilian]
-    },
-    career: {
-      1:  { heading: 'Professionals who fixed the engine first',   stories: [S.andrew, S.kat, S.vincent] },
-      7:  { heading: 'Professionals who upgraded the inner OS',    stories: [S.sarah, S.padmaja, S.helene] },
-      16: { heading: 'People who stopped being the bottleneck',    stories: [S.medina, S.andra, S.mariana] },
-      22: { heading: 'People who fixed the life it all runs on',   stories: [S.holly, S.jamil, S.tomas] },
-      wall: [S.sarah, S.padmaja, S.helene, S.medina, S.andrew, S.holly]
-    },
-    craft: {
-      1:  { heading: 'Creators who fixed the engine first',        stories: [S.andrew, S.kat, S.vincent] },
-      7:  { heading: 'Creators who upgraded the inner OS',         stories: [S.cathy, S.chrisj, S.mikwan] },
-      16: { heading: 'Creators who built real leverage',           stories: [S.elizabeth, S.jill, S.andra] },
-      22: { heading: 'Creators who fixed the life it all runs on', stories: [S.camille, S.jamil, S.tomas] },
-      wall: [S.cathy, S.elizabeth, S.mikwan, S.chrisj, S.jill, S.camille]
-    },
-    self: {
-      1:  { heading: 'People who fixed the engine first',          stories: [S.vincent, S.kat, S.andrew] },
-      7:  { heading: 'People who upgraded the inner OS',           stories: [S.anthon, S.maribel, S.lavinia] },
-      16: { heading: 'People who built real leverage',             stories: [S.stephanie, S.pete, S.jennifer] },
-      22: { heading: 'People who fixed the life it all runs on',   stories: [S.camille, S.jamil, S.chang] },
-      wall: [S.camille, S.jamil, S.mfon, S.stephanie, S.anthon, S.chang]
-    }
+  /* Proof is cast PER PATHWAY — every story comes from a quest that lives
+     inside that pathway, so the testimonials always match the recommendation. */
+  var PATHWAY_WALL = {
+    ee:     [S.nora, S.alexe, S.audrey, S.charu, S.mariana, S.peterk],   // Entrepreneurship/Business Mastery, Money EQ
+    auth:   [S.ivan, S.patriciaw, S.davids, S.jackson],                  // Magnetic Charisma, Total Self-Confidence
+    mind:   [S.padmaja, S.holly, S.cathy, S.jamil, S.sarah, S.melissak], // Be Extraordinary, 6 Phase, Uncompromised Life, Life Visioning
+    mystic: [S.mikwan, S.pete, S.mfon, S.stephanie, S.chang],            // Art of Manifesting, Duality, Feng Shui
+    conn:   [S.nardos, S.andreac, S.prem, S.clara],                      // Conscious Parenting, Calling in "The One"
+    body:   [S.emilian, S.kat, S.charlton, S.andrew]                     // Longevity Blueprint, 10X Fitness
   };
-  function proofBranch() {
-    var m = { work: 'biz', voice: 'craft', mystic: 'self', mind: 'self', love: 'self', body: 'self' };
-    return m[intake.grow] || 'self';
-  }
-  function proofFor(firstQ) { return PROOF[proofBranch()][firstQ]; }
-  function wallFor() { return PROOF[proofBranch()].wall; }
+  function currentPathwayKey() { return recommendPathway(topBlockPick()).key; }
+  function wallFor() { return PATHWAY_WALL[currentPathwayKey()] || PATHWAY_WALL.mind; }
 
   function initials(name) {
     return name.split(' ').filter(Boolean).map(function(w) { return w[0]; }).join('').replace(/[^A-Za-zÀ-ž]/g, '').slice(0, 2).toUpperCase();
@@ -1131,7 +1120,6 @@
   function growNoun() { return (GROW[intake.grow] || GROW.self).noun; }
   function domTheme() { return THEMES[intake.themes[0]] || THEMES.identity; }
   function topBlockPick() { return blocks.filter(function(b) { return b.id === intake.block; })[0] || blocks[0]; }
-  function systemProofKey(id) { return id <= 2 ? 1 : id <= 5 ? 7 : id <= 7 ? 16 : 22; }
 
   screens.push({ id: 'plan', answerable: false, noBack: true, build: function(root) {
     resolveCheckoutUrls();
@@ -1170,9 +1158,8 @@
       root.appendChild(el('<div class="mini-heading">Someone who had this exact bottleneck</div>'));
       root.appendChild(storyCard(diagProof));
     } else {
-      var ssp = proofFor(systemProofKey(topBlock.id));
-      root.appendChild(el('<div class="mini-heading">' + ssp.heading + '</div>'));
-      root.appendChild(storyCard(ssp.stories[0]));
+      root.appendChild(el('<div class="mini-heading">Someone who broke through on this pathway</div>'));
+      root.appendChild(storyCard(wallFor()[0]));
     }
 
     var chart = el('<div class="chart-card"></div>');
