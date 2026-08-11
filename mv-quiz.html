@@ -261,30 +261,20 @@
      ===================================================================== */
 
   var GROW = {
-    biz:    { emoji: '🚀', label: 'My business',           noun: 'your business',            pathway: 'ee' },
-    career: { emoji: '💼', label: 'My career',             noun: 'your career',              pathway: 'ee' },
-    craft:  { emoji: '🎤', label: 'My personal brand & audience', noun: 'your personal brand and audience', pathway: 'auth' },
-    self:   { emoji: '🌱', label: 'Myself & my life',      noun: 'yourself and your life',   pathway: 'mind' }
+    work:  { emoji: '🚀', label: 'My business or career', noun: 'your business',            pathway: 'ee' },
+    craft: { emoji: '🎤', label: 'My personal brand & audience', noun: 'your personal brand and audience', pathway: 'auth' },
+    self:  { emoji: '🌱', label: 'Myself & my life',      noun: 'yourself and your life',   pathway: 'mind' }
   };
 
   var STAGE_SETS = {
-    biz: {
-      title: 'Where\'s the revenue right now?',
-      sub: 'This calibrates your benchmarks — the same bottleneck shows up differently at each stage.',
+    work: {
+      title: 'Which picture is closest to yours?',
+      sub: 'This calibrates everything — the same bottleneck shows up differently for a founder and a leader.',
       opts: [
-        { k: 'pre', emoji: '💡', label: 'Pre-launch / idea stage',  phrase: 'still pre-revenue' },
-        { k: 's1',  emoji: '🌱', label: 'Under $10K/month',         phrase: 'doing under $10K a month' },
-        { k: 's2',  emoji: '🚀', label: '$10K–$50K/month',          phrase: 'doing $10–50K a month' },
-        { k: 's3',  emoji: '🏢', label: '$50K+/month',              phrase: 'doing $50K+ a month' } ]
-    },
-    career: {
-      title: 'Where are you in the climb?',
-      sub: 'This calibrates your benchmarks — the same bottleneck shows up differently at each level.',
-      opts: [
-        { k: 'pre', emoji: '🌱', label: 'Early career',           phrase: 'early in the climb' },
-        { k: 's1',  emoji: '💼', label: 'Senior / specialist',    phrase: 'at senior level' },
-        { k: 's2',  emoji: '📊', label: 'Manager / director',     phrase: 'leading at manager level' },
-        { k: 's3',  emoji: '🏛️', label: 'Executive / VP+',        phrase: 'at executive level' } ]
+        { k: 'pre', sub: 'biz',    emoji: '💡', label: 'Building my own thing — early days',        phrase: 'building something of your own' },
+        { k: 's2',  sub: 'biz',    emoji: '🚀', label: 'Running my own business — time to scale',   phrase: 'scaling your own business' },
+        { k: 's1',  sub: 'career', emoji: '💼', label: 'Employed — climbing the ladder',            phrase: 'climbing the ladder' },
+        { k: 's3',  sub: 'career', emoji: '🏛️', label: 'Employed — leading at a senior level',      phrase: 'leading at a senior level' } ]
     },
     craft: {
       title: 'How big is your audience right now?',
@@ -353,50 +343,69 @@
     { id: 3,  emoji: '🪞', label: 'My own head — doubt, playing small, the inner ceiling' },
     { id: 5,  emoji: '💸', label: 'Fear runs my decisions — playing safe, settling, selling myself short' },
     { id: 6,  emoji: '🌪️', label: 'Everything depends on me — I can never step back' },
+    { id: 7,  emoji: '🧍', label: 'I\'m carrying it all alone — no one really gets it' },
+    { id: 11, emoji: '❤️', label: 'My closest relationships — distant, strained, or on hold' },
     { id: 9,  emoji: '🐿️', label: 'Focus — too many directions, nothing gets finished' },
     { id: 10, emoji: '⏳', label: 'My life is on hold until "it\'s done"' }
   ];
 
-  /* Q5 — the deeper want */
-  var WANTS = {
-    scale:  { emoji: '📈', label: 'Momentum — growth that finally builds on itself', phrase: 'grow faster without burning out' },
-    health: { emoji: '❤️‍🩹', label: 'My health and energy back',                     phrase: 'get your health and energy back' },
-    family: { emoji: '👨‍👩‍👧', label: 'Real presence with the people I love',        phrase: 'be actually present with the people you love' },
-    think:  { emoji: '🧠', label: 'Space to think clearly again',                  phrase: 'get space to think clearly again' }
+  /* Q5 — how they grow best. Decides Mind vs Mystic when the inner track is in play. */
+  var MODALITY = {
+    sci:    { emoji: '🔬', label: 'Science and systems — give me the mechanism' },
+    mystic: { emoji: '✨', label: 'Energy and intuition — meditation, manifesting, the unseen' },
+    mix:    { emoji: '🌗', label: 'Honestly — a mix of both' }
   };
 
-  /* The identity layer — who they're becoming on the pathway */
-  var ID_NOUN = { biz: 'Founder', career: 'Leader', craft: 'Creator', self: 'Human' };
-  function identityFor(pwKey, grow) {
-    var noun = ID_NOUN[grow] || 'Human';
-    if (pwKey === 'ee')   return 'The Exponential ' + noun;
-    if (pwKey === 'auth') return 'The Emerging Authority';
-    if (pwKey === 'mind') return 'The Extraordinary Mind';
+  /* The identity layer — who they're being now vs who they're becoming */
+  function nounFor() {
+    if (intake.grow === 'work') return intake.sub === 'career' ? 'Leader' : 'Founder';
+    return intake.grow === 'craft' ? 'Creator' : 'Human';
+  }
+  var STUCK_ADJ = { 1: 'Drained', 2: 'Drained', 3: 'Capped', 5: 'Playing-Small', 6: 'Overloaded', 7: 'Lone-Wolf', 9: 'Scattered', 10: 'Someday', 11: 'Disconnected' };
+  function stuckIdentity(blockId) { return 'The ' + (STUCK_ADJ[blockId] || 'Capped') + ' ' + nounFor(); }
+  function identityFor(pwKey) {
+    var noun = nounFor();
+    if (pwKey === 'ee')     return 'The Exponential ' + noun;
+    if (pwKey === 'auth')   return 'The Emerging Authority';
+    if (pwKey === 'mind')   return 'The Extraordinary Mind';
+    if (pwKey === 'mystic') return 'The Modern Mystic';
+    if (pwKey === 'conn')   return 'The Connected ' + noun;
     return 'The Recharged ' + noun; // body — energy override
   }
   var IDENTITY_CREED = {
-    ee:   'You don\'t need more tactics. You need a bigger you running the machine — and that\'s exactly what this pathway builds.',
-    auth: 'Your craft is already good enough. This pathway builds the voice, presence, and platform it deserves.',
-    mind: 'Everything you want sits one identity upgrade away. This pathway rebuilds the mind that runs your life.',
-    body: 'You can\'t grow anything on a dead battery. This pathway rebuilds the engine first — then everything else compounds.'
+    ee:     'You don\'t need more tactics. You need a bigger you running the machine — and that\'s exactly what this pathway builds.',
+    auth:   'Your craft is already good enough. This pathway builds the voice, presence, and platform it deserves.',
+    mind:   'Everything you want sits one identity upgrade away. This pathway rebuilds the mind that runs your life.',
+    mystic: 'You\'ve been trying to think your way through what\'s actually an energetic problem. This pathway trains the layer underneath — energy, intuition, manifesting — until reality starts cooperating.',
+    conn:   'Nothing you achieve will feel like success while the people part hurts. This pathway rebuilds the relationships everything else is for.',
+    body:   'You can\'t grow anything on a dead battery. This pathway rebuilds the engine first — then everything else compounds.'
   };
 
-  /* Pathways — the recommendation layer */
+  /* Pathways — the recommendation layer (all 6, canonical Airtable Jul 2026) */
   var PATHWAYS = {
-    ee:   { key: 'ee',   emoji: '🚀', name: 'The Exponential Entrepreneur', count: 26, tag: 'Grow the venture by growing the one running it.' },
-    auth: { key: 'auth', emoji: '🎤', name: 'The Authority',                count: 14, tag: 'Turn your craft and voice into influence.' },
-    mind: { key: 'mind', emoji: '🧠', name: 'The Extraordinary Mind',       count: 24, tag: 'Upgrade the mind that runs your life.' },
-    body: { key: 'body', emoji: '🧬', name: 'The Ageless Body',             count: 15, tag: 'Upgrade the body every other goal runs on.' }
+    ee:     { key: 'ee',     emoji: '🚀', name: 'The Exponential Entrepreneur', count: 26, tag: 'Grow the venture by growing the one running it.' },
+    auth:   { key: 'auth',   emoji: '🎤', name: 'The Expert & Authority',       count: 14, tag: 'Turn your craft and voice into influence.' },
+    mind:   { key: 'mind',   emoji: '🧠', name: 'The Extraordinary Mind',       count: 24, tag: 'Upgrade the mind that runs your life.' },
+    mystic: { key: 'mystic', emoji: '✨', name: 'The Modern Mystic',            count: 22, tag: 'Train the unseen layer — energy, intuition, manifesting.' },
+    conn:   { key: 'conn',   emoji: '❤️', name: 'The Art of Connection',        count: 16, tag: 'Master the relationships your happiness runs on.' },
+    body:   { key: 'body',   emoji: '🧬', name: 'The Ageless Body',             count: 15, tag: 'Upgrade the body every other goal runs on.' }
   };
   var FREE_CLASS = {
-    ee:   { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
-    auth: { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
-    mind: { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
-    body: { url: 'https://www.mindvalley.com/10x/masterclass',              label: 'the 10X body transformation masterclass' }
+    ee:     { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
+    auth:   { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
+    mind:   { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
+    mystic: { url: 'https://www.mindvalley.com/duality/masterclass',          label: 'a masterclass with energy teacher Jeffrey Allen on working with your personal energy' },
+    conn:   { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
+    body:   { url: 'https://www.mindvalley.com/10x/masterclass',              label: 'the 10X body transformation masterclass' }
   };
   function recommendPathway(topBlock) {
-    // Energy-dominant diagnosis overrides: you can't grow anything on a dead battery.
+    // 1. You can't grow anything on a dead battery.
     if (topBlock.id === 1 || topBlock.id === 2) return PATHWAYS.body;
+    // 2. A relationship bottleneck routes to Connection no matter what you're growing.
+    if (topBlock.id === 11) return PATHWAYS.conn;
+    // 3. Spiritual-lens people on the inner track (or with an inner-psychology block) → Modern Mystic.
+    if (intake.modality === 'mystic' && (intake.grow === 'self' || topBlock.id === 3 || topBlock.id === 5)) return PATHWAYS.mystic;
+    // 4. Otherwise the outer-goal default.
     return PATHWAYS[(GROW[intake.grow] || GROW.self).pathway];
   }
 
@@ -420,7 +429,9 @@
     { id: 9, name: 'The Shiny Object Cycle', cat: 'The Compass · Vision & Life', qs: [25,26,27],
       desc: 'You quit at the dip and call it a pivot. The graveyard of half-finished starts isn\'t a strategy problem — it\'s a focus wound.' },
     { id: 10, name: 'The Deferred Life', cat: 'The Compass · Vision & Life', qs: [28,29,30],
-      desc: 'Health, relationships, joy — all postponed "until it\'s done." The finish line keeps moving because the deferral IS the pattern.' }
+      desc: 'Health, relationships, joy — all postponed "until it\'s done." The finish line keeps moving because the deferral IS the pattern.' },
+    { id: 11, name: 'The Connection Gap', cat: 'The Heart · Love & People', qs: [],
+      desc: 'The people who matter most are getting your leftovers — and every win feels thinner because of it. Connection isn\'t a nice-to-have. It\'s the soil everything else grows in.' }
   ];
 
 
@@ -533,8 +544,12 @@
       wall: [S.camille, S.jamil, S.mfon, S.stephanie, S.anthon, S.chang]
     }
   };
-  function proofFor(firstQ) { return (PROOF[intake.grow] || PROOF.self)[firstQ]; }
-  function wallFor() { return (PROOF[intake.grow] || PROOF.self).wall; }
+  function proofBranch() {
+    if (intake.grow === 'work') return intake.sub === 'career' ? 'career' : 'biz';
+    return intake.grow === 'craft' ? 'craft' : 'self';
+  }
+  function proofFor(firstQ) { return PROOF[proofBranch()][firstQ]; }
+  function wallFor() { return PROOF[proofBranch()].wall; }
 
   function initials(name) {
     return name.split(' ').filter(Boolean).map(function(w) { return w[0]; }).join('').replace(/[^A-Za-zÀ-ž]/g, '').slice(0, 2).toUpperCase();
@@ -608,7 +623,23 @@
     'Beyond Fasting':             { cover: progCover('beyond-fasting') },
     'Total Transformation Training': { cover: progCover('total-transformation-training') },
     'Ultimate Leadership':            { cover: progCover('ultimate-leadership') },
-    'The Transformational Leader':    { cover: progCover('the-transformational-leader') }
+    'The Transformational Leader':    { cover: progCover('the-transformational-leader') },
+    'The Art of Manifesting':     { cover: progCover('the-art-of-manifesting'), proof: S.mikwan },
+    'Duality':                    { cover: progCover('duality'), proof: S.pete },
+    'Unlimited Abundance':        { cover: progCover('unlimited-abundance') },
+    'Success Magic':              { cover: progCover('success-magic') },
+    'Feng Shui for Life':         { cover: progCover('feng-shui-for-life'), proof: S.stephanie },
+    'A Yogi\'s Guide to Joy':     { cover: progCover('a-yogis-guide-to-joy') },
+    'Awaken the Species':         { cover: progCover('awaken-the-species') },
+    'Breathwork for Life':        { cover: progCover('breathwork-for-life') },
+    'Sixth Sense Superpower':     { cover: progCover('sixth-sense-superpower') },
+    'A Journey to Infinitheism':  { cover: progCover('a-journey-to-infinitheism') },
+    'Quantum Love':               { cover: progCover('quantum-love') },
+    'The Energies of Love':       { cover: progCover('the-energies-of-love') },
+    'Conscious Parenting Mastery':{ cover: progCover('conscious-parenting-mastery') },
+    'Calling in "The One"':       { cover: progCover('calling-in-the-one') },
+    'Healing from Heartbreak':    { cover: progCover('healing-from-heartbreak') },
+    'Body Language for Dating & Attraction': { cover: progCover('body-language-for-dating-attraction') }
   };
 
   /* Per-pathway bottleneck→program maps — every program verified in-pathway
@@ -700,7 +731,55 @@
       9:  { quest: 'Total Transformation Training', teacher: 'Christine Bullock',
             why: 'A 12-week structure you finish — proof to yourself that the shiny object cycle is breakable.' },
       10: { quest: 'The Longevity Blueprint', teacher: 'Ben Greenfield',
-            why: 'The deferred life is deferred health. This is where the postponing ends.' }
+            why: 'The deferred life is deferred health. This is where the postponing ends.' },
+      11: { quest: 'Modern Qi Gong', teacher: 'Lee Holden',
+            why: 'Energy work that reconnects you — to your body first, then to everyone around it.' }
+    },
+    mystic: {
+      1:  { quest: 'Breathwork for Life', teacher: 'Niraj Naik',
+            why: 'Niraj Naik\'s breathwork protocols generate energy on demand — a recharge you run yourself, not one you borrow from caffeine.' },
+      2:  { quest: 'Breathwork for Life', teacher: 'Niraj Naik',
+            why: 'The fastest lever on a fried nervous system is the breath. This trains real recovery, on command.' },
+      3:  { quest: 'Duality', teacher: 'Jeffrey Allen',
+            why: 'Jeffrey Allen\'s energy training dissolves the blocks your self-image is made of — the ceiling isn\'t just mental, it\'s energetic.' },
+      4:  { quest: 'Duality', teacher: 'Jeffrey Allen',
+            why: 'When you can feel and direct your own energy, the "found out" fear loses its grip at the root.' },
+      5:  { quest: 'Unlimited Abundance', teacher: 'Christie Marie Sheldon',
+            why: 'Christie Marie Sheldon\'s method for clearing the abundance blocks running underneath every fear-based decision you make.' },
+      6:  { quest: 'A Yogi\'s Guide to Joy', teacher: 'Sadhguru',
+            why: 'Sadhguru\'s path from force to flow — control releases when you stop gripping the outcome.' },
+      7:  { quest: 'Awaken the Species', teacher: 'Neale Donald Walsch',
+            why: 'Neale Donald Walsch on the connectedness underneath everything — isolation ends as a worldview before it ends as a schedule.' },
+      8:  { quest: 'A Journey to Infinitheism', teacher: 'Mahatria',
+            why: 'Mahatria reconnects ambition to something bigger — direction returns when the why does.' },
+      9:  { quest: 'The Art of Manifesting', teacher: 'Regan Hillyer',
+            why: 'Manifesting starts with deciding — one clear intention, held until it lands. The end of scattered wanting.' },
+      10: { quest: 'Feng Shui for Life', teacher: 'Marie Diamond',
+            why: 'Marie Diamond\'s system for designing a home and life that supports you NOW — not after "it\'s done."' }
+    },
+    conn: {
+      1:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      2:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      3:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      4:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      5:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      6:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      7:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      8:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      9:  { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      10: { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every relationship you have.' },
+      11: { quest: 'Quantum Love', teacher: 'Dr. Laura Berman',
+            why: 'You named the relationships yourself. Dr. Laura Berman\'s blueprint rebuilds the connection patterns underneath every one of them — starting with how you show up.' }
     }
   };
   var CAREER_EE_OVERRIDES = {
@@ -708,7 +787,7 @@
          why: 'You\'ve become the approval queue. Ferrazzi\'s leadership system turns control into trust — so work moves without routing through you.' }
   };
   function questFor(blockId, pwKey) {
-    if (pwKey === 'ee' && intake.grow === 'career' && CAREER_EE_OVERRIDES[blockId]) return CAREER_EE_OVERRIDES[blockId];
+    if (pwKey === 'ee' && intake.sub === 'career' && CAREER_EE_OVERRIDES[blockId]) return CAREER_EE_OVERRIDES[blockId];
     return PATHWAY_MAPS[pwKey][blockId];
   }
 
@@ -764,6 +843,26 @@
         { quest: 'The Mastery of Sleep', teacher: 'Dr. Michael Breus', stage: 'Repay the sleep debt', why: 'Dr. Breus\'s sleep protocol compounds everything else you\'re building.' },
         { quest: 'Smarter Not Harder', teacher: 'Dave Asprey', stage: 'Optimize the inputs', why: 'Asprey\'s minimum-effective-dose approach keeps the gains on a busy calendar.' },
         { quest: 'Beyond Fasting', teacher: 'Ronan Diego', stage: 'Sharpen the clarity', why: 'Metabolic clarity locks in the mental clarity.' } ]
+    },
+    mystic: {
+      p2: { quest: 'The Art of Manifesting', teacher: 'Regan Hillyer', stage: 'Learn the mechanics',
+            why: 'With the block clearing, Regan Hillyer\'s method gives you the daily mechanics of manifesting — intention, identity, action, evidence.' },
+      p3: { quest: 'Duality', teacher: 'Jeffrey Allen', stage: 'Master your energy',
+            why: 'Then Jeffrey Allen\'s flagship energy training makes it permanent — you learn to read and direct energy the way most people read words.' },
+      backups: [
+        { quest: 'Unlimited Abundance', teacher: 'Christie Marie Sheldon', stage: 'Clear the abundance blocks', why: 'Christie Marie Sheldon clears the abundance blocks so nothing sabotages what you\'re calling in.' },
+        { quest: 'Success Magic', teacher: 'Marie Diamond', stage: 'Install the success rituals', why: 'Marie Diamond\'s daily success rituals keep the new frequency running on autopilot.' },
+        { quest: 'Sixth Sense Superpower', teacher: 'Sonia Choquette', stage: 'Trust your intuition', why: 'Sonia Choquette trains the intuition that keeps you on your own path.' } ]
+    },
+    conn: {
+      p2: { quest: 'The Energies of Love', teacher: 'Donna Eden & David Feinstein', stage: 'Rewire the energy between you',
+            why: 'Donna Eden and David Feinstein map the energy patterns between you and the people you love — and how to shift them in real time.' },
+      p3: { quest: 'Conscious Parenting Mastery', teacher: 'Dr. Shefali', stage: 'Heal the family patterns',
+            why: 'Dr. Shefali\'s work transforms how you show up for the people who depend on you — and heals the patterns you inherited.' },
+      backups: [
+        { quest: 'Calling in "The One"', teacher: 'Katherine Woodward Thomas', stage: 'Clear what blocks love', why: 'Katherine Woodward Thomas frees you from the patterns keeping love at a distance.' },
+        { quest: 'Healing from Heartbreak', teacher: 'Sheleana Aiyana', stage: 'Heal what still hurts', why: 'Sheleana Aiyana\'s process for turning old relationship pain into capacity for new connection.' },
+        { quest: 'Body Language for Dating & Attraction', teacher: 'Linda Clemons', stage: 'Read and be read', why: 'Linda Clemons teaches the nonverbal language every relationship runs on.' } ]
     }
   };
 
@@ -815,7 +914,7 @@
   }
 
   /* ===================================================================== */
-  var intake = { grow: null, stage: null, stagePhrase: '', success: null, successLabel: '', successPhrase: '', block: null, want: null };
+  var intake = { grow: null, sub: null, stage: null, stagePhrase: '', success: null, successLabel: '', successPhrase: '', block: null, blockLabel: '', modality: null };
   var firstName = '';
   var selectedTier = 'yearly';
   var screens = [];
@@ -848,7 +947,7 @@
   screens.push({ id: 'grow', answerable: true, build: function(root) {
     root.appendChild(el('<div class="q-eyebrow">The Exponential You Assessment</div>'));
     root.appendChild(el('<h1 class="q-title">What\'s Actually Capping Your Growth?</h1>'));
-    root.appendChild(el('<p class="q-sub">It\'s not your strategy. Whatever you\'re growing, it can only grow as fast as YOU do. 5 questions, about 60 seconds — and you\'ll know your exact Mindvalley pathway — the program sequence built for what you\'re growing — and who you\'re becoming on it.</p>'));
+    root.appendChild(el('<p class="q-sub">It\'s not your strategy. Whatever you\'re growing, it can only grow as fast as YOU do. 5 questions, about 60 seconds — and you\'ll meet two identities: who you\'re being right now, and who you\'re becoming — plus the one Mindvalley pathway that bridges them.</p>'));
     root.appendChild(el('<p class="q-sub" style="font-weight:600; color:var(--mv-text); margin-bottom:1rem;">What are you trying to grow right now?</p>'));
     root.appendChild(optionMenu(Object.keys(GROW).map(function(k) {
       return { emoji: GROW[k].emoji, label: GROW[k].label, value: k };
@@ -860,13 +959,13 @@
     root.appendChild(el('<h2 class="q-title">' + set.title + '</h2>'));
     root.appendChild(el('<p class="q-sub">' + set.sub + '</p>'));
     root.appendChild(optionMenu(set.opts.map(function(s) {
-      return { emoji: s.emoji, label: s.label, value: s.k, phrase: s.phrase };
-    }), function(o) { intake.stage = o.value; intake.stagePhrase = o.phrase; next(); }));
+      return { emoji: s.emoji, label: s.label, value: s.k, phrase: s.phrase, sub: s.sub };
+    }), function(o) { intake.stage = o.value; intake.stagePhrase = o.phrase; intake.sub = o.sub || null; next(); }));
   }});
 
   // ── Q3: what success looks like (their words — mirrored back on results) ──
   screens.push({ id: 'success', answerable: true, build: function(root) {
-    var set = SUCCESS_SETS[intake.grow] || SUCCESS_SETS.self;
+    var set = SUCCESS_SETS[intake.grow === 'work' ? (intake.sub || 'biz') : intake.grow] || SUCCESS_SETS.self;
     root.appendChild(el('<h2 class="q-title">' + set.title + '</h2>'));
     root.appendChild(el('<p class="q-sub">' + set.sub + '</p>'));
     root.appendChild(optionMenu(set.opts.map(function(s) {
@@ -880,15 +979,16 @@
     root.appendChild(el('<p class="q-sub">Be honest — not the polite answer, the real one. This decides where your pathway starts.</p>'));
     root.appendChild(optionMenu(BLOCK_OPTS.map(function(b) {
       return { emoji: b.emoji, label: b.label, value: b.id };
-    }), function(o) { intake.block = o.value; next(); }));
+    }), function(o) { intake.block = o.value; intake.blockLabel = o.label; next(); }));
   }});
 
-  // ── Q5: the deeper want ──
-  screens.push({ id: 'want', answerable: true, build: function(root) {
-    root.appendChild(el('<h2 class="q-title">Last one. When you get there — what does it actually give you?</h2>'));
-    root.appendChild(optionMenu(Object.keys(WANTS).map(function(k) {
-      return { emoji: WANTS[k].emoji, label: WANTS[k].label, value: k };
-    }), function(o) { intake.want = o.value; next(); }));
+  // ── Q5: modality — how they grow best (Mind vs Mystic tiebreak) ──
+  screens.push({ id: 'modality', answerable: true, build: function(root) {
+    root.appendChild(el('<h2 class="q-title">Last one. When you\'ve actually grown in the past — what did it look like?</h2>'));
+    root.appendChild(el('<p class="q-sub">There\'s no wrong answer — this decides which flavor of pathway fits you.</p>'));
+    root.appendChild(optionMenu(Object.keys(MODALITY).map(function(k) {
+      return { emoji: MODALITY[k].emoji, label: MODALITY[k].label, value: k };
+    }), function(o) { intake.modality = o.value; next(); }));
   }});
 
   // ── Loader ──
@@ -899,9 +999,9 @@
     c.appendChild(el('<div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>'));
     var steps = el('<div class="loader-steps"></div>');
     var stepDefs = [
-      'Reading what success looks like for you',
+      'Naming who you\'re being right now',
       'Locating your #1 bottleneck',
-      'Matching your Mindvalley pathway',
+      'Matching your one pathway',
       'Naming who you\'re becoming'
     ];
     stepDefs.forEach(function(s, i) {
@@ -925,8 +1025,8 @@
   // ── Gate ──
   screens.push({ id: 'gate', answerable: false, noBack: true, build: function(root) {
     var card = el('<div class="gate-card"></div>');
-    card.appendChild(el('<div class="q-eyebrow">Your pathway is ready</div>'));
-    card.appendChild(el('<h2 class="q-title" style="margin-bottom:0.75rem;">See your pathway — and who you\'re becoming</h2>'));
+    card.appendChild(el('<div class="q-eyebrow">Your identity map is ready</div>'));
+    card.appendChild(el('<h2 class="q-title" style="margin-bottom:0.75rem;">See who you\'re being — and who you\'re becoming</h2>'));
     card.appendChild(el('<p class="q-sub" style="margin-bottom:1.5rem;">Enter your details to unlock it — we\'ll also send a copy to your inbox so you can come back to it anytime.</p>'));
 
     var form = el('<form id="leadForm" novalidate></form>');
@@ -945,7 +1045,7 @@
         '<input type="checkbox" id="consent" />' +
         '<span>Yes, send me my results and occasional emails from Mindvalley with growth tools, pathway updates, and related resources. Unsubscribe anytime.</span>' +
       '</label>' +
-      '<button type="submit" class="btn-primary" id="submitBtn">Reveal my pathway</button>' +
+      '<button type="submit" class="btn-primary" id="submitBtn">Reveal my identity map</button>' +
       '<p class="gate-privacy">We respect your privacy. Your information is kept secure and never shared.</p>';
 
     form.addEventListener('submit', onGateSubmit);
@@ -953,9 +1053,11 @@
     root.appendChild(card);
   }});
 
-  // ── Results: identity + pathway + 12-week plan + offer, one screen ──
-  function growNoun() { return (GROW[intake.grow] || GROW.self).noun; }
-  function wantPhrase() { return (WANTS[intake.want] || WANTS.scale).phrase; }
+  // ── Results: stuck identity → becoming identity → one-pathway bridge ──
+  function growNoun() {
+    if (intake.grow === 'work') return intake.sub === 'career' ? 'your career' : 'your business';
+    return (GROW[intake.grow] || GROW.self).noun;
+  }
   function topBlockPick() { return blocks.filter(function(b) { return b.id === intake.block; })[0] || blocks[0]; }
   function systemProofKey(id) { return id <= 2 ? 1 : id <= 5 ? 7 : id <= 7 ? 16 : 22; }
 
@@ -963,19 +1065,32 @@
     resolveCheckoutUrls();
     var topBlock = topBlockPick();
     var pw = recommendPathway(topBlock);
-    var identity = identityFor(pw.key, intake.grow);
+    var stuck = stuckIdentity(topBlock.id);
+    var identity = identityFor(pw.key);
 
-    // 1. The identity reveal
-    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', meet' : 'Meet') + ' who you\'re becoming</div>'));
+    // 1. Who you're being right now — the stuck identity
+    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', here\'s' : 'Here\'s') + ' what your answers show</div>'));
+    root.appendChild(el('<div class="diag-card"><div style="font-size:0.6875rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--mv-text-faint); margin-bottom:0.5rem;">Who you\'re being right now</div><b style="font-size:1.25rem;">' + stuck + '</b><br/><span style="display:block; margin-top:0.5rem;">You\'re growing <b>' + growNoun() + '</b> — ' + intake.stagePhrase + ' — but <b>' + topBlock.name + '</b> is setting the pace. ' + topBlock.desc + '</span></div>'));
+
+    // 2. Their own words back at them
+    var qc0 = el('<div class="quote-card"></div>');
+    qc0.appendChild(el('<div class="quote-label">You named it yourself</div>'));
+    var qt0 = document.createElement('div'); qt0.className = 'quote-text';
+    qt0.textContent = '“' + (intake.blockLabel || topBlock.name) + '”';
+    qc0.appendChild(qt0);
+    qc0.appendChild(el('<div class="quote-verdict">That\'s ' + stuck + ' talking. It\'s who you\'ve been — not who you have to stay.</div>'));
+    root.appendChild(qc0);
+
+    // 3. Who you're becoming — the reveal + the one-pathway bridge
     root.appendChild(el('<div class="pathway-card">' +
-      '<div class="pw-eyebrow">Your Identity</div>' +
+      '<div class="pw-eyebrow">Who you\'re becoming</div>' +
       '<div class="pw-emoji">' + pw.emoji + '</div>' +
       '<div class="pw-name">' + identity + '</div>' +
       '<div class="pw-tag">' + IDENTITY_CREED[pw.key] + '</div>' +
-      '<div class="pw-why"><b>Your pathway: ' + pw.name + '</b> — ' + pw.count + ' programs, sequenced. ' + pw.tag + '</div>' +
+      '<div class="pw-why"><b>The bridge — one pathway: ' + pw.name + '.</b> ' + pw.count + ' programs, sequenced. ' + pw.tag + ' Not seventeen scattered fixes — one focus, in the order that takes ' + stuck + ' to ' + identity + '.</div>' +
       '</div>'));
 
-    // 2. Their success picture, in their own words
+    // 4. Their success picture, in their own words
     var qc = el('<div class="quote-card"></div>');
     qc.appendChild(el('<div class="quote-label">What you said success looks like</div>'));
     var qt = document.createElement('div'); qt.className = 'quote-text';
@@ -984,10 +1099,7 @@
     qc.appendChild(el('<div class="quote-verdict">That\'s not a wish. That\'s ' + identity + ', twelve months in.</div>'));
     root.appendChild(qc);
 
-    // 3. The one thing in the way — they named it themselves
-    root.appendChild(el('<div class="diag-card">You\'re growing <b>' + growNoun() + '</b> — ' + intake.stagePhrase + ' — and what you want it to give you is to <b>' + wantPhrase() + '</b>. Between you and ' + (intake.successPhrase || 'that') + ' sits one bottleneck, and you named it yourself: <b>' + topBlock.name + '</b>. ' + topBlock.desc + '</div>'));
-
-    // 4. Proof from someone with that exact bottleneck
+    // 5. Proof from someone with that exact bottleneck
     var diagProg = questFor(topBlock.id, pw.key).quest;
     var diagProof = questAssets[diagProg] && questAssets[diagProg].proof;
     if (diagProof) {
@@ -1013,13 +1125,13 @@
         '<text x="30" y="28" font-size="10" font-weight="700" fill="#7a12d4" font-family="sans-serif">YOUR 12-WEEK RESET</text>' +
         // same-operator line (linear, barely rising)
         '<path d="M20,150 L380,128" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"/>' +
-        '<text x="298" y="120" font-size="10" font-weight="600" fill="#9ca3af" font-family="sans-serif">Same you — linear</text>' +
+        '<text x="298" y="120" font-size="10" font-weight="600" fill="#9ca3af" font-family="sans-serif">Who you\'ve been</text>' +
         // upgraded-operator curve (compounding after the reset)
         '<path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26 L380,160 L20,160 Z" fill="url(#expFill)"/>' +
         '<path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/>' +
         '<circle cx="140" cy="134" r="5" fill="#9333ea"/>' +
         '<circle cx="380" cy="26" r="6" fill="#7a12d4"/>' +
-        '<text x="255" y="52" font-size="11" font-weight="700" fill="#7a12d4" font-family="sans-serif">Exponential you</text>' +
+        '<text x="255" y="52" font-size="11" font-weight="700" fill="#7a12d4" font-family="sans-serif">Who you\'re becoming</text>' +
       '</svg>'
     ));
     chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Week 12</span><span>Month 6</span><span>Month 12</span></div>'));
@@ -1031,10 +1143,10 @@
     root.appendChild(storyCard(wallFor()[0]));
 
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">Your first 12 weeks on the pathway</h3>'));
-    root.appendChild(el('<p class="q-sub">Phase 1 releases the bottleneck you named. Phases 2 and 3 build you into the identity you just met.</p>'));
+    root.appendChild(el('<p class="q-sub">Phase 1 releases the bottleneck keeping you ' + stuck + '. Phases 2 and 3 build ' + identity + ' — one program at a time.</p>'));
     // Phase 1 releases their #1 bottleneck; Phases 2–3 follow the pathway's
     // flagship arc (with backups if Phase 1 already used an arc program).
-    var arc = (pw.key === 'ee' && intake.grow === 'career') ? PATHWAY_ARCS.ee_career : PATHWAY_ARCS[pw.key];
+    var arc = (pw.key === 'ee' && intake.sub === 'career') ? PATHWAY_ARCS.ee_career : PATHWAY_ARCS[pw.key];
     var p1m = questFor(topBlock.id, pw.key);
     var phases = [{ quest: p1m.quest, teacher: p1m.teacher, stage: 'Release your #1 bottleneck',
       why: 'You told us <b>' + topBlock.name + '</b> is what\'s most in the way. ' + p1m.why }];
@@ -1189,7 +1301,7 @@
 
   function updateChrome() {
     var s = screens[current];
-    var answered = ['grow','stage','success','block','want'].filter(function(k){ return intake[k]; }).length;
+    var answered = ['grow','stage','success','block','modality'].filter(function(k){ return intake[k]; }).length;
     document.getElementById('progressFill').style.width = (answered / ANSWERABLE * 100) + '%';
     var count = document.getElementById('stepCount');
     count.textContent = s.answerable ? (Math.min(answered + 1, ANSWERABLE)) + ' / ' + ANSWERABLE : '';
@@ -1220,19 +1332,21 @@
     var pw = recommendPathway(topBlock);
 
     var payload = {
-      version: 'mv-quiz-v1',
+      version: 'mv-quiz-v2',
       firstName: firstName,
       email: emailVal,
       consent: consent,
       submittedAt: new Date().toISOString(),
       grow: intake.grow,
+      sub: intake.sub,
       stage: intake.stage,
       success: intake.success,
       successLabel: intake.successLabel,
       block: { id: topBlock.id, name: topBlock.name },
-      want: intake.want,
+      modality: intake.modality,
       recommendedPathway: pw.key,
-      identity: identityFor(pw.key, intake.grow),
+      stuckIdentity: stuckIdentity(topBlock.id),
+      identity: identityFor(pw.key),
       utm: {
         source: getQueryParam('utm_source'),
         medium: getQueryParam('utm_medium'),
