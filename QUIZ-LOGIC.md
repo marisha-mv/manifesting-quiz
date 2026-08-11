@@ -3,6 +3,8 @@
 Source of truth: `exponential-you.html` (single file, all logic inline JS, no dependencies).
 Live: https://marisha-mv.github.io/manifesting-quiz/exponential-you.html
 
+> **v3 (Aug 2026, open-ended Deep Dive):** replaced the click-only Q3/Q4 with **two free-text captures** (Ryan Levesque "single most important question" style) + a **generated follow-up** + a **crystallize** screen whose options are built from detected themes. Everything is assembled client-side from what they typed — no backend, no API key — so the follow-up and the whole results page read bespoke. Flow is now **4 answerable steps**: `grow` (click) → `dream` (open) → `deeper` (open, prompt generated from their dream) → `block`/crystallize (click, options generated from their themes). A `THEMES` lexicon (freedom/money/recognition/energy/identity/presence/focus) scores the free text via `detectThemes()`; the dominant theme drives the profound follow-up, the crystallize options, the bottleneck id, and the results copy. Their exact words are quoted verbatim on results (`cleanQuote()`); the diagnosis weaves BOTH open answers. Payload is now `exponential-you-v3` (dreamText, deeperText, themes[], block, identity). Min 6 chars to advance each open screen. `STAGE_SETS` remains defined but unused; `SUCCESS_SETS`/`BLOCK_OPTS`/`WANTS` removed.
+
 > **v2 (Aug 2026):** cut from 34 answerable steps to **5 questions**. Two goals only:
 > (A) capture what transformation/success means to them in their own words, and
 > (B) route them to a pathway and hand them an **identity** — fast, so nothing delays

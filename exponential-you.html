@@ -98,6 +98,14 @@
     .form-field input.error { border-color: #dc2626; }
     .form-error { color: #dc2626; font-size: 0.8125rem; margin-top: 0.375rem; display: none; }
     .form-error.visible { display: block; }
+    .q-textarea { width: 100%; min-height: 7.5rem; padding: 1rem 1.125rem; border: 1.5px solid var(--mv-border); border-radius: 1rem; font-family: var(--font-brand); font-size: 1.0625rem; line-height: 1.5; color: var(--mv-text); resize: vertical; -webkit-appearance: none; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+    .q-textarea::placeholder { color: var(--mv-text-faint); }
+    .q-textarea:focus { outline: none; border-color: var(--mv-purple); box-shadow: 0 0 0 3px rgba(122, 18, 212, 0.1); }
+    .q-hint { font-size: 0.78125rem; color: var(--mv-text-faint); text-align: center; margin: 0.625rem auto 0 auto; }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; transform: none; }
+    .echo-card { background: var(--mv-purple-50); border: 1.5px solid var(--mv-purple-100); border-left: 4px solid var(--mv-purple); border-radius: 0.75rem; padding: 1rem 1.25rem; margin: 0 auto 1.5rem auto; max-width: 24rem; text-align: left; }
+    .echo-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mv-text-faint); margin-bottom: 0.4rem; }
+    .echo-text { font-size: 0.9375rem; font-style: italic; color: var(--mv-text); line-height: 1.5; }
     .consent-row { display: flex; align-items: flex-start; gap: 0.5rem; margin: 1rem 0 1.5rem 0; font-size: 0.8125rem; color: var(--mv-text-subtle); line-height: 1.4; }
     .consent-row input[type="checkbox"] { margin-top: 0.15rem; flex-shrink: 0; accent-color: var(--mv-purple); }
     .gate-privacy { text-align: center; font-size: 0.75rem; color: var(--mv-text-faint); margin-top: 1rem; }
@@ -306,66 +314,83 @@
     }
   };
 
-  /* Q3 — what success actually looks like to them (their words, mirrored back later) */
-  var SUCCESS_SETS = {
-    biz: {
-      title: 'Fast-forward 12 months. It worked. What changed?',
-      sub: 'Pick the picture that pulls you the hardest — this is what your pathway gets pointed at.',
-      opts: [
-        { k: 'growth',   emoji: '📈', label: 'Revenue doubled — without doubling my hours',                  phrase: 'revenue doubled, without doubling your hours' },
-        { k: 'freedom',  emoji: '🤖', label: 'A business that runs and grows without me in every decision',  phrase: 'a business that runs and grows without you in every decision' },
-        { k: 'status',   emoji: '💎', label: 'Known and paid as the go-to in my space',                      phrase: 'being known and paid as the go-to in your space' },
-        { k: 'whole',    emoji: '🧘', label: 'Success AND my health, family, and peace intact',              phrase: 'success with your health, family, and peace intact' } ]
-    },
-    career: {
-      title: 'Fast-forward 12 months. It worked. What changed?',
-      sub: 'Pick the picture that pulls you the hardest — this is what your pathway gets pointed at.',
-      opts: [
-        { k: 'growth',   emoji: '🏛️', label: 'The title and role I\'ve been circling for years',            phrase: 'the title and role you\'ve been circling for years' },
-        { k: 'freedom',  emoji: '💰', label: 'Finally paid what I\'m actually worth',                        phrase: 'finally being paid what you\'re actually worth' },
-        { k: 'status',   emoji: '🎤', label: 'Leading — a team, a room, a mission',                          phrase: 'leading a team, a room, a mission' },
-        { k: 'whole',    emoji: '🧘', label: 'A career that funds my life without eating it',                phrase: 'a career that funds your life without eating it' } ]
-    },
-    craft: {
-      title: 'Fast-forward 12 months. It worked. What changed?',
-      sub: 'Pick the picture that pulls you the hardest — this is what your pathway gets pointed at.',
-      opts: [
-        { k: 'growth',   emoji: '🌟', label: 'An audience that grows every single week',                     phrase: 'an audience that grows every single week' },
-        { k: 'freedom',  emoji: '💰', label: 'My craft paying me full-time',                                 phrase: 'your craft paying you full-time' },
-        { k: 'status',   emoji: '🎤', label: 'Recognized as a real authority in my space',                   phrase: 'being recognized as a real authority in your space' },
-        { k: 'whole',    emoji: '📚', label: 'The body of work I keep postponing — finished and out there',  phrase: 'the body of work you keep postponing — finished and out there' } ]
-    },
-    self: {
-      title: 'Fast-forward 12 months. It worked. What changed?',
-      sub: 'Pick the picture that pulls you the hardest — this is what your pathway gets pointed at.',
-      opts: [
-        { k: 'growth',   emoji: '⚡', label: 'Waking up with energy and drive again',                        phrase: 'waking up with energy and drive again' },
-        { k: 'freedom',  emoji: '🧠', label: 'Confidence that doesn\'t collapse under pressure',             phrase: 'confidence that doesn\'t collapse under pressure' },
-        { k: 'status',   emoji: '🧭', label: 'Clarity — knowing exactly what my life is for',                phrase: 'knowing exactly what your life is for' },
-        { k: 'whole',    emoji: '❤️', label: 'Deeper presence with the people I love',                       phrase: 'deeper presence with the people you love' } ]
-    }
+  /* ---------------------------------------------------------------
+     THE DEEP DIVE ENGINE (Ryan Levesque style, done client-side).
+     Two open-text captures drive everything. detectThemes() scores the
+     free text against a lexicon; the dominant theme picks the profound
+     follow-up, the crystallize options, the bottleneck, and the copy —
+     so the whole back half reads like it was written for this person.
+     --------------------------------------------------------------- */
+  var THEMES = {
+    freedom: {
+      label: 'freedom & time', block: 6, emoji: '🤖',
+      kw: ['freedom','free time','more time','my time','escape','without me','autopilot','step back','step away','delegate','flexib','travel','anywhere','off the treadmill','not have to','runs itself','passive'],
+      reflect: 'freedom and your time back',
+      crystallize: 'Everything still routes through me — I can\'t step back',
+      deeper: 'When you picture that freedom — what would you finally do with a Tuesday that\'s actually yours?' },
+    money: {
+      label: 'financial momentum', block: 5, emoji: '💰',
+      kw: ['money','revenue','income','financ','profit','sales','earn','earning','paid','afford','wealth','rich','debt','$','six figure','seven figure','double','scale revenue','pricing','charge'],
+      reflect: 'real financial momentum',
+      crystallize: 'Fear-based money decisions — undercharging, playing safe',
+      deeper: 'Money is rarely just money. When the number is finally handled — what does it prove, or protect?' },
+    recognition: {
+      label: 'recognition & authority', block: 4, emoji: '🎙️',
+      kw: ['recogni','known','authority','respect','seen','visible','audience','following','followers','influence','expert','reputation','brand','platform','stage','speak','famous','credibility'],
+      reflect: 'being known and respected for your work',
+      crystallize: 'My own head — doubt, playing small, the inner ceiling',
+      deeper: 'What would you want them saying about you when you\'re not in the room — the exact words?' },
+    energy: {
+      label: 'energy & health', block: 1, emoji: '⚡',
+      kw: ['energy','tired','exhaust','burn out','burnout','burned out','health','sleep','fit','fitness','body','weight','stress','overwhelm','drained','rest','vital','strong','younger','wellness'],
+      reflect: 'your energy and health back',
+      crystallize: 'My energy — I\'m running on fumes',
+      deeper: 'If you woke up tomorrow feeling ten years younger — what would you finally have the fuel to start?' },
+    identity: {
+      label: 'confidence & inner shift', block: 3, emoji: '🧭',
+      kw: ['confiden','believe','myself','self worth','worth','doubt','fear','afraid','imposter','impostor','not enough','deserve','mindset','stuck','blocked','ceiling','limiting','unblock','breakthrough','fulfil','purpose','meaning','clarity','lost'],
+      reflect: 'becoming the version of you that stops holding back',
+      crystallize: 'My own head — doubt, playing small, the inner ceiling',
+      deeper: 'Finish this honestly: “If I fully believed I was capable, I would ______.”' },
+    presence: {
+      label: 'presence with loved ones', block: 10, emoji: '❤️',
+      kw: ['family','kids','children','wife','husband','partner','spouse','present','presence','relationship','marriage','home','loved ones','my people','be there','miss out'],
+      reflect: 'being truly present with the people you love',
+      crystallize: 'My life is on hold until “it\'s done”',
+      deeper: 'Who\'s been getting the leftover version of you — and what would they notice first if that changed?' },
+    focus: {
+      label: 'focus & follow-through', block: 9, emoji: '🎯',
+      kw: ['focus','distract','finish','scattered','shiny','consistent','consisten','discipline','follow through','follow-through','half','procrastinat','ship','launch','start too many','too many','commit'],
+      reflect: 'finally finishing what you start',
+      crystallize: 'Focus — too many directions, nothing compounds',
+      deeper: 'What\'s the one thing that, if you actually finished it, would make half the other stuff stop mattering?' }
   };
+  /* fallback theme per branch when the text is too short to score */
+  var THEME_DEFAULT = { biz: 'money', career: 'recognition', craft: 'recognition', self: 'identity' };
 
-  /* Q4 — one honest pick: what's most in the way. Maps straight onto the
-     10-bottleneck model (block id → in-pathway Phase-1 program). */
-  var BLOCK_OPTS = [
-    { id: 1,  emoji: '🪫', label: 'My energy — I\'m running on fumes' },
-    { id: 3,  emoji: '🪞', label: 'My own head — doubt, playing small, the inner ceiling' },
-    { id: 5,  emoji: '💸', label: 'Fear-based decisions — undercharging, under-asking, playing safe' },
-    { id: 6,  emoji: '🌪️', label: 'Everything routes through me — I can\'t step back' },
-    { id: 9,  emoji: '🐿️', label: 'Focus — too many directions, nothing compounds' },
-    { id: 10, emoji: '⏳', label: 'My life is on hold until "it\'s done"' }
-  ];
-
-  /* Q5 — the deeper want */
-  var WANTS = {
-    scale:  { emoji: '📈', label: 'Momentum — growth that finally compounds',      phrase: 'grow faster without burning out' },
-    health: { emoji: '❤️‍🩹', label: 'My health and energy back',                     phrase: 'get your health and energy back' },
-    family: { emoji: '👨‍👩‍👧', label: 'Real presence with the people I love',        phrase: 'be actually present with the people you love' },
-    think:  { emoji: '🧠', label: 'Space to think clearly again',                  phrase: 'get space to think clearly again' }
-  };
+  function detectThemes(text) {
+    var t = (' ' + (text || '') + ' ').toLowerCase();
+    var scored = [];
+    Object.keys(THEMES).forEach(function(k) {
+      var n = 0;
+      THEMES[k].kw.forEach(function(w) { if (t.indexOf(w) !== -1) n++; });
+      if (n > 0) scored.push({ key: k, n: n });
+    });
+    scored.sort(function(a, b) { return b.n - a.n; });
+    if (!scored.length) scored.push({ key: THEME_DEFAULT[intake.grow] || 'identity', n: 0 });
+    return scored.map(function(s) { return s.key; });
+  }
+  /* pull a clean, quotable snippet of what they typed */
+  function cleanQuote(text) {
+    var t = (text || '').replace(/\s+/g, ' ').trim();
+    if (!t) return '';
+    var first = t.split(/(?<=[.!?])\s/)[0];
+    if (first.length > 150) first = first.slice(0, 147).replace(/\s+\S*$/, '') + '…';
+    return first.charAt(0).toUpperCase() + first.slice(1);
+  }
 
   /* The identity layer — who they're becoming on the pathway */
+
   var ID_NOUN = { biz: 'Founder', career: 'Leader', craft: 'Creator', self: 'Human' };
   function identityFor(pwKey, grow) {
     var noun = ID_NOUN[grow] || 'Human';
@@ -815,13 +840,13 @@
   }
 
   /* ===================================================================== */
-  var intake = { grow: null, stage: null, stagePhrase: '', success: null, successLabel: '', successPhrase: '', block: null, want: null };
+  var intake = { grow: null, dreamText: '', dreamQuote: '', themes: [], deeperText: '', deeperQuote: '', block: null };
   var firstName = '';
   var selectedTier = 'yearly';
   var screens = [];
   var current = 0;
   var history = [];
-  var ANSWERABLE = 5;
+  var ANSWERABLE = 4;
 
   function el(html) {
     var d = document.createElement('div');
@@ -844,51 +869,97 @@
     return wrap;
   }
 
+  /* Open free-text screen with a Continue button (min 2 words to proceed). */
+  function openScreen(root, opts) {
+    if (opts.eyebrow) root.appendChild(el('<div class="q-eyebrow">' + opts.eyebrow + '</div>'));
+    if (opts.echo) {
+      root.appendChild(el('<div class="echo-card"><div class="echo-label">' + (opts.echoLabel || 'You wrote') + '</div><div class="echo-text">\u201C' + opts.echo + '\u201D</div></div>'));
+    }
+    root.appendChild(el('<h2 class="q-title" style="font-size:1.375rem; line-height:1.85rem;">' + opts.title + '</h2>'));
+    if (opts.sub) root.appendChild(el('<p class="q-sub">' + opts.sub + '</p>'));
+    var ta = el('<textarea class="q-textarea" placeholder="' + (opts.placeholder || 'Type here — a sentence or two is perfect…') + '" autocomplete="off"></textarea>');
+    root.appendChild(ta);
+    root.appendChild(el('<p class="q-hint">' + (opts.hint || 'The more honest you are, the more accurate your result.') + '</p>'));
+    var btn = el('<button type="button" class="btn-primary" style="margin-top:1.5rem;" disabled>' + (opts.cta || 'Continue') + '</button>');
+    root.appendChild(btn);
+    function check() { btn.disabled = ta.value.trim().length < 6; }
+    ta.addEventListener('input', check);
+    setTimeout(function() { ta.focus(); }, 120);
+    btn.addEventListener('click', function() { if (btn.disabled) return; opts.onNext(ta.value.trim()); });
+  }
+
   // ── Intake ──
   screens.push({ id: 'grow', answerable: true, build: function(root) {
     root.appendChild(el('<div class="q-eyebrow">The Exponential You Assessment</div>'));
     root.appendChild(el('<h1 class="q-title">What\'s Actually Capping Your Growth?</h1>'));
-    root.appendChild(el('<p class="q-sub">It\'s not your strategy. Whatever you\'re growing, it can only grow as fast as YOU do. 5 questions, about 60 seconds — and you\'ll know your exact Mindvalley pathway, and who you\'re becoming on it.</p>'));
+    root.appendChild(el('<p class="q-sub">It\'s not your strategy. Whatever you\'re growing, it can only grow as fast as YOU do. Answer a few questions in your own words — and you\'ll know your exact Mindvalley pathway, and who you\'re becoming on it.</p>'));
     root.appendChild(el('<p class="q-sub" style="font-weight:600; color:var(--mv-text); margin-bottom:1rem;">What are you trying to grow right now?</p>'));
     root.appendChild(optionMenu(Object.keys(GROW).map(function(k) {
       return { emoji: GROW[k].emoji, label: GROW[k].label, value: k };
     }), function(o) { intake.grow = o.value; next(); }));
   }});
 
-  screens.push({ id: 'stage', answerable: true, build: function(root) {
-    var set = STAGE_SETS[intake.grow] || STAGE_SETS.self;
-    root.appendChild(el('<h2 class="q-title">' + set.title + '</h2>'));
-    root.appendChild(el('<p class="q-sub">' + set.sub + '</p>'));
-    root.appendChild(optionMenu(set.opts.map(function(s) {
-      return { emoji: s.emoji, label: s.label, value: s.k, phrase: s.phrase };
-    }), function(o) { intake.stage = o.value; intake.stagePhrase = o.phrase; next(); }));
+  // ── Q2: the open Deep Dive question (their words) ──
+  var DREAM_PROMPTS = {
+    biz:    'Picture your business a year from now and it went better than you dared hope. What\'s actually different — in the business, and in your life?',
+    career: 'Picture your career a year from now and it went better than you dared hope. What\'s actually different — in the work, and in your life?',
+    craft:  'Picture your craft and audience a year from now and it went better than you dared hope. What\'s actually different — in the work, and in your life?',
+    self:   'Picture your life a year from now and it went better than you dared hope. What\'s actually different?'
+  };
+  screens.push({ id: 'dream', answerable: true, build: function(root) {
+    openScreen(root, {
+      eyebrow: 'In your own words',
+      title: DREAM_PROMPTS[intake.grow] || DREAM_PROMPTS.self,
+      sub: 'Don\'t overthink it. Write it the way you\'d say it to a friend.',
+      placeholder: 'A year from now, I…',
+      cta: 'Continue →',
+      onNext: function(text) {
+        intake.dreamText = text;
+        intake.dreamQuote = cleanQuote(text);
+        intake.themes = detectThemes(text);
+        next();
+      }
+    });
   }});
 
-  // ── Q3: what success looks like (their words — mirrored back on results) ──
-  screens.push({ id: 'success', answerable: true, build: function(root) {
-    var set = SUCCESS_SETS[intake.grow] || SUCCESS_SETS.self;
-    root.appendChild(el('<h2 class="q-title">' + set.title + '</h2>'));
-    root.appendChild(el('<p class="q-sub">' + set.sub + '</p>'));
-    root.appendChild(optionMenu(set.opts.map(function(s) {
-      return { emoji: s.emoji, label: s.label, value: s.k, phrase: s.phrase };
-    }), function(o) { intake.success = o.value; intake.successLabel = o.label; intake.successPhrase = o.phrase; next(); }));
+  // ── Q3: the profound follow-up, generated from what they wrote ──
+  screens.push({ id: 'deeper', answerable: true, build: function(root) {
+    var th = THEMES[intake.themes[0]] || THEMES.identity;
+    openScreen(root, {
+      eyebrow: 'Let\'s go one layer deeper',
+      echo: intake.dreamQuote,
+      echoLabel: 'What you just told me',
+      title: th.deeper,
+      sub: 'This is the part most people never say out loud. Say it here.',
+      placeholder: 'Honestly…',
+      cta: 'Continue →',
+      onNext: function(text) {
+        intake.deeperText = text;
+        intake.deeperQuote = cleanQuote(text);
+        // let the second answer re-weight the themes
+        var more = detectThemes(intake.dreamText + ' ' + text);
+        intake.themes = more;
+        next();
+      }
+    });
   }});
 
-  // ── Q4: the one thing most in the way (→ block id → Phase-1 program) ──
+  // ── Q4: crystallize — options generated from their detected themes ──
   screens.push({ id: 'block', answerable: true, build: function(root) {
-    root.appendChild(el('<h2 class="q-title">And what\'s really standing between you and that?</h2>'));
-    root.appendChild(el('<p class="q-sub">Be honest — not the polite answer, the real one. This decides where your pathway starts.</p>'));
-    root.appendChild(optionMenu(BLOCK_OPTS.map(function(b) {
-      return { emoji: b.emoji, label: b.label, value: b.id };
-    }), function(o) { intake.block = o.value; next(); }));
-  }});
-
-  // ── Q5: the deeper want ──
-  screens.push({ id: 'want', answerable: true, build: function(root) {
-    root.appendChild(el('<h2 class="q-title">Last one. When you get there — what does it actually give you?</h2>'));
-    root.appendChild(optionMenu(Object.keys(WANTS).map(function(k) {
-      return { emoji: WANTS[k].emoji, label: WANTS[k].label, value: k };
-    }), function(o) { intake.want = o.value; next(); }));
+    root.appendChild(el('<div class="q-eyebrow">Reading your answers back</div>'));
+    root.appendChild(el('<h2 class="q-title">If we\'re honest, here\'s what\'s really in the way — which one lands hardest?</h2>'));
+    root.appendChild(el('<p class="q-sub">These are pulled straight from what you wrote. Pick the one that stings a little.</p>'));
+    // top themes → crystallize options (dedup by block id), padded to 4
+    var picked = [], seen = {};
+    intake.themes.forEach(function(k) {
+      var th = THEMES[k]; if (!th || seen[th.block]) return;
+      seen[th.block] = 1; picked.push({ emoji: th.emoji, label: th.crystallize, value: th.block });
+    });
+    ['identity','freedom','energy','focus'].forEach(function(k) {
+      var th = THEMES[k]; if (picked.length >= 4 || seen[th.block]) return;
+      seen[th.block] = 1; picked.push({ emoji: th.emoji, label: th.crystallize, value: th.block });
+    });
+    root.appendChild(optionMenu(picked.slice(0, 4), function(o) { intake.block = o.value; next(); }));
   }});
 
   // ── Loader ──
@@ -955,7 +1026,7 @@
 
   // ── Results: identity + pathway + 12-week plan + offer, one screen ──
   function growNoun() { return (GROW[intake.grow] || GROW.self).noun; }
-  function wantPhrase() { return (WANTS[intake.want] || WANTS.scale).phrase; }
+  function domTheme() { return THEMES[intake.themes[0]] || THEMES.identity; }
   function topBlockPick() { return blocks.filter(function(b) { return b.id === intake.block; })[0] || blocks[0]; }
   function systemProofKey(id) { return id <= 2 ? 1 : id <= 5 ? 7 : id <= 7 ? 16 : 22; }
 
@@ -975,17 +1046,19 @@
       '<div class="pw-why"><b>Your pathway: ' + pw.name + '</b> — ' + pw.count + ' programs, sequenced. ' + pw.tag + '</div>' +
       '</div>'));
 
-    // 2. Their success picture, in their own words
+    // 2. Their dream — in their own words, quoted for real
     var qc = el('<div class="quote-card"></div>');
-    qc.appendChild(el('<div class="quote-label">What you said success looks like</div>'));
+    qc.appendChild(el('<div class="quote-label">What you told me you actually want</div>'));
     var qt = document.createElement('div'); qt.className = 'quote-text';
-    qt.textContent = '\u201C' + intake.successLabel + '\u201D';
+    qt.textContent = '\u201C' + (intake.dreamQuote || 'to finally break through') + '\u201D';
     qc.appendChild(qt);
-    qc.appendChild(el('<div class="quote-verdict">That\'s not a wish. That\'s ' + identity + ', twelve months in.</div>'));
+    qc.appendChild(el('<div class="quote-verdict">That\'s not a wish. That\'s ' + identity + ', twelve months from now.</div>'));
     root.appendChild(qc);
 
-    // 3. The one thing in the way — they named it themselves
-    root.appendChild(el('<div class="diag-card">You\'re growing <b>' + growNoun() + '</b> — ' + intake.stagePhrase + ' — and what you want it to give you is to <b>' + wantPhrase() + '</b>. Between you and ' + (intake.successPhrase || 'that') + ' sits one bottleneck, and you named it yourself: <b>' + topBlock.name + '</b>. ' + topBlock.desc + '</div>'));
+    // 3. The diagnosis — assembled from their own two answers
+    var th = domTheme();
+    var deeperLine = intake.deeperQuote ? ' And underneath it, you said something truer: \u201C' + intake.deeperQuote + '\u201D — that\'s the real engine.' : '';
+    root.appendChild(el('<div class="diag-card">You\'re growing <b>' + growNoun() + '</b>, and what you\'re really reaching for is <b>' + th.reflect + '</b>.' + deeperLine + ' Between you and that sits one bottleneck — the one you just pointed to yourself: <b>' + topBlock.name + '</b>. ' + topBlock.desc + '</div>'));
 
     // 4. Proof from someone with that exact bottleneck
     var diagProg = questFor(topBlock.id, pw.key).quest;
@@ -1189,7 +1262,7 @@
 
   function updateChrome() {
     var s = screens[current];
-    var answered = ['grow','stage','success','block','want'].filter(function(k){ return intake[k]; }).length;
+    var answered = ['grow','dreamText','deeperText','block'].filter(function(k){ return intake[k]; }).length;
     document.getElementById('progressFill').style.width = (answered / ANSWERABLE * 100) + '%';
     var count = document.getElementById('stepCount');
     count.textContent = s.answerable ? (Math.min(answered + 1, ANSWERABLE)) + ' / ' + ANSWERABLE : '';
@@ -1220,17 +1293,16 @@
     var pw = recommendPathway(topBlock);
 
     var payload = {
-      version: 'exponential-you-v2',
+      version: 'exponential-you-v3',
       firstName: firstName,
       email: emailVal,
       consent: consent,
       submittedAt: new Date().toISOString(),
       grow: intake.grow,
-      stage: intake.stage,
-      success: intake.success,
-      successLabel: intake.successLabel,
+      dreamText: intake.dreamText,
+      deeperText: intake.deeperText,
+      themes: intake.themes,
       block: { id: topBlock.id, name: topBlock.name },
-      want: intake.want,
       recommendedPathway: pw.key,
       identity: identityFor(pw.key, intake.grow),
       utm: {
