@@ -465,8 +465,6 @@
       text: '"I saved over $10–15K almost immediately. The program paid for itself multiple times over on that alone."' },
     mariana:  { name: 'Mariana Cassimiro', sub: 'Founder · Coimbra, Portugal', quest: 'Entrepreneurship Mastery', photo: PH + 'f-mariana.jpg',
       text: '17 years at Goldman Sachs, Executive Director. "Six months ago I had a career. Now I have a business."' },
-    camille:  { name: 'Camille', sub: 'Business Owner · Fort Collins, US', quest: 'Lifebook Online', photo: PH + 'f-camille.jpg',
-      text: 'During Lifebook she started 3 new businesses, dropped 45 lbs, and rekindled her marriage — in one season. Every area moved at once.' },
     jamil:    { name: 'Jamil Damji', sub: 'Founder, KeyGlee · Phoenix, US', quest: 'The 6 Phase Meditation', photo: PH + 'f-jamil.jpg',
       text: '"The most powerful 20 minutes someone can spend. I can see tangible results in my life — from my relationships to my business."' },
     tomas:    { name: 'Tomáš Filip', sub: 'Startup Founder · Brno, Czechia', quest: 'The 6 Phase Meditation', photo: PH + 'f-tomas.jpg',
@@ -519,8 +517,8 @@
       1:  { heading: 'Founders who fixed the engine first',        stories: [S.emilian, S.kat, S.charlton] },
       7:  { heading: 'Founders who upgraded the operating system', stories: [S.nora, S.audrey, S.chrisj] },
       16: { heading: 'Founders who stopped being the bottleneck',  stories: [S.peterk, S.charu, S.mariana] },
-      22: { heading: 'Founders who fixed the life it all runs on', stories: [S.camille, S.jamil, S.tomas] },
-      wall: [S.nora, S.alexe, S.audrey, S.charu, S.camille, S.emilian]
+      22: { heading: 'Founders who fixed the life it all runs on', stories: [S.melissak, S.jamil, S.tomas] },
+      wall: [S.nora, S.alexe, S.audrey, S.charu, S.holly, S.emilian]
     },
     career: {
       1:  { heading: 'Professionals who fixed the engine first',   stories: [S.andrew, S.kat, S.vincent] },
@@ -533,15 +531,15 @@
       1:  { heading: 'Creators who fixed the engine first',        stories: [S.andrew, S.kat, S.vincent] },
       7:  { heading: 'Creators who upgraded the inner OS',         stories: [S.cathy, S.chrisj, S.mikwan] },
       16: { heading: 'Creators who built real leverage',           stories: [S.elizabeth, S.jill, S.andra] },
-      22: { heading: 'Creators who fixed the life it all runs on', stories: [S.camille, S.jamil, S.tomas] },
-      wall: [S.cathy, S.elizabeth, S.mikwan, S.chrisj, S.jill, S.camille]
+      22: { heading: 'Creators who fixed the life it all runs on', stories: [S.holly, S.jamil, S.tomas] },
+      wall: [S.cathy, S.elizabeth, S.mikwan, S.chrisj, S.jill, S.melissak]
     },
     self: {
       1:  { heading: 'People who fixed the engine first',          stories: [S.vincent, S.kat, S.andrew] },
       7:  { heading: 'People who upgraded the inner OS',           stories: [S.anthon, S.maribel, S.lavinia] },
       16: { heading: 'People who built real leverage',             stories: [S.stephanie, S.pete, S.jennifer] },
-      22: { heading: 'People who fixed the life it all runs on',   stories: [S.camille, S.jamil, S.chang] },
-      wall: [S.camille, S.jamil, S.mfon, S.stephanie, S.anthon, S.chang]
+      22: { heading: 'People who fixed the life it all runs on',   stories: [S.holly, S.jamil, S.chang] },
+      wall: [S.holly, S.jamil, S.mfon, S.stephanie, S.anthon, S.chang]
     }
   };
   function proofBranch() {
@@ -956,6 +954,7 @@
 
   screens.push({ id: 'stage', answerable: true, build: function(root) {
     var set = STAGE_SETS[intake.grow] || STAGE_SETS.self;
+    root.appendChild(el('<div class="q-eyebrow">Calibrating your starting point</div>'));
     root.appendChild(el('<h2 class="q-title">' + set.title + '</h2>'));
     root.appendChild(el('<p class="q-sub">' + set.sub + '</p>'));
     root.appendChild(optionMenu(set.opts.map(function(s) {
@@ -966,6 +965,7 @@
   // ── Q3: what success looks like (their words — mirrored back on results) ──
   screens.push({ id: 'success', answerable: true, build: function(root) {
     var set = SUCCESS_SETS[intake.grow === 'work' ? (intake.sub || 'biz') : intake.grow] || SUCCESS_SETS.self;
+    root.appendChild(el('<div class="q-eyebrow">Setting your destination</div>'));
     root.appendChild(el('<h2 class="q-title">' + set.title + '</h2>'));
     root.appendChild(el('<p class="q-sub">' + set.sub + '</p>'));
     root.appendChild(optionMenu(set.opts.map(function(s) {
@@ -975,6 +975,7 @@
 
   // ── Q4: the one thing most in the way (→ block id → Phase-1 program) ──
   screens.push({ id: 'block', answerable: true, build: function(root) {
+    root.appendChild(el('<div class="q-eyebrow">The one that decides everything</div>'));
     root.appendChild(el('<h2 class="q-title">And what\'s really standing between you and that?</h2>'));
     root.appendChild(el('<p class="q-sub">Be honest — not the polite answer, the real one. This decides where your pathway starts.</p>'));
     root.appendChild(optionMenu(BLOCK_OPTS.map(function(b) {
@@ -984,8 +985,9 @@
 
   // ── Q5: modality — how they grow best (Mind vs Mystic tiebreak) ──
   screens.push({ id: 'modality', answerable: true, build: function(root) {
-    root.appendChild(el('<h2 class="q-title">Last one. When you\'ve actually grown in the past — what did it look like?</h2>'));
-    root.appendChild(el('<p class="q-sub">There\'s no wrong answer — this decides which flavor of pathway fits you.</p>'));
+    root.appendChild(el('<div class="q-eyebrow">Last question — this picks between two very different pathways</div>'));
+    root.appendChild(el('<h2 class="q-title">When you\'ve actually grown in the past — what did it look like?</h2>'));
+    root.appendChild(el('<p class="q-sub">There\'s no wrong answer — but the two answers lead somewhere very different.</p>'));
     root.appendChild(optionMenu(Object.keys(MODALITY).map(function(k) {
       return { emoji: MODALITY[k].emoji, label: MODALITY[k].label, value: k };
     }), function(o) { intake.modality = o.value; next(); }));
@@ -994,7 +996,7 @@
   // ── Loader ──
   screens.push({ id: 'loader', answerable: false, noBack: true, build: function(root) {
     var c = el('<div class="info-center"></div>');
-    c.appendChild(el('<h2 class="q-title">Matching your pathway…</h2>'));
+    c.appendChild(el('<h2 class="q-title">Building your identity map…</h2>'));
     c.appendChild(el('<div class="loader-pct" id="loaderPct">0%</div>'));
     c.appendChild(el('<div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>'));
     var steps = el('<div class="loader-steps"></div>');
@@ -1024,10 +1026,16 @@
 
   // ── Gate ──
   screens.push({ id: 'gate', answerable: false, noBack: true, build: function(root) {
+    var tb = topBlockPick();
+    root.appendChild(el('<div class="q-eyebrow">Analysis complete</div>'));
+    root.appendChild(el('<div class="diag-card" style="margin-bottom:1.25rem;">' +
+      '<div style="display:flex; align-items:flex-start; gap:0.625rem; margin-bottom:0.625rem;"><span>✅</span><span>Who you\'ve been running as: <b>' + stuckIdentity(tb.id) + '</b></span></div>' +
+      '<div style="display:flex; align-items:flex-start; gap:0.625rem; margin-bottom:0.625rem; color:var(--mv-text-subtle);"><span>🔒</span><span>Who you\'re becoming — your new identity, named</span></div>' +
+      '<div style="display:flex; align-items:flex-start; gap:0.625rem; color:var(--mv-text-subtle);"><span>🔒</span><span>The ONE pathway (of 6) that bridges the two — and your first 12 weeks on it</span></div>' +
+      '</div>'));
     var card = el('<div class="gate-card"></div>');
-    card.appendChild(el('<div class="q-eyebrow">Your identity map is ready</div>'));
-    card.appendChild(el('<h2 class="q-title" style="margin-bottom:0.75rem;">See who you\'re being — and who you\'re becoming</h2>'));
-    card.appendChild(el('<p class="q-sub" style="margin-bottom:1.5rem;">Enter your details to unlock it — we\'ll also send a copy to your inbox so you can come back to it anytime.</p>'));
+    card.appendChild(el('<h2 class="q-title" style="margin-bottom:0.75rem;">Unlock who you\'re becoming</h2>'));
+    card.appendChild(el('<p class="q-sub" style="margin-bottom:1.5rem;">You\'ve just met who you\'ve been. Enter your details to meet who you\'re becoming — and the one pathway that takes you there. We\'ll send a copy to your inbox too.</p>'));
 
     var form = el('<form id="leadForm" novalidate></form>');
     form.innerHTML =
