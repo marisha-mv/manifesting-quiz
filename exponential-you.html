@@ -1250,7 +1250,7 @@
       var thumb = assets.cover ? '<img class="thumb" src="' + assets.cover + '" alt="' + p.quest + '" loading="lazy" />' : '';
       stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + p.quest + '<small>Phase ' + (i + 1) + ' · ' + p.stage + '</small></span><span class="vl">$349 value</span></div>';
     });
-    stackRows += '<div class="stack-row"><span class="nm">The full ' + pw.name.replace(/^The /, '') + ' pathway<small>' + pw.count + ' programs, sequenced — yours from day one</small></span><span class="vl">included</span></div>';
+    stackRows += '<div class="stack-row"><span class="nm">The full ' + pw.name.replace(/^The /, '') + ' pathway<small>Plus ' + pw.count + ' programs to become the best version of you</small></span><span class="vl">included</span></div>';
     root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your pathway</div><div class="stack-body">' +
       stackRows +
       '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,047+</span><span class="now">$199/yr</span></span></div>' +
