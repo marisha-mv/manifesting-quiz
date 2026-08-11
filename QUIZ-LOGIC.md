@@ -1,106 +1,102 @@
-# The Exponential You Assessment — Quiz Logic Spec
+# The Exponential You Assessment — Quiz Logic Spec (v2, 5-question engine)
 
 Source of truth: `exponential-you.html` (single file, all logic inline JS, no dependencies).
 Live: https://marisha-mv.github.io/manifesting-quiz/exponential-you.html
 
+> **v2 (Aug 2026):** cut from 34 answerable steps to **5 questions**. Two goals only:
+> (A) capture what transformation/success means to them in their own words, and
+> (B) route them to a pathway and hand them an **identity** — fast, so nothing delays
+> the Mindvalley signup. The 30-question scoring engine, section screens, and bridge
+> screen were removed. (A sibling page, `mv-quiz.html`, explores the same 5Q identity
+> format across all 6 pathways.)
+
 ## 1. High-level model
 
-**One engine, four branches.** The first question ("What are you trying to grow?") selects a branch — `biz`, `career`, `craft`, or `self`. The branch never changes the scoring; it changes:
+**One engine, four branches.** Q1 ("What are you trying to grow?") selects a branch — `biz`, `career`, `craft`, or `self`. The branch changes question wording, proof casting, the default pathway, and the identity noun.
 
-- the wording of the stage question and ~14 of the 30 scenario questions
-- which real student stories are shown as proof (casting)
-- the **default pathway** recommended at the end
+There is **no scoring**. Q4 is a single self-diagnosis pick that maps directly onto the original 10-bottleneck model (block id → Phase-1 program via `PATHWAY_MAPS`).
 
-The diagnosis itself is universal: **10 bottlenecks** grouped into **4 systems**:
+## 2. The 5 questions (in order)
 
-| System | Bottlenecks (id) |
-|---|---|
-| The Engine · Energy | 1 Running on Fumes · 2 The Recovery Debt |
-| The OS · Psychology | 3 The Identity Ceiling · 4 The Impostor Loop · 5 Scarcity OS |
-| The Multiplier · Leverage | 6 The Control Trap · 7 Lone Wolf Syndrome |
-| The Compass · Vision & Life | 8 The Drift · 9 The Shiny Object Cycle · 10 The Deferred Life |
+| # | id | Question | Feeds |
+|---|----|----------|-------|
+| 1 | `grow` | What are you trying to grow? (biz / career / craft / self) | branch → default pathway + identity noun |
+| 2 | `stage` | Branch-specific stage (revenue band / career level / audience size / years in) | diagnosis copy (`stagePhrase`), proof casting |
+| 3 | `success` | "Fast-forward 12 months. It worked. What changed?" — 4 branch-specific success pictures | **Goal A**: label mirrored verbatim in a quote card; phrase woven into diagnosis |
+| 4 | `block` | "And what's really standing between you and that?" — 6 options → block ids **1, 3, 5, 6, 9, 10** | energy override (id 1 → Ageless Body), Phase-1 program, diagnosis |
+| 5 | `want` | "When you get there — what does it actually give you?" (scale / health / family / think) | diagnosis copy |
 
-## 2. Screen flow (in order)
+Progress bar counts 5 answerable steps. Back button works on Q2–Q5.
 
-1. **Intake (4 answerable screens):** `grow` (branch select) → `stage` (branch-specific wording, e.g. revenue bands for biz, audience size for craft) → `hours`/week → `want` (where 10 reclaimed hours would go). These 4 personalize copy only — they are **not scored**.
-2. **Four sections**, one per system. Each section = 1 info/education screen → **6 scenario questions** → 1 social-proof screen (3 real student stories, cast per branch from the `PROOF` table).
-3. **Loader** — cosmetic 5.5s "Building your Bottleneck Profile" animation. No computation happens here.
-4. **Email gate** — first name + email + consent checkbox (consent NOT required to proceed). Submits the lead payload, then advances regardless of network result.
-5. **Results** — diagnosis screen.
-6. **Bridge** — "why working harder hasn't fixed it" persuasion screen.
-7. **Plan** — pathway recommendation + 12-week curriculum + membership offer + checkout.
+## 3. Flow after Q5
 
-Progress bar counts 34 answerable steps (4 intake + 30 questions). Back button works everywhere except loader/gate/results/bridge/plan.
+1. **Loader** — cosmetic ~1.6s ("Matching your pathway…", 4 steps ending in "Naming who you're becoming").
+2. **Email gate** — first name + email + optional consent. "Reveal my pathway". Submits lead payload, advances regardless of network result.
+3. **One merged screen** (`plan`) — identity reveal → their-own-words quote → diagnosis → bottleneck proof story → divergence chart → 12-week plan → offer stack → tiers → CTA → guarantee → results wall → exit ramp. No intermediate results/bridge screens: nothing between the reveal and checkout.
 
-## 3. Scoring
-
-- 30 scenario questions, every answer has a value **1–5** (1 = healthy, 5 = severe). Emoji/label order always presents healthiest first.
-- Each bottleneck owns exactly 3 consecutive questions: block *n* ← questions `3n−2 … 3n` (block 1 = Q1–3, block 2 = Q4–6, … block 10 = Q28–30).
-- **Block score = sum of its 3 answers → range 3–15.** No weighting, no branch adjustment.
-- Blocks are sorted by score descending. `topBlock` = highest score. Ties resolve by array order, i.e. **lower block id wins** (energy beats psychology beats leverage beats compass).
-- Severity meter on results = `score / 15` as a percentage.
-
-## 4. Pathway recommendation
+## 4. Pathway + identity
 
 ```
-if topBlock.id ∈ {1, 2}  →  Ageless Body        // energy override: "you can't grow anything on a dead battery"
-else                     →  branch default:
-   biz    → The Exponential Entrepreneur (26 programs)
+if block.id ∈ {1, 2}  →  Ageless Body          // energy override
+else                  →  branch default:
+   biz    → The Exponential Entrepreneur
    career → The Exponential Entrepreneur
-   craft  → The Authority (14)
-   self   → The Extraordinary Mind (24)
+   craft  → The Authority
+   self   → The Extraordinary Mind
 ```
 
-So there are only 4 possible pathway outcomes, and Ageless Body is reachable from any branch (only via the energy override).
+Identity = `identityFor(pathway, grow)` with noun map biz→Founder, career→Leader, craft→Creator, self→Human:
+
+- `ee` → **The Exponential {noun}**
+- `auth` → **The Emerging Authority**
+- `mind` → **The Extraordinary Mind**
+- `body` → **The Recharged {noun}**
+
+Each pathway has an `IDENTITY_CREED` one-liner shown under the identity name.
 
 ## 5. The 12-week plan (3 phases)
 
-- **Phase 1 = the program mapped to the user's #1 bottleneck** inside the recommended pathway, from `PATHWAY_MAPS[pathway][topBlockId]` — a 10-row lookup per pathway (every program verified in-pathway against the canonical pathway Airtable, July 2026). One override: **career branch + EE pathway + bottleneck 6 (Control Trap)** → Ultimate Leadership (Ferrazzi) instead of Scale Your Business.
-- **Phases 2–3 = the pathway's fixed flagship arc** (`PATHWAY_ARCS[pathway].p2/.p3`). Career-on-EE uses a separate `ee_career` arc (Vivid Vision → The Transformational Leader).
-- **Dedup rule:** if the Phase-1 program already occupies an arc slot, that slot pulls the next program from the pathway's ordered `backups` list, so the 3 phases are always distinct.
+Unchanged from v1 except Phase 1 is keyed off the **picked** block id (not a score):
 
-## 6. Results-page personalization
+- **Phase 1** = `PATHWAY_MAPS[pathway][block.id]` (career+EE+block 6 → Ultimate Leadership override still applies).
+- **Phases 2–3** = the pathway's flagship arc (`PATHWAY_ARCS`), `ee_career` variant for career-on-EE, dedup via `backups`.
 
-- Diagnosis card interpolates intake phrases: what they're growing, stage phrase, hours phrase, want phrase + top block score/desc.
-- **"Your own answer" quote card:** finds the highest-scoring question inside the top block; if that answer ≥ 4, replays the exact question + their chosen answer label back at them.
-- Proof story next to the diagnosis: the story attached to the Phase-1 program (`questAssets[quest].proof`) if one exists, else the first story of the branch's results wall.
-- Shows top-3 bottlenecks ranked (score /15), then all 10 as bars, then a "your top 3 span N of the 4 systems" chain insight.
+## 6. Offer, pricing, checkout — unchanged from v1
 
-## 7. Offer, pricing, checkout
+Monthly $49 / Yearly $199 ($100 off, default), checkout_link API prefetch with hardcoded fallbacks, UTM + ad-click-ID forwarding, 15-minute localStorage timer, 15-day guarantee tied to Phase-1 week 1, free-masterclass exit ramp.
 
-- Tiers: **Monthly $49** / **Yearly $199 (struck from $299, "$100 OFF", default-selected, per-day framing $0.55 vs $0.82)**.
-- Checkout: `secure.mindvalley.com` checkout_link API is prefetched when the plan screen mounts (`D7I02BYFN69URS4OQTEH` monthly, `DAR8S3TNQGFU4CWL7HP0` yearly); if the API doesn't resolve, hardcoded fallback flow URLs are used (charge plans `su|1446` / `su|1447`, yearly carries discount code `ORHPXJZIA`).
-- Appended params: `utm_source=quiz`, `utm_medium=exponential-you`, `utm_campaign=<pathway key>`, `utm_content=<tier>`, `utm_term=<top-bottleneck-slug>`; ad click IDs (`gclid/fbclid/gbraid/wbraid/ttclid`) passed through from the landing URL; inbound UTMs re-forwarded prefixed `src_*`.
-- **15-minute discount timer**, persisted in `localStorage` (key `mv_expyou_quiz_discount_expiry`, resets after 24h). At 0:00 it does NOT remove the discount — copy flips to "your $100 discount is still being held."
-- Guarantee framing: 15-day money-back tied to doing week 1 of their Phase-1 program.
-- **Exit ramp:** free masterclass link per pathway (Be Extraordinary masterclass for ee/auth/mind, 10X masterclass for body), tagged `utm_content=exit-ramp`.
-
-## 8. Lead capture payload
+## 7. Lead capture payload (v2)
 
 `POST /api/submit-lead` (relative URL, `keepalive: true`, silent on failure):
 
 ```json
 {
-  "version": "exponential-you-v1",
+  "version": "exponential-you-v2",
   "firstName": "...", "email": "...", "consent": true,
   "submittedAt": "ISO-8601",
   "grow": "biz|career|craft|self",
-  "stage": "pre|s1|s2|s3", "hours": "u40|h50|h70|h99",
+  "stage": "pre|s1|s2|s3",
+  "success": "growth|freedom|status|whole",
+  "successLabel": "their exact chosen wording",
+  "block": { "id": 6, "name": "The Control Trap" },
   "want": "scale|health|family|think",
   "recommendedPathway": "ee|auth|mind|body",
-  "topBlocks": [{ "id": 1, "name": "...", "score": 13 }],
-  "allScores": [ /* all 10 */ ],
-  "rawAnswers": { "1": 4, "...": "..." },
+  "identity": "The Exponential Founder",
   "utm": { "source": "...", "medium": "...", "campaign": "...", "term": "...", "content": "..." },
   "referrer": "...", "userAgent": "..."
 }
 ```
 
-⚠️ On GitHub Pages there is no backend, so this endpoint 404s silently — leads are currently **not** captured (known open blocker). The pathway recommendation is computed at gate-submit time and included in the payload, so the CRM gets the full diagnosis without re-deriving it.
+⚠️ On GitHub Pages there is no backend, so this endpoint 404s silently — leads are currently **not** captured (known open blocker, unchanged). No analytics on the page either (blocker #2).
 
-## 9. Known quirks (as of commit `9113c1f`)
+## 8. v1 quirks resolved in v2
 
-1. **Dead branch in pathway copy:** the plan screen checks `pw.key === 'lon'` to show the energy-override explanation, but the energy pathway's key is `body` — so the energy-specific "why this pathway" copy never renders; the generic version shows instead. One-line fix.
-2. **Dead fallback:** `FREE_CLASS[pw.key] || FREE_CLASS.man` — the `man` key doesn't exist, but `pw.key` is always valid, so it's unreachable.
-3. Consent checkbox is optional by design — unchecked leads still submit with `consent: false`.
-4. All stories are real, sourced from stories.mindvalley.com; photos self-hosted in `photos/`, with an initials-avatar fallback on image error.
+1. `pw.key === 'lon'` dead branch — gone (the whole pwWhy block was replaced by the identity card).
+2. `FREE_CLASS.man` dead fallback — now `FREE_CLASS.mind`.
+3. "Start my **The** Exponential Entrepreneur pathway" CTA — now strips the leading "The".
+4. Consent checkbox still optional by design; unchecked leads submit with `consent: false`.
+5. All stories remain real (stories.mindvalley.com), photos self-hosted with initials fallback.
+
+## 9. Data kept but currently unreferenced
+
+`blocks` entries 2, 4, 7, 8 (Recovery Debt, Impostor Loop, Lone Wolf, The Drift) are not offered in Q4 but remain in `blocks`/`PATHWAY_MAPS` so Q4 options can be re-cast freely. The per-section `PROOF` castings (keys 1/7/16/22) are still used to pick the diagnosis proof story via `systemProofKey(block.id)`.
