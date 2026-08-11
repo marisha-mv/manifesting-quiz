@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Exponential You Assessment — Mindvalley</title>
-  <meta name="description" content="Whatever you're growing — a business, a career, a craft, or yourself — it can only grow as fast as you do. 5 questions, 60 seconds: your pathway, your #1 bottleneck, and who you're becoming." />
+  <meta name="description" content="Whatever you're growing — a business, a career, an audience, or yourself — it can only grow as fast as you do. 5 questions, 60 seconds: your pathway, your #1 bottleneck, and who you're becoming." />
   <meta name="theme-color" content="#7a12d4" />
 
   <!-- Open Graph -->
@@ -263,7 +263,7 @@
   var GROW = {
     biz:    { emoji: '🚀', label: 'My business',           noun: 'your business',            pathway: 'ee' },
     career: { emoji: '💼', label: 'My career',             noun: 'your career',              pathway: 'ee' },
-    craft:  { emoji: '🎤', label: 'My craft & audience',   noun: 'your craft and audience',  pathway: 'auth' },
+    craft:  { emoji: '🎤', label: 'My personal brand & audience', noun: 'your personal brand and audience', pathway: 'auth' },
     self:   { emoji: '🌱', label: 'Myself & my life',      noun: 'yourself and your life',   pathway: 'mind' }
   };
 
@@ -310,7 +310,7 @@
   var SUCCESS_SETS = {
     biz: {
       title: 'Fast-forward 12 months. It worked. What changed?',
-      sub: 'Pick the picture that pulls you the hardest — this is what your pathway gets pointed at.',
+      sub: 'Pick the one that pulls you hardest — your pathway gets built around it.',
       opts: [
         { k: 'growth',   emoji: '📈', label: 'Revenue doubled — without doubling my hours',                  phrase: 'revenue doubled, without doubling your hours' },
         { k: 'freedom',  emoji: '🤖', label: 'A business that runs and grows without me in every decision',  phrase: 'a business that runs and grows without you in every decision' },
@@ -319,7 +319,7 @@
     },
     career: {
       title: 'Fast-forward 12 months. It worked. What changed?',
-      sub: 'Pick the picture that pulls you the hardest — this is what your pathway gets pointed at.',
+      sub: 'Pick the one that pulls you hardest — your pathway gets built around it.',
       opts: [
         { k: 'growth',   emoji: '🏛️', label: 'The title and role I\'ve been circling for years',            phrase: 'the title and role you\'ve been circling for years' },
         { k: 'freedom',  emoji: '💰', label: 'Finally paid what I\'m actually worth',                        phrase: 'finally being paid what you\'re actually worth' },
@@ -328,7 +328,7 @@
     },
     craft: {
       title: 'Fast-forward 12 months. It worked. What changed?',
-      sub: 'Pick the picture that pulls you the hardest — this is what your pathway gets pointed at.',
+      sub: 'Pick the one that pulls you hardest — your pathway gets built around it.',
       opts: [
         { k: 'growth',   emoji: '🌟', label: 'An audience that grows every single week',                     phrase: 'an audience that grows every single week' },
         { k: 'freedom',  emoji: '💰', label: 'My craft paying me full-time',                                 phrase: 'your craft paying you full-time' },
@@ -337,7 +337,7 @@
     },
     self: {
       title: 'Fast-forward 12 months. It worked. What changed?',
-      sub: 'Pick the picture that pulls you the hardest — this is what your pathway gets pointed at.',
+      sub: 'Pick the one that pulls you hardest — your pathway gets built around it.',
       opts: [
         { k: 'growth',   emoji: '⚡', label: 'Waking up with energy and drive again',                        phrase: 'waking up with energy and drive again' },
         { k: 'freedom',  emoji: '🧠', label: 'Confidence that doesn\'t collapse under pressure',             phrase: 'confidence that doesn\'t collapse under pressure' },
@@ -351,15 +351,15 @@
   var BLOCK_OPTS = [
     { id: 1,  emoji: '🪫', label: 'My energy — I\'m running on fumes' },
     { id: 3,  emoji: '🪞', label: 'My own head — doubt, playing small, the inner ceiling' },
-    { id: 5,  emoji: '💸', label: 'Fear-based decisions — undercharging, under-asking, playing safe' },
-    { id: 6,  emoji: '🌪️', label: 'Everything routes through me — I can\'t step back' },
-    { id: 9,  emoji: '🐿️', label: 'Focus — too many directions, nothing compounds' },
+    { id: 5,  emoji: '💸', label: 'Fear runs my decisions — playing safe, settling, selling myself short' },
+    { id: 6,  emoji: '🌪️', label: 'Everything depends on me — I can never step back' },
+    { id: 9,  emoji: '🐿️', label: 'Focus — too many directions, nothing gets finished' },
     { id: 10, emoji: '⏳', label: 'My life is on hold until "it\'s done"' }
   ];
 
   /* Q5 — the deeper want */
   var WANTS = {
-    scale:  { emoji: '📈', label: 'Momentum — growth that finally compounds',      phrase: 'grow faster without burning out' },
+    scale:  { emoji: '📈', label: 'Momentum — growth that finally builds on itself', phrase: 'grow faster without burning out' },
     health: { emoji: '❤️‍🩹', label: 'My health and energy back',                     phrase: 'get your health and energy back' },
     family: { emoji: '👨‍👩‍👧', label: 'Real presence with the people I love',        phrase: 'be actually present with the people you love' },
     think:  { emoji: '🧠', label: 'Space to think clearly again',                  phrase: 'get space to think clearly again' }
@@ -389,10 +389,10 @@
     body: { key: 'body', emoji: '🧬', name: 'The Ageless Body',             count: 15, tag: 'Upgrade the body every other goal runs on.' }
   };
   var FREE_CLASS = {
-    ee:   { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
-    auth: { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
-    mind: { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
-    body: { url: 'https://www.mindvalley.com/10x/masterclass',              label: 'the free 10X body transformation masterclass' }
+    ee:   { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
+    auth: { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
+    mind: { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a masterclass with Mindvalley founder Vishen Lakhiani on breaking your inner ceiling' },
+    body: { url: 'https://www.mindvalley.com/10x/masterclass',              label: 'the 10X body transformation masterclass' }
   };
   function recommendPathway(topBlock) {
     // Energy-dominant diagnosis overrides: you can't grow anything on a dead battery.
@@ -848,7 +848,7 @@
   screens.push({ id: 'grow', answerable: true, build: function(root) {
     root.appendChild(el('<div class="q-eyebrow">The Exponential You Assessment</div>'));
     root.appendChild(el('<h1 class="q-title">What\'s Actually Capping Your Growth?</h1>'));
-    root.appendChild(el('<p class="q-sub">It\'s not your strategy. Whatever you\'re growing, it can only grow as fast as YOU do. 5 questions, about 60 seconds — and you\'ll know your exact Mindvalley pathway, and who you\'re becoming on it.</p>'));
+    root.appendChild(el('<p class="q-sub">It\'s not your strategy. Whatever you\'re growing, it can only grow as fast as YOU do. 5 questions, about 60 seconds — and you\'ll know your exact Mindvalley pathway — the program sequence built for what you\'re growing — and who you\'re becoming on it.</p>'));
     root.appendChild(el('<p class="q-sub" style="font-weight:600; color:var(--mv-text); margin-bottom:1rem;">What are you trying to grow right now?</p>'));
     root.appendChild(optionMenu(Object.keys(GROW).map(function(k) {
       return { emoji: GROW[k].emoji, label: GROW[k].label, value: k };
@@ -1031,7 +1031,7 @@
     root.appendChild(storyCard(wallFor()[0]));
 
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">Your first 12 weeks on the pathway</h3>'));
-    root.appendChild(el('<p class="q-sub">Phase 1 releases the bottleneck you named. Phases 2 and 3 compound it into the identity you just met.</p>'));
+    root.appendChild(el('<p class="q-sub">Phase 1 releases the bottleneck you named. Phases 2 and 3 build you into the identity you just met.</p>'));
     // Phase 1 releases their #1 bottleneck; Phases 2–3 follow the pathway's
     // flagship arc (with backups if Phase 1 already used an arc program).
     var arc = (pw.key === 'ee' && intake.grow === 'career') ? PATHWAY_ARCS.ee_career : PATHWAY_ARCS[pw.key];
@@ -1116,7 +1116,7 @@
     root.appendChild(tiersWrap);
 
     root.appendChild(el('<div class="info-stat-card" style="max-width:none; text-align:left; margin-bottom:1.25rem;">' +
-      '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your first 12 weeks release <b>' + topBlock.name + '</b> — but bottlenecks are chained: fix your energy and leverage gets easier; heal scarcity and your asks fix themselves. At <b>$199 with the $100 off</b>, yearly costs about 4 months at the monthly price. The other 8 months are free.</div>' +
+      '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your first 12 weeks release <b>' + topBlock.name + '</b> — but bottlenecks are chained: release the first, and the ones behind it start loosening too. At <b>$199 with the $100 off</b>, yearly costs about 4 months at the monthly price. The other 8 months are free.</div>' +
       '</div>'));
 
     var cta = el('<button type="button" class="btn-primary">Start my ' + pw.name + ' pathway →</button>');
