@@ -545,6 +545,8 @@
       text: 'Career changes within 1–2 weeks for him and his wife — and her meditation and yoga business surged.' },
     melissak: { name: 'Melissa Kerr', sub: 'Entrepreneur · Geneva, Switzerland', quest: 'Life Visioning Mastery', photo: PH + 'f-melissak.jpg',
       text: '"My business has never been more successful than last month since the launch two years ago."' },
+    dijana:   { name: 'Dijana Llugolli', sub: 'Success & Business Coach · Stockholm, Sweden', quest: 'Magnetic Charisma', photo: PH + 'f-dijana.jpg',
+      text: '"I not only learned a ton — it boosted my confidence even more. I feel it in every room I walk into."' },
     ivan:     { name: 'Ivan Garcia', sub: 'Educator · Lisbon, Portugal', quest: 'Magnetic Charisma', photo: null,
       text: '"It\'s almost impossible not to feel more charismatic after just a couple of lessons."' },
     davids:   { name: 'David Steinfeldt', sub: 'Mannheim, Germany', quest: 'Magnetic Charisma', photo: null,
@@ -567,7 +569,7 @@
      inside that pathway, so the testimonials always match the recommendation. */
   var PATHWAY_WALL = {
     ee:     [S.nora, S.alexe, S.audrey, S.charu, S.mariana, S.peterk],   // Entrepreneurship/Business Mastery, Money EQ
-    auth:   [S.ivan, S.patriciaw, S.davids, S.jackson],                  // Magnetic Charisma, Total Self-Confidence
+    auth:   [S.dijana, S.ivan, S.patriciaw, S.jackson],                 // Magnetic Charisma, Total Self-Confidence
     mind:   [S.padmaja, S.holly, S.cathy, S.jamil, S.sarah, S.melissak], // Be Extraordinary, 6 Phase, Uncompromised Life, Life Visioning
     mystic: [S.mikwan, S.pete, S.mfon, S.stephanie, S.chang],            // Art of Manifesting, Duality, Feng Shui
     conn:   [S.nardos, S.andreac, S.prem, S.clara],                      // Conscious Parenting, Calling in "The One"
@@ -1121,78 +1123,81 @@
   function domTheme() { return THEMES[intake.themes[0]] || THEMES.identity; }
   function topBlockPick() { return blocks.filter(function(b) { return b.id === intake.block; })[0] || blocks[0]; }
 
+  // ── Bridge: the persuasion arc (gap → why it matters → cost → why this is the fix) ──
+  screens.push({ id: 'bridge', answerable: false, noBack: true, build: function(root) {
+    var topBlock = topBlockPick();
+    var pw = recommendPathway(topBlock);
+    var identity = identityFor(pw.key, intake.grow);
+    var th = domTheme();
+    var dream = intake.dreamQuote || 'the life you just described';
+
+    // Aspiration: the best version of them
+    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', here\'s' : 'Here\'s') + ' the honest read</div>'));
+    root.appendChild(el('<div class="pathway-card">' +
+      '<div class="pw-eyebrow">The best version of you</div>' +
+      '<div class="pw-emoji">' + pw.emoji + '</div>' +
+      '<div class="pw-name">' + identity + '</div>' +
+      '<div class="pw-tag">' + IDENTITY_CREED[pw.key] + '</div>' +
+      '</div>'));
+
+    // Their own words
+    var qc = el('<div class="quote-card"></div>');
+    qc.appendChild(el('<div class="quote-label">In your words, a minute ago</div>'));
+    var qt = document.createElement('div'); qt.className = 'quote-text'; qt.textContent = '\u201C' + dream + '\u201D';
+    qc.appendChild(qt);
+    qc.appendChild(el('<div class="quote-verdict">That\'s not a wish. That\'s ' + identity + ', twelve months from now — if one thing changes.</div>'));
+    root.appendChild(qc);
+
+    // 1. THE GAP
+    root.appendChild(el('<div class="mini-heading">The gap</div>'));
+    var deeperLine = intake.deeperQuote ? ' Underneath it you said something truer: \u201C' + intake.deeperQuote + '\u201D — that\'s the real engine.' : '';
+    root.appendChild(el('<div class="diag-card">You\'re reaching for <b>' + th.reflect + '</b>.' + deeperLine + ' And standing between you and it is one thing — the one you named yourself: <b>' + topBlock.name + '</b>. ' + topBlock.desc + '</div>'));
+
+    // 2. WHY IT MATTERS
+    root.appendChild(el('<div class="mini-heading">Why this one thing decides everything</div>'));
+    root.appendChild(el('<div class="reframe"><b>' + topBlock.name + '</b> isn\'t one problem on a list — it\'s the keystone. Leave it in place and everything routes through it: your energy, your decisions, your relationships, your momentum all get taxed by the same thing. That\'s why working harder has never closed the gap — you\'ve been upgrading everything <b>except</b> the one piece holding the rest down.</div>'));
+
+    // 3. WHAT IT'S COSTING
+    root.appendChild(el('<div class="mini-heading">What another year of this costs</div>'));
+    root.appendChild(el('<div class="bridge-analogy"><div class="big">⏳</div><p>Picture 12 months from now and nothing changed. <b>' + dream + '</b> — still a someday. The gap doesn\'t sit still; it <b>compounds</b>. Every season <b>' + topBlock.name + '</b> stays active costs a little more than the last — in momentum, in energy, in the life you keep postponing. The most expensive thing here isn\'t a membership. It\'s another year as the version of you stuck behind it.</p></div>'));
+
+    var chart = el('<div class="chart-card"></div>');
+    chart.appendChild(el('<div class="chart-title">Two versions of the next 12 months</div>'));
+    chart.appendChild(el('<svg viewBox="0 0 400 190" width="100%" height="auto" role="img" aria-label="Two futures diverging after a 12-week reset"><defs><linearGradient id="expFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7a12d4" stop-opacity="0.22"/><stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/></linearGradient></defs><rect x="20" y="14" width="120" height="146" fill="#7a12d4" fill-opacity="0.05"/><line x1="140" y1="14" x2="140" y2="160" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4 4"/><text x="30" y="28" font-size="10" font-weight="700" fill="#7a12d4" font-family="sans-serif">YOUR 12-WEEK RESET</text><path d="M20,150 L380,128" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"/><text x="292" y="120" font-size="10" font-weight="600" fill="#9ca3af" font-family="sans-serif">If nothing changes</text><path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26 L380,160 L20,160 Z" fill="url(#expFill)"/><path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/><circle cx="140" cy="134" r="5" fill="#9333ea"/><circle cx="380" cy="26" r="6" fill="#7a12d4"/><text x="250" y="52" font-size="11" font-weight="700" fill="#7a12d4" font-family="sans-serif">The best version of you</text></svg>'));
+    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Week 12</span><span>Month 6</span><span>Month 12</span></div>'));
+    chart.appendChild(el('<p style="font-size:0.8125rem; line-height:1.5; color:var(--mv-text-muted); text-align:center; margin:0.875rem 0 0 0;">The two lines split inside the first 12 weeks — while <b style="color:var(--mv-purple);">' + topBlock.name + '</b> is releasing. Wait a quarter, and the same split just starts a quarter later.</p>'));
+    root.appendChild(chart);
+
+    // 4. WHY A PATHWAY IS THE FIX
+    root.appendChild(el('<div class="mini-heading">Why a pathway — not just another course</div>'));
+    root.appendChild(el('<div class="diag-card">What you want isn\'t a tactic away — it\'s an identity away. You don\'t need more information or more willpower; you need to become the person for whom <b>' + th.reflect + '</b> is simply normal. That shift doesn\'t happen from one hack — it happens in the right order, across every area at once. That\'s exactly what <b>' + pw.name + '</b> is: <b>' + pw.count + ' programs</b> sequenced so each unlocks the next — starting with the exact thing in your way, <b>' + topBlock.name + '</b>. Not random courses. A path from who you are now to <b>' + identity + '</b>.</div>'));
+
+    // Proof: someone who stood here and crossed it
+    var diagProg = questFor(topBlock.id, pw.key).quest;
+    var diagProof = questAssets[diagProg] && questAssets[diagProg].proof;
+    root.appendChild(el('<div class="mini-heading">Someone who stood exactly where you are</div>'));
+    root.appendChild(storyCard(diagProof || wallFor()[0]));
+
+    var btn = el('<button type="button" class="btn-primary" style="margin-top:1.75rem;">Show me my 12-week pathway →</button>');
+    btn.addEventListener('click', next);
+    root.appendChild(btn);
+  }});
+
   screens.push({ id: 'plan', answerable: false, noBack: true, build: function(root) {
     resolveCheckoutUrls();
     var topBlock = topBlockPick();
     var pw = recommendPathway(topBlock);
     var identity = identityFor(pw.key, intake.grow);
 
-    // 1. The identity reveal
-    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', meet' : 'Meet') + ' who you\'re becoming</div>'));
+    // Compact pathway header — the offer beat (persuasion already done on the bridge)
+    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', your' : 'Your') + ' pathway</div>'));
     root.appendChild(el('<div class="pathway-card">' +
-      '<div class="pw-eyebrow">Your Identity</div>' +
+      '<div class="pw-eyebrow">Your Pathway</div>' +
       '<div class="pw-emoji">' + pw.emoji + '</div>' +
-      '<div class="pw-name">' + identity + '</div>' +
-      '<div class="pw-tag">' + IDENTITY_CREED[pw.key] + '</div>' +
-      '<div class="pw-why"><b>Your pathway: ' + pw.name + '</b> — ' + pw.count + ' programs, sequenced. ' + pw.tag + '</div>' +
+      '<div class="pw-name">' + pw.name.replace(/^The /, '') + '</div>' +
+      '<div class="pw-tag">' + pw.tag + '</div>' +
+      '<div class="pw-why"><b>' + pw.count + ' programs, sequenced</b> — the path from where you are now to <b>' + identity + '</b>. Here\'s exactly how the first 12 weeks go.</div>' +
       '</div>'));
-
-    // 2. Their dream — in their own words, quoted for real
-    var qc = el('<div class="quote-card"></div>');
-    qc.appendChild(el('<div class="quote-label">What you told me you actually want</div>'));
-    var qt = document.createElement('div'); qt.className = 'quote-text';
-    qt.textContent = '\u201C' + (intake.dreamQuote || 'to finally break through') + '\u201D';
-    qc.appendChild(qt);
-    qc.appendChild(el('<div class="quote-verdict">That\'s not a wish. That\'s ' + identity + ', twelve months from now.</div>'));
-    root.appendChild(qc);
-
-    // 3. The diagnosis — assembled from their own two answers
-    var th = domTheme();
-    var deeperLine = intake.deeperQuote ? ' And underneath it, you said something truer: \u201C' + intake.deeperQuote + '\u201D — that\'s the real engine.' : '';
-    root.appendChild(el('<div class="diag-card">You\'re growing <b>' + growNoun() + '</b>, and what you\'re really reaching for is <b>' + th.reflect + '</b>.' + deeperLine + ' Between you and that sits one bottleneck — the one you just pointed to yourself: <b>' + topBlock.name + '</b>. ' + topBlock.desc + '</div>'));
-
-    // 4. Proof from someone with that exact bottleneck
-    var diagProg = questFor(topBlock.id, pw.key).quest;
-    var diagProof = questAssets[diagProg] && questAssets[diagProg].proof;
-    if (diagProof) {
-      root.appendChild(el('<div class="mini-heading">Someone who had this exact bottleneck</div>'));
-      root.appendChild(storyCard(diagProof));
-    } else {
-      root.appendChild(el('<div class="mini-heading">Someone who broke through on this pathway</div>'));
-      root.appendChild(storyCard(wallFor()[0]));
-    }
-
-    var chart = el('<div class="chart-card"></div>');
-    chart.appendChild(el('<div class="chart-title">What happens to <b>' + growNoun() + '</b> when you upgrade the person running it</div>'));
-    chart.appendChild(el(
-      '<svg viewBox="0 0 400 190" width="100%" height="auto" role="img" aria-label="Two growth curves diverging after a 12-week reset">' +
-        '<defs><linearGradient id="expFill" x1="0" y1="0" x2="0" y2="1">' +
-          '<stop offset="0%" stop-color="#7a12d4" stop-opacity="0.22"/>' +
-          '<stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/>' +
-        '</linearGradient></defs>' +
-        // 12-week reset window
-        '<rect x="20" y="14" width="120" height="146" fill="#7a12d4" fill-opacity="0.05"/>' +
-        '<line x1="140" y1="14" x2="140" y2="160" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4 4"/>' +
-        '<text x="30" y="28" font-size="10" font-weight="700" fill="#7a12d4" font-family="sans-serif">YOUR 12-WEEK RESET</text>' +
-        // same-operator line (linear, barely rising)
-        '<path d="M20,150 L380,128" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"/>' +
-        '<text x="298" y="120" font-size="10" font-weight="600" fill="#9ca3af" font-family="sans-serif">Same you — linear</text>' +
-        // upgraded-operator curve (compounding after the reset)
-        '<path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26 L380,160 L20,160 Z" fill="url(#expFill)"/>' +
-        '<path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/>' +
-        '<circle cx="140" cy="134" r="5" fill="#9333ea"/>' +
-        '<circle cx="380" cy="26" r="6" fill="#7a12d4"/>' +
-        '<text x="255" y="52" font-size="11" font-weight="700" fill="#7a12d4" font-family="sans-serif">Exponential you</text>' +
-      '</svg>'
-    ));
-    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Week 12</span><span>Month 6</span><span>Month 12</span></div>'));
-    chart.appendChild(el('<p style="font-size:0.8125rem; line-height:1.5; color:var(--mv-text-muted); text-align:center; margin:0.875rem 0 0 0;">The lines split inside the first 12 weeks — while <b style="color:var(--mv-purple);">' + topBlock.name + '</b> is releasing. Wait a quarter, and the same split just starts a quarter later.</p>'));
-    root.appendChild(chart);
-
-    // The curve, in real life — personal growth converting into results
-    root.appendChild(el('<div class="mini-heading">The curve, in real life</div>'));
-    root.appendChild(storyCard(wallFor()[0]));
-
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">Your first 12 weeks on the pathway</h3>'));
     root.appendChild(el('<p class="q-sub">Phase 1 releases the bottleneck you named. Phases 2 and 3 compound it into the identity you just met.</p>'));
     // Phase 1 releases their #1 bottleneck; Phases 2–3 follow the pathway's
