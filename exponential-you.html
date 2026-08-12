@@ -407,12 +407,44 @@
     return scored.map(function(s) { return s.key; });
   }
   /* pull a clean, quotable snippet of what they typed */
+  /* Pull the most ASPIRATIONAL sentence they wrote — never the throat-clear
+     ("Honestly I'm exhausted") and never a bare complaint. Strips trailing
+     punctuation so it composes cleanly into other sentences. */
+  var CQ_POS = ['want','wish','dream','so i can','so that','be able','finally','free','freedom','present','my kid','my child','my son','my daughter','my family','my wife','my husband','my partner','love','more time','without','peace','happy','confiden','healthy','health','energy','abundance','aligned','known','impact','purpose','meaning','build','create','grow','strong','back again','be there'];
+  var CQ_NEGONLY = /^(honestly|so|basically|well|um+|i guess|i don'?t know|i'?m (so |really )?(exhausted|tired|burned? ?out|stuck|lost|struggling|done|drained|overwhelmed|unhappy|miserable|sad|not sure))\b[.!]?$/i;
   function cleanQuote(text) {
     var t = (text || '').replace(/\s+/g, ' ').trim();
     if (!t) return '';
-    var first = t.split(/(?<=[.!?])\s/)[0];
-    if (first.length > 150) first = first.slice(0, 147).replace(/\s+\S*$/, '') + '…';
-    return first.charAt(0).toUpperCase() + first.slice(1);
+    var parts = t.split(/(?<=[.!?])\s+/).map(function(x){ return x.trim(); }).filter(Boolean);
+    if (!parts.length) parts = [t];
+    function score(sen) {
+      var l = sen.toLowerCase(), sc = Math.min(sen.length, 120) / 120;
+      CQ_POS.forEach(function(w){ if (l.indexOf(w) !== -1) sc += 2; });
+      if (CQ_NEGONLY.test(sen.trim())) sc -= 6;
+      if (sen.length < 12) sc -= 2;
+      return sc;
+    }
+    var best = parts.slice().sort(function(a, b){ return score(b) - score(a); })[0] || t;
+    if (best.length > 170) best = best.slice(0, 167).replace(/\s+\S*$/, '') + '…';
+    best = best.replace(/[\s.,;:!?"“”]+$/, '');
+    return best.charAt(0).toUpperCase() + best.slice(1);
+  }
+  /* The emotional core underneath the stated goal (family, love, health,
+     purpose) — used to hook the close when it differs from the pathway focus. */
+  var CQ_CORE = [
+    { re: /\b(wife|husband|partner|spouse|my kids?|my child|children|my family|family again|marriage|loved ones)\b/, dom: 'love', phrase: 'being fully present with the people you love' },
+    { re: /\b(lonely|alone|find love|soulmate|intimacy|be loved)\b/, dom: 'love', phrase: 'the closeness you’ve been missing' },
+    { re: /\b(health|energy|exhaust|burn ?out|burned ?out|so tired|my body)\b/, dom: 'health', phrase: 'your health and energy back' },
+    { re: /\b(purpose|meaning|fulfil|calling|aligned|soul|why i)\b/, dom: 'spirit', phrase: 'a life that actually means something to you' },
+    { re: /\b(peace|calm|slow down|breathe|stop rushing)\b/, dom: 'calm', phrase: 'peace — not just more to do' }
+  ];
+  var CQ_PWDOM = { ee: 'work', auth: 'work', mind: 'mind', mystic: 'spirit', conn: 'love', body: 'health' };
+  function emotionalCore(pwKey) {
+    var t = ' ' + ((intake.dreamText || '') + ' ' + (intake.deeperText || '')).toLowerCase() + ' ';
+    for (var i = 0; i < CQ_CORE.length; i++) {
+      if (CQ_CORE[i].re.test(t) && CQ_CORE[i].dom !== CQ_PWDOM[pwKey]) return CQ_CORE[i].phrase;
+    }
+    return null;
   }
 
   /* The identity layer — who they're becoming on the pathway */
@@ -1232,7 +1264,9 @@
 
     root.appendChild(el('<div class="mini-heading">Imagine where this goes</div>'));
     root.appendChild(el('<div class="horizon"><div class="horizon-label">Your next 3 months</div><div class="horizon-text">' + st.m3 + '</div></div>'));
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">Your next 12 months</div><div class="horizon-text">' + st.m12 + ' And “' + dream + '”? By then it isn’t a someday — it’s just your life.</div></div>'));
+    var core = emotionalCore(pw.key);
+    var coreLine = core ? ' And the real prize underneath it all? <b>' + core.charAt(0).toUpperCase() + core.slice(1) + '</b> — that’s what this actually frees you for.' : '';
+    root.appendChild(el('<div class="horizon"><div class="horizon-label">Your next 12 months</div><div class="horizon-text">' + st.m12 + ' And “' + dream + '”? By then it isn’t a someday — it’s just your life.' + coreLine + '</div></div>'));
 
     var chart = el('<div class="chart-card" style="margin-top:1.25rem;"></div>');
     chart.appendChild(el('<div class="chart-title">Two versions of the next 12 months</div>'));
