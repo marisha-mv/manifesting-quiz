@@ -235,6 +235,7 @@
     .pathway-card .pw-why { font-size: 0.875rem; line-height: 1.55; color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 0.875rem; padding: 1rem 1.125rem; text-align: left; }
     .pathway-card .pw-why b { color: #fbbf24; }
 
+    .cost-card { background: #fff7f5; border: 1.5px solid #fecaca; border-left: 4px solid #ef4444; border-radius: 0.75rem; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6; color: var(--mv-text); text-align: left; }
     .ledger { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
     .ledger-col { flex: 1; border: 1.5px solid var(--mv-border); border-radius: 1rem; padding: 1rem 1rem; }
     .ledger-col.in { background: var(--mv-purple-50); border-color: var(--mv-purple-100); }
@@ -473,53 +474,65 @@
      the 3-month and 12-month transformation, and why THIS roadmap. Woven
      with the customer's own quiz answers on the bridge screen. */
   var PATHWAY_STORY = {
+    mystic: {
+      rootCause: 'you’ve been trying to think and force your way through what’s actually an energetic problem. You’re creating from a place of lack — gripping the outcome, half-disconnected from the intuition that’s meant to be guiding you. The missing piece was never more effort. It’s alignment.',
+      cost: 'And here’s what that’s quietly costing you: without alignment you can’t even see your next step clearly — what your business should really be about, which decisions to make now, which to walk away from. So you stay put. You feel too scattered to leap, and a quiet fear tells you it’s safer to wait. Every month those blocks stay in place, you decide from fear instead of knowing — and one scattered season becomes another. Until this is fixed, more hustle just creates more resistance.',
+      letGo: ['Forcing and gripping the outcome', 'The scarcity frequency underneath it', 'Overthinking what your intuition already knows'],
+      callIn: ['Alignment and flow', 'Sharp, clear intuition', 'Abundance that moves toward you'],
+      m3: 'You clear the energetic <b>and</b> money blocks. Most are fear-based — built young to protect you, old money wounds, a quiet “is it even safe to want this.” Until they’re cleared you self-sabotage without noticing: it’s the same reason results don’t stick at the gym, or the right partner never quite lands. This is where that pattern finally breaks.',
+      m6: 'With the blocks gone, manifestations start showing up. The right opportunity. The right partner or collaborator walking in. Money moving toward you instead of away. Not luck — the natural result of a cleared, aligned frequency.',
+      m12: 'Your business is established — because your decision-making got sharp and clear. You intuitively know what’s right: which idea, which partner, which room to be in and which to skip. Instead of 20 wrong turns to scale, you make 20 right ones. That’s the difference alignment buys you.',
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order your energy actually needs.'
+    },
     conn: {
-      rootCause: 'you\'ve been loving from a checklist — measuring people against a list instead of feeling for a real connection — and underneath it, a quiet belief that it isn\'t fully safe to be seen and to let someone all the way in. So you attract interest, but you never quite let it land.',
-      letGo: ['The checklist and the armour', 'The old heartbreak you still brace against', 'The patterns that keep love at arm\'s length'],
+      rootCause: 'you’ve been loving from a checklist — measuring people against a list instead of feeling for a real connection — and underneath it, a quiet belief that it isn’t fully safe to be seen and let someone all the way in. So you attract interest, but you never quite let it land.',
+      cost: 'And here’s what that’s costing you: as long as it doesn’t feel safe to be fully seen, you keep the good ones at arm’s length and settle for the ones who never get close enough to hurt you. The right person walks past a wall they can’t see. Every year the pattern repeats, it gets lonelier — and a little more convincing that this is just how it is for you. It isn’t. But it won’t change on its own.',
+      letGo: ['The checklist and the armour', 'The old heartbreak you still brace against', 'The patterns that keep love at arm’s length'],
       callIn: ['A partner who actually meets you', 'The safety to be fully seen', 'The intimacy you stopped expecting'],
-      m3: 'In your first 90 days you get crystal clear on what you\'re releasing and who you\'re calling in — and you start feeling safe in your own body again, so closeness stops registering as risk.',
-      m12: 'A year from now the question isn\'t whether you can <b>attract</b> love — it\'s how deep it goes. You\'ll know how to <b>hold</b> it: read the energy between you, repair instead of retreat, understand your own body, and build a bond that keeps getting closer instead of cooler.',
-      justify: 'That\'s why your roadmap opens with <b>Calling in \u201CThe One\u201D</b> — name what to release, call in what you want — then <b>The Energies of Love</b> for the real mechanics of deep connection, then the work that lets you keep it.'
+      m3: 'You get crystal clear on what you’re releasing and who you’re truly calling in — and you start feeling safe in your own body again, so closeness stops registering as a threat. The walls come down before anyone even arrives.',
+      m6: 'You start meeting people differently — and being met differently. The connections feel real instead of performed. If you’re already partnered, the distance closes; conversations that used to end in friction start ending in closeness.',
+      m12: 'The question isn’t whether you can <b>attract</b> love — it’s how deep it goes. You know how to <b>hold</b> it: read the energy between you, repair instead of retreat, understand your own needs and your partner’s, and build a bond that keeps getting closer instead of cooler.',
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the heart actually heals.'
     },
     ee: {
-      rootCause: 'everything still routes through you. You\'ve built something real, but it grows at the speed of your own hours — because somewhere you believe it only holds together if you\'re the one holding it. You\'re not short on effort. You\'re short on leverage.',
+      rootCause: 'everything still routes through you. You’ve built something real, but it grows at the speed of your own hours — because somewhere you believe it only holds together if you’re the one holding it. You’re not short on effort. You’re short on leverage.',
+      cost: 'And here’s what that’s costing you: as the founder-bottleneck, you can’t take on more without breaking, so growth is capped at your personal capacity — and you pay for it twice, once in ceilinged revenue and once in a life with no room in it. Every quarter you stay the bottleneck, the business gets more dependent on you, not less. The longer it goes, the harder it is to ever step out.',
       letGo: ['Being the bottleneck every call waits on', 'The identity of the indispensable operator', 'Trading more hours for more growth'],
       callIn: ['Systems that run without you', 'A team you actually trust', 'Growth that compounds while you sleep'],
-      m3: 'In your first 90 days you release the exact bottleneck you named and install the first systems — so the business stops depending on you being in every room.',
-      m12: 'A year from now it runs <b>and</b> grows without you in the middle of it. You work ON it, not IN it — and the ceiling you\'ve been stuck under quietly becomes your floor.',
-      justify: 'That\'s why your roadmap starts by releasing your bottleneck, then <b>Vivid Vision</b> to point the whole machine at one destination, then <b>Scale Your Business</b> for the systems that grow it beyond your hands.'
-    },
-    mystic: {
-      rootCause: 'you\'ve been trying to think and force your way through what\'s actually an energetic problem. You\'re manifesting from lack — gripping the outcome — and half-disconnected from the intuition that\'s meant to guide you. The missing piece was never more effort. It\'s alignment.',
-      letGo: ['Forcing and gripping the outcome', 'The scarcity frequency underneath it all', 'Overthinking what your intuition already knows'],
-      callIn: ['Alignment and flow', 'Trust in your own intuition', 'Abundance that moves toward you'],
-      m3: 'In your first 90 days you clear the energetic blocks and learn to manifest deliberately — one clear intention, held until it lands — instead of wishing and wondering.',
-      m12: 'A year from now you read and direct energy the way most people read words. You live in flow, your intuition leads, and reality starts meeting you halfway.',
-      justify: 'That\'s why your roadmap runs <b>Duality</b> (feel and direct your own energy), <b>The Art of Manifesting</b> (the daily mechanics), and <b>Unlimited Abundance</b> (clear what blocks it) — in that order.'
+      m3: 'You release the exact bottleneck you named and install the first systems — so the business stops depending on you being in every room, and you get your first real breathing space in months.',
+      m6: 'The machine starts moving without you in the middle of it. Decisions get made without your sign-off, the team steps up, and you finally have the space to work ON the business instead of drowning IN it.',
+      m12: 'It runs <b>and</b> grows without you at the centre. You work on vision and strategy, not firefighting — and the ceiling you’ve been stuck under quietly becomes your floor.',
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order a business actually outgrows its founder.'
     },
     mind: {
-      rootCause: 'your growth keeps stalling at the same edge — because that\'s exactly where your self-image ends. It was never a strategy problem; it\'s an identity ceiling. Old programming quietly decides what you\'ll ask for, attempt, and allow.',
-      letGo: ['The old self-image you\'ve outgrown', 'The limiting beliefs running on autopilot', 'Playing small where it counts'],
+      rootCause: 'your growth keeps stalling at the same edge — because that’s exactly where your self-image ends. It was never a strategy problem; it’s an identity ceiling. Old programming quietly decides what you’ll ask for, attempt, and allow.',
+      cost: 'And here’s what that’s costing you: an identity ceiling doesn’t just cap one area — it caps all of them at the same height. The money, the confidence, the relationships all stall at the level your self-image permits. You can push harder inside the box, but you’ll keep hitting the same wall, in a new disguise, every single year — until the box itself changes.',
+      letGo: ['The old self-image you’ve outgrown', 'The limiting beliefs running on autopilot', 'Playing small where it counts'],
       callIn: ['An identity your goals fit inside', 'Confidence that holds under pressure', 'Clarity on what your life is for'],
-      m3: 'In your first 90 days you rewire the ceiling itself — the self-image your life keeps bumping into — so the next level stops feeling like a stretch and starts feeling like home.',
-      m12: 'A year from now you operate as the fullest version of you: steady confidence, a mind that works for you, and a clear sense of where it\'s all going.',
-      justify: 'That\'s why your roadmap opens with <b>Be Extraordinary</b> to upgrade the identity, then <b>Life Visioning Mastery</b> to give it a destination, then <b>The 6 Phase Meditation</b> to lock it in daily.'
+      m3: 'You rewire the ceiling itself — the self-image your life keeps bumping into — so the next level stops feeling like a stretch and starts feeling like home. The old story loosens its grip.',
+      m6: 'You catch yourself doing things the old you wouldn’t: asking for more, taking the room, holding your ground. The confidence isn’t performed anymore — it’s just how you operate now.',
+      m12: 'You live as the fullest version of you: steady confidence, a mind that works for you instead of against you, and a clear sense of where it’s all going — with the identity to match.',
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the mind actually upgrades.'
     },
     body: {
-      rootCause: 'you\'ve been managing symptoms instead of rebuilding the machine. Every goal you have runs on an engine that\'s depleted — and no amount of willpower out-runs a body operating at 60%.',
-      letGo: ['Borrowed energy — the caffeine, the push-through', 'The burnout you\'ve quietly normalised', 'Putting your body dead last'],
+      rootCause: 'you’ve been managing symptoms instead of rebuilding the machine. Every goal you have runs on an engine that’s depleted — and no amount of willpower out-runs a body operating at 60%.',
+      cost: 'And here’s what that’s costing you: low energy is a tax on everything. Foggy decisions, shorter patience, ambition you can’t act on because the fuel isn’t there. You’re paying for it in your work, your mood, and your relationships — and left alone, a depleted engine doesn’t hold steady, it declines. The best time to rebuild it was years ago. The second best is now.',
+      letGo: ['Borrowed energy — the caffeine, the push-through', 'The burnout you’ve quietly normalised', 'Putting your body dead last'],
       callIn: ['Real, self-generated energy', 'Strength and vitality', 'The body every other goal runs on'],
-      m3: 'In your first 90 days you rebuild the engine — energy, sleep, strength — so you stop borrowing tomorrow\'s energy to get through today.',
-      m12: 'A year from now you wake up with the energy and strength of someone ten years younger — and everything else you want finally has a body that can carry it.',
-      justify: 'That\'s why your roadmap runs <b>The Longevity Blueprint</b>, <b>10X Fitness</b>, and <b>The Mastery of Sleep</b> — rebuild, strengthen, make it permanent.'
+      m3: 'You rebuild the engine — energy, sleep, strength — so you stop borrowing tomorrow’s energy to get through today. You wake up feeling like the day is yours instead of the other way around.',
+      m6: 'The change is visible and felt: steadier energy all day, real strength returning, the fog lifting. People start noticing before you say a word.',
+      m12: 'You wake up with the energy and strength of someone ten years younger — and everything else you want finally has a body that can carry it.',
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the body actually rebuilds.'
     },
     auth: {
-      rootCause: 'your craft is already good enough — but you shrink from being fully seen. The impostor loop caps your visibility, so the people who need exactly what you do never actually find you. It was never a talent gap. It\'s a being-seen gap.',
-      letGo: ['Hiding and waiting to feel \u201Cready\u201D', 'The impostor voice in the big rooms', 'Shrinking where it matters most'],
+      rootCause: 'your craft is already good enough — but you shrink from being fully seen. The impostor loop caps your visibility, so the people who need exactly what you do never actually find you. It was never a talent gap. It’s a being-seen gap.',
+      cost: 'And here’s what that’s costing you: every month you stay invisible, someone with half your skill and twice your visibility takes the audience, the clients, and the authority that should have been yours. Talent nobody sees doesn’t compound — it just quietly expires. The window doesn’t stay open forever.',
+      letGo: ['Hiding and waiting to feel “ready”', 'The impostor voice in the big rooms', 'Shrinking where it matters most'],
       callIn: ['Presence that fills a room', 'A platform and an audience', 'Recognition as the go-to'],
-      m3: 'In your first 90 days you build the confidence and the voice — so being seen stops feeling like exposure and starts feeling like your natural setting.',
-      m12: 'A year from now you\'re known for what you do: a real audience, a real platform, and the authority that turns your craft into income.',
-      justify: 'That\'s why your roadmap opens with <b>Total Self-Confidence</b>, then <b>Speak and Inspire</b> to own the room, then <b>The 7-Figure Creator</b> to turn the voice into a business.'
+      m3: 'You build the confidence and the voice — so being seen stops feeling like exposure and starts feeling like your natural setting. You start showing up instead of waiting to feel ready.',
+      m6: 'Your audience starts to grow and respond. The right people find you, share you, and start calling you the go-to — because for the first time you’re actually visible.',
+      m12: 'You’re known for what you do: a real audience, a real platform, and the authority that turns your craft into income.',
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order authority is actually built.'
     }
   };
 
@@ -665,7 +678,11 @@
     prem:     { name: 'Prem Glidden', sub: 'Relationship Coach · Delray Beach, US', quest: 'Calling in "The One"', photo: null,
       text: '"It gave me the tools I needed to manifest great love in my life."' },
     clara:    { name: 'Clara Stickney', sub: 'Musician · Portland, US', quest: 'Calling in "The One"', photo: null,
-      text: '"It helped me heal from a significant heartbreak — and led me to the most incredibly loving relationship."' }
+      text: '"It helped me heal from a significant heartbreak — and led me to the most incredibly loving relationship."' },
+    alison:   { name: 'Alison LeBruns', sub: 'Business Owner', quest: 'Unlimited Abundance', photo: null,
+      text: '"I have quadrupled my income."' },
+    juliep:   { name: 'Julie Faust Pippin', sub: 'Life Coach · San Luis Obispo, US', quest: 'The Art of Manifesting', photo: null,
+      text: '"I have manifested more than $70,000."' }
   };
 
   /* Proof is cast PER PATHWAY — every story comes from a quest that lives
@@ -674,18 +691,26 @@
     ee:     [S.nora, S.alexe, S.audrey, S.charu, S.mariana, S.peterk],   // Entrepreneurship/Business Mastery, Money EQ
     auth:   [S.dijana, S.ivan, S.patriciaw, S.jackson],                 // Magnetic Charisma, Total Self-Confidence
     mind:   [S.padmaja, S.holly, S.cathy, S.jamil, S.sarah, S.melissak], // Be Extraordinary, 6 Phase, Uncompromised Life, Life Visioning
-    mystic: [S.mikwan, S.pete, S.mfon, S.stephanie, S.chang],            // Art of Manifesting, Duality, Feng Shui
+    mystic: [S.mikwan, S.alison, S.pete, S.stephanie, S.mfon, S.chang],            // Art of Manifesting, Duality, Feng Shui
     conn:   [S.nardos, S.andreac, S.prem, S.clara],                      // Conscious Parenting, Calling in "The One"
     body:   [S.emilian, S.kat, S.charlton, S.andrew]                     // Longevity Blueprint, 10X Fitness
   };
   function currentPathwayKey() { return recommendPathway(topBlockPick()).key; }
   function wallFor() { return PATHWAY_WALL[currentPathwayKey()] || PATHWAY_WALL.mind; }
+  /* Distinct-by-quest, then distinct-by-person — avoids showing two identical
+     program badges in the same proof stack. */
+  function diverseWall(n) {
+    var wall = wallFor(), seenQ = {}, out = [];
+    wall.forEach(function(st) { if (!seenQ[st.quest]) { seenQ[st.quest] = 1; out.push(st); } });
+    wall.forEach(function(st) { if (out.indexOf(st) === -1) out.push(st); });
+    return out.slice(0, n || out.length);
+  }
 
   function initials(name) {
     return name.split(' ').filter(Boolean).map(function(w) { return w[0]; }).join('').replace(/[^A-Za-zÀ-ž]/g, '').slice(0, 2).toUpperCase();
   }
 
-  function storyCard(st) {
+  function storyCard(st, hideQuest) {
     var card = document.createElement('div');
     card.className = 'story-card';
     var stars = document.createElement('div'); stars.className = 'story-stars'; stars.textContent = '★★★★★';
@@ -710,8 +735,7 @@
     info.appendChild(nm); info.appendChild(sb); info.appendChild(vf);
     meta.appendChild(av); meta.appendChild(info);
     card.appendChild(meta);
-    var q = document.createElement('span'); q.className = 'story-quest'; q.textContent = st.quest;
-    card.appendChild(q);
+    if (!hideQuest) { var q = document.createElement('span'); q.className = 'story-quest'; q.textContent = st.quest; card.appendChild(q); }
     return card;
   }
 
@@ -987,6 +1011,68 @@
     }
   };
 
+  /* Per-program benefit language — speaks the customer's language on the
+     roadmap cards (falls back to the map's own `why` when absent). */
+  var PROGRAM_WHY = {
+    // Modern Mystic
+    'The Art of Manifesting': 'The scattered-idea cycle ends here. This is how you zero in on the <b>one</b> idea — the one business, the one path — that gets you to the income you want as fast as possible, instead of spreading yourself across ten.',
+    'Unlimited Abundance': 'This is the switch. Once you raise your frequency, the right connections, opportunities and deals start landing in your lap — instead of you chasing, hustling, and creating more resistance.',
+    'Duality': 'Jeffrey Allen trains you to actually feel and direct energy — so you start creating synchronicities on purpose. New opportunities keep flowing in naturally, without force.',
+    'Feng Shui for Life': 'Marie Diamond re-designs the energy of your space so your environment starts working <b>for</b> your goals instead of quietly against them.',
+    'Breathwork for Life': 'Niraj Naik’s breathwork gives you energy and calm on command — the fastest reset for a nervous system that’s been running on empty.',
+    'Success Magic': 'Marie Diamond’s daily success rituals keep the new frequency running on autopilot, so the momentum doesn’t fade after week three.',
+    'Sixth Sense Superpower': 'Sonia Choquette trains the intuition that keeps you on your own path — so you stop outsourcing decisions that only you can make.',
+    // Exponential Entrepreneur
+    'Scale Your Business to $1 Million': 'The systems-and-delegation playbook from the founder of EO — exactly how a business outgrows the founder’s hands, so it stops depending on you.',
+    'Vivid Vision': 'You write a 3-year picture so vivid it aligns every hire, decision and hour behind one destination — the end of reactive, scattered quarters.',
+    'Money EQ': 'Ken Honda heals the money wiring underneath your pricing, your fear, and your self-sabotage — so growth has nothing left working against it.',
+    'Healing Burnout': 'Dr. Romie Mushtaq’s protocol rebuilds the burned-out brain — you get your energy and clarity back before you scale anything on top of it.',
+    'The Power of Boldness': 'Naveen Jain’s operating system for thinking 10× bigger — because the size of your thinking sets the size of the plan.',
+    'Becoming Focused and Indistractable': 'Nir Eyal’s focus architecture ends the shiny-object cycle for good, so the whole plan stays on the rails.',
+    'Mastering Authentic Networking': 'Keith Ferrazzi on building the circle that carries you — so you stop making every hard call alone.',
+    // Extraordinary Mind
+    'Be Extraordinary': 'Vishen’s flagship upgrades the self-image your life keeps bumping into — the ceiling moves the moment the identity does.',
+    'Life Visioning Mastery': 'Michael Beckwith reconnects you to a vision with real pull — so your direction stops being reactive and starts being magnetic.',
+    'The 6 Phase Meditation': '20 minutes a day that measurably restores clarity and energy — the daily practice that locks the new identity in for good.',
+    'Uncompromised Life': 'Marisa Peer’s Rapid Transformational Therapy rewires the “not enough” story at the level it actually runs.',
+    // Ageless Body
+    'The Longevity Blueprint': 'Ben Greenfield rebuilds the physical engine — the energy, movement and routines that raise the ceiling on everything downstream.',
+    '10X Fitness': 'Real strength in two short workouts a week — proof your body can do what your old self-image said was impossible.',
+    'The Mastery of Sleep': 'America’s sleep doctor pays down your recovery debt — the highest-ROI eight hours on your calendar.',
+    // Expert & Authority
+    'Total Self-Confidence': 'Paul McKenna’s hypnosis-driven rebuild — the impostor voice can’t survive a nervous system that finally feels safe being seen.',
+    'Speak and Inspire': 'Lisa Nichols trains you to move any room — the exact skill every authority is built on.',
+    'The 7-Figure Creator': 'John Lee’s system turns your voice into audience and income — content, offers, and the business behind the brand.',
+    'Magnetic Charisma': 'Vanessa Van Edwards’ science of presence — how magnetic, memorable people are actually made.',
+    // Art of Connection
+    'Calling in "The One"': 'Katherine Woodward Thomas’ proven process: name exactly what to release and who to call in — and clear the patterns keeping the right person at a distance.',
+    'The Energies of Love': 'Donna Eden maps the real energy between you and the people you love — and how to shift it, in real time, when it matters most.',
+    'Conscious Parenting Mastery': 'Dr. Shefali turns control into connection — with your kids, and everyone you’ve been managing instead of truly meeting.',
+    'Quantum Love': 'Dr. Laura Berman rebuilds the connection patterns underneath every relationship you have — starting with how you show up.'
+  };
+  /* Per-program proof — a real student from THAT program, for the roadmap card. */
+  var PROGRAM_PROOF = {
+    'The Art of Manifesting': S.mikwan,
+    'Duality': S.mfon,
+    'Unlimited Abundance': S.alison,
+    'Feng Shui for Life': S.stephanie,
+    'Scale Your Business to $1 Million': S.peterk,
+    'Vivid Vision': S.nora,
+    'Money EQ': S.audrey,
+    'Be Extraordinary': S.padmaja,
+    'Life Visioning Mastery': S.melissak,
+    'The 6 Phase Meditation': S.jamil,
+    'Uncompromised Life': S.sarah,
+    'The Longevity Blueprint': S.emilian,
+    '10X Fitness': S.kat,
+    'Total Self-Confidence': S.patriciaw,
+    'Magnetic Charisma': S.dijana,
+    'Calling in "The One"': S.clara,
+    'Conscious Parenting Mastery': S.nardos,
+    'Quantum Love': S.andreac
+  };
+  function programWhy(quest, fallback) { return PROGRAM_WHY[quest] || fallback; }
+
   var tiers = [
     { key: 'monthly', name: 'Monthly', old: null,   now: '$49',  save: null,       perdayOld: null,    perday: '$1.63', note: null, badge: null },
     { key: 'yearly',  name: 'Yearly',  old: '$299', now: '$199', save: '$100 OFF', perdayOld: '$0.82', perday: '$0.55', note: null, badge: { text: 'Best Value', hot: true } }
@@ -1253,6 +1339,11 @@
     var deeperLine = intake.deeperQuote ? ' You half-said it yourself: “' + intake.deeperQuote + '.”' : '';
     root.appendChild(el('<div class="diag-card">Here’s the honest read, ' + nm + ': the reason it hasn’t happened yet isn’t effort, and it isn’t information. It’s this — ' + st.rootCause + deeperLine + '</div>'));
 
+    // What it's costing — the stakes
+    root.appendChild(el('<div class="mini-heading">What this is quietly costing you</div>'));
+    root.appendChild(el('<div class="cost-card">' + st.cost + '</div>'));
+
+    // What shifts
     root.appendChild(el('<div class="mini-heading">To become ' + identity + ', two things shift</div>'));
     var ledger = el('<div class="ledger"></div>');
     var go = el('<div class="ledger-col go"><div class="ledger-h">Let go of</div></div>');
@@ -1262,26 +1353,30 @@
     ledger.appendChild(go); ledger.appendChild(inn);
     root.appendChild(ledger);
 
-    root.appendChild(el('<div class="mini-heading">Imagine where this goes</div>'));
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">Your next 3 months</div><div class="horizon-text">' + st.m3 + '</div></div>'));
+    // The journey — three concrete milestones
+    root.appendChild(el('<div class="mini-heading">What the next 12 months actually look like</div>'));
+    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 3</div><div class="horizon-text">' + st.m3 + '</div></div>'));
+    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 6</div><div class="horizon-text">' + st.m6 + '</div></div>'));
     var core = emotionalCore(pw.key);
     var coreLine = core ? ' And the real prize underneath it all? <b>' + core.charAt(0).toUpperCase() + core.slice(1) + '</b> — that’s what this actually frees you for.' : '';
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">Your next 12 months</div><div class="horizon-text">' + st.m12 + ' And “' + dream + '”? By then it isn’t a someday — it’s just your life.' + coreLine + '</div></div>'));
+    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 12</div><div class="horizon-text">' + st.m12 + ' And “' + dream + '”? By then it isn’t a someday — it’s just your life.' + coreLine + '</div></div>'));
 
+    // The two-futures chart — now with a plain-language read
     var chart = el('<div class="chart-card" style="margin-top:1.25rem;"></div>');
-    chart.appendChild(el('<div class="chart-title">Two versions of the next 12 months</div>'));
-    chart.appendChild(el('<svg viewBox="0 0 400 190" width="100%" height="auto" role="img" aria-label="Two futures diverging"><defs><linearGradient id="expFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7a12d4" stop-opacity="0.22"/><stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/></linearGradient></defs><rect x="20" y="14" width="120" height="146" fill="#7a12d4" fill-opacity="0.05"/><line x1="140" y1="14" x2="140" y2="160" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4 4"/><text x="30" y="28" font-size="10" font-weight="700" fill="#7a12d4" font-family="sans-serif">YOUR FIRST 90 DAYS</text><path d="M20,150 L380,128" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"/><text x="290" y="120" font-size="10" font-weight="600" fill="#9ca3af" font-family="sans-serif">If nothing changes</text><path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26 L380,160 L20,160 Z" fill="url(#expFill)"/><path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/><circle cx="140" cy="134" r="5" fill="#9333ea"/><circle cx="380" cy="26" r="6" fill="#7a12d4"/><text x="238" y="52" font-size="11" font-weight="700" fill="#7a12d4" font-family="sans-serif">The best version of you</text></svg>'));
-    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>90 days</span><span>Month 6</span><span>Month 12</span></div>'));
-    chart.appendChild(el('<p style="font-size:0.8125rem; line-height:1.5; color:var(--mv-text-muted); text-align:center; margin:0.875rem 0 0 0;">The lines split inside the first 90 days — while <b style="color:var(--mv-purple);">' + topBlock.name + '</b> is releasing. Start a year from now, and you just begin this same curve a year later.</p>'));
+    chart.appendChild(el('<div class="chart-title">Both roads get there. One is years faster.</div>'));
+    chart.appendChild(el('<svg viewBox="0 0 400 205" width="100%" height="auto" role="img" aria-label="Two futures diverging"><defs><linearGradient id="expFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7a12d4" stop-opacity="0.22"/><stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/></linearGradient></defs><rect x="20" y="14" width="120" height="146" fill="#7a12d4" fill-opacity="0.05"/><line x1="140" y1="14" x2="140" y2="160" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4 4"/><text x="30" y="28" font-size="10" font-weight="700" fill="#7a12d4" font-family="sans-serif">FIRST 90 DAYS</text><path d="M20,150 L380,120" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"/><circle cx="380" cy="120" r="5" fill="#9ca3af"/><text x="150" y="140" font-size="10" font-weight="600" fill="#9ca3af" font-family="sans-serif">You, the slow way — still climbing</text><path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26 L380,160 L20,160 Z" fill="url(#expFill)"/><path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/><circle cx="140" cy="134" r="5" fill="#9333ea"/><circle cx="380" cy="26" r="6" fill="#7a12d4"/><text x="212" y="46" font-size="11" font-weight="700" fill="#7a12d4" font-family="sans-serif">You, aligned — everything shifts</text></svg>'));
+    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Month 3</span><span>Month 6</span><span>Month 12</span></div>'));
+    chart.appendChild(el('<p style="font-size:0.8125rem; line-height:1.55; color:var(--mv-text-muted); text-align:left; margin:0.875rem 0 0 0;"><b style="color:#9ca3af;">Grey:</b> keep going as you are — you might still get there, slowly, the hard way. <b style="color:var(--mv-purple);">Purple:</b> clear the block and align, and something shifts fundamentally — the curve bends inside the first 90 days and compounds from there.</p>'));
     root.appendChild(chart);
 
-    root.appendChild(el('<div class="mini-heading">Why this exact roadmap</div>'));
-    root.appendChild(el('<div class="diag-card">' + st.justify + ' Not random courses — <b>' + pw.name + '</b> is <b>' + pw.count + ' programs</b> sequenced so each one unlocks the next, beginning with the exact thing in your way: <b>' + topBlock.name + '</b>.</div>'));
+    // Proof — people who walked this exact path
+    root.appendChild(el('<div class="mini-heading">People who’ve walked this exact path</div>'));
+    var proofStack = el('<div class="stories-stack"></div>');
+    diverseWall(3).forEach(function(stx) { proofStack.appendChild(storyCard(stx)); });
+    root.appendChild(proofStack);
 
-    var diagProg = questFor(topBlock.id, pw.key).quest;
-    var diagProof = questAssets[diagProg] && questAssets[diagProg].proof;
-    root.appendChild(el('<div class="mini-heading">Someone who stood exactly where you are</div>'));
-    root.appendChild(storyCard(diagProof || wallFor()[0]));
+    // Transition into the offer
+    root.appendChild(el('<div class="reframe" style="margin-top:1.5rem;">' + st.transition + '</div>'));
 
     var btn = el('<button type="button" class="btn-primary" style="margin-top:1.75rem;">Show me my 12-week roadmap →</button>');
     btn.addEventListener('click', next);
@@ -1293,6 +1388,7 @@
     var topBlock = topBlockPick();
     var pw = recommendPathway(topBlock);
     var identity = identityFor(pw.key, intake.grow);
+    var dream = intake.dreamQuote || 'the life you described';
 
     // Compact pathway header — the offer beat (persuasion already done on the bridge)
     root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', your' : 'Your') + ' pathway</div>'));
@@ -1303,21 +1399,31 @@
       '<div class="pw-tag">' + pw.tag + '</div>' +
       '<div class="pw-why"><b>' + pw.count + ' programs, sequenced</b> — the path from where you are now to <b>' + identity + '</b>. Here\'s exactly how the first 12 weeks go.</div>' +
       '</div>'));
-    root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">Your first 12 weeks on the pathway</h3>'));
-    root.appendChild(el('<p class="q-sub">Phase 1 releases the bottleneck you named. Phases 2 and 3 compound it into the identity you just met.</p>'));
+    root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">The personalised curriculum we’ve mapped for you</h3>'));
+    root.appendChild(el('<p class="q-sub">Not random courses — a 12-week journey, each program chosen for exactly what you told us, and sequenced so each one unlocks the next. Here’s how each phase changes things:</p>'));
     // Phase 1 releases their #1 bottleneck; Phases 2–3 follow the pathway's
     // flagship arc (with backups if Phase 1 already used an arc program).
     var arc = PATHWAY_ARCS[pw.key];
     var p1m = questFor(topBlock.id, pw.key);
     var phases = [{ quest: p1m.quest, teacher: p1m.teacher, stage: 'Release your #1 bottleneck',
-      why: 'You told us <b>' + topBlock.name + '</b> is what\'s most in the way. ' + p1m.why }];
+      why: programWhy(p1m.quest, p1m.why) }];
     var backups = arc.backups.slice();
     [arc.p2, arc.p3].forEach(function(slot) {
       var pick = slot;
       while (phases.some(function(p) { return p.quest === pick.quest; }) && backups.length) pick = backups.shift();
-      phases.push({ quest: pick.quest, teacher: pick.teacher, stage: pick.stage || slot.stage, why: pick.why });
+      phases.push({ quest: pick.quest, teacher: pick.teacher, stage: pick.stage || slot.stage, why: programWhy(pick.quest, pick.why) });
     });
     var weekLabels = ['Weeks 1–4', 'Weeks 5–8', 'Weeks 9–12'];
+    var usedProof = {};
+    // Returns { st, exact }. exact=true only when the student did THIS program
+    // (so we keep the badge); otherwise a real in-pathway student, badge hidden.
+    function phaseProof(quest) {
+      var exact = PROGRAM_PROOF[quest] || (questAssets[quest] && questAssets[quest].proof);
+      if (exact && exact.quest === quest && !usedProof[exact.name]) { usedProof[exact.name] = 1; return { st: exact, exact: true }; }
+      var wall = wallFor();
+      for (var i = 0; i < wall.length; i++) { if (!usedProof[wall[i].name]) { usedProof[wall[i].name] = 1; return { st: wall[i], exact: false }; } }
+      return null;
+    }
     phases.forEach(function(p, i) {
       var assets = questAssets[p.quest] || {};
       var currCard = el('<div class="curr-card">' +
@@ -1332,8 +1438,9 @@
           '<div class="curr-why">' + p.why + '</div>' +
         '</div>' +
         '</div>');
-      if (assets.proof) {
-        var proofCard = storyCard(assets.proof);
+      var pr = phaseProof(p.quest);
+      if (pr) {
+        var proofCard = storyCard(pr.st, !pr.exact);
         proofCard.style.margin = '0 1.25rem 1.25rem 1.25rem';
         proofCard.style.background = 'var(--mv-purple-50)';
         currCard.appendChild(proofCard);
@@ -1392,7 +1499,9 @@
       '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your first 12 weeks release <b>' + topBlock.name + '</b> — but bottlenecks are chained: fix your energy and leverage gets easier; heal scarcity and your asks fix themselves. At <b>$199 with the $100 off</b>, yearly costs about 4 months at the monthly price. The other 8 months are free.</div>' +
       '</div>'));
 
-    var cta = el('<button type="button" class="btn-primary">Start my ' + pw.name.replace(/^The /, '') + ' pathway →</button>');
+    root.appendChild(el('<div class="reframe" style="text-align:center; margin:0.5rem 0 1.25rem 0;">' + (firstName ? firstName + ', are' : 'Are') + ' you ready to stop waiting and become <b>' + identity + '</b>? The version of you that “' + dream + '” is describing is one decision away. This is that decision.</div>'));
+
+    var cta = el('<button type="button" class="btn-primary">Yes — start my ' + pw.name.replace(/^The /, '') + ' journey →</button>');
     cta.addEventListener('click', function() {
       window.open(buildCheckoutUrl(selectedTier, topBlock.name, pw.key), '_blank', 'noopener');
     });
@@ -1407,7 +1516,7 @@
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem; margin-top:2.25rem;">What people on this pathway built</h3>'));
     root.appendChild(el('<p class="q-sub">Real people, real photos, real results — from 25,000+ verified stories at stories.mindvalley.com.</p>'));
     var wall = el('<div class="stories-stack"></div>');
-    wallFor().forEach(function(st) { wall.appendChild(storyCard(st)); });
+    diverseWall(6).forEach(function(st) { wall.appendChild(storyCard(st)); });
     root.appendChild(wall);
 
     var cta2 = el('<button type="button" class="btn-primary">Start my 12-week reset →</button>');
