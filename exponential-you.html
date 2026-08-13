@@ -54,7 +54,7 @@
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
 
     .q-eyebrow { font-weight: 600; font-size: 0.75rem; line-height: 1.25rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mv-purple); text-align: center; margin-bottom: 0.625rem; }
-    .q-title { font-weight: 600; font-size: 1.5rem; line-height: 1.9rem; text-align: center; margin: 0 0 0.625rem 0; letter-spacing: -0.02em; }
+    .q-title { font-weight: 600; font-size: 1.75rem; line-height: 2.1rem; text-align: center; margin: 0 0 0.625rem 0; letter-spacing: -0.025em; }
     .q-sub { font-size: 0.9375rem; line-height: 1.45rem; color: var(--mv-text-muted); text-align: center; margin: 0 auto 1.75rem auto; max-width: 24rem; }
 
     .opts { display: flex; flex-direction: column; gap: 0.625rem; }
@@ -228,14 +228,17 @@
     .sev-labels { display: flex; justify-content: space-between; font-size: 0.6875rem; color: var(--mv-text-faint); margin-top: 0.45rem; }
     .mini-heading { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mv-text-faint); margin: 1.5rem 0 0.75rem 0; }
 
-    .pathway-card { background: linear-gradient(180deg, #1a0b3e 0%, #4c1d95 100%); color: white; border-radius: 1.25rem; padding: 1.75rem 1.5rem; text-align: center; margin-bottom: 1.75rem; box-shadow: 0 16px 40px rgba(26, 11, 62, 0.35); }
+    .pathway-card { background: linear-gradient(155deg, #2a0d5e 0%, #7a12d4 100%); color: white; border-radius: 1.5rem; padding: 2rem 1.75rem; text-align: left; margin-bottom: 1.75rem; box-shadow: 0 24px 60px -12px rgba(20, 10, 50, 0.5); position: relative; overflow: hidden; }
     .pathway-card .pw-eyebrow { font-size: 0.6875rem; letter-spacing: 0.18em; text-transform: uppercase; color: #fbbf24; font-weight: 700; margin-bottom: 0.625rem; }
-    .pathway-card .pw-emoji { font-size: 2.25rem; margin-bottom: 0.375rem; }
-    .pathway-card .pw-name { font-size: 1.625rem; font-weight: 700; line-height: 1.15; margin-bottom: 0.375rem; letter-spacing: -0.02em; }
-    .pathway-card .pw-tag { font-size: 0.9375rem; color: rgba(255,255,255,0.85); margin-bottom: 0.875rem; }
+    .pathway-card .pw-emoji { font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.95; }
+    .pathway-card .pw-name { font-size: 2.125rem; font-weight: 700; line-height: 1.08; margin-bottom: 0.5rem; letter-spacing: -0.03em; }
+    .pathway-card .pw-tag { font-size: 1rem; line-height: 1.5; color: rgba(255,255,255,0.9); margin-bottom: 1.125rem; }
     .pathway-card .pw-why { font-size: 0.875rem; line-height: 1.55; color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 0.875rem; padding: 1rem 1.125rem; text-align: left; }
     .pathway-card .pw-why b { color: #fbbf24; }
 
+    .cover-mosaic { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin-top: 1.25rem; }
+    .cover-mosaic img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 0.4rem; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+    .cover-mosaic .more-count { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; border-radius: 0.4rem; background: rgba(255,255,255,0.14); color: #fff; font-weight: 700; font-size: 0.9rem; }
     .cost-punch { font-size: 1.0625rem; font-weight: 700; line-height: 1.45; color: #b91c1c; margin-bottom: 0.6rem; }
     .cost-card { background: #fff7f5; border: 1.5px solid #fecaca; border-left: 4px solid #ef4444; border-radius: 0.75rem; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6; color: var(--mv-text); text-align: left; }
     .ledger { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
@@ -556,12 +559,18 @@
 
   /* Pathways — the recommendation layer */
   var PATHWAYS = {
-    ee:   { key: 'ee',   emoji: '🚀', name: 'The Exponential Entrepreneur', count: 26, tag: 'Grow the venture by growing the one running it.' },
-    auth: { key: 'auth', emoji: '🎤', name: 'The Authority',                count: 14, tag: 'Turn your craft and voice into influence.' },
-    mind: { key: 'mind', emoji: '🧠', name: 'The Extraordinary Mind',       count: 24, tag: 'Upgrade the mind that runs your life.' },
-    mystic: { key: 'mystic', emoji: '✨', name: 'The Modern Mystic',        count: 22, tag: 'Train the unseen layer — energy, intuition, manifesting.' },
-    conn: { key: 'conn', emoji: '❤️', name: 'The Art of Connection',        count: 16, tag: 'Master the relationships your happiness runs on.' },
-    body: { key: 'body', emoji: '🧬', name: 'The Ageless Body',             count: 15, tag: 'Upgrade the body every other goal runs on.' }
+    ee:   { key: 'ee',   emoji: '🚀', name: 'The Exponential Entrepreneur', count: 26, tag: 'Grow the venture by growing the one running it.',
+            grad: 'linear-gradient(155deg, #2a0d5e 0%, #7a12d4 100%)', glow: 'rgba(122,18,212,0.32)' },
+    auth: { key: 'auth', emoji: '🎤', name: 'The Authority',                count: 14, tag: 'Turn your craft and voice into influence.',
+            grad: 'linear-gradient(155deg, #5c2408 0%, #e8791f 100%)', glow: 'rgba(232,121,31,0.30)' },
+    mind: { key: 'mind', emoji: '🧠', name: 'The Extraordinary Mind',       count: 24, tag: 'Upgrade the mind that runs your life.',
+            grad: 'linear-gradient(155deg, #08183f 0%, #1b68e4 100%)', glow: 'rgba(27,104,228,0.30)' },
+    mystic: { key: 'mystic', emoji: '✨', name: 'The Modern Mystic',        count: 22, tag: 'Train the unseen layer — energy, intuition, manifesting.',
+            grad: 'linear-gradient(155deg, #250b4e 0%, #7571ed 100%)', glow: 'rgba(117,113,237,0.32)' },
+    conn: { key: 'conn', emoji: '❤️', name: 'The Art of Connection',        count: 16, tag: 'Master the relationships your happiness runs on.',
+            grad: 'linear-gradient(155deg, #5a2a0c 0%, #d99a2b 100%)', glow: 'rgba(217,154,43,0.30)' },
+    body: { key: 'body', emoji: '🧬', name: 'The Ageless Body',             count: 15, tag: 'Upgrade the body every other goal runs on.',
+            grad: 'linear-gradient(155deg, #063523 0%, #1f9d57 100%)', glow: 'rgba(31,157,87,0.30)' }
   };
   var FREE_CLASS = {
     ee:   { url: 'https://www.mindvalley.com/be-extraordinary/masterclass', label: 'a free class with Vishen on breaking your inner ceiling' },
@@ -1326,6 +1335,30 @@
   function topBlockPick() { return blocks.filter(function(b) { return b.id === intake.block; })[0] || blocks[0]; }
   /* Shared 3-phase roadmap builder so the bridge's "how" lines and the plan's
      cards always name the identical programs. Returns { phases, more }. */
+  /* A mosaic of real course covers for a pathway — the homepage's signature move. */
+  function coverMosaic(pwKey, count) {
+    var map = PATHWAY_MAPS[pwKey] || {};
+    var seen = {}, covers = [];
+    Object.keys(map).forEach(function(k) {
+      var q = map[k].quest, a = questAssets[q];
+      if (a && a.cover && !seen[q]) { seen[q] = 1; covers.push(a.cover); }
+    });
+    var show = covers.slice(0, count || 8);
+    if (!show.length) return null;
+    var wrap = document.createElement('div'); wrap.className = 'cover-mosaic';
+    show.forEach(function(src) {
+      var im = document.createElement('img'); im.src = src; im.loading = 'lazy'; im.alt = '';
+      im.onerror = function(){ im.style.display='none'; };
+      wrap.appendChild(im);
+    });
+    var total = (PATHWAYS[pwKey] || {}).count || covers.length;
+    if (total > show.length) {
+      var more = document.createElement('div'); more.className = 'more-count';
+      more.textContent = '+' + (total - show.length); wrap.appendChild(more);
+    }
+    return wrap;
+  }
+
   function buildRoadmap(topBlock, pw) {
     var arc = PATHWAY_ARCS[pw.key];
     var p1m = questFor(topBlock.id, pw.key);
@@ -1350,12 +1383,14 @@
     var nm = firstName || 'friend';
 
     root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', here’s' : 'Here’s') + ' the honest read</div>'));
-    root.appendChild(el('<div class="pathway-card">' +
+    var idCard = el('<div class="pathway-card" style="background:' + pw.grad + '; box-shadow: 0 24px 60px -12px ' + pw.glow + ';">' +
       '<div class="pw-eyebrow">The best version of you</div>' +
-      '<div class="pw-emoji">' + pw.emoji + '</div>' +
       '<div class="pw-name">' + identity + '</div>' +
       '<div class="pw-tag">' + IDENTITY_CREED[pw.key] + '</div>' +
-      '</div>'));
+      '</div>');
+    var idMosaic = coverMosaic(pw.key, 8);
+    if (idMosaic) idCard.appendChild(idMosaic);
+    root.appendChild(idCard);
 
     var qc = el('<div class="quote-card"></div>');
     qc.appendChild(el('<div class="quote-label">In your words, a minute ago</div>'));
@@ -1426,13 +1461,15 @@
 
     // Compact pathway header — the offer beat (persuasion already done on the bridge)
     root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', your' : 'Your') + ' pathway</div>'));
-    root.appendChild(el('<div class="pathway-card">' +
+    var planCard = el('<div class="pathway-card" style="background:' + pw.grad + '; box-shadow: 0 24px 60px -12px ' + pw.glow + ';">' +
       '<div class="pw-eyebrow">Your Pathway</div>' +
-      '<div class="pw-emoji">' + pw.emoji + '</div>' +
       '<div class="pw-name">' + pw.name.replace(/^The /, '') + '</div>' +
       '<div class="pw-tag">' + pw.tag + '</div>' +
       '<div class="pw-why"><b>' + pw.count + ' programs, sequenced</b> — the path from where you are now to <b>' + identity + '</b>. Here\'s exactly how the first 12 weeks go.</div>' +
-      '</div>'));
+      '</div>');
+    var planMosaic = coverMosaic(pw.key, 8);
+    if (planMosaic) planCard.appendChild(planMosaic);
+    root.appendChild(planCard);
     root.appendChild(el('<h3 class="q-title" style="font-size:1.25rem; line-height:1.7rem;">The personalised curriculum we’ve mapped for you</h3>'));
     root.appendChild(el('<p class="q-sub">Not random courses — a 12-week journey, each program chosen for exactly what you told us, and sequenced so each one unlocks the next. Here’s how each phase changes things:</p>'));
     // Phase 1 releases their #1 bottleneck; Phases 2–3 follow the pathway's
