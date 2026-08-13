@@ -260,6 +260,29 @@
     .mechanism-card b { color: var(--mv-purple); }
     .horizon-how { font-size: 0.8125rem; line-height: 1.5; color: var(--mv-text-subtle); margin-top: 0.55rem; padding-top: 0.55rem; border-top: 1px dashed var(--mv-border); }
     .horizon-how b { color: var(--mv-text); }
+
+    /* ── Premium persuasive bridge (pitch view) ── */
+    .pv-hero{ margin:-2rem -1.25rem 0; padding:3rem 1.75rem 2.5rem; min-height:22rem; display:flex; flex-direction:column; justify-content:flex-end; color:#fff; position:relative; overflow:hidden; }
+    .pv-hero .pv-eyebrow{ font-size:0.6875rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.72); margin-bottom:1rem; }
+    .pv-hero h1{ font-size:2.5rem; line-height:1.04; font-weight:600; letter-spacing:-0.035em; margin-bottom:0.9rem; }
+    .pv-hero .pv-line{ font-size:1.0625rem; line-height:1.5; color:rgba(255,255,255,0.85); max-width:22rem; }
+    .pv-beat{ padding:3.25rem 0; }
+    .pv-beat.tight{ padding-top:0; }
+    .pv-kicker{ font-size:0.6875rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--mv-purple); margin-bottom:1.4rem; }
+    .pv-kicker.soft{ color:var(--mv-text-faint); }
+    .pv-h2{ font-size:1.6rem; line-height:1.3; font-weight:500; letter-spacing:-0.02em; color:var(--mv-text); }
+    .pv-h2 b{ font-weight:700; }
+    .pv-p{ font-size:1.0625rem; line-height:1.6; color:var(--mv-text-muted); margin-top:1.3rem; }
+    .pv-p b{ color:var(--mv-text); }
+    .pv-blocks{ margin-top:1.6rem; padding-left:1.1rem; border-left:2px solid #efe7fb; }
+    .pv-blocks div{ font-size:1.0625rem; line-height:1.5; color:var(--mv-text-muted); font-style:italic; margin-bottom:0.8rem; }
+    .pv-blocks div:last-child{ margin-bottom:0; }
+    .pv-test{ margin:0 -1.25rem; padding:3.5rem 1.75rem; background:linear-gradient(180deg,#faf7ff 0%,#f4eeff 100%); text-align:center; }
+    .pv-test .pv-q{ font-size:1.75rem; line-height:1.26; font-weight:600; letter-spacing:-0.025em; margin-bottom:1.1rem; color:var(--mv-text); }
+    .pv-test .pv-a{ font-size:1.0625rem; line-height:1.6; color:var(--mv-text-muted); max-width:24rem; margin:0 auto; }
+    .pv-test .pv-a b{ color:var(--mv-text); }
+    .pv-proof-label{ font-size:0.6875rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--mv-text-faint); margin:0.5rem 0 1.25rem; }
+
     @media (max-width: 380px) {
       .ledger { flex-direction: column; }
       .q-title { font-size: 1.3125rem; line-height: 1.7rem; }
@@ -482,6 +505,61 @@
      the real reason they're stuck (rootCause), what to let go of / call in,
      the 3-month and 12-month transformation, and why THIS roadmap. Woven
      with the customer's own quiz answers on the bridge screen. */
+
+  /* PATHWAY_PITCH — the paradigm-shift close, one per pathway.
+     paradigm (flip the belief) → origin+blocks (protections installed young)
+     → test (visceral) → reframe (release old you) → mechanism+proof. */
+  var PATHWAY_PITCH = {
+    mystic: {
+      heroLine: 'The version of you who feels safe holding everything she’s asking for.',
+      paradigm: { k:'Here’s what no one told you', h:'You think the way to break your income ceiling is to work <b>harder</b>. But you’ve hit this ceiling before — and no matter how hard you pushed, it held.', p:'That’s not a coincidence, and it’s not your effort. The ceiling isn’t out there in the market. <b>It’s inside you — and it isn’t broken. It’s doing its job.</b>' },
+      origin: { k:'Where it started', h:'Somewhere around age six, you learned what money <b>meant</b>.', blocks:['“Money is what my parents fought about.”','“There’s never enough.”','“If I have more, I become a target.”','“Wanting it makes me greedy.”'], p:'You didn’t choose those beliefs. But your mind kept them — <b>to keep you safe</b>. And they’re still running. Every time you get close to more, an invisible part of you pulls you back to what feels familiar. That’s your ceiling — a six-year-old’s protection, still running the show.' },
+      test: { k:'Be honest with yourself', q:'If $1,000,000 landed in your account tomorrow morning — what’s your real first reaction?', a:'If it’s a flicker of panic — a tightening, a <i>“this can’t be right”</i> — that’s your answer. <b>You don’t yet feel safe to receive it.</b> And your reality keeps matching how safe you feel, not how hard you work.' },
+      reframe: { k:'So here’s the real question', h:'It was never <i>“how hard are you willing to work?”</i> It’s this: <b>can you release the old version of you</b> — the old fears, the old patterns — so you become the woman who holds that amount without flinching?', p:'When you feel safe to receive it, it stops being something you chase. It becomes something you <b>allow</b>. That’s the difference between forcing your dream and magnetizing it.' },
+      mech: { k:'And this is the one thing we know how to do', h:'Releasing the old wiring and rebuilding the identity underneath it — <b>that’s exactly what The Modern Mystic does.</b>', p:'Clear the money blocks. Rebuild your energy. Install the daily practice. We’ve walked thousands through this exact shift — same ceiling as you.' }
+    },
+    ee: {
+      heroLine: 'The founder whose business finally runs — and grows — without them.',
+      paradigm: { k:'Here’s what no one told you', h:'You think scaling takes more of <b>you</b> — more hours, more hustle, you in every decision. But you’ve pushed harder before, and the ceiling held.', p:'Because a business can only grow as big as the person running it — and right now, you’re both the engine <b>and</b> the bottleneck. The thing capping your growth isn’t the market. It’s that it all still routes through you.' },
+      origin: { k:'Where it started', h:'Somewhere along the way, you learned that if you want it done right, you do it <b>yourself</b>.', blocks:['“No one can do it like me.”','“If I let go, it falls apart.”','“Being needed is how I matter.”','“Trusting someone is a risk I can’t afford.”'], p:'You didn’t choose those beliefs — they made you successful. But your mind kept them because being indispensable felt <b>safe</b>. And now that exact instinct is the ceiling: the business can’t outgrow the one person who won’t let go.' },
+      test: { k:'Be honest with yourself', q:'You vanish for 30 days — no phone, no laptop. What does the business look like when you come back?', a:'If your gut says <i>fires, chaos, it stalls</i> — that’s your answer. <b>It doesn’t run without you because a part of you still needs to be needed.</b> And that need is quietly capping everything you’ve built.' },
+      reframe: { k:'So here’s the real question', h:'It was never <i>“how much harder can you work?”</i> It’s this: <b>can you let go of being the one who holds it all</b> — so you become the founder who builds something that holds itself?', p:'The moment it stops depending on you, it stops being a job you own and starts being a business that grows. That’s the difference between working IN it and working ON it.' },
+      mech: { k:'And this is the one thing we know how to do', h:'Getting you out of the day-to-day and installing what runs without you — <b>that’s exactly what The Exponential Entrepreneur does.</b>', p:'Release the bottleneck. Set the vision. Install the systems and the team. We’ve walked thousands of founders through this exact shift — same ceiling as you.' }
+    },
+    mind: {
+      heroLine: 'The version of you your goals have been waiting for.',
+      paradigm: { k:'Here’s what no one told you', h:'You think you need to <b>achieve more</b> to finally feel like enough. But you’ve achieved before — and the feeling never came.', p:'Because you’ll never out-perform a self-image that says you’re not there yet. The ceiling on your life isn’t your results, your skill, or your effort. <b>It’s your identity — and everything you do quietly rises only to the height it allows.</b>' },
+      origin: { k:'Where it started', h:'Long before you can remember, you learned who you were <b>allowed</b> to be.', blocks:['“Don’t get too big for your boots.”','“Who do you think you are?”','“Love is something you earn.”','“It’s safer not to want too much.”'], p:'You didn’t choose those beliefs. But your mind kept them to keep you <b>accepted</b>. And they’re still running — quietly deciding what you’ll ask for, attempt, and allow. That’s your ceiling. Not your potential. An old story about who you’re permitted to be.' },
+      test: { k:'Be honest with yourself', q:'Picture the boldest version of you walking into the room you most want to be in — asking for exactly what you want.', a:'Notice what happens in your body. If it tightens, shrinks, wants to apologise — <b>that’s the ceiling.</b> Not your ability. The self-image quietly telling you it isn’t yours to have.' },
+      reframe: { k:'So here’s the real question', h:'It was never <i>“how much more do you need to prove?”</i> It’s this: <b>can you release the old story of who you’re allowed to be</b> — so you become the person your goals actually require?', p:'Because the moment the identity shifts, the actions follow on their own. You stop forcing the next level and start living at it. That’s the difference between striving and becoming.' },
+      mech: { k:'And this is the one thing we know how to do', h:'Rewriting the self-image that runs your life — <b>that’s exactly what The Extraordinary Mind does.</b>', p:'Upgrade the identity. Give it a vision. Lock it in daily. We’ve walked thousands through this exact shift — same ceiling as you.' }
+    },
+    body: {
+      heroLine: 'The version of you with the energy to actually live it.',
+      paradigm: { k:'Here’s what no one told you', h:'You think you need more <b>discipline</b> to get your energy and body back. But willpower can’t fix a depleted engine.', p:'You’ve been trying to out-push a body running on empty — and the harder you force it, the tighter it holds on. <b>Your body isn’t weak or lazy. It’s in survival mode, and it won’t let go until it feels safe.</b>' },
+      origin: { k:'Where it started', h:'Your body learned, a long time ago, that it wasn’t <b>safe</b> to let go.', blocks:['“Rest is lazy — earn it first.”','“Push through, no matter what.”','“My needs come last.”','“If I stop, I fall behind.”'], p:'You didn’t choose those beliefs. But your body kept bracing to keep you <b>going</b>. And now it’s stuck in fight-or-flight — clinging to the weight, the fatigue, the tension — because letting go still doesn’t feel safe. That’s your ceiling. Not your willpower.' },
+      test: { k:'Be honest with yourself', q:'When did you last wake up genuinely rested — no alarm-drag, no fog, actually wanting to get up?', a:'If you can’t remember, that’s your answer. <b>Your body isn’t failing you. It’s exhausted, and it’s protecting you the only way it knows how</b> — and it will keep doing it until you give it something different.' },
+      reframe: { k:'So here’s the real question', h:'It was never <i>“how much more can you push?”</i> It’s this: <b>can you stop forcing a tired body</b> — and start giving it the safety to rebuild, so it finally works with you instead of against you?', p:'Because the moment your body feels safe, it stops holding on. The energy returns, the weight releases, the fog lifts. That’s the difference between fighting your body and healing it.' },
+      mech: { k:'And this is the one thing we know how to do', h:'Rebuilding the engine so energy becomes your default — <b>that’s exactly what The Ageless Body does.</b>', p:'Restore the energy. Rebuild real strength. Make it permanent. We’ve walked thousands through this exact shift — same starting point as you.' }
+    },
+    auth: {
+      heroLine: 'The version of you the right people can finally find.',
+      paradigm: { k:'Here’s what no one told you', h:'You think you need to get <b>better</b> — more polished, more ready — before you put yourself out there. But your craft is already good enough.', p:'The thing capping you was never skill. <b>It’s that some part of you still doesn’t feel safe being fully seen</b> — so you stay a little hidden, and the people who need exactly what you do never find you.' },
+      origin: { k:'Where it started', h:'Somewhere young, you learned that being seen was <b>dangerous</b>.', blocks:['“Don’t show off.”','“Who are you to speak up?”','“If they really see me, they’ll find me out.”','“Stay small, stay safe.”'], p:'You didn’t choose those beliefs. But your mind kept them to protect you from <b>judgment</b>. And they’re still running — every time you go to be visible, something pulls you back to safe and small. That’s your ceiling. Not your talent. An old fear of being seen.' },
+      test: { k:'Be honest with yourself', q:'Imagine posting the boldest thing you actually want to say — to everyone you know — right now.', a:'Notice the flinch. That flinch is the ceiling. <b>Not your ability. The old fear that being fully seen isn’t safe</b> — and it’s quietly keeping your work invisible to the people who need it.' },
+      reframe: { k:'So here’s the real question', h:'It was never <i>“are you good enough yet?”</i> It’s this: <b>can you release the fear of being seen</b> — so you become the voice the right people have been waiting for?', p:'Because the moment being seen feels safe, you stop shrinking and start showing up. The audience finds you. The authority follows. That’s the difference between hiding your gift and sharing it.' },
+      mech: { k:'And this is the one thing we know how to do', h:'Building the confidence and the platform so your work gets seen — <b>that’s exactly what The Authority does.</b>', p:'Rebuild the confidence. Own the room. Turn your voice into an audience and income. We’ve walked thousands through this exact shift — same fear as you.' }
+    },
+    conn: {
+      heroLine: 'The version of you who lets love all the way in.',
+      paradigm: { k:'Here’s what no one told you', h:'You think you just haven’t met the <b>right person</b> — or that they’ll show up once things line up. But you’ve met good ones before, and something kept them at arm’s length.', p:'The truth is closeness doesn’t feel fully safe. <b>So a part of you keeps love at a distance where it can’t hurt you</b> — and the right person walks past a wall they can’t even see.' },
+      origin: { k:'Where it started', h:'Somewhere early, you learned that letting people all the way in was <b>risky</b>.', blocks:['“If I need someone, I’ll get hurt.”','“Love has to be earned.”','“Don’t be too much.”','“Keep a wall up, just in case.”'], p:'You didn’t choose those beliefs. But your heart kept them to protect you from being <b>hurt</b> again. And they’re still running — quietly keeping out the very closeness you long for. That’s your ceiling on love. Not a lack of the right person. A fear of being fully known.' },
+      test: { k:'Be honest with yourself', q:'Picture someone truly seeing you — all of you — and staying.', a:'Notice if part of you wants to look away, deflect, keep them at a distance. That flinch is the wall. <b>Not a lack of the right person. A fear of being fully known</b> — and it’s the reason the loneliness keeps winning.' },
+      reframe: { k:'So here’s the real question', h:'It was never <i>“have you found the one?”</i> It’s this: <b>can you release the armour that keeps love safe-but-distant</b> — so you become someone who lets it all the way in, and holds it?', p:'Because the moment closeness feels safe, you stop keeping people at arm’s length and start letting them in. The right ones stay. That’s the difference between attracting love and holding it.' },
+      mech: { k:'And this is the one thing we know how to do', h:'Clearing what blocks closeness and rebuilding how you connect — <b>that’s exactly what The Art of Connection does.</b>', p:'Clear the old patterns. Rebuild real intimacy. Learn to hold it. We’ve walked thousands through this exact shift — same wall as you.' }
+    }
+  };
+
   var PATHWAY_STORY = {
     mystic: {
       rootCause: 'you’ve been trying to think and force your way through what’s actually an energetic problem. You’re creating from a place of lack — gripping the outcome, half-disconnected from the intuition that’s meant to be guiding you. The missing piece was never more effort. It’s alignment.',
@@ -1373,83 +1451,47 @@
     return { phases: phases, more: more };
   }
 
-  // ── Bridge: customer-psychology arc → the sale ──
+  // ── Bridge: the paradigm-shift close (premium, paced, per pathway) ──
   screens.push({ id: 'bridge', answerable: false, noBack: true, build: function(root) {
     var topBlock = topBlockPick();
     var pw = recommendPathway(topBlock);
     var identity = identityFor(pw.key, intake.grow);
-    var st = PATHWAY_STORY[pw.key] || PATHWAY_STORY.mind;
-    var dream = intake.dreamQuote || 'the life you just described';
+    var pi = PATHWAY_PITCH[pw.key] || PATHWAY_PITCH.mind;
     var nm = firstName || 'friend';
 
-    root.appendChild(el('<div class="q-eyebrow">' + (firstName ? firstName + ', here’s' : 'Here’s') + ' the honest read</div>'));
-    var idCard = el('<div class="pathway-card" style="background:' + pw.grad + '; box-shadow: 0 24px 60px -12px ' + pw.glow + ';">' +
-      '<div class="pw-eyebrow">The best version of you</div>' +
-      '<div class="pw-name">' + identity + '</div>' +
-      '<div class="pw-tag">' + IDENTITY_CREED[pw.key] + '</div>' +
-      '</div>');
-    var idMosaic = coverMosaic(pw.key, 8);
-    if (idMosaic) idCard.appendChild(idMosaic);
-    root.appendChild(idCard);
+    // HERO — compact cinematic band, the identity
+    root.appendChild(el('<section class="pv-hero" style="background:' +
+      'radial-gradient(80% 55% at 82% 18%, rgba(255,255,255,0.18) 0, rgba(255,255,255,0) 60%),' + pw.grad + ';">' +
+      '<div class="pv-eyebrow">' + nm + ' \u00b7 your path forward</div>' +
+      '<h1>' + pw.name.replace(/^The /, 'The ') + '</h1>' +
+      '<div class="pv-line">' + pi.heroLine + '</div>' +
+      '</section>'));
 
-    var qc = el('<div class="quote-card"></div>');
-    qc.appendChild(el('<div class="quote-label">In your words, a minute ago</div>'));
-    var qt = document.createElement('div'); qt.className = 'quote-text'; qt.textContent = '“' + dream + '”';
-    qc.appendChild(qt);
-    root.appendChild(qc);
+    // PARADIGM SHIFT
+    root.appendChild(el('<section class="pv-beat"><div class="pv-kicker">' + pi.paradigm.k + '</div><div class="pv-h2">' + pi.paradigm.h + '</div><div class="pv-p">' + pi.paradigm.p + '</div></section>'));
 
-    root.appendChild(el('<div class="mini-heading">Why this hasn’t happened yet</div>'));
-    var deeperLine = intake.deeperQuote ? ' You half-said it yourself: “' + intake.deeperQuote + '.”' : '';
-    root.appendChild(el('<div class="diag-card">Here’s the honest read, ' + nm + ': the reason it hasn’t happened yet isn’t effort, and it isn’t information. It’s this — ' + st.rootCause + deeperLine + '</div>'));
+    // ORIGIN + THE BLOCKS
+    var blocksHtml = pi.origin.blocks.map(function(b){ return '<div>' + b + '</div>'; }).join('');
+    root.appendChild(el('<section class="pv-beat tight"><div class="pv-kicker">' + pi.origin.k + '</div><div class="pv-h2">' + pi.origin.h + '</div><div class="pv-blocks">' + blocksHtml + '</div><div class="pv-p">' + pi.origin.p + '</div></section>'));
 
-    // What it's costing — the stakes
-    root.appendChild(el('<div class="mini-heading">What this is quietly costing you</div>'));
-    root.appendChild(el('<div class="cost-card">' + (st.costPunch ? '<div class="cost-punch">' + st.costPunch + '</div>' : '') + '<div>' + st.cost + '</div></div>'));
+    // THE VISCERAL TEST
+    root.appendChild(el('<section class="pv-test"><div class="pv-kicker">' + pi.test.k + '</div><div class="pv-q">' + pi.test.q + '</div><div class="pv-a">' + pi.test.a + '</div></section>'));
 
-    // What shifts
-    root.appendChild(el('<div class="mini-heading">What actually changes for you</div>'));
-    var ledger = el('<div class="ledger"></div>');
-    var go = el('<div class="ledger-col go"><div class="ledger-h">Leave behind</div></div>');
-    st.letGo.forEach(function(t) { go.appendChild(el('<div class="ledger-li"><span class="ic">✕</span><span>' + t + '</span></div>')); });
-    var inn = el('<div class="ledger-col in"><div class="ledger-h">Start experiencing</div></div>');
-    st.callIn.forEach(function(t) { inn.appendChild(el('<div class="ledger-li"><span class="ic">✦</span><span>' + t + '</span></div>')); });
-    ledger.appendChild(go); ledger.appendChild(inn);
-    root.appendChild(ledger);
+    // THE REFRAME
+    root.appendChild(el('<section class="pv-beat"><div class="pv-kicker">' + pi.reframe.k + '</div><div class="pv-h2">' + pi.reframe.h + '</div><div class="pv-p">' + pi.reframe.p + '</div></section>'));
 
-    // The journey — three concrete milestones
-    // The unique mechanism — the "how" as a method/principle, not a course list.
-    if (st.mechanism) {
-      root.appendChild(el('<div class="mini-heading">The mechanism behind it</div>'));
-      root.appendChild(el('<div class="mechanism-card">' + st.mechanism + '</div>'));
-    }
-
-    root.appendChild(el('<div class="mini-heading">What the next 12 months actually look like</div>'));
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 3</div><div class="horizon-text">' + st.m3 + '</div></div>'));
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 6</div><div class="horizon-text">' + st.m6 + '</div></div>'));
-    var core = emotionalCore(pw.key);
-    var coreLine = core ? ' And the real prize underneath it all? <b>' + core.charAt(0).toUpperCase() + core.slice(1) + '</b> — that’s what this actually frees you for.' : '';
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 12</div><div class="horizon-text">' + st.m12 + ' And “' + dream + '”? By then it isn’t a someday — it’s just your life.' + coreLine + '</div></div>'));
-
-    // The two-futures chart — now with a plain-language read
-    var chart = el('<div class="chart-card" style="margin-top:1.25rem;"></div>');
-    chart.appendChild(el('<div class="chart-title">Both roads get there. One is years faster.</div>'));
-    chart.appendChild(el('<svg viewBox="0 0 400 205" width="100%" height="auto" role="img" aria-label="Two futures diverging"><defs><linearGradient id="expFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7a12d4" stop-opacity="0.22"/><stop offset="100%" stop-color="#7a12d4" stop-opacity="0.02"/></linearGradient></defs><rect x="20" y="14" width="120" height="146" fill="#7a12d4" fill-opacity="0.05"/><line x1="140" y1="14" x2="140" y2="160" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4 4"/><text x="30" y="28" font-size="10" font-weight="700" fill="#7a12d4" font-family="sans-serif">FIRST 90 DAYS</text><path d="M20,150 L380,120" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"/><circle cx="380" cy="120" r="5" fill="#9ca3af"/><text x="150" y="140" font-size="10" font-weight="600" fill="#9ca3af" font-family="sans-serif">You, the slow way — still climbing</text><path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26 L380,160 L20,160 Z" fill="url(#expFill)"/><path d="M20,150 C60,147 105,143 140,134 C210,115 290,78 380,26" fill="none" stroke="#7a12d4" stroke-width="3" stroke-linecap="round"/><circle cx="140" cy="134" r="5" fill="#9333ea"/><circle cx="380" cy="26" r="6" fill="#7a12d4"/><text x="212" y="46" font-size="11" font-weight="700" fill="#7a12d4" font-family="sans-serif">You, aligned — everything shifts</text></svg>'));
-    chart.appendChild(el('<div class="chart-labels"><span>Now</span><span>Month 3</span><span>Month 6</span><span>Month 12</span></div>'));
-    chart.appendChild(el('<p style="font-size:0.8125rem; line-height:1.55; color:var(--mv-text-muted); text-align:left; margin:0.875rem 0 0 0;"><b style="color:#9ca3af;">Grey:</b> keep going as you are — you might still get there, slowly, the hard way. <b style="color:var(--mv-purple);">Purple:</b> clear the block and align, and something shifts fundamentally — the curve bends inside the first 90 days and compounds from there.</p>'));
-    root.appendChild(chart);
-
-    // Proof — people who walked this exact path
-    root.appendChild(el('<div class="mini-heading">People who’ve walked this exact path</div>'));
-    var proofStack = el('<div class="stories-stack"></div>');
-    diverseWall(3).forEach(function(stx) { proofStack.appendChild(storyCard(stx)); });
+    // MECHANISM + PROOF
+    var mech = el('<section class="pv-beat tight"><div class="pv-kicker soft">' + pi.mech.k + '</div><div class="pv-h2">' + pi.mech.h + '</div><div class="pv-p">' + pi.mech.p + '</div></section>');
+    root.appendChild(mech);
+    var proofStack = el('<div class="stories-stack" style="margin-top:0.5rem;"></div>');
+    diverseWall(2).forEach(function(stx){ proofStack.appendChild(storyCard(stx)); });
     root.appendChild(proofStack);
 
-    // Transition into the offer
-    root.appendChild(el('<div class="reframe" style="margin-top:1.5rem;">' + st.transition + '</div>'));
-
-    var btn = el('<button type="button" class="btn-primary" style="margin-top:1.75rem;">Show me my 12-week roadmap →</button>');
+    // CTA into the offer
+    var btn = el('<button type="button" class="btn-primary" style="margin-top:2rem;">Show me how it works \u2192</button>');
     btn.addEventListener('click', next);
     root.appendChild(btn);
+    root.appendChild(el('<div style="text-align:center; font-size:0.8125rem; color:var(--mv-text-faint); margin-top:0.9rem;">Your 12-week path \u00b7 nothing to decide yet</div>'));
   }});
 
   screens.push({ id: 'plan', answerable: false, noBack: true, build: function(root) {
@@ -1510,17 +1552,6 @@
       root.appendChild(currCard);
     });
 
-    var stackRows = '';
-    phases.forEach(function(p, i) {
-      var assets = questAssets[p.quest] || {};
-      var thumb = assets.cover ? '<img class="thumb" src="' + assets.cover + '" alt="' + p.quest + '" loading="lazy" />' : '';
-      stackRows += '<div class="stack-row">' + thumb + '<span class="nm">' + p.quest + '<small>Phase ' + (i + 1) + ' · ' + p.stage + '</small></span><span class="vl">$349 value</span></div>';
-    });
-    stackRows += '<div class="stack-row"><span class="nm">The full ' + pw.name.replace(/^The /, '') + ' pathway<small>Plus ' + pw.count + ' programs to become the best version of you</small></span><span class="vl">included</span></div>';
-    root.appendChild(el('<div class="stack-card"><div class="stack-head">Everything in your pathway</div><div class="stack-body">' +
-      stackRows +
-      '<div class="stack-total"><span>Your price today</span><span><span class="strike">$1,047+</span><span class="now">$199/yr</span></span></div>' +
-      '</div></div>'));
 
     root.appendChild(el('<div class="timer-bar" id="timerBar">⏳ <b id="timerVal">14:59</b>&nbsp;remaining for this $100 discount</div>'));
 
@@ -1556,10 +1587,6 @@
       tiersWrap.appendChild(card);
     });
     root.appendChild(tiersWrap);
-
-    root.appendChild(el('<div class="info-stat-card" style="max-width:none; text-align:left; margin-bottom:1.25rem;">' +
-      '<div class="small" style="margin-top:0; font-size:0.84375rem; line-height:1.55;"><b style="color:var(--mv-purple);">Why yearly?</b> Your first 12 weeks release <b>' + topBlock.name + '</b> — but bottlenecks are chained: fix your energy and leverage gets easier; heal scarcity and your asks fix themselves. At <b>$199 with the $100 off</b>, yearly costs about 4 months at the monthly price. The other 8 months are free.</div>' +
-      '</div>'));
 
     root.appendChild(el('<div class="reframe" style="text-align:center; margin:0.5rem 0 1.25rem 0;">' + (firstName ? firstName + ', are' : 'Are') + ' you ready to stop waiting and become <b>' + identity + '</b>? The version of you that “' + dream + '” is describing is one decision away. This is that decision.</div>'));
 
