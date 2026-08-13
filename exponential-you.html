@@ -235,6 +235,7 @@
     .pathway-card .pw-why { font-size: 0.875rem; line-height: 1.55; color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 0.875rem; padding: 1rem 1.125rem; text-align: left; }
     .pathway-card .pw-why b { color: #fbbf24; }
 
+    .cost-punch { font-size: 1.0625rem; font-weight: 700; line-height: 1.45; color: #b91c1c; margin-bottom: 0.6rem; }
     .cost-card { background: #fff7f5; border: 1.5px solid #fecaca; border-left: 4px solid #ef4444; border-radius: 0.75rem; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6; color: var(--mv-text); text-align: left; }
     .ledger { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
     .ledger-col { flex: 1; border: 1.5px solid var(--mv-border); border-radius: 1rem; padding: 1rem 1rem; }
@@ -251,6 +252,8 @@
     .horizon-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mv-purple); margin-bottom: 0.3rem; }
     .horizon-text { font-size: 0.9375rem; line-height: 1.55; color: var(--mv-text); }
     .horizon-text b { color: var(--mv-purple); }
+    .mechanism-card { background: linear-gradient(180deg, #f6f0fe 0%, #faf7ff 100%); border: 1.5px solid var(--mv-purple-100); border-radius: 0.85rem; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6; color: var(--mv-text); text-align: left; }
+    .mechanism-card b { color: var(--mv-purple); }
     .horizon-how { font-size: 0.8125rem; line-height: 1.5; color: var(--mv-text-subtle); margin-top: 0.55rem; padding-top: 0.55rem; border-top: 1px dashed var(--mv-border); }
     .horizon-how b { color: var(--mv-text); }
     @media (max-width: 380px) {
@@ -478,63 +481,75 @@
   var PATHWAY_STORY = {
     mystic: {
       rootCause: 'you’ve been trying to think and force your way through what’s actually an energetic problem. You’re creating from a place of lack — gripping the outcome, half-disconnected from the intuition that’s meant to be guiding you. The missing piece was never more effort. It’s alignment.',
+      costPunch: 'Be honest: you’re not waiting for the right time — you’re waiting for the fear to leave first. It never does. So you’ll still be “almost ready” a year from now, watching someone with half your gift build the life you keep describing.',
       cost: 'And here’s what that’s quietly costing you: without alignment you can’t even see your next step clearly — what your business should really be about, which decisions to make now, which to walk away from. So you stay put. You feel too scattered to leap, and a quiet fear tells you it’s safer to wait. Every month those blocks stay in place, you decide from fear instead of knowing — and one scattered season becomes another. Until this is fixed, more hustle just creates more resistance.',
       letGo: ['Chasing and hustling for things that never quite land', 'Second-guessing every big decision', 'The money blocks quietly sabotaging you'],
       callIn: ['Opportunities, partners and money that come TO you', 'Knowing your next move without agonising over it', 'Manifestations that actually show up — often within weeks'],
       m3: 'You clear the energetic <b>and</b> money blocks. Most are fear-based — built young to protect you, old money wounds, a quiet “is it even safe to want this.” Until they’re cleared you self-sabotage without noticing: it’s the same reason results don’t stick at the gym, or the right partner never quite lands. This is where that pattern finally breaks.',
       m6: 'With the blocks gone, manifestations start showing up. The right opportunity. The right partner or collaborator walking in. Money moving toward you instead of away. Not luck — the natural result of a cleared, aligned frequency.',
       m12: 'Your business is established — because your decision-making got sharp and clear. You intuitively know what’s right: which idea, which partner, which room to be in and which to skip. Instead of 20 wrong turns to scale, you make 20 right ones. That’s the difference alignment buys you.',
-      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order your energy actually needs.'
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order your energy actually needs.',
+      mechanism: 'It works because of a practice most people never learn: <b>Energy Clearing</b> — you learn to actually feel the invisible blocks in your field and dissolve them at the root, instead of white-knuckling past self-sabotage that just grows back. Once the block is gone, the manifesting isn’t “positive thinking” — it’s physics.'
     },
     conn: {
       rootCause: 'you’ve been loving from a checklist — measuring people against a list instead of feeling for a real connection — and underneath it, a quiet belief that it isn’t fully safe to be seen and let someone all the way in. So you attract interest, but you never quite let it land.',
+      costPunch: 'You tell yourself you just “haven’t met the right person.” The truth is you don’t let anyone close enough to become the right person — and that’s the real reason the loneliness keeps winning.',
       cost: 'And here’s what that’s costing you: as long as it doesn’t feel safe to be fully seen, you keep the good ones at arm’s length and settle for the ones who never get close enough to hurt you. The right person walks past a wall they can’t see. Every year the pattern repeats, it gets lonelier — and a little more convincing that this is just how it is for you. It isn’t. But it won’t change on its own.',
       letGo: ['Attracting the wrong people on repeat', 'Feeling lonely even when you’re not alone', 'Bracing for the same old heartbreak'],
       callIn: ['A partner who truly gets you — and stays', 'Feeling safe enough to be fully yourself', 'A relationship that keeps deepening instead of fading'],
       m3: 'You get crystal clear on what you’re releasing and who you’re truly calling in — and you start feeling safe in your own body again, so closeness stops registering as a threat. The walls come down before anyone even arrives.',
       m6: 'You start meeting people differently — and being met differently. The connections feel real instead of performed. If you’re already partnered, the distance closes; conversations that used to end in friction start ending in closeness.',
       m12: 'The question isn’t whether you can <b>attract</b> love — it’s how deep it goes. You know how to <b>hold</b> it: read the energy between you, repair instead of retreat, understand your own needs and your partner’s, and build a bond that keeps getting closer instead of cooler.',
-      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the heart actually heals.'
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the heart actually heals.',
+      mechanism: 'It works because of a method called <b>Release &amp; Call-In</b> — you name and clear the exact patterns keeping love out (usually invisible to you), so the right person stops bouncing off walls you didn’t know you had. You’re not becoming more “dateable.” You’re removing what’s been filtering love out.'
     },
     ee: {
       rootCause: 'everything still routes through you. You’ve built something real, but it grows at the speed of your own hours — because somewhere you believe it only holds together if you’re the one holding it. You’re not short on effort. You’re short on leverage.',
+      costPunch: 'You call it being “hands-on.” It’s really the fear of what happens if you let go. And it’s the exact reason you’ll still be doing the same numbers, answering the same messages at 11pm, a year from now.',
       cost: 'And here’s what that’s costing you: as the founder-bottleneck, you can’t take on more without breaking, so growth is capped at your personal capacity — and you pay for it twice, once in ceilinged revenue and once in a life with no room in it. Every quarter you stay the bottleneck, the business gets more dependent on you, not less. The longer it goes, the harder it is to ever step out.',
       letGo: ['80-hour weeks that still aren’t enough', 'A business that stalls the moment you step away', 'Being the ceiling your own company keeps hitting'],
       callIn: ['Take a week fully off — and come back to growth, not fires', 'Revenue that climbs without you adding hours', 'A business that could sell — not a job you’re trapped in'],
       m3: 'You release the exact bottleneck you named and install the first systems — so the business stops depending on you being in every room, and you get your first real breathing space in months.',
       m6: 'The machine starts moving without you in the middle of it. Decisions get made without your sign-off, the team steps up, and you finally have the space to work ON the business instead of drowning IN it.',
       m12: 'It runs <b>and</b> grows without you at the centre. You work on vision and strategy, not firefighting — and the ceiling you’ve been stuck under quietly becomes your floor.',
-      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order a business actually outgrows its founder.'
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order a business actually outgrows its founder.',
+      mechanism: 'It works because of a tool called <b>Vivid Vision</b> — you cast a 3-year picture so specific your team can run toward it without asking you, paired with a delegation system that makes you replaceable <i>by design</i>. You stop being the smartest person in every room and start being the one who built the room.'
     },
     mind: {
       rootCause: 'your growth keeps stalling at the same edge — because that’s exactly where your self-image ends. It was never a strategy problem; it’s an identity ceiling. Old programming quietly decides what you’ll ask for, attempt, and allow.',
+      costPunch: 'You keep calling it “not the right time” or “just being realistic.” That’s not wisdom — that’s the ceiling talking. And it’ll still be talking, in the same voice, at the same level, next year.',
       cost: 'And here’s what that’s costing you: an identity ceiling doesn’t just cap one area — it caps all of them at the same height. The money, the confidence, the relationships all stall at the level your self-image permits. You can push harder inside the box, but you’ll keep hitting the same wall, in a new disguise, every single year — until the box itself changes.',
       letGo: ['Hitting the same invisible ceiling every year', 'Shrinking in the rooms that matter most', 'The self-doubt quietly running the show'],
       callIn: ['Asking for more — and actually getting it', 'Confidence that holds when the pressure’s on', 'Finally feeling like the person your goals require'],
       m3: 'You rewire the ceiling itself — the self-image your life keeps bumping into — so the next level stops feeling like a stretch and starts feeling like home. The old story loosens its grip.',
       m6: 'You catch yourself doing things the old you wouldn’t: asking for more, taking the room, holding your ground. The confidence isn’t performed anymore — it’s just how you operate now.',
       m12: 'You live as the fullest version of you: steady confidence, a mind that works for you instead of against you, and a clear sense of where it’s all going — with the identity to match.',
-      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the mind actually upgrades.'
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the mind actually upgrades.',
+      mechanism: 'It works because of <b>identity-level reprogramming</b> — instead of forcing new behaviour with willpower (which always snaps back), you rewrite the self-image running the show underneath. Change the identity and the actions follow automatically. That’s why it holds when everything else you’ve tried faded.'
     },
     body: {
       rootCause: 'you’ve been managing symptoms instead of rebuilding the machine. Every goal you have runs on an engine that’s depleted — and no amount of willpower out-runs a body operating at 60%.',
+      costPunch: 'You keep telling yourself you’ll deal with your energy “once things calm down.” They won’t. And the tired, foggy, running-on-fumes version of you is the one making every decision in the meantime.',
       cost: 'And here’s what that’s costing you: low energy is a tax on everything. Foggy decisions, shorter patience, ambition you can’t act on because the fuel isn’t there. You’re paying for it in your work, your mood, and your relationships — and left alone, a depleted engine doesn’t hold steady, it declines. The best time to rebuild it was years ago. The second best is now.',
       letGo: ['Dragging through the day on caffeine and willpower', 'The 3pm crash and the constant brain fog', 'Ambition you can’t act on because the fuel isn’t there'],
       callIn: ['Waking up genuinely energised — before the alarm', 'Visible strength and a body you actually trust', 'Steady, all-day energy that outlasts everyone around you'],
       m3: 'You rebuild the engine — energy, sleep, strength — so you stop borrowing tomorrow’s energy to get through today. You wake up feeling like the day is yours instead of the other way around.',
       m6: 'The change is visible and felt: steadier energy all day, real strength returning, the fog lifting. People start noticing before you say a word.',
       m12: 'You wake up with the energy and strength of someone ten years younger — and everything else you want finally has a body that can carry it.',
-      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the body actually rebuilds.'
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order the body actually rebuilds.',
+      mechanism: 'It works because of <b>minimum-effective-dose</b> training — two short, precise sessions a week that rebuild real strength and energy without you living in the gym. You’re not adding another hard thing to your day. You’re removing the drain that’s been quietly taxing everything else.'
     },
     auth: {
       rootCause: 'your craft is already good enough — but you shrink from being fully seen. The impostor loop caps your visibility, so the people who need exactly what you do never actually find you. It was never a talent gap. It’s a being-seen gap.',
+      costPunch: 'You keep waiting until you feel “ready” to be seen. Meanwhile someone with half your talent and none of your doubt is building the audience that should have been yours.',
       cost: 'And here’s what that’s costing you: every month you stay invisible, someone with half your skill and twice your visibility takes the audience, the clients, and the authority that should have been yours. Talent nobody sees doesn’t compound — it just quietly expires. The window doesn’t stay open forever.',
       letGo: ['Watching lesser voices win the audience that’s yours', 'Waiting until you feel “ready” (you never will)', 'Talent nobody sees — quietly expiring'],
       callIn: ['An audience that finds you, follows you, and shares you', 'Being paid as the go-to name in your space', 'Walking into any room with total presence'],
       m3: 'You build the confidence and the voice — so being seen stops feeling like exposure and starts feeling like your natural setting. You start showing up instead of waiting to feel ready.',
       m6: 'Your audience starts to grow and respond. The right people find you, share you, and start calling you the go-to — because for the first time you’re actually visible.',
       m12: 'You’re known for what you do: a real audience, a real platform, and the authority that turns your craft into income.',
-      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order authority is actually built.'
+      transition: 'So we’ve mapped you a personalised 12-week curriculum to get you exactly there — in the order authority is actually built.',
+      mechanism: 'It works because of <b>presence-under-pressure</b> training — the specific, science-backed cues that make you magnetic and remembered in a room, so being seen stops feeling like exposure and starts feeling like home. Talent gets you in the room; this is what makes the room turn.'
     }
   };
 
@@ -1353,7 +1368,7 @@
 
     // What it's costing — the stakes
     root.appendChild(el('<div class="mini-heading">What this is quietly costing you</div>'));
-    root.appendChild(el('<div class="cost-card">' + st.cost + '</div>'));
+    root.appendChild(el('<div class="cost-card">' + (st.costPunch ? '<div class="cost-punch">' + st.costPunch + '</div>' : '') + '<div>' + st.cost + '</div></div>'));
 
     // What shifts
     root.appendChild(el('<div class="mini-heading">What actually changes for you</div>'));
@@ -1366,20 +1381,18 @@
     root.appendChild(ledger);
 
     // The journey — three concrete milestones
-    root.appendChild(el('<div class="mini-heading">What the next 12 months actually look like — and how</div>'));
-    var road = buildRoadmap(topBlock, pw);
-    var rp = road.phases;
-    var how3 = '<b>How:</b> your first 12 weeks — <b>' + rp[0].quest + '</b> (' + rp[0].teacher + '), then <b>' + rp[1].quest + '</b>, then <b>' + rp[2].quest + '</b> — the exact sequence you’ll see in a moment.';
-    var m6names = road.more.slice(0, 2);
-    var how6 = m6names.length
-      ? '<b>How:</b> the foundation embeds as you go deeper into the pathway — <b>' + m6names.join('</b> and <b>') + '</b> — so month 3’s wins compound instead of fading.'
-      : '<b>How:</b> you keep applying the 12-week system daily until it runs on its own.';
-    var how12 = '<b>How:</b> across the year you move through the full <b>' + pw.count + '-program ' + pw.name.replace(/^The /, '') + '</b> pathway — each program building on the last, in sequence.';
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 3</div><div class="horizon-text">' + st.m3 + '</div><div class="horizon-how">' + how3 + '</div></div>'));
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 6</div><div class="horizon-text">' + st.m6 + '</div><div class="horizon-how">' + how6 + '</div></div>'));
+    // The unique mechanism — the "how" as a method/principle, not a course list.
+    if (st.mechanism) {
+      root.appendChild(el('<div class="mini-heading">The mechanism behind it</div>'));
+      root.appendChild(el('<div class="mechanism-card">' + st.mechanism + '</div>'));
+    }
+
+    root.appendChild(el('<div class="mini-heading">What the next 12 months actually look like</div>'));
+    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 3</div><div class="horizon-text">' + st.m3 + '</div></div>'));
+    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 6</div><div class="horizon-text">' + st.m6 + '</div></div>'));
     var core = emotionalCore(pw.key);
     var coreLine = core ? ' And the real prize underneath it all? <b>' + core.charAt(0).toUpperCase() + core.slice(1) + '</b> — that’s what this actually frees you for.' : '';
-    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 12</div><div class="horizon-text">' + st.m12 + ' And “' + dream + '”? By then it isn’t a someday — it’s just your life.' + coreLine + '</div><div class="horizon-how">' + how12 + '</div></div>'));
+    root.appendChild(el('<div class="horizon"><div class="horizon-label">By month 12</div><div class="horizon-text">' + st.m12 + ' And “' + dream + '”? By then it isn’t a someday — it’s just your life.' + coreLine + '</div></div>'));
 
     // The two-futures chart — now with a plain-language read
     var chart = el('<div class="chart-card" style="margin-top:1.25rem;"></div>');
