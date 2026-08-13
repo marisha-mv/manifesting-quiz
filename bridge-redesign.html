@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bridge — redesigned</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font:"Google Sans Flex",-apple-system,Segoe UI,sans-serif;
+    --ink:#0f131a; --muted:#595e67; --faint:#71767f; --line:#ececee; --purple:#7a12d4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  body{font-family:var(--font); color:var(--ink); background:#fff; letter-spacing:.01em; display:flex; justify-content:center;}
+  .page{max-width:31rem; width:100%;}
+
+  /* ── HERO: one dark cinematic band, big type, air ── */
+  .hero{
+    min-height:78vh; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:2.5rem 1.75rem 3rem; color:#fff; position:relative; overflow:hidden;
+    background:
+      radial-gradient(130% 80% at 20% 10%, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 45%),
+      linear-gradient(160deg, #200a45 0%, #4a2597 55%, #7571ed 100%);
+  }
+  .hero .eyebrow{font-size:.6875rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.75); margin-bottom:1.25rem;}
+  .hero h1{font-size:3.1rem; line-height:1.02; font-weight:600; letter-spacing:-0.04em; margin-bottom:1rem;}
+  .hero .line{font-size:1.125rem; line-height:1.5; color:rgba(255,255,255,.82); max-width:22rem;}
+  .hero .cue{position:absolute; bottom:1.1rem; left:50%; transform:translateX(-50%); font-size:1.1rem; color:rgba(255,255,255,.5);}
+
+  /* ── TRUTH: one sentence, enormous whitespace ── */
+  .truth{padding:5rem 1.75rem;}
+  .truth .kicker{font-size:.6875rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--purple); margin-bottom:1.5rem;}
+  .truth p{font-size:1.6rem; line-height:1.32; font-weight:500; letter-spacing:-0.02em;}
+  .truth p b{font-weight:600;}
+  .truth .whisper{margin-top:1.5rem; font-size:1.0625rem; line-height:1.55; color:var(--muted);}
+
+  /* ── PATH: minimal timeline, no boxes ── */
+  .path{padding:2rem 1.75rem 4rem;}
+  .path .kicker{font-size:.6875rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); margin-bottom:2rem;}
+  .tl{position:relative; padding-left:1.75rem;}
+  .tl:before{content:''; position:absolute; left:5px; top:8px; bottom:8px; width:2px; background:linear-gradient(180deg,var(--purple),#d6cffb);}
+  .node{position:relative; padding-bottom:2.25rem;}
+  .node:last-child{padding-bottom:0;}
+  .node:before{content:''; position:absolute; left:-1.75rem; top:4px; width:12px; height:12px; border-radius:50%; background:var(--purple); box-shadow:0 0 0 4px #fff;}
+  .node .when{font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--purple); margin-bottom:.35rem;}
+  .node .what{font-size:1.1875rem; line-height:1.35; font-weight:500; letter-spacing:-0.01em;}
+
+  /* ── PROOF: one line, one face ── */
+  .proof{padding:3rem 1.75rem; border-top:1px solid var(--line);}
+  .proof p{font-size:1.375rem; line-height:1.35; font-weight:500; letter-spacing:-0.015em; margin-bottom:1.25rem;}
+  .proof .who{display:flex; align-items:center; gap:.75rem;}
+  .proof .who img{width:2.75rem; height:2.75rem; border-radius:50%; object-fit:cover;}
+  .proof .who .n{font-size:.875rem; font-weight:600;}
+  .proof .who .r{font-size:.75rem; color:var(--faint);}
+
+  /* ── CTA ── */
+  .close{padding:1rem 1.75rem 4rem; text-align:center;}
+  .close .cta{display:block; width:100%; border:none; cursor:pointer; font-family:var(--font);
+    background:var(--ink); color:#fff; font-size:1.0625rem; font-weight:600; letter-spacing:.01em;
+    padding:1.2rem; border-radius:999px; transition:transform .12s ease;}
+  .close .cta:hover{transform:translateY(-1px);}
+  .close .sub{margin-top:1rem; font-size:.8125rem; color:var(--faint);}
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <section class="hero">
+      <div class="eyebrow">Maya · your path forward</div>
+      <h1>The Modern&nbsp;Mystic</h1>
+      <div class="line">The version of you that stops waiting — and starts trusting.</div>
+      <div class="cue">↓</div>
+    </section>
+
+    <section class="truth">
+      <div class="kicker">The honest truth</div>
+      <p>You're not waiting for the right time, Maya.<br/>You're waiting for the fear to leave first — <b>and it never does.</b></p>
+      <div class="whisper">That's the only thing standing between you and everything you just described.</div>
+    </section>
+
+    <section class="path">
+      <div class="kicker">What the next year looks like</div>
+      <div class="tl">
+        <div class="node"><div class="when">Month 3</div><div class="what">The blocks that quietly run the show finally clear.</div></div>
+        <div class="node"><div class="when">Month 6</div><div class="what">The right opportunities start finding you.</div></div>
+        <div class="node"><div class="when">Month 12</div><div class="what">You're living it — not chasing it.</div></div>
+      </div>
+    </section>
+
+    <section class="proof">
+      <p>"My intention landed on day 7 — then I booked three straight weeks of shoots."</p>
+      <div class="who">
+        <img src="photos/mikwan.jpg" alt="Mi Kwan Lock">
+        <div><div class="n">Mi Kwan Lock</div><div class="r">Actress · Paris</div></div>
+      </div>
+    </section>
+
+    <section class="close">
+      <button class="cta">Show me my 12-week path →</button>
+      <div class="sub">Takes 20 minutes a day · nothing to decide yet</div>
+    </section>
+
+  </div>
+</body>
+</html>
