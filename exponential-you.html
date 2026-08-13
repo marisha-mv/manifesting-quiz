@@ -23,15 +23,16 @@
       --mv-purple-light: #9333ea;
       --mv-purple-50: #f9f7fc;
       --mv-purple-100: #e0cfff;
-      --mv-border: #e8e0f0;
-      --mv-text: #0f131a;
-      --mv-text-muted: #4b5563;
-      --mv-text-subtle: #6b7280;
-      --mv-text-faint: #9ca3af;
+      /* Homepage 2026 design tokens */
+      --mv-border: #e5e5e7;            /* Stroke/Light/Base */
+      --mv-text: #0f131a;              /* Content/content-primary */
+      --mv-text-muted: #595e67;        /* Content/content-tertiary */
+      --mv-text-subtle: #71767f;       /* Content/content-quaternary */
+      --mv-text-faint: #979ca5;        /* Content/content-quinary */
       --mv-bg: #ffffff;
     }
     * { box-sizing: border-box; }
-    html { -webkit-font-smoothing: antialiased; color: var(--mv-text); font-size: 16px; text-rendering: optimizeLegibility; }
+    html { -webkit-font-smoothing: antialiased; color: var(--mv-text); font-size: 16px; text-rendering: optimizeLegibility; letter-spacing: 0.01em; }
     body { margin: 0; padding: 0; font-family: var(--font-brand); font-weight: 400; background: var(--mv-bg); }
     p { margin: 0 0 1.25rem; }
     p:last-child { margin-bottom: 0; }
@@ -53,7 +54,7 @@
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
 
     .q-eyebrow { font-weight: 600; font-size: 0.75rem; line-height: 1.25rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mv-purple); text-align: center; margin-bottom: 0.625rem; }
-    .q-title { font-weight: 600; font-size: 1.5rem; line-height: 1.9rem; text-align: center; margin: 0 0 0.625rem 0; letter-spacing: 0.01em; }
+    .q-title { font-weight: 600; font-size: 1.5rem; line-height: 1.9rem; text-align: center; margin: 0 0 0.625rem 0; letter-spacing: -0.02em; }
     .q-sub { font-size: 0.9375rem; line-height: 1.45rem; color: var(--mv-text-muted); text-align: center; margin: 0 auto 1.75rem auto; max-width: 24rem; }
 
     .opts { display: flex; flex-direction: column; gap: 0.625rem; }
@@ -74,8 +75,8 @@
     .info-stat-card .big { font-size: 1.75rem; font-weight: 700; color: var(--mv-purple); line-height: 1.2; }
     .info-stat-card .small { font-size: 0.875rem; color: var(--mv-text-muted); margin-top: 0.25rem; }
 
-    .btn-primary { display: inline-block; width: 100%; padding: 1.05rem 1.5rem; border: none; border-radius: 0.75rem; background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); color: white; font-size: 1.0625rem; font-weight: 700; cursor: pointer; letter-spacing: 0.01em; transition: transform 0.1s ease, box-shadow 0.15s ease; box-shadow: 0 6px 16px rgba(122, 18, 212, 0.28); }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(122, 18, 212, 0.38); }
+    .btn-primary { display: inline-block; width: 100%; padding: 1.05rem 1.5rem; border: none; border-radius: 999px; background: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); color: white; font-size: 1.0625rem; font-weight: 700; cursor: pointer; letter-spacing: 0.01em; transition: transform 0.1s ease, box-shadow 0.15s ease; box-shadow: 0 5px 20px rgba(122, 18, 212, 0.22); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(122, 18, 212, 0.30); }
     .btn-primary:active { transform: translateY(0); }
 
     .loader-pct { font-size: 3.25rem; font-weight: 700; color: var(--mv-purple); text-align: center; margin-bottom: 0.25rem; }
@@ -230,7 +231,7 @@
     .pathway-card { background: linear-gradient(180deg, #1a0b3e 0%, #4c1d95 100%); color: white; border-radius: 1.25rem; padding: 1.75rem 1.5rem; text-align: center; margin-bottom: 1.75rem; box-shadow: 0 16px 40px rgba(26, 11, 62, 0.35); }
     .pathway-card .pw-eyebrow { font-size: 0.6875rem; letter-spacing: 0.18em; text-transform: uppercase; color: #fbbf24; font-weight: 700; margin-bottom: 0.625rem; }
     .pathway-card .pw-emoji { font-size: 2.25rem; margin-bottom: 0.375rem; }
-    .pathway-card .pw-name { font-size: 1.625rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.375rem; }
+    .pathway-card .pw-name { font-size: 1.625rem; font-weight: 700; line-height: 1.15; margin-bottom: 0.375rem; letter-spacing: -0.02em; }
     .pathway-card .pw-tag { font-size: 0.9375rem; color: rgba(255,255,255,0.85); margin-bottom: 0.875rem; }
     .pathway-card .pw-why { font-size: 0.875rem; line-height: 1.55; color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 0.875rem; padding: 1rem 1.125rem; text-align: left; }
     .pathway-card .pw-why b { color: #fbbf24; }
