@@ -3,131 +3,127 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Closing slide — reference</title>
+<title>Closing slide — reference (v2, site-matched)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
 <style>
   :root{
     --font:"Google Sans Flex",-apple-system,Segoe UI,sans-serif;
-    /* Modern Mystic colour world (from the homepage pathway panel) */
-    --g1:#1a0838; --g2:#3a1a7a; --accent:#b3a9ff; --accent2:#7571ed;
+    --ink:#0f131a; --muted:#595e67; --faint:#71767f; --line:#e5e5e7;
+    --purple:#7a12d4; --bg:#fff;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
-  body{
-    font-family:var(--font); color:#fff; letter-spacing:0.01em;
+  body{font-family:var(--font); color:var(--ink); background:var(--bg); letter-spacing:0.01em;
+    display:flex; justify-content:center; padding-bottom:3rem;}
+  .page{max-width:30rem; width:100%;}
+  .pad{padding:0 1.5rem;}
+
+  .top{display:flex; justify-content:center; padding:1.5rem 0 2rem;}
+  .top img{height:1.25rem;}
+
+  .eyebrow{font-size:.6875rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--purple); text-align:center; margin-bottom:.9rem;}
+  h1{font-size:2.4rem; line-height:1.05; font-weight:600; letter-spacing:-0.035em; text-align:center; margin-bottom:1rem;}
+  .sub{font-size:1.0625rem; line-height:1.55; color:var(--muted); text-align:center; max-width:23rem; margin:0 auto 2.5rem;}
+  .sub b{color:var(--ink); font-weight:600;}
+
+  /* three-beat transformation — clean, light, scannable */
+  .beats{border-top:1px solid var(--line); margin-bottom:2.5rem;}
+  .beat{display:flex; gap:1rem; align-items:baseline; padding:.95rem 0; border-bottom:1px solid var(--line);}
+  .beat .when{font-size:.6875rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--purple); min-width:4.25rem; white-space:nowrap;}
+  .beat .what{font-size:1rem; line-height:1.4; color:var(--muted);}
+  .beat .what b{color:var(--ink); font-weight:600;}
+
+  /* pathway + real cover grid, on white like the homepage */
+  .pathline{text-align:center; font-size:.9375rem; color:var(--muted); margin-bottom:.9rem;}
+  .pathline b{color:var(--ink); font-weight:600;}
+  .mosaic{display:grid; grid-template-columns:repeat(4,1fr); gap:.4rem; margin-bottom:2.5rem;}
+  .mosaic img{width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:.5rem; display:block;}
+  .mosaic .more{display:flex; align-items:center; justify-content:center; aspect-ratio:3/4; border-radius:.5rem; background:#f3f4f6; color:var(--muted); font-weight:700; font-size:.9rem;}
+
+  /* THE OFFER — the vibrant Mindvalley Membership card (matches homepage pricing) */
+  .offer{position:relative; overflow:hidden; border-radius:1.5rem; padding:2rem 1.6rem; color:#fff; margin-bottom:1rem;
     background:
-      radial-gradient(120% 80% at 50% -10%, #4a2a9e 0%, rgba(74,42,158,0) 55%),
-      radial-gradient(90% 60% at 90% 20%, rgba(117,113,237,0.5) 0%, rgba(117,113,237,0) 50%),
-      linear-gradient(180deg, var(--g1) 0%, #120626 100%);
-    background-attachment:fixed;
-    min-height:100vh; display:flex; justify-content:center;
-    padding:0 0 4rem;
-  }
-  .page{max-width:30rem; width:100%; padding:0 1.5rem;}
+      radial-gradient(120% 90% at 15% 0%, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 45%),
+      linear-gradient(135deg, #6d0fd1 0%, #a01ad4 45%, #d6389a 100%);
+    box-shadow:0 24px 60px -14px rgba(122,18,212,.5);}
+  .offer .badge{display:inline-block; font-size:.6875rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; background:rgba(255,255,255,.2); padding:.35rem .75rem; border-radius:2rem; margin-bottom:1rem;}
+  .offer .oname{font-size:1.75rem; font-weight:700; letter-spacing:-0.02em; line-height:1.1; margin-bottom:.35rem;}
+  .offer .odesc{font-size:.9375rem; line-height:1.5; color:rgba(255,255,255,.88); margin-bottom:1.4rem;}
+  .offer .prow{display:flex; align-items:baseline; gap:.55rem; margin-bottom:.25rem;}
+  .offer .old{font-size:1.2rem; color:rgba(255,255,255,.55); text-decoration:line-through;}
+  .offer .now{font-size:2.6rem; font-weight:700; letter-spacing:-0.03em;}
+  .offer .per{font-size:.95rem; color:rgba(255,255,255,.8);}
+  .offer .save{font-size:.8125rem; color:#fff; opacity:.85; margin-bottom:1.4rem;}
+  .offer .cta{display:block; width:100%; border:none; cursor:pointer; font-family:var(--font);
+    background:#fff; color:var(--purple); font-size:1.0625rem; font-weight:700; letter-spacing:.01em;
+    padding:1.1rem; border-radius:999px; transition:transform .12s ease;}
+  .offer .cta:hover{transform:translateY(-1px);}
 
-  /* top bar */
-  .top{display:flex; align-items:center; justify-content:center; padding:1.75rem 0 2.5rem;}
-  .top img{height:1.3rem; opacity:.9; filter:brightness(0) invert(1);}
+  .guarantee{text-align:center; font-size:.8125rem; color:var(--faint); margin:1rem auto 2.5rem; max-width:22rem; line-height:1.5;}
 
-  .eyebrow{font-size:.6875rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); text-align:center; margin-bottom:1.1rem;}
-
-  h1{font-size:2.55rem; line-height:1.06; font-weight:600; letter-spacing:-0.035em; text-align:center; margin-bottom:1.1rem;}
-  h1 .soft{color:rgba(255,255,255,.55);}
-  .sub{font-size:1.0625rem; line-height:1.55; color:rgba(255,255,255,.72); text-align:center; max-width:24rem; margin:0 auto 2.75rem;}
-  .sub b{color:#fff; font-weight:600;}
-
-  /* three-beat transformation — restrained, no emoji */
-  .beats{border-top:1px solid rgba(255,255,255,.14); margin-bottom:2.75rem;}
-  .beat{display:flex; gap:1rem; align-items:baseline; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,.14);}
-  .beat .when{font-size:.6875rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); white-space:nowrap; min-width:4.5rem;}
-  .beat .what{font-size:1rem; line-height:1.4; color:rgba(255,255,255,.9);}
-  .beat .what b{color:#fff; font-weight:600;}
-
-  /* the pathway + cover mosaic */
-  .pathline{text-align:center; font-size:.9375rem; color:rgba(255,255,255,.7); margin-bottom:1rem;}
-  .pathline b{color:#fff; font-weight:600;}
-  .mosaic{display:grid; grid-template-columns:repeat(4,1fr); gap:.45rem; margin-bottom:2.75rem;}
-  .mosaic img{width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:.5rem; display:block; box-shadow:0 4px 14px rgba(0,0,0,.4);}
-  .mosaic .more{display:flex; align-items:center; justify-content:center; aspect-ratio:3/4; border-radius:.5rem; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18); font-weight:700; font-size:.95rem; color:#fff;}
-
-  /* price — frosted glass */
-  .price{
-    background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16);
-    border-radius:1.25rem; padding:1.75rem 1.5rem; text-align:center; margin-bottom:1.25rem;
-    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
-  }
-  .price .lead{font-size:.9375rem; color:rgba(255,255,255,.7); margin-bottom:.9rem;}
-  .price .row{display:flex; align-items:baseline; justify-content:center; gap:.6rem;}
-  .price .old{font-size:1.25rem; color:rgba(255,255,255,.45); text-decoration:line-through;}
-  .price .now{font-size:2.5rem; font-weight:700; letter-spacing:-0.03em;}
-  .price .per{font-size:.95rem; color:rgba(255,255,255,.6);}
-  .price .off{display:inline-block; margin-top:.75rem; font-size:.75rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#120626; background:var(--accent); padding:.3rem .7rem; border-radius:2rem;}
-
-  .cta{display:block; width:100%; border:none; cursor:pointer; font-family:var(--font);
-    background:#fff; color:#1a0838; font-size:1.0625rem; font-weight:700; letter-spacing:.01em;
-    padding:1.15rem 1.5rem; border-radius:999px; box-shadow:0 12px 34px rgba(0,0,0,.35);
-    transition:transform .12s ease, box-shadow .15s ease;}
-  .cta:hover{transform:translateY(-1px); box-shadow:0 16px 40px rgba(0,0,0,.45);}
-  .guarantee{text-align:center; font-size:.8125rem; color:rgba(255,255,255,.55); margin:.9rem 0 2.75rem; line-height:1.5;}
-
-  /* one testimonial */
-  .quote{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:1.25rem; padding:1.5rem 1.5rem; margin-bottom:2rem;}
-  .quote .stars{color:#ffd479; font-size:.85rem; letter-spacing:.15em; margin-bottom:.7rem;}
-  .quote p{font-size:1.0625rem; line-height:1.5; font-weight:500; margin-bottom:1rem;}
+  /* one testimonial — light card, real face */
+  .quote{border:1px solid var(--line); border-radius:1.25rem; padding:1.4rem 1.5rem; margin-bottom:2rem;}
+  .quote .stars{color:#f5a623; font-size:.85rem; letter-spacing:.15em; margin-bottom:.6rem;}
+  .quote p{font-size:1.0625rem; line-height:1.5; font-weight:500; color:var(--ink); margin-bottom:1rem;}
   .quote .who{display:flex; align-items:center; gap:.75rem;}
   .quote .who img{width:2.75rem; height:2.75rem; border-radius:50%; object-fit:cover;}
   .quote .who .n{font-size:.875rem; font-weight:600;}
-  .quote .who .r{font-size:.75rem; color:rgba(255,255,255,.55);}
+  .quote .who .r{font-size:.75rem; color:var(--faint);}
 
-  .trust{text-align:center; font-size:.8125rem; color:rgba(255,255,255,.5);}
+  .trust{text-align:center; font-size:.8125rem; color:var(--faint);}
+  .trust b{color:var(--ink);}
 </style>
 </head>
 <body>
   <div class="page">
     <div class="top"><img src="photos/mv-logo.png" alt="Mindvalley" /></div>
 
-    <div class="eyebrow">Maya · your path forward</div>
-    <h1>Stop waiting for the&nbsp;fear<br/><span class="soft">to leave first.</span></h1>
-    <p class="sub">It never does. But everything you keep describing — the business, the freedom, the life — is on the other side of <b>this one decision</b>.</p>
+    <div class="pad">
+      <div class="eyebrow">Maya · your path forward</div>
+      <h1>Stop waiting for the fear to leave first.</h1>
+      <p class="sub">It never does. But everything you keep describing — the business, the freedom, the life — is on the other side of <b>this one decision</b>.</p>
 
-    <div class="beats">
-      <div class="beat"><span class="when">Month 3</span><span class="what"><b>The blocks clear.</b> The quiet self-sabotage stops.</span></div>
-      <div class="beat"><span class="when">Month 6</span><span class="what"><b>The right opportunities start finding you</b> — not the other way around.</span></div>
-      <div class="beat"><span class="when">Month 12</span><span class="what"><b>You're living it, not chasing it.</b> Your business is real. So is the peace.</span></div>
-    </div>
-
-    <div class="pathline">Your pathway: <b>The Modern Mystic</b> — 22 journeys, sequenced for you.</div>
-    <div class="mosaic">
-      <img src="photos/prog-duality.jpg" alt="">
-      <img src="photos/prog-the-art-of-manifesting.jpg" alt="">
-      <img src="photos/prog-unlimited-abundance.jpg" alt="">
-      <img src="photos/prog-feng-shui-for-life.jpg" alt="">
-      <img src="photos/prog-breathwork-for-life.jpg" alt="">
-      <img src="photos/prog-a-yogis-guide-to-joy.jpg" alt="">
-      <img src="photos/prog-success-magic.jpg" alt="">
-      <div class="more">+15</div>
-    </div>
-
-    <div class="price">
-      <div class="lead">Everything above. Less than a coffee a week.</div>
-      <div class="row"><span class="old">$299</span><span class="now">$199</span><span class="per">/year · $0.55 a day</span></div>
-      <div class="off">$100 off — today</div>
-    </div>
-    <button class="cta">Yes — this is my path</button>
-    <div class="guarantee">15 days, fully refundable. If it doesn't move you, one click and it's off. Cancel anytime.</div>
-
-    <div class="quote">
-      <div class="stars">★★★★★</div>
-      <p>"My intention landed on day 7 — then I booked three straight weeks of shoots."</p>
-      <div class="who">
-        <img src="photos/mikwan.jpg" alt="Mi Kwan Lock">
-        <div><div class="n">Mi Kwan Lock</div><div class="r">Actress · Paris — The Art of Manifesting</div></div>
+      <div class="beats">
+        <div class="beat"><span class="when">Month 3</span><span class="what"><b>The blocks clear.</b> The quiet self-sabotage stops.</span></div>
+        <div class="beat"><span class="when">Month 6</span><span class="what"><b>The right opportunities start finding you</b> — not the other way around.</span></div>
+        <div class="beat"><span class="when">Month 12</span><span class="what"><b>You're living it, not chasing it.</b> The business is real. So is the peace.</span></div>
       </div>
-    </div>
 
-    <div class="trust">Join 25,000+ people with verified results.</div>
+      <div class="pathline">Your pathway: <b>The Modern Mystic</b> — 22 journeys, sequenced for you.</div>
+      <div class="mosaic">
+        <img src="photos/prog-duality.jpg" alt="">
+        <img src="photos/prog-the-art-of-manifesting.jpg" alt="">
+        <img src="photos/prog-unlimited-abundance.jpg" alt="">
+        <img src="photos/prog-feng-shui-for-life.jpg" alt="">
+        <img src="photos/prog-breathwork-for-life.jpg" alt="">
+        <img src="photos/prog-a-yogis-guide-to-joy.jpg" alt="">
+        <img src="photos/prog-success-magic.jpg" alt="">
+        <div class="more">+15</div>
+      </div>
+
+      <div class="offer">
+        <span class="badge">Mindvalley Membership</span>
+        <div class="oname">Your pathway, unlocked.</div>
+        <div class="odesc">All 22 journeys in The Modern Mystic — plus every other pathway, added as you grow.</div>
+        <div class="prow"><span class="old">$299</span><span class="now">$199</span><span class="per">/year</span></div>
+        <div class="save">Just $0.55 a day · $100 off today</div>
+        <button class="cta">Yes — this is my path</button>
+      </div>
+      <div class="guarantee">15 days, fully refundable. If it doesn't move you, one click and it's off. Cancel anytime.</div>
+
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"My intention landed on day 7 — then I booked three straight weeks of shoots."</p>
+        <div class="who">
+          <img src="photos/mikwan.jpg" alt="Mi Kwan Lock">
+          <div><div class="n">Mi Kwan Lock</div><div class="r">Actress · Paris — The Art of Manifesting</div></div>
+        </div>
+      </div>
+
+      <div class="trust">Join <b>25,000+</b> people with verified results.</div>
+    </div>
   </div>
 </body>
 </html>
