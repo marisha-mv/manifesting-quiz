@@ -18,16 +18,16 @@
   .page{max-width:31rem; width:100%;}
   b{font-weight:600;}
 
-  /* HERO */
-  .hero{min-height:76vh; display:flex; flex-direction:column; justify-content:flex-end;
-    padding:2.5rem 1.75rem 3rem; color:#fff; position:relative; overflow:hidden;
+  /* HERO — compact rich band, not a full-screen void */
+  .hero{min-height:24rem; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:3rem 1.75rem 2.5rem; color:#fff; position:relative; overflow:hidden;
     background:
-      radial-gradient(130% 80% at 20% 10%, rgba(255,255,255,.22) 0, rgba(255,255,255,0) 45%),
-      linear-gradient(160deg, #200a45 0%, #4a2597 55%, #7571ed 100%);}
-  .hero .eyebrow{font-size:.6875rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.75); margin-bottom:1.25rem;}
-  .hero h1{font-size:3rem; line-height:1.02; font-weight:600; letter-spacing:-0.04em; margin-bottom:1rem;}
-  .hero .line{font-size:1.125rem; line-height:1.5; color:rgba(255,255,255,.82); max-width:22rem;}
-  .hero .cue{position:absolute; bottom:1.1rem; left:50%; transform:translateX(-50%); color:rgba(255,255,255,.5);}
+      radial-gradient(80% 55% at 82% 18%, rgba(181,169,255,.5) 0, rgba(181,169,255,0) 60%),
+      radial-gradient(90% 60% at 12% 8%, rgba(255,255,255,.16) 0, rgba(255,255,255,0) 55%),
+      linear-gradient(155deg, #200a45 0%, #4a2597 58%, #7571ed 100%);}
+  .hero .eyebrow{font-size:.6875rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.72); margin-bottom:1rem;}
+  .hero h1{font-size:3rem; line-height:1.02; font-weight:600; letter-spacing:-0.04em; margin-bottom:.9rem;}
+  .hero .line{font-size:1.125rem; line-height:1.5; color:rgba(255,255,255,.85); max-width:22rem;}
 
   /* narrative beat — one idea, big type, air */
   .beat{padding:4.5rem 1.75rem;}
@@ -78,7 +78,6 @@
       <div class="eyebrow">Maya · your path forward</div>
       <h1>The Modern Mystic</h1>
       <div class="line">The version of you who feels safe holding everything she's asking for.</div>
-      <div class="cue">↓</div>
     </section>
 
     <!-- PARADIGM SHIFT -->
