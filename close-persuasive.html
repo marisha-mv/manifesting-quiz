@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Persuasive close — Modern Mystic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font:"Google Sans Flex",-apple-system,Segoe UI,sans-serif;
+    --ink:#0f131a; --muted:#595e67; --faint:#71767f; --line:#ececee; --purple:#7a12d4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  body{font-family:var(--font); color:var(--ink); background:#fff; letter-spacing:.01em; display:flex; justify-content:center;}
+  .page{max-width:31rem; width:100%;}
+  b{font-weight:600;}
+
+  /* HERO */
+  .hero{min-height:76vh; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:2.5rem 1.75rem 3rem; color:#fff; position:relative; overflow:hidden;
+    background:
+      radial-gradient(130% 80% at 20% 10%, rgba(255,255,255,.22) 0, rgba(255,255,255,0) 45%),
+      linear-gradient(160deg, #200a45 0%, #4a2597 55%, #7571ed 100%);}
+  .hero .eyebrow{font-size:.6875rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.75); margin-bottom:1.25rem;}
+  .hero h1{font-size:3rem; line-height:1.02; font-weight:600; letter-spacing:-0.04em; margin-bottom:1rem;}
+  .hero .line{font-size:1.125rem; line-height:1.5; color:rgba(255,255,255,.82); max-width:22rem;}
+  .hero .cue{position:absolute; bottom:1.1rem; left:50%; transform:translateX(-50%); color:rgba(255,255,255,.5);}
+
+  /* narrative beat — one idea, big type, air */
+  .beat{padding:4.5rem 1.75rem;}
+  .beat .kicker{font-size:.6875rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--purple); margin-bottom:1.5rem;}
+  .beat h2{font-size:1.7rem; line-height:1.28; font-weight:500; letter-spacing:-0.02em;}
+  .beat h2 b{font-weight:700;}
+  .beat p{font-size:1.0625rem; line-height:1.6; color:var(--muted); margin-top:1.4rem;}
+  .beat p b{color:var(--ink);}
+
+  /* the childhood blocks — quiet italic lines, no boxes */
+  .blocks{margin-top:1.75rem; padding-left:1.1rem; border-left:2px solid #efe7fb;}
+  .blocks div{font-size:1.0625rem; line-height:1.5; color:var(--muted); font-style:italic; margin-bottom:.85rem;}
+  .blocks div:last-child{margin-bottom:0;}
+
+  /* the $1M test — the emotional pivot, tinted full-bleed */
+  .test{background:linear-gradient(180deg,#faf7ff 0%,#f4eeff 100%); padding:4.5rem 1.75rem; text-align:center;}
+  .test .kicker{font-size:.6875rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--purple); margin-bottom:1.5rem;}
+  .test .q{font-size:1.9rem; line-height:1.25; font-weight:600; letter-spacing:-0.025em; margin-bottom:1.25rem;}
+  .test .a{font-size:1.0625rem; line-height:1.6; color:var(--muted); max-width:24rem; margin:0 auto;}
+  .test .a b{color:var(--ink);}
+
+  /* mechanism + proof */
+  .mech{padding:4.5rem 1.75rem 3rem;}
+  .mech .kicker{font-size:.6875rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); margin-bottom:1.25rem;}
+  .mech h2{font-size:1.6rem; line-height:1.3; font-weight:500; letter-spacing:-0.02em;}
+  .mech h2 b{font-weight:700;}
+  .mech p{font-size:1.0625rem; line-height:1.6; color:var(--muted); margin-top:1.25rem;}
+  .quotes{margin-top:2.25rem; display:flex; flex-direction:column; gap:1.25rem;}
+  .q-card{border-top:1px solid var(--line); padding-top:1.25rem;}
+  .q-card .stars{color:#f5a623; font-size:.8rem; letter-spacing:.14em; margin-bottom:.5rem;}
+  .q-card p{font-size:1.125rem; line-height:1.4; font-weight:500; color:var(--ink); margin:0 0 .8rem;}
+  .q-card .who{display:flex; align-items:center; gap:.7rem;}
+  .q-card .who img{width:2.5rem; height:2.5rem; border-radius:50%; object-fit:cover; background:#eee;}
+  .q-card .who .n{font-size:.8125rem; font-weight:600;}
+  .q-card .who .r{font-size:.6875rem; color:var(--faint);}
+
+  /* CTA */
+  .close{padding:1rem 1.75rem 4rem; text-align:center;}
+  .close .cta{display:block; width:100%; border:none; cursor:pointer; font-family:var(--font);
+    background:var(--ink); color:#fff; font-size:1.0625rem; font-weight:600; padding:1.2rem; border-radius:999px;}
+  .close .sub{margin-top:1rem; font-size:.8125rem; color:var(--faint);}
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <section class="hero">
+      <div class="eyebrow">Maya · your path forward</div>
+      <h1>The Modern Mystic</h1>
+      <div class="line">The version of you who feels safe holding everything she's asking for.</div>
+      <div class="cue">↓</div>
+    </section>
+
+    <!-- PARADIGM SHIFT -->
+    <section class="beat">
+      <div class="kicker">Here's what no one told you</div>
+      <h2>You think the way to break your income ceiling is to work <b>harder</b>.<br/>But you've hit this ceiling before — and no matter how hard you pushed, it held.</h2>
+      <p>That's not a coincidence, and it's not your effort. The ceiling isn't out there in the market. <b>It's inside you — and it isn't broken. It's doing its job.</b></p>
+    </section>
+
+    <!-- THE BLOCKS -->
+    <section class="beat" style="padding-top:0;">
+      <div class="kicker">Where it started</div>
+      <h2>Somewhere around age six, you learned what money <b>meant</b>.</h2>
+      <div class="blocks">
+        <div>"Money is what my parents fought about."</div>
+        <div>"There's never enough."</div>
+        <div>"If I have more, I become a target."</div>
+        <div>"Wanting it makes me greedy."</div>
+      </div>
+      <p>You didn't choose those beliefs. But your mind kept them — <b>to keep you safe</b>. And they're still running. Every time you get close to more, an invisible part of you pulls you back to what feels familiar. That's your ceiling. Not your strategy. A six-year-old's protection, still running the show.</p>
+    </section>
+
+    <!-- THE $1M TEST -->
+    <section class="test">
+      <div class="kicker">Be honest with yourself</div>
+      <div class="q">If $1,000,000 landed in your account tomorrow morning — what's your real first reaction?</div>
+      <div class="a">If it's a flicker of panic — a tightening, a <i>"this can't be right"</i> — that's your answer. <b>You don't yet feel safe to receive it.</b> And your reality keeps matching how safe you feel — not how hard you work.</div>
+    </section>
+
+    <!-- THE REFRAME / SHIFT -->
+    <section class="beat">
+      <div class="kicker">So here's the real question</div>
+      <h2>It was never <i>"how hard are you willing to work?"</i><br/>It's this: <b>can you release the old version of you</b> — the old fears, the old patterns — so you can become the woman who holds that amount without flinching?</h2>
+      <p>Because when you feel safe to receive it, it stops being something you chase. It becomes something you <b>allow</b>. That's the difference between forcing your dream and magnetizing it.</p>
+    </section>
+
+    <!-- MECHANISM + PROOF -->
+    <section class="mech">
+      <div class="kicker">And this is the one thing we know how to do</div>
+      <h2>Releasing the old wiring and rebuilding the identity underneath it — <b>that's exactly what The Modern Mystic does.</b></h2>
+      <p>Clear the money blocks. Rebuild your energy. Install the daily practice. We've walked thousands through this exact shift — same ceiling as you.</p>
+      <div class="quotes">
+        <div class="q-card">
+          <div class="stars">★★★★★</div>
+          <p>"I have quadrupled my income."</p>
+          <div class="who"><img src="" alt=""><div><div class="n">Alison LeBruns</div><div class="r">Business Owner — Unlimited Abundance</div></div></div>
+        </div>
+        <div class="q-card">
+          <div class="stars">★★★★★</div>
+          <p>"My intention landed on day 7 — then I booked three straight weeks of shoots."</p>
+          <div class="who"><img src="photos/mikwan.jpg" alt=""><div><div class="n">Mi Kwan Lock</div><div class="r">Actress, Paris — The Art of Manifesting</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <button class="cta">Show me how it works →</button>
+      <div class="sub">Your 12-week path · nothing to decide yet</div>
+    </section>
+
+  </div>
+</body>
+</html>
